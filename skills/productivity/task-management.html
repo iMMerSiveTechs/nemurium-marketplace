@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management - Command Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #FAFAFA; color: #1F2937; line-height: 1.6; }
+        nav { position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.7); border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding: 16px 0; }
+        nav .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+        nav .logo { font-weight: 700; font-size: 18px; color: #D97706; }
+        nav .links a { margin-left: 32px; text-decoration: none; color: #6B7280; font-size: 14px; transition: color 0.2s; }
+        nav .links a:hover { color: #D97706; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .hero { padding: 80px 24px; text-align: center; }
+        .hero .icon { font-size: 64px; margin-bottom: 16px; }
+        .hero .badge { display: inline-block; background: #FEF3C7; color: #78350F; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 16px; }
+        .hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+        .hero .description { font-size: 18px; color: #6B7280; margin-bottom: 32px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 64px; }
+        .btn { padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; transition: all 0.2s; text-decoration: none; }
+        .btn-primary { background: #D97706; color: white; }
+        .btn-primary:hover { background: #B45309; transform: translateY(-2px); box-shadow: 0 8px 16px rgba(217, 119, 6, 0.2); }
+        .btn-secondary { background: white; color: #D97706; border: 2px solid #D97706; }
+        .btn-secondary:hover { background: #FFFBEB; }
+        .capabilities { padding: 64px 24px; background: white; margin-top: 48px; border-radius: 16px; }
+        .section-title { font-size: 28px; font-weight: 700; margin-bottom: 40px; text-align: center; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
+        .card { background: #FAFAFA; border-radius: 12px; padding: 24px; transition: all 0.3s; border: 1px solid rgba(0, 0, 0, 0.05); }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08); background: white; }
+        .card-icon { font-size: 32px; margin-bottom: 12px; }
+        .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #1F2937; }
+        .card p { font-size: 14px; color: #6B7280; }
+        .use-cases { padding: 64px 24px; }
+        .use-cases h2 { font-size: 28px; font-weight: 700; margin-bottom: 40px; text-align: center; }
+        .use-case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
+        .use-case { background: white; padding: 24px; border-radius: 12px; border-left: 4px solid #D97706; }
+        .use-case h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1F2937; }
+        .use-case p { font-size: 14px; color: #6B7280; }
+        .works-with { padding: 48px 24px; text-align: center; }
+        .works-with h2 { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+        .pills { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .pill { background: white; padding: 8px 16px; border-radius: 20px; font-size: 14px; color: #6B7280; border: 1px solid rgba(0, 0, 0, 0.1); transition: all 0.2s; }
+        .pill:hover { background: #FEF3C7; color: #D97706; border-color: #D97706; }
+        .audience { padding: 64px 24px; background: white; margin-top: 48px; border-radius: 16px; }
+        .audience h2 { font-size: 28px; font-weight: 700; margin-bottom: 40px; text-align: center; }
+        .audience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .audience-card { background: #FAFAFA; padding: 24px; border-radius: 12px; text-align: center; }
+        .audience-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #1F2937; }
+        .audience-card p { font-size: 14px; color: #6B7280; }
+        .pricing { padding: 64px 24px; text-align: center; }
+        .pricing h2 { font-size: 28px; font-weight: 700; margin-bottom: 24px; }
+        .pricing p { font-size: 16px; color: #6B7280; margin-bottom: 32px; }
+        footer { background: white; padding: 40px 24px; text-align: center; color: #9CA3AF; font-size: 14px; border-top: 1px solid rgba(0, 0, 0, 0.05); margin-top: 64px; }
+        @media (max-width: 768px) {
+            .hero { padding: 40px 16px; }
+            .hero h1 { font-size: 32px; }
+            .hero .description { font-size: 16px; }
+            .ctas { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 300px; }
+            nav .links a { margin-left: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">✅ Task Management</div>
+            <div class="links">
+                <a href="#capabilities">Features</a>
+                <a href="#use-cases">Use Cases</a>
+                <a href="#pricing">Pricing</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="hero">
+        <div class="container">
+            <div class="icon">☑️</div>
+            <div class="badge">SKILL</div>
+            <h1>Task Management</h1>
+            <p class="description">Manage your entire commitment portfolio in a single TASKS.md file. Add, prioritize, complete, and track every task with full context and dependencies.</p>
+            <div class="ctas">
+                <button class="btn btn-primary">Get Started</button>
+                <button class="btn btn-secondary">See Demo</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="capabilities" id="capabilities">
+        <div class="container">
+            <h2 class="section-title">Core Capabilities</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">➕</div>
+                    <h3>Add Tasks</h3>
+                    <p>Create tasks with context, deadlines, dependencies, and custom metadata. Bulk import from email, Slack, or create manually.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚖️</div>
+                    <h3>Prioritize</h3>
+                    <p>Rank tasks by impact, urgency, and effort. Automatic dependency ordering ensures you work on blockers first.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✓</div>
+                    <h3>Complete & Track</h3>
+                    <p>Mark tasks complete with notes and evidence. Track completion rate and velocity over time.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔗</div>
+                    <h3>Dependencies</h3>
+                    <p>Define task relationships and blockers. System automatically reorders work based on dependencies.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Burndown & Velocity</h3>
+                    <p>Track sprint progress, completion rate, and forecast when key work will be done.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔄</div>
+                    <h3>Recurring Tasks</h3>
+                    <p>Set up daily, weekly, or monthly tasks that auto-generate and stay on your list.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="use-cases" id="use-cases">
+        <div class="container">
+            <h2>Typical Use Cases</h2>
+            <div class="use-case-grid">
+                <div class="use-case">
+                    <h3>Sprint Planning</h3>
+                    <p>Define sprint scope, estimate effort, and track progress toward completion within the sprint window.</p>
+                </div>
+                <div class="use-case">
+                    <h3>Personal OKRs</h3>
+                    <p>Break OKRs into executable tasks and track progress against quarterly commitments.</p>
+                </div>
+                <div class="use-case">
+                    <h3>Team Coordination</h3>
+                    <p>Share task lists with team members and track handoffs and dependencies.</p>
+                </div>
+                <div class="use-case">
+                    <h3>Inbox Zero</h3>
+                    <p>Convert every commitment from email, chat, or conversation into a tracked task.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="works-with">
+        <div class="container">
+            <h2>Works With</h2>
+            <div class="pills">
+                <div class="pill">Gmail</div>
+                <div class="pill">Slack</div>
+                <div class="pill">Linear</div>
+                <div class="pill">Jira</div>
+                <div class="pill">Google Drive</div>
+                <div class="pill">Notion</div>
+                <div class="pill">Calendar</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="audience">
+        <div class="container">
+            <h2>Best For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h3>Managers</h3>
+                    <p>Track team commitments and ensure priorities are clear and aligned.</p>
+                </div>
+                <div class="audience-card">
+                    <h3>Individual Contributors</h3>
+                    <p>Own your work and stay accountable to quarterly and sprint goals.</p>
+                </div>
+                <div class="audience-card">
+                    <h3>Project Leaders</h3>
+                    <p>Manage complex projects with multiple dependencies and parallel workstreams.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pricing" id="pricing">
+        <div class="container">
+            <h2>Included</h2>
+            <p>Task Management is available as part of your Command Center suite.</p>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Command Center. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

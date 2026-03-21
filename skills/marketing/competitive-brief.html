@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitive Brief - Marketing Skills | Marketplace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(219, 39, 119, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        .nav-breadcrumb a {
+            text-decoration: none;
+            color: #6B7280;
+            transition: color 0.3s;
+        }
+
+        .nav-breadcrumb a:hover {
+            color: #DB2777;
+        }
+
+        .nav-breadcrumb span {
+            color: #DB2777;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #6B7280;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #DB2777;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: #FDF3F8;
+            color: #DB2777;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #6B7280;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #DB2777;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #C41E68;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: #DB2777;
+            border: 2px solid #DB2777;
+        }
+
+        .btn-secondary:hover {
+            background-color: #FDF3F8;
+        }
+
+        /* Capability Cards */
+        .capabilities-section {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            padding: 4rem 2rem;
+            background-color: white;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #111827;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .capability-card {
+            background-color: #FAFAFA;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            border-color: #DB2777;
+            box-shadow: 0 10px 30px rgba(219, 39, 119, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Use Cases Section */
+        .use-cases-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .use-case-card {
+            background-color: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .use-case-card:hover {
+            border-color: #DB2777;
+            box-shadow: 0 8px 20px rgba(219, 39, 119, 0.08);
+        }
+
+        .use-case-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .use-case-card p {
+            font-size: 0.9rem;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        /* Works With */
+        .works-with-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background-color: white;
+        }
+
+        .pills-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .pill {
+            background-color: #FDF3F8;
+            color: #DB2777;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid #E9AFCC;
+            transition: all 0.3s;
+        }
+
+        .pill:hover {
+            background-color: #DB2777;
+            color: white;
+        }
+
+        /* Audience Section */
+        .audience-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .audience-card {
+            background-color: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .audience-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .audience-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .audience-card p {
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+
+        /* Pricing */
+        .pricing-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+
+        .pricing-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .pricing-section p {
+            color: #6B7280;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: white;
+            border-top: 1px solid #E5E7EB;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #6B7280;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #DB2777;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .use-cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.75rem;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-breadcrumb">
+                <a href="/">Marketplace</a>
+                <span>/</span>
+                <a href="/skills">Skills</a>
+                <span>/</span>
+                <a href="/skills/marketing">Marketing</a>
+                <span>/</span>
+                <span>Competitive Brief</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#capabilities">Capabilities</a></li>
+                <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="#works-with">Works With</a></li>
+                <li><a href="#audience">For You</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">Competitive Intelligence</div>
+        <div class="hero-icon">⚡</div>
+        <h1>Competitive Brief</h1>
+        <p>Analyze competitor positioning, messaging, and tactics. Identify market gaps and craft differentiated positioning that sets you apart.</p>
+        <div class="hero-ctas">
+            <button class="btn btn-primary">Start Analysis</button>
+            <button class="btn btn-secondary">See Templates</button>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section class="capabilities-section" id="capabilities">
+        <h2 class="section-title">What You Can Do</h2>
+        <div class="capabilities-grid">
+            <div class="capability-card">
+                <div class="capability-icon">🔍</div>
+                <h3>Competitor Research</h3>
+                <p>Profile key competitors, their market position, pricing strategies, target audiences, and go-to-market approach—updated and structured.</p>
+            </div>
+
+            <div class="capability-card">
+                <div class="capability-icon">💬</div>
+                <h3>Messaging Analysis</h3>
+                <p>Compare competitor value propositions, key messages, tone of voice, and brand positioning across marketing channels and touchpoints.</p>
+            </div>
+
+            <div class="capability-card">
+                <div class="capability-icon">🎯</div>
+                <h3>Positioning Map</h3>
+                <p>Visualize your position relative to competitors on key dimensions—price, quality, innovation, service—to identify whitespace opportunities.</p>
+            </div>
+
+            <div class="capability-card">
+                <div class="capability-icon">📊</div>
+                <h3>Strengths & Weaknesses</h3>
+                <p>Assess competitive strengths and vulnerabilities across product, pricing, marketing, and customer experience to spot your advantages.</p>
+            </div>
+
+            <div class="capability-card">
+                <div class="capability-icon">⚔️</div>
+                <h3>Differentiation Strategy</h3>
+                <p>Develop positioning that capitalizes on gaps, emphasizes unique strengths, and resonates with target buyers versus competitor alternatives.</p>
+            </div>
+
+            <div class="capability-card">
+                <div class="capability-icon">🎨</div>
+                <h3>Messaging Framework</h3>
+                <p>Create differentiated messaging pillars, supporting proof points, and counterarguments to competitive claims that drive preference.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases-section" id="use-cases">
+        <h2 class="section-title">Use Cases</h2>
+        <div class="use-cases-grid">
+            <div class="use-case-card">
+                <h4>🚀 GTM Planning</h4>
+                <p>Build go-to-market strategies informed by competitive analysis—positioning, messaging, pricing, channel selection, and differentiation angles.</p>
+            </div>
+
+            <div class="use-case-card">
+                <h4>💼 Investor Meetings</h4>
+                <p>Present competitive landscape analysis and differentiated positioning to investors—showing market understanding and defensible strategy.</p>
+            </div>
+
+            <div class="use-case-card">
+                <h4>🎯 Sales Enablement</h4>
+                <p>Arm sales teams with competitive intelligence, battle cards, objection handling, and messaging to win deals against named competitors.</p>
+            </div>
+
+            <div class="use-case-card">
+                <h4>🔄 Strategy Refresh</h4>
+                <p>Revisit positioning during market shifts or new competitive entry—reassessing whitespace and refining differentiation accordingly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works With Section -->
+    <section class="works-with-section" id="works-with">
+        <h2 class="section-title">Works With</h2>
+        <p>Combine Competitive Brief with these complementary marketing skills:</p>
+        <div class="pills-container">
+            <a href="/skills/marketing/brand-review" class="pill">Brand Review</a>
+            <a href="/skills/marketing/campaign-plan" class="pill">Campaign Plan</a>
+            <a href="/skills/marketing/draft-content" class="pill">Draft Content</a>
+            <a href="/skills/marketing/content-creation" class="pill">Content Creation</a>
+            <a href="/skills/marketing/seo-audit" class="pill">SEO Audit</a>
+            <a href="/skills/marketing/performance-report" class="pill">Performance Report</a>
+        </div>
+    </section>
+
+    <!-- Audience Section -->
+    <section class="audience-section" id="audience">
+        <h2 class="section-title">Perfect For</h2>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">📱</div>
+                <h4>Product Leaders</h4>
+                <p>Understand competitive positioning and identify product differentiation opportunities that drive market preference.</p>
+            </div>
+
+            <div class="audience-card">
+                <div class="audience-icon">🎯</div>
+                <h4>Marketing Strategists</h4>
+                <p>Develop messaging and positioning strategies informed by deep competitive analysis and market gaps.</p>
+            </div>
+
+            <div class="audience-card">
+                <div class="audience-icon">💼</div>
+                <h4>Business Development</h4>
+                <p>Evaluate competitive threats, partnership opportunities, and market consolidation scenarios with intelligence briefs.</p>
+            </div>
+
+            <div class="audience-card">
+                <div class="audience-icon">🚀</div>
+                <h4>Sales Leaders</h4>
+                <p>Equip teams with competitive battle cards, objection handling, and differentiation talking points to win deals.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <h3>Pricing & Access</h3>
+        <p>Included with your Marketplace subscription. No additional charges.</p>
+        <button class="btn btn-primary">Start Competitive Analysis</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="/docs">Documentation</a>
+                <a href="/support">Support</a>
+                <a href="/feedback">Feedback</a>
+                <a href="/terms">Terms</a>
+                <a href="/privacy">Privacy</a>
+            </div>
+            <p>&copy; 2026 Marketplace. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

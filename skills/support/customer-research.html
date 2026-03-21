@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Research - Customer Support Skills</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        /* Sticky Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 0.75rem 2rem;
+        }
+
+        nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #6B7280;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #0284C7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 3rem;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: #E0F2FE;
+            color: #0284C7;
+            padding: 0.375rem 0.875rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #0284C7;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0369A1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.15);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0284C7;
+            border: 1.5px solid #0284C7;
+        }
+
+        .btn-secondary:hover {
+            background: #E0F2FE;
+            transform: translateY(-2px);
+        }
+
+        /* Capabilities Grid */
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            border-color: #0284C7;
+            box-shadow: 0 12px 35px rgba(2, 132, 199, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .use-cases h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .use-case-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .use-case-item {
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .use-case-item:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #0284C7;
+            font-weight: 700;
+        }
+
+        .use-case-item h4 {
+            font-weight: 600;
+            margin-bottom: 0.375rem;
+        }
+
+        .use-case-item p {
+            font-size: 0.95rem;
+            color: #6B7280;
+        }
+
+        /* Integrations */
+        .integrations {
+            margin-bottom: 4rem;
+        }
+
+        .integrations h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .integration-pill {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.625rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .integration-pill:hover {
+            border-color: #0284C7;
+            background: #E0F2FE;
+            color: #0284C7;
+        }
+
+        /* Audience Cards */
+        .audience {
+            margin-bottom: 4rem;
+        }
+
+        .audience h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .audience-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .audience-card:hover {
+            border-color: #0284C7;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.08);
+        }
+
+        .audience-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .audience-card p {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        /* Pricing */
+        .pricing {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .pricing h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #0284C7;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-note {
+            color: #6B7280;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#"><span>←</span> Marketplace / Customer Support / Customer Research</a>
+    </nav>
+
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-icon">🔍</div>
+            <div class="skill-badge">Skill</div>
+            <h1>Customer Research</h1>
+            <p>Multi-source research on customers with full attribution and citation. Pull together history, context, and precedent from internal systems, public sources, and conversation logs—all in seconds with complete transparency.</p>
+            <div class="cta-group">
+                <button class="btn btn-primary">Install Skill</button>
+                <button class="btn btn-secondary">See Demo</button>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section>
+            <h2 class="section-title">Key Capabilities</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon">📚</div>
+                    <h3>Unified Customer Profile</h3>
+                    <p>Aggregate customer data from CRM, helpdesk, billing, analytics—build a single source of truth with complete history.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🌐</div>
+                    <h3>Multi-Source Research</h3>
+                    <p>Search internal KB, public documentation, community forums, and issue trackers. Every finding is attributed and cited.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📜</div>
+                    <h3>Full Citation Trail</h3>
+                    <p>Every fact, quote, and data point includes source, date, and link. Transparency by default.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">⏱️</div>
+                    <h3>Historical Context</h3>
+                    <p>Timeline view of all interactions: previous tickets, purchases, feature requests, complaints, and resolutions.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🔗</div>
+                    <h3>Precedent Matching</h3>
+                    <p>Find similar past issues and how they were resolved. Learn from patterns; reduce repeated mistakes.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">💡</div>
+                    <h3>Smart Recommendations</h3>
+                    <p>Based on research, AI suggests relevant solutions, knowledge articles, and next steps for faster resolution.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="use-cases">
+            <h2>Common Use Cases</h2>
+            <div class="use-case-list">
+                <div class="use-case-item">
+                    <h4>Enterprise Account Support</h4>
+                    <p>Instant context on $100K+ customers. Understand their deployment, usage, integrations, and support history before first response.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>Escalation Research</h4>
+                    <p>When a ticket escalates, auto-research the customer, similar cases, and precedent. Hand off with full dossier to engineering.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>Product Investigation</h4>
+                    <p>Trace feature requests and bug reports across versions. Connect user feedback to product roadmap and engineering decisions.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>Compliance & Audit</h4>
+                    <p>Full audit trail of all research and data sources. Every statement backed by citation for regulatory or legal review.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integrations -->
+        <section class="integrations">
+            <h2>Works With</h2>
+            <div class="integration-pills">
+                <div class="integration-pill">Zendesk</div>
+                <div class="integration-pill">Salesforce</div>
+                <div class="integration-pill">HubSpot</div>
+                <div class="integration-pill">Intercom</div>
+                <div class="integration-pill">Slack</div>
+                <div class="integration-pill">Jira</div>
+                <div class="integration-pill">Amplitude</div>
+                <div class="integration-pill">Datadog</div>
+                <div class="integration-pill">Custom APIs</div>
+            </div>
+        </section>
+
+        <!-- Audience -->
+        <section class="audience">
+            <h2>Built For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h4>🎯 Support Leaders</h4>
+                    <p>Ensure reps always have context. Reduce knowledge gaps and improve quality scores.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>⚙️ Enterprise Support</h4>
+                    <p>Handle complex, multi-year customer relationships with full institutional memory.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>🔍 Compliance Teams</h4>
+                    <p>Maintain audit trails and cited evidence for all customer interactions and decisions.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>🧑‍💼 Account Managers</h4>
+                    <p>Better customer insights. Spot upsell/churn signals. Proactive engagement.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section class="pricing">
+            <h2>Pricing</h2>
+            <div class="price">Coming Soon</div>
+            <p class="price-note">Early access available for pilot customers. Contact sales for details.</p>
+            <button class="btn btn-primary">Request Pilot Access</button>
+        </section>
+    </div>
+</body>
+</html>

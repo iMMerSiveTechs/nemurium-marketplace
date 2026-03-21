@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draft Content - Marketing Skills</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #FAFAFA;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 16px 40px;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .nav-link {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #DB2777;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .hero {
+            margin-bottom: 80px;
+        }
+
+        .hero-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            background: #DB2777;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            flex-shrink: 0;
+        }
+
+        .hero-text h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #333;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            max-width: 800px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-family: 'Inter', sans-serif;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            padding: 12px 28px;
+        }
+
+        .btn-primary {
+            background: #DB2777;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #c51f68;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(219, 39, 119, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #DB2777;
+            border: 1.5px solid #DB2777;
+        }
+
+        .btn-secondary:hover {
+            background: #ffe6f0;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #1a1a1a;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+            border-color: #DB2777;
+        }
+
+        .capability-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .capability-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .use-case-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s;
+        }
+
+        .use-case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .use-case-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .use-case-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .use-case-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .integrations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .integration-pill {
+            background: white;
+            border: 1px solid #e8e8e8;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .integration-pill:hover {
+            background: #f0f0f0;
+            border-color: #DB2777;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e8e8e8;
+            text-align: center;
+        }
+
+        .audience-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .audience-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .audience-card p {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .pricing-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #e8e8e8;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .pricing-section h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .pricing-section p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #DB2777;
+            margin-bottom: 8px;
+        }
+
+        .price-note {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 40px 24px;
+            }
+
+            .hero-header {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .hero-text h1 {
+                font-size: 32px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            nav {
+                padding: 12px 24px;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .section h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="nav-link">← Marketplace</a>
+            <span>/</span>
+            <a href="#" class="nav-link">Marketing</a>
+            <span>/</span>
+            <span>Draft Content</span>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-header">
+                <div class="hero-icon">📝</div>
+                <div class="hero-text">
+                    <span class="skill-badge">SKILL</span>
+                    <h1>Draft Content</h1>
+                    <p class="hero-description">
+                        Move faster with channel-specific content drafts optimized for each platform's unique audience and format. Get multiple headline variations, SEO-tuned body copy, and performance-driven calls-to-action—all ready to customize and publish. From social media threads to landing page variants, generate unlimited options without the creative block or writer's fatigue.
+                    </p>
+                    <div class="cta-group">
+                        <button class="btn-primary">Get Started</button>
+                        <button class="btn-secondary">View Demo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Core Capabilities</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <h3>Multi-Variant Headlines</h3>
+                    <p>Generate 5-10 headline variations for every piece of content. A/B test friendly with emotional triggers, curiosity gaps, and benefit-driven angles. Find the version that converts best for your audience.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>SEO-Optimized Body Copy</h3>
+                    <p>Every draft includes keyword integration, readability optimization, and semantic structure. Auto-detect target keywords and weave them naturally into meta descriptions, introductions, and throughout the body.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Platform-Specific Formatting</h3>
+                    <p>LinkedIn posts with professional tone and connection appeals. Instagram captions with hashtag strategies. Twitter threads with hook-driven engagement. TikTok scripts with trend integration. Each tailored for platform success.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>CTA Optimization</h3>
+                    <p>Multiple call-to-action variations including urgency-driven, benefit-focused, and action-oriented options. Increase click-through rates with psychologically-tested messaging and placement recommendations.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Content Scaffolding</h3>
+                    <p>Auto-generate outline structures with suggested sections and copy blocks. Fill-in-the-blank templates that guide your refinement process and eliminate blank-page syndrome completely.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Tone & Voice Variants</h3>
+                    <p>Same content in multiple voices: professional, conversational, playful, technical. Choose the variant that matches your brand personality and audience expectations for every channel.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Real-World Use Cases</h2>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-icon">🎯</div>
+                    <h3>Multi-Channel Campaign</h3>
+                    <p>Launch unified campaigns across 5+ channels with one input. Get platform-specific drafts for email, LinkedIn, Twitter, Instagram, and Facebook—all aligned in messaging but optimized for each audience.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">✍️</div>
+                    <h3>Content Refinement</h3>
+                    <p>Start with a rough idea and get 3-5 polished drafts to choose from. Test different angles, hooks, and messages quickly. Publish with confidence knowing you've explored multiple approaches.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🚀</div>
+                    <h3>Rapid A/B Testing</h3>
+                    <p>Generate headline and CTA variations on-demand. Run simultaneous tests across different messages and optimize based on performance data. Iterate faster, learn quicker, improve conversion rates measurably.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">💡</div>
+                    <h3>Creative Direction Alignment</h3>
+                    <p>Build brand consistency across distributed teams. Provide guardrails on tone and messaging, then generate drafts that adhere to brand voice while staying fresh and relevant for each channel.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Works With</h2>
+            <div class="integrations">
+                <div class="integration-pill">HubSpot</div>
+                <div class="integration-pill">Buffer</div>
+                <div class="integration-pill">Hootsuite</div>
+                <div class="integration-pill">Later</div>
+                <div class="integration-pill">Sprout Social</div>
+                <div class="integration-pill">Webflow</div>
+                <div class="integration-pill">Notion</div>
+                <div class="integration-pill">Google Docs</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Built For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-icon">👤</div>
+                    <h3>Solopreneurs</h3>
+                    <p>Create varied, professional content variations without hiring writers. Explore multiple angles and pick the version that feels right.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">🏢</div>
+                    <h3>Enterprise</h3>
+                    <p>Ensure brand consistency with templated guidance while empowering teams to publish faster with approved draft variations.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">👨‍💻</div>
+                    <h3>Developers</h3>
+                    <p>Integrate content drafting directly into your CMS or marketing automation platform via API.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="pricing-section">
+                <h3>Transparent Pricing</h3>
+                <p>No hidden fees. Pay only for what you use.</p>
+                <div class="price">$29</div>
+                <div class="price-note">Starting at per month</div>
+                <button class="btn-primary">View Plans</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

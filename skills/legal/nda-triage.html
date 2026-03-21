@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDA Triage - Legal Skills</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 2rem;
+        }
+
+        nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1E3A5F;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #6B7280;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #1E3A5F;
+        }
+
+        .btn-primary {
+            background: #1E3A5F;
+            color: white;
+            padding: 0.625rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #152847;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.2);
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: #ECF0F6;
+            color: #1E3A5F;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #1F2937;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1E3A5F;
+            padding: 0.625rem 1.5rem;
+            border: 2px solid #1E3A5F;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #F0F4F8;
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #1F2937;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .capability-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            box-shadow: 0 12px 24px rgba(30, 58, 95, 0.1);
+            border-color: #1E3A5F;
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1F2937;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .use-cases {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 3rem;
+            border: 1px solid #E5E7EB;
+        }
+
+        .use-case-item {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .use-case-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .use-case-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 0.5rem;
+        }
+
+        .use-case-desc {
+            font-size: 0.95rem;
+            color: #6B7280;
+        }
+
+        .integrations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .integration-pill {
+            background: #F3F4F6;
+            color: #374151;
+            padding: 0.625rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid #E5E7EB;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .audience-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+
+        .audience-emoji {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .audience-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1F2937;
+        }
+
+        .audience-card p {
+            font-size: 0.9rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .pricing-placeholder {
+            background: linear-gradient(135deg, #ECF0F6 0%, #F9FAFB 100%);
+            padding: 3rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            border: 1px solid #E5E7EB;
+        }
+
+        .pricing-placeholder h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1F2937;
+        }
+
+        .pricing-placeholder p {
+            font-size: 0.95rem;
+            color: #6B7280;
+            margin-bottom: 1.5rem;
+        }
+
+        footer {
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            padding: 3rem 2rem;
+            text-align: center;
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .section {
+                padding: 2rem 1.5rem;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <nav-content>
+            <div class="nav-logo">⚖️ Legal Skills</div>
+            <div class="nav-links">
+                <a href="#capabilities">Capabilities</a>
+                <a href="#use-cases">Use Cases</a>
+                <a href="#integrations">Integrations</a>
+                <button class="btn-primary">Get Started</button>
+            </div>
+        </nav-content>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-icon">🟢</div>
+        <div class="skill-badge">SKILL</div>
+        <h1>NDA Triage</h1>
+        <p>Instantly classify NDAs into GREEN/YELLOW/RED risk buckets. Identify non-solicits, non-competes, missing carveouts, and termination risks in seconds.</p>
+        <div class="hero-ctas">
+            <button class="btn-primary">Start Free Trial</button>
+            <button class="btn-secondary">See Demo</button>
+        </div>
+    </div>
+
+    <div class="section" id="capabilities">
+        <h2 class="section-title">Core Capabilities</h2>
+        <div class="capabilities-grid">
+            <div class="capability-card">
+                <div class="capability-icon">📊</div>
+                <h3>Risk Classification</h3>
+                <p>Automatically classify NDAs into GREEN (standard), YELLOW (requires review), RED (escalate immediately). Make triage decisions in seconds, not hours.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🚫</div>
+                <h3>Non-Solicitation Analysis</h3>
+                <p>Detect non-solicitation provisions. Identify scope gaps and carveouts. Flag geographical and temporal limits that may conflict with business plans.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⛔</div>
+                <h3>Non-Compete Detection</h3>
+                <p>Extract non-compete terms, duration, territory, and business line restrictions. Assess enforceability concerns and operational impact.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔑</div>
+                <h3>Carveout Identification</h3>
+                <p>Find missing carveouts for general knowledge, public domain info, and prior company work. Flag gaps that could expose you to liability.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⏳</div>
+                <h3>Termination & Duration</h3>
+                <p>Extract renewal, termination, and perpetual confidentiality terms. Flag indefinite survival clauses that may outlive the business relationship.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🎯</div>
+                <h3>Counterparty Risk</h3>
+                <p>Assess counterparty obligation symmetry. Flag one-sided NDAs and restrictive definitions that limit your business flexibility.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="use-cases">
+        <h2 class="section-title">Common Use Cases</h2>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <div class="use-case-title">🤝 Vendor Onboarding</div>
+                <p>New vendors, partners, and consultants often present NDAs as boilerplate. Triage them instantly. Flag non-competes that would conflict with existing hires or planned roles.</p>
+            </div>
+            <div class="use-case-item">
+                <div class="use-case-title">🏢 Strategic Discussions</div>
+                <p>Before starting partnership or acquisition talks, receive an NDA. Classify it and flag deal-breaker terms before your team signs and gives away information.</p>
+            </div>
+            <div class="use-case-item">
+                <div class="use-case-title">👥 Hire & Separation</div>
+                <p>Evaluate non-competes and non-solicits before hiring an executive. Understand restrictions that may limit the hire's value or create enforceability risk.</p>
+            </div>
+            <div class="use-case-item">
+                <div class="use-case-title">📋 Due Diligence</div>
+                <p>Target company has a book of partner NDAs. Batch-process them to find non-competes that might restrict post-acquisition plans or require renegotiation.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="integrations">
+        <h2 class="section-title">Works With Your Stack</h2>
+        <div class="integrations">
+            <div class="integration-pill">DocuSign</div>
+            <div class="integration-pill">Google Drive</div>
+            <div class="integration-pill">Notion</div>
+            <div class="integration-pill">Slack</div>
+            <div class="integration-pill">Microsoft Teams</div>
+            <div class="integration-pill">Airtable</div>
+            <div class="integration-pill">Salesforce</div>
+            <div class="integration-pill">CLM Platform</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Built For</h2>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-emoji">⚖️</div>
+                <h3>General Counsel</h3>
+                <p>Make judgment calls on risk without reading every NDA. Delegate triage, focus on exceptions. Sleep better knowing critical terms are flagged.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-emoji">📋</div>
+                <h3>Legal Operations</h3>
+                <p>Build repeatable process for NDA intake. Reduce manual review. Route GREEN directly to signatory, escalate RED immediately.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-emoji">💼</div>
+                <h3>Business Leaders</h3>
+                <p>Don't wait for legal bottleneck. Know within minutes if an NDA has career-limiting non-competes before you commit to a partnership or hire.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-emoji">🏢</div>
+                <h3>HR & Recruiting</h3>
+                <p>Before recruiting an executive candidate, understand non-compete exposure. Assess risk before extending offer.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="pricing-placeholder">
+            <h3>Flexible Pricing</h3>
+            <p>Per-document pricing. Scales with volume. No monthly commitments.</p>
+            <button class="btn-primary">View Pricing</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Legal Skills Marketplace. Enterprise-grade AI for in-house legal teams.</p>
+    </footer>
+</body>
+</html>

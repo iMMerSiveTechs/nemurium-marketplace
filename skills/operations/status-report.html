@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status Report | Operations Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #FAFAFA;
+      color: #1F2937;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+      padding: 1rem 2rem;
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+      color: #6B7280;
+    }
+
+    .nav-content a {
+      color: #475569;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-content a:hover {
+      color: #1F2937;
+    }
+
+    .nav-separator {
+      margin: 0 0.75rem;
+      color: #D1D5DB;
+    }
+
+    header {
+      background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
+      padding: 4rem 2rem;
+      border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .skill-badge {
+      display: inline-block;
+      background: #475569;
+      color: white;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #0F172A;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      color: #4B5563;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: #475569;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #334155;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(71, 85, 105, 0.2);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #475569;
+      border: 1.5px solid #475569;
+    }
+
+    .btn-secondary:hover {
+      background: #475569;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #0F172A;
+    }
+
+    .section-subtitle {
+      color: #6B7280;
+      margin-bottom: 3rem;
+      font-size: 1.025rem;
+    }
+
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .capability-card {
+      background: white;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .capability-card:hover {
+      border-color: #475569;
+      box-shadow: 0 12px 24px rgba(71, 85, 105, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .capability-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .capability-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #0F172A;
+    }
+
+    .capability-card p {
+      color: #6B7280;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .use-cases {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 3rem;
+      margin-bottom: 5rem;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .use-case-item {
+      padding: 1.5rem;
+      background: #F8FAFC;
+      border-radius: 0.5rem;
+      border-left: 3px solid #475569;
+    }
+
+    .use-case-item h4 {
+      font-weight: 600;
+      color: #0F172A;
+      margin-bottom: 0.5rem;
+    }
+
+    .use-case-item p {
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+
+    .integrations {
+      margin-bottom: 5rem;
+    }
+
+    .integration-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .pill {
+      background: white;
+      border: 1px solid #D1D5DB;
+      color: #475569;
+      padding: 0.625rem 1.25rem;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .pill:hover {
+      border-color: #475569;
+      box-shadow: 0 4px 12px rgba(71, 85, 105, 0.1);
+    }
+
+    .audience-section {
+      margin-bottom: 5rem;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .audience-card {
+      background: white;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .audience-card:hover {
+      border-color: #475569;
+      box-shadow: 0 8px 16px rgba(71, 85, 105, 0.08);
+    }
+
+    .audience-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .audience-card h3 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #0F172A;
+    }
+
+    .audience-card p {
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+
+    .pricing-section {
+      background: #F8FAFC;
+      border-radius: 0.75rem;
+      padding: 3rem;
+      text-align: center;
+      margin-bottom: 5rem;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .pricing-placeholder {
+      font-size: 1.125rem;
+      color: #6B7280;
+      margin-top: 1.5rem;
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid rgba(71, 85, 105, 0.1);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: #6B7280;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .hero-description {
+        font-size: 1rem;
+      }
+
+      .capabilities-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-content">
+      <a href="#">← Marketplace</a>
+      <span class="nav-separator">/</span>
+      <a href="#">Operations</a>
+      <span class="nav-separator">/</span>
+      <span>Status Report</span>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-content">
+      <span class="skill-badge">SKILL</span>
+      <div class="hero-icon">📊</div>
+      <h1>Status Report</h1>
+      <p class="hero-description">
+        Stop writing reports in Word and emailing PDFs. Build real-time dashboards that surface KPIs, status at a glance (green/yellow/red), business risks, and action items. Leadership always knows what's happening. No surprises.
+      </p>
+      <div class="cta-group">
+        <button class="btn btn-primary">Add to Workspace</button>
+        <button class="btn btn-secondary">Learn More</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <section>
+      <h2 class="section-title">Core Capabilities</h2>
+      <p class="section-subtitle">What you can do with Status Report</p>
+      <div class="capabilities-grid">
+        <div class="capability-card">
+          <div class="capability-icon">📈</div>
+          <h3>Real-Time KPI Dashboards</h3>
+          <p>Ops metrics that update automatically. Uptime %, incident count, MTTR, ticket volume. Always current, never stale.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">🎯</div>
+          <h3>Traffic Light Status</h3>
+          <p>Green/yellow/red indicators for projects, services, teams. One glance: what's healthy? What's at risk?</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">⚠️</div>
+          <h3>Risk Register</h3>
+          <p>Surface top 5 risks facing the team. Severity, likelihood, mitigation. Leadership sees the real threats.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">✅</div>
+          <h3>Action Items & Owners</h3>
+          <p>What needs to happen next? Who owns it? Due dates. Accountability built in from the start.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">📝</div>
+          <h3>Narrative Summary</h3>
+          <p>Not just numbers. Explain what happened, why, and what you're doing about it. Context leaders need.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">📊</div>
+          <h3>Trend Analytics</h3>
+          <p>This week vs last week. Month-over-month. Is it trending better? Stakeholders want trajectory, not snapshots.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="use-cases">
+      <h2 class="section-title">Perfect For</h2>
+      <div class="use-cases-grid">
+        <div class="use-case-item">
+          <h4>Executive Dashboards</h4>
+          <p>Board meetings need one-page status on ops health. Build it once, refresh on Tuesday morning before the call.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Weekly All-Hands</h4>
+          <p>Share status, highlight wins, surface risks, ask for help. Slide deck built from live data, not PDF PowerPoint.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Stakeholder Updates</h4>
+          <p>Finance, Legal, Product all need different views of ops health. One system, multiple dashboards, nobody waits for reports.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Cross-Team Transparency</h4>
+          <p>When Eng knows Ops blocked them last week, they see it immediately. No blame, just shared visibility.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="integrations">
+      <h2 class="section-title">Works With</h2>
+      <div class="integration-pills">
+        <span class="pill">Datadog</span>
+        <span class="pill">New Relic</span>
+        <span class="pill">Tableau</span>
+        <span class="pill">Power BI</span>
+        <span class="pill">Slack</span>
+        <span class="pill">Teams</span>
+        <span class="pill">JIRA</span>
+        <span class="pill">ServiceNow</span>
+      </div>
+    </section>
+
+    <section class="audience-section">
+      <h2 class="section-title">Built For</h2>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="audience-icon">👔</div>
+          <h3>COO/SVP Ops</h3>
+          <p>Own the narrative. Show board that ops is under control, improving, driving value.</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🎯</div>
+          <h3>Team Leads</h3>
+          <p>Weekly cadence. Show your work. Highlight wins, flag risks, ask for support when needed.</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">👥</div>
+          <h3>Project Managers</h3>
+          <p>Track initiative health. Status updates that don't lose info in email chains. Real transparency.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <h2 class="section-title">Pricing</h2>
+      <p class="pricing-placeholder">Free tier for <5 KPIs. Pro: $200/month up to 50 KPIs + custom integrations. Enterprise: custom pricing.</p>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Operations Marketplace. All rights reserved.</p>
+  </footer>
+</body>
+</html>

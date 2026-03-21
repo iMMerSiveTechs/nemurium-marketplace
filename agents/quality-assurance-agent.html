@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality Assurance Agent | Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #4F46E5;
+            --accent-light: #EEF2FF;
+            --accent-dark: #312E81;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --bg-light: #FAFAFA;
+            --bg-white: #FFFFFF;
+            --border: #E5E7EB;
+            --success: #10B981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 250, 250, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .breadcrumb {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            margin: 0 auto 2rem;
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
+        }
+
+        .badge-row {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge.live {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta {
+            padding: 1rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .cta-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .cta-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(79, 70, 229, 0.2);
+        }
+
+        .cta-secondary {
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+
+        .cta-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Section */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        section h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Capabilities Grid */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .capability-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+            border-color: var(--accent);
+        }
+
+        .capability-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 1rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .capability-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .use-case {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .use-case:last-child {
+            border-bottom: none;
+        }
+
+        .use-case-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+
+        .use-case-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .use-case h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .use-case p {
+            color: var(--text-secondary);
+            margin-left: 3rem;
+            font-size: 0.95rem;
+        }
+
+        /* Integration Pills */
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .pill {
+            padding: 0.6rem 1.2rem;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Audience Cards */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .audience-card {
+            background: var(--bg-white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .audience-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .audience-icon {
+            font-size: 48px;
+            margin-bottom: 1rem;
+        }
+
+        .audience-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .audience-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .pricing-card .cta-primary {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+
+        /* Footer spacing */
+        .spacing {
+            height: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="../">← Marketplace</a>
+            <span class="breadcrumb">Agents / Quality Assurance Agent</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-icon">✅</div>
+            <div class="badge-row">
+                <span class="badge">AGENT</span>
+                <span class="badge live"><span class="live-dot"></span>Live</span>
+            </div>
+            <h1>Quality Assurance Agent</h1>
+            <p class="hero-description">Validate every document against your brand standards before it ships. Check compliance, verify consistency, detect PII, enforce style guides, and generate before/after suggestions—all automatically.</p>
+            <div class="cta-group">
+                <a href="#" class="cta cta-primary">Get Started →</a>
+                <a href="#" class="cta cta-secondary">View Documentation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Capabilities -->
+    <section style="background: var(--bg-white);">
+        <div class="container">
+            <h2>Key Capabilities</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon">📋</div>
+                    <h3>Brand Compliance Scoring</h3>
+                    <p>Audit content against your brand guidelines. Get a compliance score (0-100) with specific gaps flagged: messaging inconsistencies, tone violations, terminology errors.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🔀</div>
+                    <h3>Consistency Verification</h3>
+                    <p>Compare against previous versions and similar documents. Catch variations in voice, tone, and style. Ensure brand consistency across the entire document portfolio.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">✔️</div>
+                    <h3>Completeness Checks</h3>
+                    <p>Verify all required brand elements are present: legal disclaimers, mandatory imagery, required messaging sections, compliance clauses. Flag missing components.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🔐</div>
+                    <h3>PII Detection</h3>
+                    <p>Automatically scan for personally identifiable information that shouldn't be published: names, email addresses, phone numbers, social security numbers, and more.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📖</div>
+                    <h3>Style Guide Enforcement</h3>
+                    <p>Validate against your documented style guide: grammar rules, formatting standards, terminology preferences, tone specs. Get specific corrections for each violation.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🔄</div>
+                    <h3>Before/After Suggestions</h3>
+                    <p>Not just flagging problems—AI-generated rewrites for every issue. Accept, edit, or reject suggestions. Learn what good looks like through examples.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section>
+        <div class="container">
+            <h2>Real-World Use Cases</h2>
+            <div class="use-cases">
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <span class="use-case-number">1</span>
+                        <h4>Reviewing a 40-page proposal against brand guidelines</h4>
+                    </div>
+                    <p>Instead of reading 40 pages manually, upload the proposal and get instant compliance analysis: messaging alignment, tone consistency, legal requirements met, visual brand elements present. Get an overall score and specific improvement recommendations.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <span class="use-case-number">2</span>
+                        <h4>Pre-publication compliance check on marketing materials</h4>
+                    </div>
+                    <p>Before launching any campaign, run QA check: brand voice verified, no PII exposed, all required disclaimers included, imagery guidelines met. Reduce risk of off-brand or non-compliant public communications.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <span class="use-case-number">3</span>
+                        <h4>Auditing customer support templates for brand consistency</h4>
+                    </div>
+                    <p>Ensure every customer-facing message—FAQs, help docs, support responses—reflects your brand voice. Flag templates that sound off-brand. Generate corrected versions to standardize customer communication.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <span class="use-case-number">4</span>
+                        <h4>Validating translated content maintains brand voice</h4>
+                    </div>
+                    <p>Translations often lose brand voice. QA checks verify translations maintain tone, terminology, and brand essence. Flag cultural appropriateness issues. Ensure global communications are on-brand in every language.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works With -->
+    <section style="background: var(--bg-white);">
+        <div class="container">
+            <h2>Works With</h2>
+            <div class="integration-pills">
+                <span class="pill">Google Docs</span>
+                <span class="pill">Microsoft Word</span>
+                <span class="pill">Notion</span>
+                <span class="pill">Confluence</span>
+                <span class="pill">PDFs</span>
+                <span class="pill">Email</span>
+                <span class="pill">Slack Messages</span>
+                <span class="pill">Web Pages</span>
+                <span class="pill">Marketing Platforms</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who It's For -->
+    <section>
+        <div class="container">
+            <h2>Who It's For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-icon">📱</div>
+                    <h3>Solopreneurs</h3>
+                    <p>Ensure your content is polished and on-brand before publishing. Catch tone inconsistencies and compliance issues before your audience sees them.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">🏛️</div>
+                    <h3>Enterprise Teams</h3>
+                    <p>Enforce brand consistency at scale. Manage compliance across departments, regions, and vendors. Reduce legal and brand risk with automated pre-publication checks.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">⚙️</div>
+                    <h3>Developers & Ops</h3>
+                    <p>Integrate QA into your publishing pipeline. Automate compliance checks in CI/CD. Prevent non-compliant content from shipping to production.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section style="background: var(--bg-white);">
+        <div class="container">
+            <h2>Simple Pricing</h2>
+            <div class="pricing-card">
+                <div class="price">$19</div>
+                <div class="price-period">per month</div>
+                <ul class="features-list">
+                    <li>Unlimited document checks</li>
+                    <li>Brand compliance scoring</li>
+                    <li>PII detection & alerts</li>
+                    <li>Style guide enforcement</li>
+                    <li>Before/after suggestions</li>
+                    <li>Compliance reports</li>
+                </ul>
+                <a href="#" class="cta cta-primary">Start Free Trial</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="spacing"></div>
+</body>
+</html>

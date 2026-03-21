@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Entry | Finance Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 16px 32px;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .nav-breadcrumb {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav-breadcrumb span {
+            color: #D1D5DB;
+        }
+
+        .nav-breadcrumb a {
+            color: #047857;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-breadcrumb a:hover {
+            color: #065F46;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding: 0 32px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #111827;
+        }
+
+        .hero-icon {
+            width: 100px;
+            height: 100px;
+            background: #047857;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #DBEAFE;
+            color: #0369A1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-description {
+            font-size: 16px;
+            color: #4B5563;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #047857;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #065F46;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(4, 120, 87, 0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #047857;
+            border: 1px solid #E5E7EB;
+        }
+
+        .btn-secondary:hover {
+            background: #F3F4F6;
+            border-color: #047857;
+        }
+
+        .hero-visual {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #047857 0%, #10B981 100%);
+            border-radius: 8px;
+            opacity: 0.15;
+        }
+
+        .capabilities {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 48px;
+        }
+
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            border-color: #047857;
+            box-shadow: 0 12px 24px rgba(4, 120, 87, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            width: 48px;
+            height: 48px;
+            background: #ECFDF5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .capability-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .capability-card p {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .use-cases {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .use-case-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            border-left: 4px solid #047857;
+        }
+
+        .use-case-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .use-case-card p {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .use-case-highlight {
+            font-size: 13px;
+            background: #ECFDF5;
+            color: #065F46;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .integrations {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .pill {
+            background: white;
+            border: 1px solid #E5E7EB;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4B5563;
+            transition: all 0.2s;
+        }
+
+        .pill:hover {
+            background: #047857;
+            color: white;
+            border-color: #047857;
+        }
+
+        .audience {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+
+        .audience-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .audience-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .audience-card p {
+            font-size: 13px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .pricing {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #E5E7EB;
+            max-width: 400px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #047857;
+            margin: 24px 0;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 0 20px 60px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            nav {
+                padding: 12px 20px;
+            }
+
+            .nav-content {
+                font-size: 12px;
+            }
+
+            .capability-grid,
+            .use-case-grid,
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="nav-breadcrumb">
+                <a href="#marketplace">← Marketplace</a>
+                <span>/</span>
+                <a href="#finance">Finance</a>
+                <span>/</span>
+                <span>Journal Entry</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">📒</div>
+            <div class="badge">Skill</div>
+            <h1>Journal Entry</h1>
+            <p class="hero-description">
+                Automate accrual entries, reversals, and consolidation adjustments. Debit and credit your entire month in minutes with full supporting schedules, GL mapping, and audit trail. No more manual entry errors. Pure control over month-end close.
+            </p>
+            <div class="cta-group">
+                <button class="btn btn-primary">Get Started Free</button>
+                <button class="btn btn-secondary">Schedule Demo</button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="chart-placeholder"></div>
+        </div>
+    </section>
+
+    <section class="capabilities">
+        <h2 class="section-title">Core Capabilities</h2>
+        <p class="section-subtitle">Intelligent journal entry management and automation</p>
+        
+        <div class="capability-grid">
+            <div class="capability-card">
+                <div class="capability-icon">⚡</div>
+                <h3>Template-Based Entry Generation</h3>
+                <p>Build reusable entry templates for accruals, reversals, consolidations. Run entries with one click. Version control on all templates for audit trail.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📋</div>
+                <h3>Supporting Schedule Integration</h3>
+                <p>Attach Excel, Google Sheets, or API data feeds directly to entries. Auto-populate debits and credits from source data. Zero copy-paste errors.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">✓</div>
+                <h3>Multi-Level Approval Workflow</h3>
+                <p>Route entries for review and approval based on amount thresholds, entry type, or cost center. Maintain control with role-based permissions.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔗</div>
+                <h3>GL Account Mapping</h3>
+                <p>Pre-map accounts and auto-suggest GL codes based on entry type. Link to sub-ledgers and analytical dimensions automatically.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📑</div>
+                <h3>Batch Entry Processing</h3>
+                <p>Submit 50 entries from spreadsheet in one batch. Auto-balance, validate, and post. Comprehensive error handling and re-submission.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔐</div>
+                <h3>Audit & Compliance Ready</h3>
+                <p>Full entry history with who posted what and when. Export entry details with supporting documentation for audit review.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="use-cases">
+        <h2 class="section-title">Real-World Use Cases</h2>
+        <p class="section-subtitle">How accounting teams use Journal Entry</p>
+        
+        <div class="use-case-grid">
+            <div class="use-case-card">
+                <h3>Month-End Accruals & Reversals</h3>
+                <p>Automate 95% of month-end entries. Accrues, reversals, and allocations post in seconds. Accountants review instead of manually coding—cutting close time by 20%.</p>
+                <div class="use-case-highlight">Automation at scale</div>
+            </div>
+            <div class="use-case-card">
+                <h3>Multi-Entity Consolidation</h3>
+                <p>Manage elimination and consolidation entries across 20+ subsidiaries. Auto-detect inter-company transactions, generate elimination entries, post to consolidation GL.</p>
+                <div class="use-case-highlight">Enterprise control</div>
+            </div>
+            <div class="use-case-card">
+                <h3>Revenue Recognition & Complex Accruals</h3>
+                <p>Link entries to support schedules that calculate revenue by performance obligation. Update schedule, entry auto-recalculates. Perfect audit evidence.</p>
+                <div class="use-case-highlight">ASC 606 ready</div>
+            </div>
+            <div class="use-case-card">
+                <h3>Intercompany Billing & Allocations</h3>
+                <p>Allocate corporate overhead to cost centers monthly. Source from actual spend, calculate allocations, post entries with full traceability to source transactions.</p>
+                <div class="use-case-highlight">Allocation audited</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="integrations">
+        <h2 class="section-title">Works With</h2>
+        <p class="section-subtitle">Seamless data flow from your existing systems</p>
+        <div class="pill-group">
+            <span class="pill">Excel</span>
+            <span class="pill">Google Sheets</span>
+            <span class="pill">NetSuite</span>
+            <span class="pill">SAP</span>
+            <span class="pill">Oracle ERP</span>
+            <span class="pill">Workday</span>
+            <span class="pill">Vena</span>
+            <span class="pill">Adaptive Insights</span>
+            <span class="pill">API feeds</span>
+            <span class="pill">Slack</span>
+        </div>
+    </section>
+
+    <section class="audience">
+        <h2 class="section-title">Who This Is For</h2>
+        <p class="section-subtitle">Built for teams managing complex close cycles</p>
+        
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">👩‍💼</div>
+                <h3>Senior Accountants</h3>
+                <p>Stop manually typing entries. Automate accruals and focus on the accounting decisions that matter.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🏢</div>
+                <h3>Accounting Managers</h3>
+                <p>Maintain control and oversight of close entries. Approve and audit in the system—no email chains.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">📊</div>
+                <h3>Consolidation Teams</h3>
+                <p>Manage multi-entity entries with confidence. Auto-generate eliminations and post to consolidated GL.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🔍</div>
+                <h3>Internal Audit</h3>
+                <p>Review every entry with full audit trail. Linked support schedules and approval workflows prove control effectiveness.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <h2 class="section-title">Pricing</h2>
+        <p class="section-subtitle">Transparent, usage-based pricing. No surprises.</p>
+        
+        <div class="pricing-card">
+            <h3 style="font-size: 18px; font-weight: 600; color: #111827; margin-bottom: 8px;">Growth</h3>
+            <p style="font-size: 14px; color: #6B7280; margin-bottom: 16px;">For growing accounting teams</p>
+            <div class="price">$199<span style="font-size: 18px; color: #6B7280;">/month</span></div>
+            <ul style="list-style: none; margin: 24px 0;">
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ 1000 entries/month</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ Approval workflow</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ Template library</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0;">✓ Email support</li>
+            </ul>
+            <button class="btn btn-primary">Start Free Trial</button>
+        </div>
+    </section>
+</body>
+</html>

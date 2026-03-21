@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Process Optimization | Operations Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #FAFAFA;
+      color: #1F2937;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+      padding: 1rem 2rem;
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+      color: #6B7280;
+    }
+
+    .nav-content a {
+      color: #475569;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-content a:hover {
+      color: #1F2937;
+    }
+
+    .nav-separator {
+      margin: 0 0.75rem;
+      color: #D1D5DB;
+    }
+
+    header {
+      background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
+      padding: 4rem 2rem;
+      border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .skill-badge {
+      display: inline-block;
+      background: #475569;
+      color: white;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #0F172A;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      color: #4B5563;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: #475569;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #334155;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(71, 85, 105, 0.2);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #475569;
+      border: 1.5px solid #475569;
+    }
+
+    .btn-secondary:hover {
+      background: #475569;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #0F172A;
+    }
+
+    .section-subtitle {
+      color: #6B7280;
+      margin-bottom: 3rem;
+      font-size: 1.025rem;
+    }
+
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .capability-card {
+      background: white;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .capability-card:hover {
+      border-color: #475569;
+      box-shadow: 0 12px 24px rgba(71, 85, 105, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .capability-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .capability-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #0F172A;
+    }
+
+    .capability-card p {
+      color: #6B7280;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .use-cases {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 3rem;
+      margin-bottom: 5rem;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .use-case-item {
+      padding: 1.5rem;
+      background: #F8FAFC;
+      border-radius: 0.5rem;
+      border-left: 3px solid #475569;
+    }
+
+    .use-case-item h4 {
+      font-weight: 600;
+      color: #0F172A;
+      margin-bottom: 0.5rem;
+    }
+
+    .use-case-item p {
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+
+    .integrations {
+      margin-bottom: 5rem;
+    }
+
+    .integration-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .pill {
+      background: white;
+      border: 1px solid #D1D5DB;
+      color: #475569;
+      padding: 0.625rem 1.25rem;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .pill:hover {
+      border-color: #475569;
+      box-shadow: 0 4px 12px rgba(71, 85, 105, 0.1);
+    }
+
+    .audience-section {
+      margin-bottom: 5rem;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .audience-card {
+      background: white;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .audience-card:hover {
+      border-color: #475569;
+      box-shadow: 0 8px 16px rgba(71, 85, 105, 0.08);
+    }
+
+    .audience-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .audience-card h3 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #0F172A;
+    }
+
+    .audience-card p {
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+
+    .pricing-section {
+      background: #F8FAFC;
+      border-radius: 0.75rem;
+      padding: 3rem;
+      text-align: center;
+      margin-bottom: 5rem;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .pricing-placeholder {
+      font-size: 1.125rem;
+      color: #6B7280;
+      margin-top: 1.5rem;
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid rgba(71, 85, 105, 0.1);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: #6B7280;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .hero-description {
+        font-size: 1rem;
+      }
+
+      .capabilities-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-content">
+      <a href="#">← Marketplace</a>
+      <span class="nav-separator">/</span>
+      <a href="#">Operations</a>
+      <span class="nav-separator">/</span>
+      <span>Process Optimization</span>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-content">
+      <span class="skill-badge">SKILL</span>
+      <div class="hero-icon">⚡</div>
+      <h1>Process Optimization</h1>
+      <p class="hero-description">
+        Your workflows are bleeding time and money. Find the exact bottlenecks choking performance, quantify waste, and prioritize improvements with surgical precision. Cut cycle times in half while cutting costs. Data-driven optimization, not intuition.
+      </p>
+      <div class="cta-group">
+        <button class="btn btn-primary">Add to Workspace</button>
+        <button class="btn btn-secondary">Learn More</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <section>
+      <h2 class="section-title">Core Capabilities</h2>
+      <p class="section-subtitle">What you can do with Process Optimization</p>
+      <div class="capabilities-grid">
+        <div class="capability-card">
+          <div class="capability-icon">📊</div>
+          <h3>Bottleneck Analysis</h3>
+          <p>Map process timing. Find where work stalls. Show % cycle time lost at each step. Pinpoint the 3-5 spots that matter most.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">📉</div>
+          <h3>Waste Quantification</h3>
+          <p>Measure rework loops, approval delays, manual handoffs. Calculate $$ cost of each inefficiency. Make the business case for action.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">🎯</div>
+          <h3>Improvement Prioritization</h3>
+          <p>Rank opportunities by impact/effort. Know which fixes save 30 hours/month vs 2. Plan roadmap with confidence.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">🔄</div>
+          <h3>Lean/Six Sigma Templates</h3>
+          <p>Pre-built Value Stream Maps, fishbone diagrams, DMAIC worksheets. Industry-standard formats your team recognizes.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">📈</div>
+          <h3>Before/After Metrics</h3>
+          <p>Track KPIs month-over-month. Show the real impact of changes you've made. Prove optimization ROI to leadership.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">🚀</div>
+          <h3>Quick-Win Identification</h3>
+          <p>Spot low-hanging fruit: tool automation, policy tweaks, reordering steps. Quick wins fund bigger initiatives.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="use-cases">
+      <h2 class="section-title">Perfect For</h2>
+      <div class="use-cases-grid">
+        <div class="use-case-item">
+          <h4>Cycle Time Reduction</h4>
+          <p>Procurement taking 30 days? Customer onboarding 3 weeks? Find why. Cut it to 5 days with data-driven changes.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Cost Cutting Under Pressure</h4>
+          <p>Margin squeezed? No new headcount. Optimize instead. Reduce operational cost 20-40% by eliminating waste.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Quality Escapes</h4>
+          <p>Defects slipping through? Map where QA checks are weak. Restructure to catch issues earlier, cheaper.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Team Burnout / Overwork</h4>
+          <p>Your team works weekends. Workflow broken, not people weak. Find what steals 30 hours/week and fix it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="integrations">
+      <h2 class="section-title">Works With</h2>
+      <div class="integration-pills">
+        <span class="pill">Tableau</span>
+        <span class="pill">Power BI</span>
+        <span class="pill">Process mining tools</span>
+        <span class="pill">Jira</span>
+        <span class="pill">Time tracking apps</span>
+        <span class="pill">ERP systems</span>
+        <span class="pill">Google Sheets</span>
+        <span class="pill">Miro</span>
+      </div>
+    </section>
+
+    <section class="audience-section">
+      <h2 class="section-title">Built For</h2>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="audience-icon">📊</div>
+          <h3>Finance/CFO Teams</h3>
+          <p>Cost reduction mandates? Quantify operational waste and fund improvements with ROI proof.</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">⚙️</div>
+          <h3>Operations Leadership</h3>
+          <p>Own the cycle times and cost metrics. Deliver predictable improvements quarter after quarter.</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🏭</div>
+          <h3>Manufacturing/Logistics</h3>
+          <p>Lean and continuous improvement. Tools you know, powered by data you can trust.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <h2 class="section-title">Pricing</h2>
+      <p class="pricing-placeholder">Pay-as-you-optimize model: Use case credits start at $500/month. ROI-based pricing available for enterprise.</p>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Operations Marketplace. All rights reserved.</p>
+  </footer>
+</body>
+</html>

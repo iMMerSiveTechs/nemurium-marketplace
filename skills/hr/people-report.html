@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People Report | HR Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        nav a { 
+            color: #7C3AED; 
+            text-decoration: none; 
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        nav span { color: #9CA3AF; }
+
+        .hero {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .hero-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        .skill-badge {
+            display: inline-block;
+            background: rgba(124, 58, 237, 0.1);
+            color: #7C3AED;
+            padding: 0.4rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: #4B5563;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: #7C3AED;
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        }
+        .btn-primary:hover {
+            background: #6D28D9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+        }
+        .btn-secondary {
+            background: white;
+            color: #7C3AED;
+            border: 2px solid #7C3AED;
+        }
+        .btn-secondary:hover {
+            background: rgba(124, 58, 237, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .capabilities {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #111827;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            box-shadow: 0 12px 24px rgba(124, 58, 237, 0.08);
+            border-color: #7C3AED;
+            transform: translateY(-4px);
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+        .card p {
+            color: #4B5563;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .use-cases {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .use-case-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #7C3AED;
+        }
+        .use-case-item h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        .use-case-item p {
+            color: #4B5563;
+            font-size: 0.95rem;
+        }
+
+        .works-with {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        .pill {
+            background: rgba(124, 58, 237, 0.1);
+            color: #7C3AED;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .audience {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .audience-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+        .audience-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        .audience-card p {
+            font-size: 0.9rem;
+            color: #4B5563;
+        }
+
+        .pricing {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+        }
+        .pricing h3 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+        .pricing p {
+            color: #4B5563;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #E5E7EB;
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .cta-group { flex-direction: column; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#">← Marketplace</a>
+        <span>/</span>
+        <a href="#">Human Resources</a>
+        <span>/</span>
+        <span>People Report</span>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-icon">📊</div>
+        <div class="skill-badge">SKILL</div>
+        <h1>People Report</h1>
+        <p>Visualize organizational health with real-time dashboards covering headcount, attrition, diversity, engagement, and flight risk. Give leadership the metrics they need to make informed people decisions.</p>
+        <div class="cta-group">
+            <button class="btn btn-primary">Start Free Trial</button>
+            <button class="btn btn-secondary">Request Demo</button>
+        </div>
+    </div>
+
+    <section class="capabilities">
+        <h2 class="section-title">Core Capabilities</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>Headcount Dashboards</h3>
+                <p>Real-time visibility into current headcount by department, level, location, and status. Track open requisitions, time-to-fill, and hiring pipeline against targets.</p>
+            </div>
+            <div class="card">
+                <h3>Attrition Analytics</h3>
+                <p>Measure voluntary and involuntary attrition by cohort, tenure, department, and manager. Benchmark against industry norms. Identify departments with high turnover.</p>
+            </div>
+            <div class="card">
+                <h3>Diversity Metrics</h3>
+                <p>Track representation by gender, ethnicity, age, and disability status across levels. Set diversity goals and monitor progress. Compare hiring, promotion, and attrition rates by demographic.</p>
+            </div>
+            <div class="card">
+                <h3>Engagement & Survey Analytics</h3>
+                <p>Visualize engagement scores, eNPS, and sentiment trends. Drill down by team, role, and manager. Correlate engagement with attrition and performance.</p>
+            </div>
+            <div class="card">
+                <h3>Flight Risk Scoring</h3>
+                <p>Identify high-risk employees using tenure, engagement, performance, and compensation signals. Generate targeted retention lists and intervention recommendations.</p>
+            </div>
+            <div class="card">
+                <h3>Custom Reports & Exports</h3>
+                <p>Build custom people dashboards for executives, department heads, and board reporting. Schedule automated reports and export data for further analysis.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="use-cases">
+        <h2 class="section-title">Common Use Cases</h2>
+        <div class="use-case-item">
+            <h4>Board & Investor Reporting</h4>
+            <p>Create executive dashboards on headcount burn, attrition, and diversity. Show board members the health of your people organization at a glance.</p>
+        </div>
+        <div class="use-case-item">
+            <h4>Department Head Updates</h4>
+            <p>Give managers visibility into their team's metrics: headcount vs. plan, attrition trends, engagement scores. Facilitate accountability and continuous improvement.</p>
+        </div>
+        <div class="use-case-item">
+            <h4>Predictive Attrition Campaigns</h4>
+            <p>Use flight risk models to identify flight risks before they leave. Execute targeted retention campaigns for high-value employees at risk.</p>
+        </div>
+        <div class="use-case-item">
+            <h4>Diversity & Inclusion Tracking</h4>
+            <p>Measure progress toward diversity goals. Analyze representation at each level and major department. Inform recruitment and promotion strategies with data.</p>
+        </div>
+    </section>
+
+    <section class="works-with">
+        <h2 class="section-title">Works With</h2>
+        <div class="pills">
+            <div class="pill">Onboarding</div>
+            <div class="pill">Comp Analysis</div>
+            <div class="pill">Performance Review</div>
+            <div class="pill">Org Planning</div>
+            <div class="pill">Workday</div>
+            <div class="pill">ADP</div>
+            <div class="pill">Tableau</div>
+            <div class="pill">Looker</div>
+        </div>
+
+        <h2 class="section-title">Built For</h2>
+        <div class="audience">
+            <div class="audience-card">
+                <h4>CFOs & Finance</h4>
+                <p>Monitor talent spend and headcount trends vs. plan.</p>
+            </div>
+            <div class="audience-card">
+                <h4>Chief People Officers</h4>
+                <p>Oversee organizational health and DEI progress.</p>
+            </div>
+            <div class="audience-card">
+                <h4>Department Heads</h4>
+                <p>Manage your team's headcount and engagement.</p>
+            </div>
+            <div class="audience-card">
+                <h4>Board Members</h4>
+                <p>Get visibility into organizational risk and attrition trends.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <h3>Pricing & Availability</h3>
+        <p>People Report is available on a per-organization annual basis with pricing based on employee count. Includes unlimited dashboards, custom reports, and automated scheduling. <strong>Get a personalized pricing quote.</strong></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 HR Marketplace. All rights reserved. <a href="#" style="color: #7C3AED; text-decoration: none;">Terms</a> • <a href="#" style="color: #7C3AED; text-decoration: none;">Privacy</a></p>
+    </footer>
+</body>
+</html>

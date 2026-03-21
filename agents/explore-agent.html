@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Agent - Claude Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-light: #EEF2FF;
+            --bg-light: #FAFAFA;
+            --bg-white: #FFFFFF;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+            --success: #10B981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--primary);
+        }
+
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb span {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, var(--primary), #5B5FFF);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.2);
+        }
+
+        .badge-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge.live {
+            background: #DCFCE7;
+            color: var(--success);
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-description {
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .cta-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cta-primary:hover {
+            background: #4338CA;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(79, 70, 229, 0.3);
+        }
+
+        .cta-secondary {
+            background: var(--bg-white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .cta-secondary:hover {
+            background: var(--primary-light);
+        }
+
+        /* Capabilities Section */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .capability-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .capability-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .capability-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .capability-description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .use-case {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .use-case-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50%;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .use-case-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .use-case-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Integrations */
+        .integrations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .integration-pill {
+            padding: 0.5rem 1.25rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--primary);
+        }
+
+        /* Audience Cards */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .audience-card {
+            background: var(--bg-white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .audience-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .audience-name {
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .audience-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: var(--bg-white);
+            border: 2px solid var(--primary);
+            padding: 2.5rem;
+            border-radius: 12px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .pricing-tier {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-period {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-cta:hover {
+            background: #4338CA;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-white);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .use-cases {
+                grid-template-columns: 1fr;
+            }
+
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="#" class="nav-back">← Marketplace</a>
+                <div class="breadcrumb">Agents / <span>Explore</span></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-icon">🔭</div>
+        <div class="badge-group">
+            <span class="badge">AGENT</span>
+            <span class="badge live"><span class="live-dot"></span> LIVE</span>
+        </div>
+        <h1>Explore Agent</h1>
+        <p class="hero-description">
+            The fast codebase explorer that learns your architecture in minutes. Configure search depth from quick scans to thorough analysis. Understand patterns, dependencies, and data flow without getting lost in the details.
+        </p>
+        <div class="cta-group">
+            <button class="cta-button cta-primary">Get Started →</button>
+            <button class="cta-button cta-secondary">View Documentation</button>
+        </div>
+    </section>
+
+    <!-- Key Capabilities -->
+    <section class="section">
+        <h2 class="section-title">Key Capabilities</h2>
+        <div class="capabilities-grid">
+            <div class="capability-card">
+                <div class="capability-icon">🔍</div>
+                <div class="capability-name">Pattern-Based File Search</div>
+                <p class="capability-description">Smart pattern matching to find related files. Discovers authentication flows, API handlers, or database queries instantly.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🎯</div>
+                <div class="capability-name">Keyword Code Search</div>
+                <p class="capability-description">Find code by intent. Search for "error handling" and get all error handlers. Search for "validation" and see all input validators.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🏗️</div>
+                <div class="capability-name">Architecture Understanding</div>
+                <p class="capability-description">Automatically maps module relationships, layer separation, and design patterns. Understands your codebase structure instantly.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⚙️</div>
+                <div class="capability-name">Configurable Depth</div>
+                <p class="capability-description">Choose your exploration depth: Quick (5-minute overview), Medium (detailed understanding), or Very Thorough (comprehensive analysis).</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔗</div>
+                <div class="capability-name">Cross-Reference Analysis</div>
+                <p class="capability-description">Follow the call chain. Understand who calls whom, what depends on what, and how changes ripple through your system.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📦</div>
+                <div class="capability-name">Dependency Mapping</div>
+                <p class="capability-description">Visualize your dependency graph. Identify circular dependencies, dead code, and architectural improvements.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="section">
+        <h2 class="section-title">Real-World Use Cases</h2>
+        <div class="use-cases">
+            <div class="use-case">
+                <div class="use-case-number">1</div>
+                <div class="use-case-title">How Does Authentication Work?</div>
+                <p class="use-case-description">Start with a login route and follow the chain. Understand password hashing, session management, token generation, and middleware integration in minutes.</p>
+            </div>
+            <div class="use-case">
+                <div class="use-case-number">2</div>
+                <div class="use-case-title">Find All API Endpoints & Handlers</div>
+                <p class="use-case-description">Discover every route, its handler, request/response structure, and middleware stack. Perfect for documenting undocumented APIs.</p>
+            </div>
+            <div class="use-case">
+                <div class="use-case-number">3</div>
+                <div class="use-case-title">Trace Data Flow for a Feature</div>
+                <p class="use-case-description">Follow a user action from the UI through API calls, database queries, and back to the response. Understand how data moves through your system.</p>
+            </div>
+            <div class="use-case">
+                <div class="use-case-number">4</div>
+                <div class="use-case-title">Onboard to New Codebase in Minutes</div>
+                <p class="use-case-description">New to a project? The Explore Agent gives you an instant tour. Learn the architecture, key patterns, and important files without reading docs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations -->
+    <section class="section">
+        <h2 class="section-title">Works With</h2>
+        <div class="integrations">
+            <span class="integration-pill">Claude Code CLI</span>
+            <span class="integration-pill">File Analysis</span>
+            <span class="integration-pill">Code Search</span>
+            <span class="integration-pill">Git History</span>
+            <span class="integration-pill">Type Systems</span>
+            <span class="integration-pill">Documentation Generators</span>
+            <span class="integration-pill">Dependency Analyzers</span>
+            <span class="integration-pill">IDE Integration</span>
+        </div>
+    </section>
+
+    <!-- Who It's For -->
+    <section class="section">
+        <h2 class="section-title">Who It's For</h2>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-emoji">🆕</div>
+                <div class="audience-name">New Team Members</div>
+                <p class="audience-description">Accelerate onboarding from weeks to days. Understand the codebase, architecture, and key patterns immediately.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-emoji">🔧</div>
+                <div class="audience-name">Maintainers</div>
+                <p class="audience-description">Deep-dive into legacy codebases, understand what was written, why, and where technical debt lives.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-emoji">📋</div>
+                <div class="audience-name">Documentation Teams</div>
+                <p class="audience-description">Auto-generate accurate documentation by exploring code structure. Keep docs in sync with reality.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section">
+        <h2 class="section-title">Pricing</h2>
+        <div class="pricing-card">
+            <div class="pricing-tier">Starter</div>
+            <div class="pricing-amount">$9<span style="font-size: 0.6em; color: var(--text-muted);">/mo</span></div>
+            <div class="pricing-period">Billed monthly. Cancel anytime.</div>
+            <ul class="pricing-features">
+                <li>Unlimited explorations</li>
+                <li>All search depths</li>
+                <li>Architecture mapping</li>
+                <li>Email support</li>
+                <li>Single user</li>
+                <li>Export results as JSON</li>
+            </ul>
+            <button class="pricing-cta">Start Free Trial</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Claude Marketplace. All rights reserved.</p>
+    </footer>
+</body>
+</html>

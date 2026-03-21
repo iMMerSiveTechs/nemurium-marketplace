@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding | HR Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        nav a { 
+            color: #7C3AED; 
+            text-decoration: none; 
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        nav span { color: #9CA3AF; }
+
+        .hero {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .hero-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        .skill-badge {
+            display: inline-block;
+            background: rgba(124, 58, 237, 0.1);
+            color: #7C3AED;
+            padding: 0.4rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: #4B5563;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: #7C3AED;
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        }
+        .btn-primary:hover {
+            background: #6D28D9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+        }
+        .btn-secondary {
+            background: white;
+            color: #7C3AED;
+            border: 2px solid #7C3AED;
+        }
+        .btn-secondary:hover {
+            background: rgba(124, 58, 237, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .capabilities {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #111827;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            box-shadow: 0 12px 24px rgba(124, 58, 237, 0.08);
+            border-color: #7C3AED;
+            transform: translateY(-4px);
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+        .card p {
+            color: #4B5563;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .use-cases {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .use-case-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #7C3AED;
+        }
+        .use-case-item h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        .use-case-item p {
+            color: #4B5563;
+            font-size: 0.95rem;
+        }
+
+        .works-with {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        .pill {
+            background: rgba(124, 58, 237, 0.1);
+            color: #7C3AED;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .audience {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .audience-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+        .audience-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        .audience-card p {
+            font-size: 0.9rem;
+            color: #4B5563;
+        }
+
+        .pricing {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+        }
+        .pricing h3 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+        .pricing p {
+            color: #4B5563;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #E5E7EB;
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .cta-group { flex-direction: column; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#">← Marketplace</a>
+        <span>/</span>
+        <a href="#">Human Resources</a>
+        <span>/</span>
+        <span>Onboarding</span>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-icon">🎉</div>
+        <div class="skill-badge">SKILL</div>
+        <h1>Onboarding</h1>
+        <p>Orchestrate your new hire experience from offer acceptance through first 90 days. Pre-start task lists, first-week agendas, manager coaching, and milestone check-ins ensure retention, ramp speed, and cultural integration.</p>
+        <div class="cta-group">
+            <button class="btn btn-primary">Start Free Trial</button>
+            <button class="btn btn-secondary">Request Demo</button>
+        </div>
+    </div>
+
+    <section class="capabilities">
+        <h2 class="section-title">Core Capabilities</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>Pre-Start Task Management</h3>
+                <p>Auto-generate checklists for IT provisioning, facilities setup, background checks, and compliance training. Track completion and escalate blockers before the hire's first day.</p>
+            </div>
+            <div class="card">
+                <h3>First-Week Onboarding Plans</h3>
+                <p>Hour-by-hour agendas with meet-and-greets, system access walkthroughs, team introductions, and lunch buddies. Make day one less overwhelming, more welcoming.</p>
+            </div>
+            <div class="card">
+                <h3>Manager Onboarding Coaching</h3>
+                <p>Guide managers through the first 1:1s, goal setting, culture conversation, and feedback conversations. Equip them to set their new hire up for success.</p>
+            </div>
+            <div class="card">
+                <h3>30/60/90-Day Milestones</h3>
+                <p>Structured milestone check-ins with competency mapping, learning plans, and feedback loops. Track ramp progress and adjust support as needed.</p>
+            </div>
+            <div class="card">
+                <h3>Buddy & Mentor Programs</h3>
+                <p>Match new hires with peer mentors, peers from their background, or learning buddies. Accelerate cultural integration and informal knowledge transfer.</p>
+            </div>
+            <div class="card">
+                <h3>Engagement Surveys</h3>
+                <p>Pulse checks at day 7, day 30, day 60, and day 90. Spot early flight risk, culture gaps, and onboarding friction points before they cause attrition.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="use-cases">
+        <h2 class="section-title">Common Use Cases</h2>
+        <div class="use-case-item">
+            <h4>High-Volume Onboarding (50+ hires/month)</h4>
+            <p>Standardize onboarding across multiple roles, locations, and teams. Reduce IT bottlenecks and ensure new hires get consistent experiences despite scale.</p>
+        </div>
+        <div class="use-case-item">
+            <h4>Remote & Distributed Teams</h4>
+            <p>Asynchronous onboarding, time-zone-friendly buddy matching, and virtual culture building. Make remote hires feel integrated despite never meeting in person.</p>
+        </div>
+        <div class="use-case-item">
+            <h4>Reducing First-Year Attrition</h4>
+            <p>Most departures happen in the first 90 days. Use engagement surveys and manager touchpoints to spot disengagement early and intervene.</p>
+        </div>
+        <div class="use-case-item">
+            <h4>Ramp Acceleration</h4>
+            <p>Track milestone completion and skill acquisition. Identify which onboarding patterns correlate with faster productivity and replicate them.</p>
+        </div>
+    </section>
+
+    <section class="works-with">
+        <h2 class="section-title">Works With</h2>
+        <div class="pills">
+            <div class="pill">Draft Offer</div>
+            <div class="pill">Interview Prep</div>
+            <div class="pill">Performance Review</div>
+            <div class="pill">People Report</div>
+            <div class="pill">Workday</div>
+            <div class="pill">Slack</div>
+            <div class="pill">Office 365</div>
+            <div class="pill">ServiceNow</div>
+        </div>
+
+        <h2 class="section-title">Built For</h2>
+        <div class="audience">
+            <div class="audience-card">
+                <h4>People Operations</h4>
+                <p>Orchestrate onboarding at scale with checklists and task automation.</p>
+            </div>
+            <div class="audience-card">
+                <h4>Hiring Managers</h4>
+                <p>Get coached on how to onboard and set new hires up for success.</p>
+            </div>
+            <div class="audience-card">
+                <h4>Talent Leaders</h4>
+                <p>Monitor ramp speed, attrition, and engagement across cohorts.</p>
+            </div>
+            <div class="audience-card">
+                <h4>IT & Facilities</h4>
+                <p>Get clear visibility into pre-start requirements and deadlines.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <h3>Pricing & Availability</h3>
+        <p>Onboarding is available per-employee with annual licensing. Includes unlimited onboarding plans, 30/60/90 day tracking, and engagement surveys. <strong>Talk to sales for volume pricing.</strong></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 HR Marketplace. All rights reserved. <a href="#" style="color: #7C3AED; text-decoration: none;">Terms</a> • <a href="#" style="color: #7C3AED; text-decoration: none;">Privacy</a></p>
+    </footer>
+</body>
+</html>

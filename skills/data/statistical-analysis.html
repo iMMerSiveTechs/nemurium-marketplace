@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistical Analysis - Data & Analytics Skills</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+        
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1rem 2rem;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+        
+        .breadcrumb a {
+            color: #0891B2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .breadcrumb a:hover {
+            color: #0369A1;
+        }
+        
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        
+        .icon-badge {
+            display: inline-flex;
+            width: 80px;
+            height: 80px;
+            background: #E0F2FE;
+            border-radius: 20px;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #0F172A;
+        }
+        
+        .tagline {
+            font-size: 1.25rem;
+            color: #4B5563;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: #0891B2;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0369A1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(8, 145, 178, 0.2);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #0891B2;
+            border: 2px solid #0891B2;
+        }
+        
+        .btn-secondary:hover {
+            background: #F0F9FF;
+            transform: translateY(-2px);
+        }
+        
+        .section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #0F172A;
+        }
+        
+        .capabilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .capability-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+        
+        .capability-card:hover {
+            border-color: #0891B2;
+            box-shadow: 0 10px 30px rgba(8, 145, 178, 0.1);
+            transform: translateY(-4px);
+        }
+        
+        .capability-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .capability-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0F172A;
+        }
+        
+        .capability-card p {
+            color: #6B7280;
+            font-size: 0.95rem;
+        }
+        
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .use-case {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #0891B2;
+        }
+        
+        .use-case h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #0F172A;
+        }
+        
+        .use-case p {
+            color: #6B7280;
+            font-size: 0.95rem;
+        }
+        
+        .pills-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 2rem 0;
+        }
+        
+        .pill {
+            display: inline-block;
+            background: #F3F4F6;
+            color: #374151;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .pill.accent {
+            background: #E0F2FE;
+            color: #0369A1;
+            border-color: #BAE6FD;
+        }
+        
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .audience-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+        
+        .audience-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .audience-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0F172A;
+        }
+        
+        .audience-card p {
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+        
+        .pricing-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+        
+        .pricing-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #0F172A;
+        }
+        
+        .pricing-placeholder {
+            color: #6B7280;
+            font-size: 1rem;
+            margin: 2rem 0;
+        }
+        
+        footer {
+            margin-top: 6rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6B7280;
+            border-top: 1px solid #E5E7EB;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .section {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="breadcrumb">
+                <a href="/">Home</a> / <a href="/marketplace">Marketplace</a> / <a href="/skills/data">Data & Analytics</a> / Statistical Analysis
+            </div>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="icon-badge">📐</div>
+        <h1>Statistical Analysis</h1>
+        <p class="tagline">Descriptive stats, hypothesis testing, and regression analysis. Move beyond averages into statistical confidence.</p>
+        <div class="cta-group">
+            <button class="btn btn-primary">Run Analysis Now</button>
+            <button class="btn btn-secondary">View Methods</button>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">What You Can Do</h2>
+        <div class="capabilities">
+            <div class="capability-card">
+                <div class="capability-icon">📊</div>
+                <h3>Descriptive Statistics</h3>
+                <p>Mean, median, mode, variance, skewness. Understand your data's fundamental properties.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🧪</div>
+                <h3>Hypothesis Testing</h3>
+                <p>T-tests, chi-square, ANOVA. Test whether differences are real or random chance.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📈</div>
+                <h3>Regression Analysis</h3>
+                <p>Linear, logistic, polynomial. Model relationships and make predictions.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🎯</div>
+                <h3>Confidence Intervals</h3>
+                <p>Quantify uncertainty. Understand ranges, not just point estimates.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📉</div>
+                <h3>Effect Sizes</h3>
+                <p>Understand impact, not just significance. Know what matters practically.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⚠️</div>
+                <h3>Assumption Checking</h3>
+                <p>Normality, homogeneity, independence. Ensure your test is appropriate.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Common Use Cases</h2>
+        <div class="use-cases">
+            <div class="use-case">
+                <h4>A/B Testing</h4>
+                <p>Determine if your experiment actually worked. Statistical rigor for product decisions.</p>
+            </div>
+            <div class="use-case">
+                <h4>Causal Analysis</h4>
+                <p>Did X really cause Y? Move beyond correlation to understanding impact.</p>
+            </div>
+            <div class="use-case">
+                <h4>Forecasting & Prediction</h4>
+                <p>Time series analysis, regression models. Predict what's next with confidence bands.</p>
+            </div>
+            <div class="use-case">
+                <h4>Quality Assurance</h4>
+                <p>Statistical process control, anomaly detection. Keep operations in spec.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Works With</h2>
+        <div class="pills-group">
+            <span class="pill accent">Analyze</span>
+            <span class="pill accent">Create Viz</span>
+            <span class="pill accent">Explore Data</span>
+            <span class="pill">SciPy</span>
+            <span class="pill">Statsmodels</span>
+            <span class="pill">NumPy</span>
+            <span class="pill">Pandas</span>
+            <span class="pill">Python</span>
+            <span class="pill">R</span>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Built For</h2>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">🧪</div>
+                <h4>Product Managers</h4>
+                <p>Run experiments with confidence. Know if your changes actually matter.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">📊</div>
+                <h4>Data Scientists</h4>
+                <p>Rigorous analysis without heavy lifting. Focus on insights, not computation.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🔬</div>
+                <h4>Researchers</h4>
+                <p>Academic and industry research. Statistical methods with publication quality.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">👨‍💼</div>
+                <h4>Business Analysts</h4>
+                <p>Test business hypotheses rigorously. Back decisions with statistics.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="pricing-section">
+            <h3>Flexible Pricing</h3>
+            <p class="pricing-placeholder">Per analysis. Simple tests from $9, complex models up to $99.</p>
+            <button class="btn btn-primary">See Pricing Plans</button>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2026 Data & Analytics Skills. Statistics for everyone, from simple to advanced.</p>
+    </footer>
+</body>
+</html>

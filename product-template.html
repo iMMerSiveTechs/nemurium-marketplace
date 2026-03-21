@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{PRODUCT_NAME}} — AI Toolkit</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-alt: #F7F8FA;
+  --border: #E8ECF1;
+  --border-light: #F0F2F5;
+  --text-primary: #1A1D23;
+  --text-secondary: #5A6170;
+  --text-tertiary: #8B93A1;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --accent: #4F46E5;
+  --accent-light: rgba(79,70,229,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+/* NAV */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border-light);
+  height: 56px;
+  display: flex; align-items: center;
+  padding: 0 40px;
+}
+
+.nav a {
+  color: var(--text-tertiary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+
+.nav a:hover { color: var(--text-primary); }
+
+.nav .sep { margin: 0 10px; color: var(--border); }
+
+.nav .current { color: var(--text-primary); font-weight: 600; }
+
+/* HERO */
+.product-hero {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 80px 40px 60px;
+}
+
+.hero-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.hero-icon {
+  width: 80px; height: 80px;
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+  background: var(--accent-light);
+  flex-shrink: 0;
+}
+
+.hero-meta { flex: 1; }
+
+.hero-badges {
+  display: flex; gap: 8px; align-items: center;
+  margin-bottom: 12px;
+}
+
+.badge {
+  font-size: 12px; font-weight: 600;
+  padding: 4px 12px; border-radius: 6px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+.badge.type-agent { background: rgba(79,70,229,0.1); color: #4F46E5; }
+.badge.type-skill { background: rgba(5,150,105,0.1); color: #059669; }
+.badge.type-connector { background: rgba(99,102,241,0.1); color: #6366F1; }
+.badge.type-tool { background: rgba(30,41,59,0.1); color: #1E293B; }
+
+.badge.live {
+  background: rgba(34,197,94,0.1); color: #16A34A;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.badge.live::before {
+  content: ''; width: 6px; height: 6px;
+  background: #22C55E; border-radius: 50%;
+  box-shadow: 0 0 6px rgba(34,197,94,0.4);
+}
+
+.hero-meta h1 {
+  font-size: 42px; font-weight: 800;
+  letter-spacing: -1px; line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.hero-desc {
+  font-size: 19px; color: var(--text-secondary);
+  line-height: 1.6; max-width: 600px;
+}
+
+/* CTA ROW */
+.cta-row {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.btn {
+  padding: 12px 28px;
+  border-radius: var(--radius-sm);
+  font-size: 15px; font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #4338CA;
+  box-shadow: 0 4px 16px rgba(79,70,229,0.3);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-alt);
+  border-color: #C7D0DB;
+}
+
+/* SECTIONS */
+.content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
+
+.section {
+  margin-bottom: 56px;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-tertiary);
+  margin-bottom: 20px;
+}
+
+/* FEATURE GRID */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all 0.2s ease;
+}
+
+.feature-card:hover {
+  border-color: #D0D5DD;
+  box-shadow: var(--shadow-sm);
+}
+
+.feature-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  background: var(--accent-light);
+  margin-bottom: 14px;
+}
+
+.feature-card h3 {
+  font-size: 16px; font-weight: 650;
+  margin-bottom: 6px;
+}
+
+.feature-card p {
+  font-size: 14px; color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* USE CASES */
+.use-case-list {
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+.use-case {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+
+.use-case-num {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--accent-light);
+  color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700;
+  flex-shrink: 0;
+}
+
+.use-case h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.use-case p { font-size: 14px; color: var(--text-secondary); }
+
+/* INTEGRATIONS */
+.integration-row {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+
+.integration-pill {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 500;
+  transition: all 0.2s;
+}
+
+.integration-pill:hover {
+  border-color: #C7D0DB;
+  box-shadow: var(--shadow-sm);
+}
+
+.integration-pill .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+
+/* AUDIENCE TAGS */
+.audience-row {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+
+.audience-card {
+  flex: 1; min-width: 200px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+}
+
+.audience-card .emoji { font-size: 28px; margin-bottom: 10px; }
+.audience-card h4 { font-size: 15px; font-weight: 650; margin-bottom: 4px; }
+.audience-card p { font-size: 13px; color: var(--text-secondary); }
+
+/* PRICING PLACEHOLDER */
+.pricing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+  text-align: center;
+}
+
+.pricing-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.pricing-card .price { font-size: 48px; font-weight: 800; letter-spacing: -2px; margin-bottom: 8px; }
+.pricing-card .per { font-size: 14px; color: var(--text-tertiary); margin-bottom: 24px; }
+
+.pricing-features {
+  text-align: left;
+  max-width: 360px;
+  margin: 0 auto 32px;
+}
+
+.pricing-features li {
+  list-style: none;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.pricing-features li::before {
+  content: '✓';
+  color: #22C55E;
+  font-weight: 700;
+}
+
+/* FOOTER */
+.product-footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 40px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-tertiary);
+  font-size: 13px;
+}
+
+.product-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav, .product-hero, .content, .product-footer { padding-left: 20px; padding-right: 20px; }
+  .product-hero { padding-top: 48px; }
+  .hero-top { flex-direction: column; }
+  .hero-meta h1 { font-size: 28px; }
+  .hero-desc { font-size: 16px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .audience-row { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- Replace {{PLACEHOLDERS}} when generating individual pages -->
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html">← Marketplace</a>
+  <span class="sep">/</span>
+  <span class="current">{{PRODUCT_NAME}}</span>
+</nav>
+
+<!-- HERO -->
+<section class="product-hero">
+  <div class="hero-top">
+    <div class="hero-icon">{{ICON}}</div>
+    <div class="hero-meta">
+      <div class="hero-badges">
+        <span class="badge type-{{TYPE}}">{{TYPE}}</span>
+        <!-- Add if live: <span class="badge live">Live</span> -->
+      </div>
+      <h1>{{PRODUCT_NAME}}</h1>
+      <p class="hero-desc">{{LONG_DESCRIPTION}}</p>
+    </div>
+  </div>
+  <div class="cta-row">
+    <button class="btn btn-primary">Get Started →</button>
+    <button class="btn btn-secondary">View Documentation</button>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- KEY CAPABILITIES -->
+  <div class="section">
+    <div class="section-title">Key Capabilities</div>
+    <div class="feature-grid">
+      <!-- Repeat for each capability -->
+      <div class="feature-card">
+        <div class="feature-icon">{{CAP_ICON}}</div>
+        <h3>{{CAPABILITY_NAME}}</h3>
+        <p>{{CAPABILITY_DESC}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- USE CASES -->
+  <div class="section">
+    <div class="section-title">Use Cases</div>
+    <div class="use-case-list">
+      <div class="use-case">
+        <div class="use-case-num">1</div>
+        <div>
+          <h4>{{USE_CASE_TITLE}}</h4>
+          <p>{{USE_CASE_DESC}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKS WITH -->
+  <div class="section">
+    <div class="section-title">Works With</div>
+    <div class="integration-row">
+      <div class="integration-pill">
+        <span class="dot" style="background:#4F46E5"></span>
+        {{INTEGRATION_NAME}}
+      </div>
+    </div>
+  </div>
+
+  <!-- WHO IT'S FOR -->
+  <div class="section">
+    <div class="section-title">Who It's For</div>
+    <div class="audience-row">
+      <div class="audience-card">
+        <div class="emoji">👤</div>
+        <h4>Solopreneurs</h4>
+        <p>Automate workflows that would take a team of 5</p>
+      </div>
+      <div class="audience-card">
+        <div class="emoji">🏢</div>
+        <h4>Enterprise</h4>
+        <p>Production-ready with compliance and audit trails</p>
+      </div>
+      <div class="audience-card">
+        <div class="emoji">💻</div>
+        <h4>Developers</h4>
+        <p>Full API access, composable with other tools</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section">
+    <div class="section-title">Pricing</div>
+    <div class="pricing-card">
+      <h3>{{PRODUCT_NAME}}</h3>
+      <div class="price">$XX</div>
+      <div class="per">per month / per seat</div>
+      <ul class="pricing-features">
+        <li>Full feature access</li>
+        <li>Unlimited usage</li>
+        <li>All integrations included</li>
+        <li>Priority support</li>
+        <li>Enterprise SSO available</li>
+      </ul>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;">Start Free Trial</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="product-footer">
+  <span>AI Toolkit © 2026</span>
+  <a href="index.html">← Back to Marketplace</a>
+</footer>
+
+</body>
+</html>

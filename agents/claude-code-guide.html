@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Guide - Claude Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-light: #EEF2FF;
+            --bg-light: #FAFAFA;
+            --bg-white: #FFFFFF;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+            --success: #10B981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--primary);
+        }
+
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb span {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, var(--primary), #5B5FFF);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.2);
+        }
+
+        .badge-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge.live {
+            background: #DCFCE7;
+            color: var(--success);
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-description {
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .cta-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cta-primary:hover {
+            background: #4338CA;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(79, 70, 229, 0.3);
+        }
+
+        .cta-secondary {
+            background: var(--bg-white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .cta-secondary:hover {
+            background: var(--primary-light);
+        }
+
+        /* Capabilities Section */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .capability-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .capability-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .capability-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .capability-description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .use-case {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .use-case-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50%;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .use-case-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .use-case-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Integrations */
+        .integrations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .integration-pill {
+            padding: 0.5rem 1.25rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--primary);
+        }
+
+        /* Audience Cards */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .audience-card {
+            background: var(--bg-white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .audience-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .audience-name {
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .audience-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: var(--bg-white);
+            border: 2px solid var(--primary);
+            padding: 2.5rem;
+            border-radius: 12px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .pricing-tier {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-period {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-cta:hover {
+            background: #4338CA;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-white);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .use-cases {
+                grid-template-columns: 1fr;
+            }
+
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="#" class="nav-back">← Marketplace</a>
+                <div class="breadcrumb">Resources / <span>Claude Code Guide</span></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-icon">📖</div>
+        <div class="badge-group">
+            <span class="badge">RESOURCE</span>
+            <span class="badge live"><span class="live-dot"></span> LIVE</span>
+        </div>
+        <h1>Claude Code Guide</h1>
+        <p class="hero-description">
+            Your expert reference for Claude Code CLI, the Agent SDK, and Claude API. Get detailed guidance on hooks, plugins, MCP servers, and best practices for building powerful AI-driven development tools.
+        </p>
+        <div class="cta-group">
+            <button class="cta-button cta-primary">Get Started →</button>
+            <button class="cta-button cta-secondary">View Documentation</button>
+        </div>
+    </section>
+
+    <!-- Key Capabilities -->
+    <section class="section">
+        <h2 class="section-title">Key Capabilities</h2>
+        <div class="capabilities-grid">
+            <div class="capability-card">
+                <div class="capability-icon">⌨️</div>
+                <div class="capability-name">CLI Feature Reference</div>
+                <p class="capability-description">Complete guide to Claude Code commands, flags, and options. Learn workflows, aliases, and powerful command combinations.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🪝</div>
+                <div class="capability-name">Hooks & Plugin Guidance</div>
+                <p class="capability-description">Setup pre-commit hooks, git integration, editor plugins. Automate workflows and integrate Claude into your development pipeline.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔌</div>
+                <div class="capability-name">MCP Server Setup</div>
+                <p class="capability-description">Build custom Model Context Protocol servers. Connect Claude to proprietary tools, databases, and APIs with step-by-step guidance.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">💻</div>
+                <div class="capability-name">IDE Integration Help</div>
+                <p class="capability-description">Configure VS Code, Vim, Emacs, JetBrains IDEs. Get Claude inline assistance in your favorite editor.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🤖</div>
+                <div class="capability-name">Agent SDK Patterns</div>
+                <p class="capability-description">Build agents with the official Agent SDK. Learn patterns for state management, tool orchestration, and error handling.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⚡</div>
+                <div class="capability-name">API Best Practices</div>
+                <p class="capability-description">Optimize cost, latency, and reliability. Learn caching strategies, batch processing, streaming, and advanced prompt engineering.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="section">
+        <h2 class="section-title">Real-World Use Cases</h2>
+        <div class="use-cases">
+            <div class="use-case">
+                <div class="use-case-number">1</div>
+                <div class="use-case-title">Setting Up Custom MCP Servers</div>
+                <p class="use-case-description">Connect Claude to your internal APIs, proprietary databases, or specialized tools. Complete implementation guide from server development to deployment.</p>
+            </div>
+            <div class="use-case">
+                <div class="use-case-number">2</div>
+                <div class="use-case-title">Configuring Pre-Commit Hooks</div>
+                <p class="use-case-description">Automatically run code quality checks, linting, and testing before commits. Learn hook setup, error handling, and bypass options.</p>
+            </div>
+            <div class="use-case">
+                <div class="use-case-number">3</div>
+                <div class="use-case-title">Building Custom Agents with SDK</div>
+                <p class="use-case-description">Create autonomous agents for your specific use cases. Learn state machines, tool selection, and human-in-the-loop patterns.</p>
+            </div>
+            <div class="use-case">
+                <div class="use-case-number">4</div>
+                <div class="use-case-title">Optimizing API Calls for Cost & Latency</div>
+                <p class="use-case-description">Reduce API costs by 60% and latency by 80%. Learn prompt caching, batch processing, and intelligent request routing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations -->
+    <section class="section">
+        <h2 class="section-title">Works With</h2>
+        <div class="integrations">
+            <span class="integration-pill">Claude Code CLI</span>
+            <span class="integration-pill">Agent SDK</span>
+            <span class="integration-pill">Claude API</span>
+            <span class="integration-pill">MCP Protocol</span>
+            <span class="integration-pill">VS Code</span>
+            <span class="integration-pill">Git</span>
+            <span class="integration-pill">Docker</span>
+            <span class="integration-pill">GitHub Actions</span>
+        </div>
+    </section>
+
+    <!-- Who It's For -->
+    <section class="section">
+        <h2 class="section-title">Who It's For</h2>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-emoji">👨‍💼</div>
+                <div class="audience-name">Engineering Teams</div>
+                <p class="audience-description">Integrate Claude into your workflow. Learn patterns, best practices, and optimization techniques for team-scale deployment.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-emoji">🔧</div>
+                <div class="audience-name">DevOps/Platform Engineers</div>
+                <p class="audience-description">Setup MCP servers, configure hooks, manage infrastructure. Build systems that leverage Claude across your organization.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-emoji">🚀</div>
+                <div class="audience-name">AI/ML Engineers</div>
+                <p class="audience-description">Build sophisticated agents and AI applications. Master the Agent SDK and advanced API patterns for production systems.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section">
+        <h2 class="section-title">Access</h2>
+        <div class="pricing-card">
+            <div class="pricing-tier">Always Free</div>
+            <div class="pricing-amount">$0<span style="font-size: 0.6em; color: var(--text-muted);">/mo</span></div>
+            <div class="pricing-period">Complete reference documentation.</div>
+            <ul class="pricing-features">
+                <li>Full CLI documentation</li>
+                <li>Agent SDK guides</li>
+                <li>API best practices</li>
+                <li>Example projects</li>
+                <li>Integration tutorials</li>
+                <li>Community Q&A</li>
+            </ul>
+            <button class="pricing-cta">Access Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Claude Marketplace. All rights reserved.</p>
+    </footer>
+</body>
+</html>

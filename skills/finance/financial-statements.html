@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Statements | Finance Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 16px 32px;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .nav-breadcrumb {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav-breadcrumb span {
+            color: #D1D5DB;
+        }
+
+        .nav-breadcrumb a {
+            color: #047857;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-breadcrumb a:hover {
+            color: #065F46;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding: 0 32px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #111827;
+        }
+
+        .hero-icon {
+            width: 100px;
+            height: 100px;
+            background: #047857;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #DBEAFE;
+            color: #0369A1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-description {
+            font-size: 16px;
+            color: #4B5563;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #047857;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #065F46;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(4, 120, 87, 0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #047857;
+            border: 1px solid #E5E7EB;
+        }
+
+        .btn-secondary:hover {
+            background: #F3F4F6;
+            border-color: #047857;
+        }
+
+        .hero-visual {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #047857 0%, #10B981 100%);
+            border-radius: 8px;
+            opacity: 0.15;
+        }
+
+        /* Capabilities Section */
+        .capabilities {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 48px;
+        }
+
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            border-color: #047857;
+            box-shadow: 0 12px 24px rgba(4, 120, 87, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            width: 48px;
+            height: 48px;
+            background: #ECFDF5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .capability-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .capability-card p {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .use-case-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            border-left: 4px solid #047857;
+        }
+
+        .use-case-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .use-case-card p {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .use-case-highlight {
+            font-size: 13px;
+            background: #ECFDF5;
+            color: #065F46;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        /* Integrations */
+        .integrations {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .pill {
+            background: white;
+            border: 1px solid #E5E7EB;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4B5563;
+            transition: all 0.2s;
+        }
+
+        .pill:hover {
+            background: #047857;
+            color: white;
+            border-color: #047857;
+        }
+
+        /* Audience */
+        .audience {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+
+        .audience-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .audience-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .audience-card p {
+            font-size: 13px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Pricing */
+        .pricing {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #E5E7EB;
+            max-width: 400px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #047857;
+            margin: 24px 0;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 0 20px 60px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            nav {
+                padding: 12px 20px;
+            }
+
+            .nav-content {
+                font-size: 12px;
+            }
+
+            .capability-grid,
+            .use-case-grid,
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="nav-breadcrumb">
+                <a href="#marketplace">← Marketplace</a>
+                <span>/</span>
+                <a href="#finance">Finance</a>
+                <span>/</span>
+                <span>Financial Statements</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">💰</div>
+            <div class="badge">Skill</div>
+            <h1>Financial Statements</h1>
+            <p class="hero-description">
+                Transform raw accounting data into authoritative financial statements. Generate income statements, balance sheets, and cash flow statements with intelligent period-over-period comparisons and variance analysis—all in minutes, not days. Purpose-built for controllers and CFOs who demand accuracy and insight.
+            </p>
+            <div class="cta-group">
+                <button class="btn btn-primary">Get Started Free</button>
+                <button class="btn btn-secondary">Schedule Demo</button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="chart-placeholder"></div>
+        </div>
+    </section>
+
+    <!-- Capabilities -->
+    <section class="capabilities">
+        <h2 class="section-title">Core Capabilities</h2>
+        <p class="section-subtitle">Complete financial statement generation and analysis</p>
+        
+        <div class="capability-grid">
+            <div class="capability-card">
+                <div class="capability-icon">📑</div>
+                <h3>Multi-Statement Generation</h3>
+                <p>Simultaneously produce income statements, balance sheets, and cash flow statements from your GL. Auto-consolidated across entities and segments.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📊</div>
+                <h3>Period-Over-Period Comparison</h3>
+                <p>Automatically compare current period to prior year, YTD, or custom date ranges with absolute and percentage variance highlighting.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔍</div>
+                <h3>Variance Decomposition</h3>
+                <p>Drill down to account-level detail to understand what's driving variances. Tag drivers and build narratives directly in the system.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⚙️</div>
+                <h3>Custom Formatting & Presentation</h3>
+                <p>Apply your house style. Reclassify accounts, rename line items, add supporting schedules—all template-based and reusable across periods.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔐</div>
+                <h3>Audit-Ready Documentation</h3>
+                <p>Build audit trails, manage reconciliations, and attach supporting detail. Export with full lineage for auditors and regulators.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📈</div>
+                <h3>Financial Metrics & Ratios</h3>
+                <p>Auto-calculate key metrics (profitability, liquidity, leverage) with benchmarking against prior years and industry standards.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="use-cases">
+        <h2 class="section-title">Real-World Use Cases</h2>
+        <p class="section-subtitle">How accounting teams use Financial Statements</p>
+        
+        <div class="use-case-grid">
+            <div class="use-case-card">
+                <h3>Monthly Close & Board Reporting</h3>
+                <p>Close your books 3-5 days faster. Generate preliminary financial statements on day 2 of close, complete variance analysis by day 5, and deliver board-ready statements with commentary by day 8.</p>
+                <div class="use-case-highlight">Typical: 10 days → 5 days</div>
+            </div>
+            <div class="use-case-card">
+                <h3>Multi-Entity & Consolidation</h3>
+                <p>Manage P&Ls for 15+ business units in one system. Eliminate Excel consolidations—automatic elimination entries, inter-company netting, and full traceability.</p>
+                <div class="use-case-highlight">Enterprise control</div>
+            </div>
+            <div class="use-case-card">
+                <h3>Forecast vs. Actual Reporting</h3>
+                <p>Compare actuals to budget and forecast in the same statement. Understand not just what happened but how it deviated from plan, with variance commentary built in.</p>
+                <div class="use-case-highlight">CFO visibility</div>
+            </div>
+            <div class="use-case-card">
+                <h3>Regulatory & Audit Compliance</h3>
+                <p>Meet GAAP, IFRS, or local GAAV requirements. Built-in disclosure checklists, automated journal detail links, and version control for audit trail integrity.</p>
+                <div class="use-case-highlight">Audit-proof</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations -->
+    <section class="integrations">
+        <h2 class="section-title">Works With</h2>
+        <p class="section-subtitle">Seamless data flow from your existing systems</p>
+        <div class="pill-group">
+            <span class="pill">Excel</span>
+            <span class="pill">Google Sheets</span>
+            <span class="pill">NetSuite</span>
+            <span class="pill">SAP</span>
+            <span class="pill">Workday</span>
+            <span class="pill">Anaplan</span>
+            <span class="pill">Alteryx</span>
+            <span class="pill">Tableau</span>
+            <span class="pill">Power BI</span>
+            <span class="pill">Slack</span>
+        </div>
+    </section>
+
+    <!-- Audience -->
+    <section class="audience">
+        <h2 class="section-title">Who This Is For</h2>
+        <p class="section-subtitle">Built for finance teams that demand precision and speed</p>
+        
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">👤</div>
+                <h3>Finance Managers</h3>
+                <p>Automate statement prep and variance analysis. Spend less time in Excel, more time on insight.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🏢</div>
+                <h3>Enterprise Finance</h3>
+                <p>Handle complexity—multi-entity, multi-currency, multi-GAAP. Consolidate in minutes, not weeks.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">📊</div>
+                <h3>Controllers & CFOs</h3>
+                <p>Get board-ready reporting on demand. Drive faster decisions with real-time variance insight.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🔍</div>
+                <h3>Audit & Compliance</h3>
+                <p>Document every number. Maintain full audit trail and disclosure traceability out of the box.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing">
+        <h2 class="section-title">Pricing</h2>
+        <p class="section-subtitle">Transparent, usage-based pricing. No surprises.</p>
+        
+        <div class="pricing-card">
+            <h3 style="font-size: 18px; font-weight: 600; color: #111827; margin-bottom: 8px;">Standard</h3>
+            <p style="font-size: 14px; color: #6B7280; margin-bottom: 16px;">For growing finance teams</p>
+            <div class="price">$299<span style="font-size: 18px; color: #6B7280;">/month</span></div>
+            <ul style="list-style: none; margin: 24px 0;">
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ Up to 5 entities</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ Monthly statements</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ Variance analysis</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0;">✓ Email support</li>
+            </ul>
+            <button class="btn btn-primary">Start Free Trial</button>
+        </div>
+    </section>
+</body>
+</html>

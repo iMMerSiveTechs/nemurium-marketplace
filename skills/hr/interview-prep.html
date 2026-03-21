@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep | HR Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        nav a { 
+            color: #7C3AED; 
+            text-decoration: none; 
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: opacity 0.2s;
+        }
+        nav a:hover { opacity: 0.7; }
+        nav span { color: #9CA3AF; }
+
+        /* Hero */
+        .hero {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .hero-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        .skill-badge {
+            display: inline-block;
+            background: rgba(124, 58, 237, 0.1);
+            color: #7C3AED;
+            padding: 0.4rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: #4B5563;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: #7C3AED;
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        }
+        .btn-primary:hover {
+            background: #6D28D9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+        }
+        .btn-secondary {
+            background: white;
+            color: #7C3AED;
+            border: 2px solid #7C3AED;
+        }
+        .btn-secondary:hover {
+            background: rgba(124, 58, 237, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Capabilities */
+        .capabilities {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #111827;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            box-shadow: 0 12px 24px rgba(124, 58, 237, 0.08);
+            border-color: #7C3AED;
+            transform: translateY(-4px);
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+        .card p {
+            color: #4B5563;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .use-case-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #7C3AED;
+        }
+        .use-case-item h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        .use-case-item p {
+            color: #4B5563;
+            font-size: 0.95rem;
+        }
+
+        /* Pills & Audience */
+        .works-with {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        .pill {
+            background: rgba(124, 58, 237, 0.1);
+            color: #7C3AED;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Audience Cards */
+        .audience {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .audience-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+        .audience-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        .audience-card p {
+            font-size: 0.9rem;
+            color: #4B5563;
+        }
+
+        /* Pricing */
+        .pricing {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+        }
+        .pricing h3 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+        .pricing p {
+            color: #4B5563;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #E5E7EB;
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .cta-group { flex-direction: column; }
+            .btn { width: 100%; }
+            nav { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#">← Marketplace</a>
+        <span>/</span>
+        <a href="#">Human Resources</a>
+        <span>/</span>
+        <span>Interview Prep</span>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-icon">🎤</div>
+        <div class="skill-badge">SKILL</div>
+        <h1>Interview Prep</h1>
+        <p>Structure every interview with competency-based frameworks, standardized scorecards, and behavioral rubrics. Reduce bias, improve consistency, and build a predictive hiring process that scales with your organization.</p>
+        <div class="cta-group">
+            <button class="btn btn-primary">Start Free Trial</button>
+            <button class="btn btn-secondary">Request Demo</button>
+        </div>
+    </div>
+
+    <section class="capabilities">
+        <h2 class="section-title">Core Capabilities</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>Competency Mapping</h3>
+                <p>Define job-specific competencies, behavioral anchors, and proficiency levels. Create reusable competency libraries that ensure every interviewer is aligned on what excellence looks like for the role.</p>
+            </div>
+            <div class="card">
+                <h3>Interview Plans</h3>
+                <p>Generate structured interview agendas with topic sequences, time allocations, and suggested questions. Ensure consistent candidate experience across all interview rounds.</p>
+            </div>
+            <div class="card">
+                <h3>Scoring Rubrics</h3>
+                <p>Build detailed evaluation rubrics with clear performance bands (exemplary, proficient, developing, below expectation). Make scoring objective and defensible.</p>
+            </div>
+            <div class="card">
+                <h3>Behavioral Questions</h3>
+                <p>Access a curated library of STAR-format behavioral questions by competency. Prompt interviewers to dig deeper and validate real-world capability.</p>
+            </div>
+            <div class="card">
+                <h3>Debrief Facilitation</h3>
+                <p>Run calibration sessions where your team scores candidates together, discusses findings, and reaches consensus. Minimize individual bias through structured dialogue.</p>
+            </div>
+            <div class="card">
+                <h3>Hiring Analytics</h3>
+                <p>Track time-to-hire, interview completion rates, inter-rater reliability, and offer acceptance rates. Spot bottlenecks and optimize your talent pipeline.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="use-cases">
+        <h2 class="section-title">Common Use Cases</h2>
+        <div class="use-case-item">
+            <h4>High-Volume Recruiting</h4>
+            <p>Standardize your college recruiting, customer service, and retail hiring with repeatable competency scorecards. Train new hiring managers in minutes, not weeks.</p>
+        </div>
+        <div class="use-case-item">
+            <h4>Senior Hires & Board-Level Roles</h4>
+            <p>Create executive assessment frameworks with domain expertise panels. Document decision rationale and leadership fit criteria for board visibility.</p>
+        </div>
+        <div class="use-case-item">
+            <h4>DEI & Bias Reduction</h4>
+            <p>Use structured questions and blind scoring to reduce hiring bias. Track diversity metrics by role and interview round to identify where gaps emerge.</p>
+        </div>
+        <div class="use-case-item">
+            <h4>Distributed Teams</h4>
+            <p>Conduct asynchronous video interviews, guided self-assessments, and remote panel discussions. Coordinate global hiring across time zones without losing quality.</p>
+        </div>
+    </section>
+
+    <section class="works-with">
+        <h2 class="section-title">Works With</h2>
+        <div class="pills">
+            <div class="pill">Draft Offer</div>
+            <div class="pill">Onboarding</div>
+            <div class="pill">Org Planning</div>
+            <div class="pill">Performance Review</div>
+            <div class="pill">People Report</div>
+            <div class="pill">Workday</div>
+            <div class="pill">Greenhouse</div>
+            <div class="pill">LinkedIn Recruiter</div>
+        </div>
+
+        <h2 class="section-title">Built For</h2>
+        <div class="audience">
+            <div class="audience-card">
+                <h4>Talent Leaders</h4>
+                <p>Standardize hiring across teams and ensure consistent quality.</p>
+            </div>
+            <div class="audience-card">
+                <h4>Hiring Managers</h4>
+                <p>Interview with confidence using pre-built plans and scoring tools.</p>
+            </div>
+            <div class="audience-card">
+                <h4>Recruiters</h4>
+                <p>Calibrate candidates faster and close offers with more certainty.</p>
+            </div>
+            <div class="audience-card">
+                <h4>People Ops</h4>
+                <p>Monitor hiring metrics and optimize your talent pipeline in real-time.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <h3>Pricing & Availability</h3>
+        <p>Interview Prep is available on a per-user basis with team licensing. Enterprise plans include unlimited scorecards, custom workflows, and dedicated support. <strong>Contact sales for current pricing.</strong></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 HR Marketplace. All rights reserved. <a href="#" style="color: #7C3AED; text-decoration: none;">Terms</a> • <a href="#" style="color: #7C3AED; text-decoration: none;">Privacy</a></p>
+    </footer>
+</body>
+</html>

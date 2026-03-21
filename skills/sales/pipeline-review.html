@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline Review - Sales Skill | Agents & Skills Marketplace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background-color: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-breadcrumb {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .nav-breadcrumb a {
+            color: #EA580C;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .nav-breadcrumb span {
+            margin: 0 8px;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #EA580C, #F97316);
+            border-radius: 16px;
+            margin: 0 auto 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: 0 8px 16px rgba(234, 88, 12, 0.15);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #FEF2E8;
+            color: #EA580C;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1F2937;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #6B7280;
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-primary {
+            background: #EA580C;
+            color: white;
+        }
+
+        .cta-primary:hover {
+            background: #D14D08;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(234, 88, 12, 0.25);
+        }
+
+        .cta-secondary {
+            background: white;
+            color: #EA580C;
+            border: 2px solid #EA580C;
+        }
+
+        .cta-secondary:hover {
+            background: #FEF2E8;
+            transform: translateY(-2px);
+        }
+
+        /* Content Sections */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 48px;
+            text-align: center;
+            color: #1F2937;
+        }
+
+        /* Capability Cards */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .capability-card:hover {
+            border-color: #EA580C;
+            box-shadow: 0 12px 24px rgba(234, 88, 12, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .capability-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1F2937;
+        }
+
+        .capability-description {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .use-case-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .use-case-card:hover {
+            border-color: #EA580C;
+            box-shadow: 0 12px 24px rgba(234, 88, 12, 0.08);
+        }
+
+        .use-case-header {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .use-case-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1F2937;
+        }
+
+        .use-case-description {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Integrations */
+        .integrations-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .integrations-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #1F2937;
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .integration-pill {
+            background: #F3F4F6;
+            color: #374151;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .integration-pill:hover {
+            background: #FEF2E8;
+            color: #EA580C;
+            border-color: #EA580C;
+        }
+
+        /* Audience Cards */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .audience-card:hover {
+            border-color: #EA580C;
+            box-shadow: 0 12px 24px rgba(234, 88, 12, 0.08);
+        }
+
+        .audience-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .audience-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1F2937;
+        }
+
+        .audience-description {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Pricing Card */
+        .pricing-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: #DBEAFE;
+            color: #0284C7;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .pricing-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1F2937;
+        }
+
+        .pricing-description {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 24px;
+        }
+
+        .pricing-button {
+            padding: 12px 28px;
+            background: #EA580C;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-button:hover {
+            background: #D14D08;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(234, 88, 12, 0.25);
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 40px 24px;
+            text-align: center;
+            color: #6B7280;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .nav-breadcrumb {
+                display: none;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .use-cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .integration-pills {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-breadcrumb">
+                <a href="#marketplace">Marketplace</a>
+                <span>/</span>
+                <a href="#sales">Sales</a>
+                <span>/</span>
+                <span>Pipeline Review</span>
+            </div>
+            <div class="nav-logo">Skills Marketplace</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-icon">📊</div>
+        <div class="hero-badge">Skill</div>
+        <h1>Pipeline Review</h1>
+        <p>Transform your sales pipeline into actionable intelligence. Real-time visibility into deal health, risk factors, and forecast accuracy with team-wide collaboration tools.</p>
+        <div class="cta-group">
+            <button class="cta-button cta-primary">Add to Workspace</button>
+            <button class="cta-button cta-secondary">View Demo</button>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section class="section">
+        <h2 class="section-title">Key Capabilities</h2>
+        <div class="capabilities-grid">
+            <div class="capability-card">
+                <div class="capability-icon">🎯</div>
+                <div class="capability-title">Deal Prioritization & Health Score</div>
+                <div class="capability-description">Automatic deal health scoring based on engagement, timeline, and deal size. Color-coded risk indicators help you focus on what matters most.</div>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⚠️</div>
+                <div class="capability-title">Risk Flagging & Alerts</div>
+                <div class="capability-description">Intelligent alerts for stalled deals, missing activities, timeline slips, and stakeholder disengagement. Prevent surprise losses before they happen.</div>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📋</div>
+                <div class="capability-title">Action Planning & Next Steps</div>
+                <div class="capability-description">Auto-generated action plans based on deal status. Suggest personalized next activities to keep deals moving through the pipeline.</div>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">👥</div>
+                <div class="capability-title">Team Visibility & Collaboration</div>
+                <div class="capability-description">Real-time pipeline views, deal commentary, and team alerts. Keep everyone aligned on critical opportunities and blockers.</div>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📈</div>
+                <div class="capability-title">Win/Loss Analysis</div>
+                <div class="capability-description">Analyze patterns across closed deals. Identify what drives wins and spot red flags that correlate with losses early.</div>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔄</div>
+                <div class="capability-title">Forecast Integration & Accuracy</div>
+                <div class="capability-description">Link pipeline health to forecast accuracy. Track actual vs. predicted and adjust forecasts with confidence based on deal momentum.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+        <h2 class="section-title">Real-World Use Cases</h2>
+        <div class="use-cases-grid">
+            <div class="use-case-card">
+                <div class="use-case-header">🚨</div>
+                <div class="use-case-title">Early Warning System</div>
+                <div class="use-case-description">Spot at-risk deals before they slip. Get alerts on deals with declining engagement, missing next steps, or timeline pressure to intervene early.</div>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-header">📊</div>
+                <div class="use-case-title">Forecast Accountability</div>
+                <div class="use-case-description">Build confidence in your forecast by tracking deal health metrics against predicted close dates. Spot adjustments before the end of the month.</div>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-header">👨‍💼</div>
+                <div class="use-case-title">Manager Pipeline Coaching</div>
+                <div class="use-case-description">Provide data-backed coaching to reps. Use deal health metrics and win/loss patterns to guide reps on pipeline strategy and activity planning.</div>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-header">🎯</div>
+                <div class="use-case-title">Territory Optimization</div>
+                <div class="use-case-description">Analyze pipeline distribution and health across teams and territories. Reallocate resources and accounts based on actual pipeline health and velocity data.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations Section -->
+    <section class="section">
+        <h2 class="section-title">Works With Your Entire Stack</h2>
+        <div class="integrations-section">
+            <div class="integrations-title">Integrations & Data Connections</div>
+            <div class="integration-pills">
+                <div class="integration-pill">Salesforce</div>
+                <div class="integration-pill">HubSpot</div>
+                <div class="integration-pill">Pipedrive</div>
+                <div class="integration-pill">Slack</div>
+                <div class="integration-pill">Google Sheets</div>
+                <div class="integration-pill">Gmail</div>
+                <div class="integration-pill">Outreach</div>
+                <div class="integration-pill">Gong</div>
+                <div class="integration-pill">Chorus</div>
+                <div class="integration-pill">Tableau</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audience Section -->
+    <section class="section">
+        <h2 class="section-title">Built For</h2>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">👔</div>
+                <div class="audience-title">Sales Managers</div>
+                <div class="audience-description">Monitor team pipeline health, coach reps on at-risk deals, and ensure forecast accuracy with real-time visibility.</div>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🎯</div>
+                <div class="audience-title">Sales Leadership</div>
+                <div class="audience-description">Strategic pipeline insights, forecast confidence, and deal-level visibility to drive revenue accountability.</div>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">⚙️</div>
+                <div class="audience-title">Sales Operations</div>
+                <div class="audience-description">Pipeline reporting, data quality, process optimization, and team analytics to improve overall sales effectiveness.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section">
+        <div class="pricing-section">
+            <div class="pricing-badge">Free to Start</div>
+            <div class="pricing-title">Pipeline Review</div>
+            <div class="pricing-description">Free with your workspace. Usage-based pricing as you scale.</div>
+            <button class="pricing-button">Add to Workspace</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Agents & Skills Marketplace. All rights reserved.</p>
+    </footer>
+</body>
+</html>

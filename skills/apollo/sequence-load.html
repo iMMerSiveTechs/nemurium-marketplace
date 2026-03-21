@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Load - Apollo | Command Center Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1D4ED8;
+            --background: #FAFAFA;
+            --card-bg: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --hover-bg: #F3F4F6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        nav .links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1E40AF;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(29, 78, 216, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Capability Cards */
+        .capabilities {
+            padding: 4rem 2rem;
+            background: var(--background);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            padding: 4rem 2rem;
+        }
+
+        .use-case-item {
+            margin-bottom: 2rem;
+        }
+
+        .use-case-item h4 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .use-case-item h4::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .use-case-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-left: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Integrations */
+        .integrations {
+            padding: 4rem 2rem;
+            background: var(--background);
+        }
+
+        .integrations-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .pill {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+
+        .pill:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--hover-bg);
+        }
+
+        /* Audience Cards */
+        .audience {
+            padding: 4rem 2rem;
+        }
+
+        .audience-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .audience-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .audience-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 16px rgba(29, 78, 216, 0.1);
+        }
+
+        .audience-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .audience-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .audience-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 4rem 2rem;
+            background: var(--background);
+            text-align: center;
+        }
+
+        .pricing-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pricing h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .pricing-note {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: #FEF3C7;
+            color: #92400E;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav .links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">Command Center</div>
+            <ul class="links">
+                <li><a href="#capabilities">Features</a></li>
+                <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="#integrations">Integrations</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-icon">🚀</div>
+            <div class="skill-badge">SKILL</div>
+            <h1>Sequence Load</h1>
+            <p>Automatically load pre-built outreach sequences into Apollo with intelligent mapping, personalization, and cadence optimization. Transform your sales process from one-off emails to strategic, multi-touch campaigns that scale across your entire pipeline.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Get Started</button>
+                <button class="btn btn-secondary">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capability Cards -->
+    <section class="capabilities" id="capabilities">
+        <div class="container">
+            <h2 class="section-title">Core Capabilities</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">📋</div>
+                    <h3>Template Library Management</h3>
+                    <p>Access a curated library of proven outreach sequences with customizable templates for every industry and use case. Save time and leverage best practices.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔄</div>
+                    <h3>Intelligent Cadence Sequencing</h3>
+                    <p>Automatically build multi-touch campaigns with optimized timing between emails, calls, and tasks. Smart algorithms ensure your cadence follows sales best practices.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Dynamic Personalization Engine</h3>
+                    <p>Inject prospect data directly into sequence copy with smart variable mapping. Create truly personalized campaigns that feel hand-written at scale.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3>Bulk Campaign Loading</h3>
+                    <p>Load sequences for entire lists of prospects in seconds. Manage hundreds of campaigns simultaneously without manual setup or configuration errors.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Performance Benchmarking</h3>
+                    <p>Track sequence effectiveness with built-in analytics. Compare response rates across templates and automatically optimize future campaigns based on performance data.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚙️</div>
+                    <h3>Conditional Logic & Rules</h3>
+                    <p>Create smart sequences with conditional branches based on prospect behavior, company size, or industry. Adapt your cadence in real-time based on engagement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="use-cases" id="use-cases">
+        <div class="container">
+            <h2 class="section-title">Typical Use Cases</h2>
+            <div class="use-case-item">
+                <h4>Launch at-scale cold email campaigns</h4>
+                <p>Stop managing sequences manually. Load templates for thousands of prospects in seconds, keeping your team focused on conversations instead of copy-pasting templates.</p>
+            </div>
+            <div class="use-case-item">
+                <h4>Maintain consistent sales playbooks across teams</h4>
+                <p>Ensure every sales rep uses your proven sequences with the same messaging and timing. Standardize your outreach while allowing personalization where it matters most.</p>
+            </div>
+            <div class="use-case-item">
+                <h4>Test and iterate sequence performance</h4>
+                <p>A/B test different sequences with prospect segments. Use performance data to identify top performers and continuously refine your outreach strategy.</p>
+            </div>
+            <div class="use-case-item">
+                <h4>Accelerate onboarding for new sales reps</h4>
+                <p>Give new team members instant access to proven templates and best-practice sequences. Reduce ramp time and ensure quality from day one.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations -->
+    <section class="integrations" id="integrations">
+        <div class="container">
+            <h2 class="integrations-header">Works With</h2>
+            <div class="integration-pills">
+                <span class="pill">Apollo</span>
+                <span class="pill">Salesforce</span>
+                <span class="pill">HubSpot</span>
+                <span class="pill">Outreach</span>
+                <span class="pill">LinkedIn Sales Navigator</span>
+                <span class="pill">Gmail</span>
+                <span class="pill">Slack</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audience -->
+    <section class="audience">
+        <div class="container">
+            <h2 class="section-title">Best For</h2>
+            <div class="audience-cards">
+                <div class="audience-card">
+                    <div class="audience-icon">👔</div>
+                    <h4>Sales Development Reps</h4>
+                    <p>Execute consistent prospecting with pre-built sequences that maintain quality at high volume, freeing you to focus on conversation and personalization.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">📈</div>
+                    <h4>Sales Managers & Leaders</h4>
+                    <p>Enforce team-wide standards, monitor cadence compliance, and optimize sequences based on aggregate performance across your entire pipeline.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">🎯</div>
+                    <h4>RevOps & Sales Operations</h4>
+                    <p>Manage sequences as enterprise playbooks, maintain version control, and track execution across the entire sales organization without bottlenecks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Pricing</h2>
+            <div class="pricing-content">
+                <h3>Enterprise Pricing</h3>
+                <p class="pricing-note">Sequence Load is available as part of Apollo integration packages and custom Command Center deployments. Contact our team for volume pricing and usage-based options.</p>
+                <div class="pricing-badge">Custom Quote Available</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Command Center Marketplace. All rights reserved.</p>
+    </footer>
+</body>
+</html>

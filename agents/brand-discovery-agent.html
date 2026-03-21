@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Discovery Agent | Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #4F46E5;
+            --accent-light: #EEF2FF;
+            --accent-dark: #312E81;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --bg-light: #FAFAFA;
+            --bg-white: #FFFFFF;
+            --border: #E5E7EB;
+            --success: #10B981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 250, 250, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .breadcrumb {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            margin: 0 auto 2rem;
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
+        }
+
+        .badge-row {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge.live {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta {
+            padding: 1rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .cta-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .cta-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(79, 70, 229, 0.2);
+        }
+
+        .cta-secondary {
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+
+        .cta-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Section */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        section h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Capabilities Grid */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .capability-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+            border-color: var(--accent);
+        }
+
+        .capability-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 1rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .capability-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .use-case {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .use-case:last-child {
+            border-bottom: none;
+        }
+
+        .use-case-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+
+        .use-case-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .use-case h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .use-case p {
+            color: var(--text-secondary);
+            margin-left: 3rem;
+            font-size: 0.95rem;
+        }
+
+        /* Integration Pills */
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .pill {
+            padding: 0.6rem 1.2rem;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Audience Cards */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .audience-card {
+            background: var(--bg-white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .audience-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .audience-icon {
+            font-size: 48px;
+            margin-bottom: 1rem;
+        }
+
+        .audience-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .audience-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .pricing-card .cta-primary {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+
+        /* Footer spacing */
+        .spacing {
+            height: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="../">← Marketplace</a>
+            <span class="breadcrumb">Agents / Brand Discovery Agent</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-icon">🔮</div>
+            <div class="badge-row">
+                <span class="badge">AGENT</span>
+                <span class="badge live"><span class="live-dot"></span>Live</span>
+            </div>
+            <h1>Brand Discovery Agent</h1>
+            <p class="hero-description">Autonomously surface all your brand materials scattered across platforms. Search Notion, Confluence, Google Drive, Box, SharePoint, Figma, Gong, Granola, and Slack simultaneously—then intelligently triage, classify, and rank what matters most.</p>
+            <div class="cta-group">
+                <a href="#" class="cta cta-primary">Get Started →</a>
+                <a href="#" class="cta cta-secondary">View Documentation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Capabilities -->
+    <section style="background: var(--bg-white);">
+        <div class="container">
+            <h2>Key Capabilities</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon">🔍</div>
+                    <h3>Multi-Platform Search</h3>
+                    <p>Query across 9+ integrated platforms simultaneously with a single command. No manual switching between tools.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📂</div>
+                    <h3>Automated Content Triage</h3>
+                    <p>Intelligently sort discovered materials by type, relevance, and recency. Filter out duplicates and outdated assets automatically.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🏷️</div>
+                    <h3>Brand Material Classification</h3>
+                    <p>Auto-categorize assets: guidelines, logo files, messaging docs, brand voice examples, color palettes, and more.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">⭐</div>
+                    <h3>Relevance Ranking</h3>
+                    <p>Surfaced materials ranked by relevance to your query. Most authoritative versions bubble to the top.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🔎</div>
+                    <h3>Gap Analysis</h3>
+                    <p>Identifies missing brand materials: "You have voice guidelines but no tone of voice document." Highlights what should exist.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📊</div>
+                    <h3>Discovery Reports</h3>
+                    <p>Generates executive summaries: what exists, where it lives, who owns it, when it was last updated, recommendations for consolidation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section>
+        <div class="container">
+            <h2>Real-World Use Cases</h2>
+            <div class="use-cases">
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <span class="use-case-number">1</span>
+                        <h4>"Find all our brand materials — they're scattered everywhere"</h4>
+                    </div>
+                    <p>Stop asking "Where's the logo?" Stop digging through shared drives. Query once, get everything: brand guidelines PDFs in Confluence, logo files in Box, messaging docs in Notion, presentation templates in Figma. All in seconds.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <span class="use-case-number">2</span>
+                        <h4>Running a brand content audit across 8 platforms</h4>
+                    </div>
+                    <p>Instead of manually checking each platform, discover all brand documents at once. Get a complete inventory of what's published, draft, or outdated. Understand the scale and state of your brand presence across the entire organization.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <span class="use-case-number">3</span>
+                        <h4>Identifying inconsistencies across regional brand guidelines</h4>
+                    </div>
+                    <p>Surface all regional variations of your brand guidelines at once. Compare US vs. EU vs. APAC versions. Spot conflicting color codes, different logo treatments, messaging variations. Prepare recommendations for alignment.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <span class="use-case-number">4</span>
+                        <h4>Building a brand asset inventory for a rebrand</h4>
+                    </div>
+                    <p>Before launching a rebrand, map what exists: old assets, where they're stored, who's using them, what needs updating. One discovery pass gives you the complete picture—critical for transition planning and asset deprecation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works With -->
+    <section style="background: var(--bg-white);">
+        <div class="container">
+            <h2>Works With</h2>
+            <div class="integration-pills">
+                <span class="pill">Notion</span>
+                <span class="pill">Confluence</span>
+                <span class="pill">Google Drive</span>
+                <span class="pill">Box</span>
+                <span class="pill">SharePoint</span>
+                <span class="pill">Figma</span>
+                <span class="pill">Gong</span>
+                <span class="pill">Granola</span>
+                <span class="pill">Slack</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who It's For -->
+    <section>
+        <div class="container">
+            <h2>Who It's For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-icon">👤</div>
+                    <h3>Solopreneurs</h3>
+                    <p>Manage your scattered brand materials across multiple tools without drowning in manual searches. Get control of your brand identity fast.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">🏢</div>
+                    <h3>Enterprise Teams</h3>
+                    <p>Scale brand governance across departments and regions. Audit compliance, identify gaps, enforce consistency across 100+ locations.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">👨‍💻</div>
+                    <h3>Developers & Systems</h3>
+                    <p>Automate brand asset discovery and classification in your workflows. Integrate gap analysis into CI/CD pipelines for brand compliance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section style="background: var(--bg-white);">
+        <div class="container">
+            <h2>Simple Pricing</h2>
+            <div class="pricing-card">
+                <div class="price">$29</div>
+                <div class="price-period">per month</div>
+                <ul class="features-list">
+                    <li>Unlimited platform searches</li>
+                    <li>Auto-triage & classification</li>
+                    <li>Gap analysis reports</li>
+                    <li>Multi-user team access</li>
+                    <li>Priority support</li>
+                    <li>Discovery report exports</li>
+                </ul>
+                <a href="#" class="cta cta-primary">Start Free Trial</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="spacing"></div>
+</body>
+</html>

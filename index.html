@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Toolkit Marketplace — Agents, Skills & Connectors</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-hover: #F5F7FA;
+  --border: #E8ECF1;
+  --border-light: #F0F2F5;
+  --text-primary: #1A1D23;
+  --text-secondary: #5A6170;
+  --text-tertiary: #8B93A1;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
+  /* Category Colors */
+  --c-agents: #4F46E5;
+  --c-core: #1E293B;
+  --c-engineering: #2563EB;
+  --c-design: #8B5CF6;
+  --c-product: #059669;
+  --c-sales: #EA580C;
+  --c-marketing: #DB2777;
+  --c-brand: #E11D48;
+  --c-data: #0891B2;
+  --c-support: #0284C7;
+  --c-finance: #047857;
+  --c-operations: #475569;
+  --c-legal: #1E3A5F;
+  --c-hr: #7C3AED;
+  --c-productivity: #D97706;
+  --c-search: #4338CA;
+  --c-slack: #611F69;
+  --c-apollo: #1D4ED8;
+  --c-commonroom: #16A34A;
+  --c-connectors: #6366F1;
+  --c-documents: #DC2626;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* ========== HEADER ========== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.logo-mark {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, #4F46E5, #8B5CF6, #DB2777);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.3px;
+}
+
+.logo-text span {
+  color: var(--text-tertiary);
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+.header-stats {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: var(--surface-hover);
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.stat-pill strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ========== HERO ========== */
+.hero {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 40px 60px;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(79,70,229,0.08), rgba(139,92,246,0.08));
+  color: var(--c-agents);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(79,70,229,0.12);
+}
+
+.hero h1 {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.08;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #1A1D23 30%, #4F46E5 70%, #DB2777);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 19px;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.hero-numbers {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.hero-num {
+  text-align: center;
+}
+
+.hero-num .num {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.hero-num .label {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ========== SEARCH & FILTER BAR ========== */
+.controls {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px 32px;
+  position: sticky;
+  top: 64px;
+  z-index: 90;
+  background: var(--bg);
+}
+
+.controls-inner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.search-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 200px;
+}
+
+.search-box svg {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+}
+
+.search-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: transparent;
+}
+
+.search-box input::placeholder { color: var(--text-tertiary); }
+
+.filter-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+}
+
+.filter-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.chip:hover {
+  border-color: #C7D0DB;
+  background: var(--surface-hover);
+}
+
+.chip.active {
+  background: var(--text-primary);
+  color: white;
+  border-color: var(--text-primary);
+}
+
+.type-chips {
+  display: flex;
+  gap: 6px;
+}
+
+.type-chip {
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.type-chip[data-type="agent"] { background: rgba(79,70,229,0.08); color: var(--c-agents); border-color: rgba(79,70,229,0.15); }
+.type-chip[data-type="skill"] { background: rgba(5,150,105,0.08); color: var(--c-product); border-color: rgba(5,150,105,0.15); }
+.type-chip[data-type="connector"] { background: rgba(99,102,241,0.08); color: var(--c-connectors); border-color: rgba(99,102,241,0.15); }
+.type-chip[data-type="tool"] { background: rgba(30,41,59,0.08); color: var(--c-core); border-color: rgba(30,41,59,0.15); }
+
+.type-chip.active { border-width: 2px; font-weight: 600; }
+.type-chip[data-type="agent"].active { background: rgba(79,70,229,0.15); }
+.type-chip[data-type="skill"].active { background: rgba(5,150,105,0.15); }
+.type-chip[data-type="connector"].active { background: rgba(99,102,241,0.15); }
+.type-chip[data-type="tool"].active { background: rgba(30,41,59,0.15); }
+
+/* ========== CATEGORY SECTIONS ========== */
+.main-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
+
+.category-section {
+  margin-bottom: 56px;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.category-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.category-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  flex: 1;
+}
+
+.category-count {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  background: var(--surface-hover);
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+/* ========== PRODUCT CARDS ========== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.product-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.product-card:hover {
+  border-color: #D0D5DD;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.product-card:hover::before { opacity: 1; }
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.card-badges {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.card-type {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-type.agent { background: rgba(79,70,229,0.1); color: var(--c-agents); }
+.card-type.skill { background: rgba(5,150,105,0.1); color: var(--c-product); }
+.card-type.connector { background: rgba(99,102,241,0.1); color: var(--c-connectors); }
+.card-type.tool { background: rgba(30,41,59,0.1); color: var(--c-core); }
+
+.card-live {
+  width: 7px;
+  height: 7px;
+  background: #22C55E;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(34,197,94,0.4);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.card-name {
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -0.2px;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+
+.card-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.card-tag {
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: var(--surface-hover);
+  color: var(--text-tertiary);
+  border: 1px solid var(--border-light);
+}
+
+.card-arrow {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--surface-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.25s ease;
+  color: var(--text-tertiary);
+}
+
+.product-card:hover .card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ========== NO RESULTS ========== */
+.no-results {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-tertiary);
+}
+
+.no-results svg { margin-bottom: 16px; }
+.no-results h3 { font-size: 18px; color: var(--text-secondary); margin-bottom: 6px; }
+.no-results p { font-size: 14px; }
+
+/* ========== FOOTER ========== */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 40px;
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 13px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .header-inner, .hero, .controls, .main-content { padding-left: 20px; padding-right: 20px; }
+  .hero { padding-top: 48px; padding-bottom: 40px; }
+  .hero h1 { font-size: 32px; }
+  .hero p { font-size: 16px; }
+  .hero-numbers { gap: 28px; }
+  .hero-num .num { font-size: 28px; }
+  .header-stats { display: none; }
+  .controls-inner { flex-direction: column; align-items: stretch; }
+  .filter-divider { width: 100%; height: 1px; }
+  .filter-chips { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">AI</div>
+      <div class="logo-text">Toolkit <span>Marketplace</span></div>
+    </a>
+    <div class="header-stats">
+      <div class="stat-pill"><strong id="visible-count">0</strong>&nbsp;products</div>
+      <div class="stat-pill"><strong>20+</strong>&nbsp;live connectors</div>
+      <div class="stat-pill"><strong>18</strong>&nbsp;plugins</div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">✦ Complete AI Operations Platform</div>
+  <h1>Every AI agent, skill, and connector — ready to deploy.</h1>
+  <p>130+ tools spanning engineering, sales, marketing, data, finance, legal, HR, and operations. Each one production-ready and built for enterprise.</p>
+  <div class="hero-numbers">
+    <div class="hero-num"><div class="num" style="color:var(--c-agents)">9</div><div class="label">Agents</div></div>
+    <div class="hero-num"><div class="num" style="color:var(--c-product)">100+</div><div class="label">Skills</div></div>
+    <div class="hero-num"><div class="num" style="color:var(--c-connectors)">20+</div><div class="label">Connectors</div></div>
+    <div class="hero-num"><div class="num" style="color:var(--c-core)">10</div><div class="label">Core Tools</div></div>
+  </div>
+</section>
+
+<!-- SEARCH & FILTER -->
+<div class="controls">
+  <div class="controls-inner">
+    <div class="search-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search" placeholder="Search agents, skills, connectors..." autocomplete="off">
+    </div>
+    <div class="filter-divider"></div>
+    <div class="type-chips">
+      <div class="type-chip active" data-type="all" onclick="filterType('all')">All</div>
+      <div class="type-chip" data-type="agent" onclick="filterType('agent')">Agents</div>
+      <div class="type-chip" data-type="skill" onclick="filterType('skill')">Skills</div>
+      <div class="type-chip" data-type="connector" onclick="filterType('connector')">Connectors</div>
+      <div class="type-chip" data-type="tool" onclick="filterType('tool')">Tools</div>
+    </div>
+    <div class="filter-divider"></div>
+    <div class="filter-chips" id="category-chips"></div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="main-content" id="catalog"></main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  AI Toolkit Marketplace — Built for enterprise. Ready for everyone. &copy; 2026
+</footer>
+
+<script>
+// ========== PRODUCT DATA ==========
+const products = [
+  // ===== CORE TOOLS =====
+  { name: "Bash", desc: "Execute any shell command. Install packages, run scripts, git operations, compile code, manage processes on a full Linux VM.", type: "tool", category: "Core Tools", icon: "⬛", color: "#1E293B", tags: ["shell", "git", "npm", "python"] },
+  { name: "Read", desc: "Read any file — code, images, PDFs with page ranges, Jupyter notebooks. Multimodal support for visual analysis.", type: "tool", category: "Core Tools", icon: "📄", color: "#1E293B", tags: ["files", "images", "pdf", "multimodal"] },
+  { name: "Write", desc: "Create new files or fully overwrite existing ones. Any file type — .js, .tsx, .html, .py, .json, .docx, and more.", type: "tool", category: "Core Tools", icon: "✏️", color: "#1E293B", tags: ["files", "code", "create"] },
+  { name: "Edit", desc: "Surgical string-replacement edits in existing files. Supports replace_all for bulk renames. Sends only the diff.", type: "tool", category: "Core Tools", icon: "🔧", color: "#1E293B", tags: ["edit", "diff", "refactor"] },
+  { name: "Glob", desc: "Fast file pattern matching — find files by patterns like **/*.tsx or src/**/*.ts. Results sorted by modification time.", type: "tool", category: "Core Tools", icon: "🔍", color: "#1E293B", tags: ["search", "files", "patterns"] },
+  { name: "Grep", desc: "Ripgrep-powered content search. Full regex, file type filters, multiline matching across any codebase size.", type: "tool", category: "Core Tools", icon: "🔎", color: "#1E293B", tags: ["search", "regex", "code"] },
+  { name: "WebSearch", desc: "Search the web for current information. Domain filtering, multiple results with links. Real-time knowledge.", type: "tool", category: "Core Tools", icon: "🌐", color: "#1E293B", tags: ["web", "search", "real-time"] },
+  { name: "WebFetch", desc: "Fetch and process any URL. Converts HTML to markdown, runs prompts against content. 15-minute intelligent cache.", type: "tool", category: "Core Tools", icon: "📥", color: "#1E293B", tags: ["web", "fetch", "scrape"] },
+  { name: "TodoWrite", desc: "Structured task tracking with pending, in_progress, and completed states. Rendered as live widgets.", type: "tool", category: "Core Tools", icon: "☑️", color: "#1E293B", tags: ["tasks", "tracking", "widgets"] },
+  { name: "AskUserQuestion", desc: "Multiple-choice questions to gather user input. Smart UI with previews, multi-select, and custom input support.", type: "tool", category: "Core Tools", icon: "❓", color: "#1E293B", tags: ["input", "forms", "interactive"] },
+
+  // ===== AGENTS =====
+  { name: "General Purpose Agent", desc: "The autonomous workhorse. Researches complex questions, searches codebases, executes multi-step tasks. Full tool access, isolated worktrees.", type: "agent", category: "Agents", icon: "🤖", color: "#4F46E5", tags: ["autonomous", "multi-step", "research"], live: true },
+  { name: "Explore Agent", desc: "Fast codebase explorer. Find files by pattern, search keywords, answer architecture questions. Three thoroughness levels.", type: "agent", category: "Agents", icon: "🔭", color: "#4F46E5", tags: ["codebase", "fast", "search"], live: true },
+  { name: "Plan Agent", desc: "Software architect for implementation strategies. Step-by-step plans, critical files, architectural trade-offs. Read-only.", type: "agent", category: "Agents", icon: "📐", color: "#4F46E5", tags: ["architecture", "planning", "read-only"], live: true },
+  { name: "Claude Code Guide", desc: "Expert on Claude Code CLI, hooks, MCP servers, settings, IDE integrations. Also covers Agent SDK and Claude API.", type: "agent", category: "Agents", icon: "📖", color: "#4F46E5", tags: ["documentation", "CLI", "API"], live: true },
+  { name: "Content Generation Agent", desc: "Generates brand-aligned sales and marketing content. Long-form, batch generation, multi-constraint optimization.", type: "agent", category: "Agents", icon: "✍️", color: "#4F46E5", tags: ["content", "brand", "marketing"], live: true },
+  { name: "Brand Discovery Agent", desc: "Autonomously searches Notion, Confluence, Drive, Box, Figma, Gong, Slack to find all brand materials.", type: "agent", category: "Agents", icon: "🔮", color: "#4F46E5", tags: ["brand", "discovery", "multi-platform"], live: true },
+  { name: "Document Analysis Agent", desc: "Extracts voice attributes, messaging, terminology from brand documents. Cross-document pattern recognition.", type: "agent", category: "Agents", icon: "📊", color: "#4F46E5", tags: ["analysis", "voice", "patterns"], live: true },
+  { name: "Conversation Analysis Agent", desc: "Analyzes sales call transcripts for voice patterns, messaging effectiveness, and tone variations.", type: "agent", category: "Agents", icon: "🎙️", color: "#4F46E5", tags: ["calls", "tone", "sales"], live: true },
+  { name: "Quality Assurance Agent", desc: "Validates content and guidelines against brand standards. Compliance, consistency, and completeness checks.", type: "agent", category: "Agents", icon: "✅", color: "#4F46E5", tags: ["QA", "compliance", "validation"], live: true },
+
+  // ===== DOCUMENT CREATION =====
+  { name: "Word Documents", desc: "Create, read, edit Word documents with tables of contents, headings, page numbers, letterheads, tracked changes, and images.", type: "skill", category: "Document Creation", icon: "📝", color: "#DC2626", tags: ["docx", "reports", "letters"] },
+  { name: "Presentations", desc: "Create, read, edit PowerPoint presentations. Templates, layouts, speaker notes, slide manipulation and design.", type: "skill", category: "Document Creation", icon: "📊", color: "#DC2626", tags: ["pptx", "slides", "decks"] },
+  { name: "Spreadsheets", desc: "Create and edit Excel spreadsheets with formulas, formatting, data analysis, charts, graphs, and pivot tables.", type: "skill", category: "Document Creation", icon: "📈", color: "#DC2626", tags: ["xlsx", "data", "charts"] },
+  { name: "PDF Processing", desc: "Extract text and tables, create PDFs, merge and split documents, handle forms. Complete PDF manipulation toolkit.", type: "skill", category: "Document Creation", icon: "📑", color: "#DC2626", tags: ["pdf", "extract", "forms"] },
+  { name: "Scheduler", desc: "Create scheduled tasks that run on demand or automatically on intervals. Recurring automations and triggers.", type: "skill", category: "Document Creation", icon: "⏰", color: "#DC2626", tags: ["schedule", "automation", "cron"] },
+  { name: "Skill Creator", desc: "Create new skills from scratch, modify existing ones, run evals, benchmark performance, optimize descriptions.", type: "skill", category: "Document Creation", icon: "🛠️", color: "#DC2626", tags: ["meta", "custom", "evals"] },
+
+  // ===== ENGINEERING =====
+  { name: "Architecture", desc: "Create and evaluate Architecture Decision Records. Technology choices with documented trade-offs and consequences.", type: "skill", category: "Engineering", icon: "🏗️", color: "#2563EB", tags: ["ADR", "decisions", "trade-offs"] },
+  { name: "Code Review", desc: "Review code for security, performance, and correctness. PR URLs or diffs analyzed for vulnerabilities and best practices.", type: "skill", category: "Engineering", icon: "🔍", color: "#2563EB", tags: ["security", "performance", "PR"] },
+  { name: "Debug", desc: "Structured debugging — reproduce, isolate, diagnose, and fix. Works with error messages, stack traces, and behavioral issues.", type: "skill", category: "Engineering", icon: "🐛", color: "#2563EB", tags: ["bugs", "stack-trace", "fix"] },
+  { name: "Deploy Checklist", desc: "Pre-deployment verification. Database migrations, feature flags, CI status, approvals, and rollback trigger documentation.", type: "skill", category: "Engineering", icon: "🚀", color: "#2563EB", tags: ["deploy", "CI/CD", "rollback"] },
+  { name: "Documentation", desc: "Technical docs — READMEs, API docs, runbooks, onboarding guides. Any form of technical writing, properly structured.", type: "skill", category: "Engineering", icon: "📚", color: "#2563EB", tags: ["docs", "README", "API"] },
+  { name: "Incident Response", desc: "Triage, communicate, and write blameless postmortems. Full incident workflow from detection to resolution.", type: "skill", category: "Engineering", icon: "🚨", color: "#2563EB", tags: ["incident", "postmortem", "triage"] },
+  { name: "Standup", desc: "Generate standup updates from recent commits, PRs, and ticket movements. Yesterday/today/blockers format.", type: "skill", category: "Engineering", icon: "🗣️", color: "#2563EB", tags: ["daily", "status", "updates"] },
+  { name: "System Design", desc: "Design systems, APIs, data models, and service boundaries. From requirements to architecture diagrams.", type: "skill", category: "Engineering", icon: "🧩", color: "#2563EB", tags: ["design", "API", "services"] },
+  { name: "Tech Debt", desc: "Identify, categorize, and prioritize technical debt. Code health assessment with refactoring recommendations.", type: "skill", category: "Engineering", icon: "🏚️", color: "#2563EB", tags: ["refactor", "health", "priorities"] },
+  { name: "Testing Strategy", desc: "Design test strategies, test plans, and coverage approaches. Unit, integration, e2e, and property-based testing.", type: "skill", category: "Engineering", icon: "🧪", color: "#2563EB", tags: ["tests", "coverage", "strategy"] },
+
+  // ===== DESIGN =====
+  { name: "Accessibility Review", desc: "WCAG 2.1 AA audit — color contrast, keyboard navigation, touch targets, screen reader behavior analysis.", type: "skill", category: "Design", icon: "♿", color: "#8B5CF6", tags: ["WCAG", "a11y", "audit"] },
+  { name: "Design Critique", desc: "Structured feedback on usability, hierarchy, and consistency. Professional design review at any stage.", type: "skill", category: "Design", icon: "🎨", color: "#8B5CF6", tags: ["feedback", "usability", "UX"] },
+  { name: "Design Handoff", desc: "Developer handoff specs — layout, design tokens, component props, responsive breakpoints, animations.", type: "skill", category: "Design", icon: "📐", color: "#8B5CF6", tags: ["specs", "tokens", "responsive"] },
+  { name: "Design System", desc: "Audit, document, or extend design systems. Naming consistency, hardcoded value detection, component documentation.", type: "skill", category: "Design", icon: "🎯", color: "#8B5CF6", tags: ["system", "components", "tokens"] },
+  { name: "Research Synthesis", desc: "Synthesize user research into themes, insights, and prioritized recommendations from any research data.", type: "skill", category: "Design", icon: "🔬", color: "#8B5CF6", tags: ["research", "insights", "themes"] },
+  { name: "User Research", desc: "Plan, conduct, and synthesize user research. Interview guides, usability tests, surveys, and research questions.", type: "skill", category: "Design", icon: "👥", color: "#8B5CF6", tags: ["interviews", "usability", "surveys"] },
+  { name: "UX Copy", desc: "Write and review microcopy, error messages, empty states, CTAs. Every word in your interface, perfected.", type: "skill", category: "Design", icon: "💬", color: "#8B5CF6", tags: ["microcopy", "CTAs", "errors"] },
+
+  // ===== PRODUCT MANAGEMENT =====
+  { name: "Competitive Brief", desc: "Competitive analysis for strategy, battle cards, and differentiation. Market positioning with actionable insights.", type: "skill", category: "Product Management", icon: "⚔️", color: "#059669", tags: ["competitive", "strategy", "positioning"] },
+  { name: "Metrics Review", desc: "Product metrics with trend analysis, threshold alerts, and actionable insights. Weekly/monthly/quarterly reviews.", type: "skill", category: "Product Management", icon: "📊", color: "#059669", tags: ["metrics", "trends", "KPIs"] },
+  { name: "Roadmap Update", desc: "Create and reprioritize product roadmap. Now/Next/Later views with capacity constraints and dependencies.", type: "skill", category: "Product Management", icon: "🗺️", color: "#059669", tags: ["roadmap", "priorities", "planning"] },
+  { name: "Sprint Planning", desc: "Scope work, estimate capacity, set sprint goals. Handles PTO, carryover, and velocity-based forecasting.", type: "skill", category: "Product Management", icon: "🏃", color: "#059669", tags: ["sprint", "capacity", "velocity"] },
+  { name: "Stakeholder Update", desc: "Status updates tailored to audience — exec summary, engineering detail, or customer-facing communications.", type: "skill", category: "Product Management", icon: "📢", color: "#059669", tags: ["status", "exec", "comms"] },
+  { name: "Research Synthesis", desc: "Turn interview notes, survey responses, and support tickets into structured, prioritized insights.", type: "skill", category: "Product Management", icon: "🧠", color: "#059669", tags: ["research", "feedback", "synthesis"] },
+  { name: "Write Spec", desc: "Feature specs and PRDs from problem statements. Goals, non-goals, success metrics, and phased delivery.", type: "skill", category: "Product Management", icon: "📋", color: "#059669", tags: ["PRD", "specs", "requirements"] },
+
+  // ===== SALES =====
+  { name: "Account Research", desc: "Company and person research with actionable sales intel. Web research plus enrichment from connected tools.", type: "skill", category: "Sales", icon: "🏢", color: "#EA580C", tags: ["research", "intel", "accounts"] },
+  { name: "Call Prep", desc: "Meeting prep with account context, attendee research, talking points, and suggested agenda structure.", type: "skill", category: "Sales", icon: "📞", color: "#EA580C", tags: ["meetings", "prep", "agenda"] },
+  { name: "Call Summary", desc: "Process call notes and transcripts into action items, follow-up emails, CRM summaries, and objection tracking.", type: "skill", category: "Sales", icon: "📝", color: "#EA580C", tags: ["notes", "follow-up", "CRM"] },
+  { name: "Competitive Intelligence", desc: "Interactive HTML battlecards with competitor comparisons. Click-through cards and comparison matrices.", type: "skill", category: "Sales", icon: "🎯", color: "#EA580C", tags: ["battlecards", "competitors", "HTML"] },
+  { name: "Sales Asset Creator", desc: "Generate tailored sales assets — landing pages, decks, one-pagers, and workflow demos from deal context.", type: "skill", category: "Sales", icon: "🎁", color: "#EA580C", tags: ["assets", "decks", "demos"] },
+  { name: "Daily Briefing", desc: "Prioritized daily sales briefing from calendar, CRM, and email. Start every day knowing exactly what matters.", type: "skill", category: "Sales", icon: "☀️", color: "#EA580C", tags: ["daily", "priorities", "calendar"] },
+  { name: "Draft Outreach", desc: "Research a prospect then draft personalized cold outreach. Enrichment-powered, multi-channel ready.", type: "skill", category: "Sales", icon: "✉️", color: "#EA580C", tags: ["cold-email", "outreach", "personalized"] },
+  { name: "Forecast", desc: "Weighted sales forecast with best/likely/worst scenarios. Commit vs. upside breakdown and gap-to-quota analysis.", type: "skill", category: "Sales", icon: "📉", color: "#EA580C", tags: ["forecast", "pipeline", "quota"] },
+  { name: "Pipeline Review", desc: "Pipeline health analysis — prioritize deals, flag risks, surface stale opportunities, and create weekly action plans.", type: "skill", category: "Sales", icon: "🔄", color: "#EA580C", tags: ["pipeline", "deals", "risks"] },
+
+  // ===== MARKETING =====
+  { name: "Brand Review", desc: "Check content against brand voice and style guide. Flag deviations by severity with before/after fix suggestions.", type: "skill", category: "Marketing", icon: "✨", color: "#DB2777", tags: ["brand", "voice", "compliance"] },
+  { name: "Campaign Plan", desc: "Full campaign brief — objectives, audience, channel strategy, content calendar, and success metrics.", type: "skill", category: "Marketing", icon: "📅", color: "#DB2777", tags: ["campaign", "calendar", "channels"] },
+  { name: "Competitive Brief", desc: "Positioning and messaging comparison. Content gaps, opportunities, and threats against competitors.", type: "skill", category: "Marketing", icon: "⚡", color: "#DB2777", tags: ["positioning", "messaging", "gaps"] },
+  { name: "Content Creation", desc: "Blog posts, social media, email newsletters, landing pages, press releases, and case studies.", type: "skill", category: "Marketing", icon: "📰", color: "#DB2777", tags: ["blog", "social", "email"] },
+  { name: "Draft Content", desc: "Channel-specific drafts with SEO optimization, headline variations, and strong calls to action.", type: "skill", category: "Marketing", icon: "📝", color: "#DB2777", tags: ["SEO", "headlines", "CTAs"] },
+  { name: "Email Sequence", desc: "Multi-email drip sequences with timing, branching logic, exit conditions, and A/B test suggestions.", type: "skill", category: "Marketing", icon: "📧", color: "#DB2777", tags: ["drip", "nurture", "automation"] },
+  { name: "Performance Report", desc: "Marketing performance with metrics, trend analysis, wins/misses, and prioritized optimization recommendations.", type: "skill", category: "Marketing", icon: "📊", color: "#DB2777", tags: ["analytics", "ROI", "trends"] },
+  { name: "SEO Audit", desc: "Keyword research, on-page analysis, content gaps, technical checks, and competitor SEO comparison.", type: "skill", category: "Marketing", icon: "🔎", color: "#DB2777", tags: ["SEO", "keywords", "technical"] },
+
+  // ===== BRAND VOICE =====
+  { name: "Brand Voice Enforcement", desc: "Apply brand guidelines to any content creation. Ensures tone, terminology, and messaging alignment.", type: "skill", category: "Brand Voice", icon: "🎤", color: "#E11D48", tags: ["voice", "tone", "enforcement"] },
+  { name: "Discover Brand", desc: "Search platforms — Notion, Confluence, Drive, Box, Figma, Gong, Slack — for all existing brand materials.", type: "skill", category: "Brand Voice", icon: "🔮", color: "#E11D48", tags: ["discovery", "platforms", "audit"] },
+  { name: "Guideline Generation", desc: "Generate comprehensive brand voice guidelines from documents, transcripts, recordings, and discovery reports.", type: "skill", category: "Brand Voice", icon: "📖", color: "#E11D48", tags: ["guidelines", "generation", "voice"] },
+
+  // ===== DATA & ANALYTICS =====
+  { name: "Analyze", desc: "Answer data questions — from quick metric lookups to full statistical analyses with visualizations.", type: "skill", category: "Data & Analytics", icon: "📊", color: "#0891B2", tags: ["analysis", "metrics", "insights"] },
+  { name: "Build Dashboard", desc: "Interactive HTML dashboards with charts, filters, and tables. Self-contained, browser-ready reporting.", type: "skill", category: "Data & Analytics", icon: "📈", color: "#0891B2", tags: ["dashboard", "interactive", "HTML"] },
+  { name: "Create Viz", desc: "Publication-quality Python visualizations with matplotlib, seaborn, and plotly. Chart type selection guidance.", type: "skill", category: "Data & Analytics", icon: "🎨", color: "#0891B2", tags: ["charts", "python", "plotly"] },
+  { name: "Explore Data", desc: "Profile and explore datasets — shape, quality, null rates, distributions, and data quality issue detection.", type: "skill", category: "Data & Analytics", icon: "🔬", color: "#0891B2", tags: ["profiling", "quality", "EDA"] },
+  { name: "SQL Queries", desc: "Correct, performant SQL across Snowflake, BigQuery, Databricks, and PostgreSQL. Dialect-aware optimization.", type: "skill", category: "Data & Analytics", icon: "🗄️", color: "#0891B2", tags: ["SQL", "Snowflake", "BigQuery"] },
+  { name: "Statistical Analysis", desc: "Descriptive stats, trend analysis, outlier detection, hypothesis testing, and correlation analysis.", type: "skill", category: "Data & Analytics", icon: "📐", color: "#0891B2", tags: ["statistics", "hypothesis", "trends"] },
+  { name: "Validate Data", desc: "QA analysis before sharing — methodology review, accuracy checks, bias detection, and conclusion verification.", type: "skill", category: "Data & Analytics", icon: "✅", color: "#0891B2", tags: ["QA", "accuracy", "validation"] },
+  { name: "Data Context Extractor", desc: "Generate company-specific data analysis skills from tribal knowledge. Schema discovery and metric definition.", type: "skill", category: "Data & Analytics", icon: "🧬", color: "#0891B2", tags: ["custom", "schemas", "tribal-knowledge"] },
+
+  // ===== CUSTOMER SUPPORT =====
+  { name: "Ticket Triage", desc: "Categorize, assign P1-P4 priority, route to the right team, and check for duplicates or known issues.", type: "skill", category: "Customer Support", icon: "🎫", color: "#0284C7", tags: ["triage", "priority", "routing"] },
+  { name: "Customer Research", desc: "Multi-source research on customer questions with source attribution. History, context, and precedent.", type: "skill", category: "Customer Support", icon: "🔍", color: "#0284C7", tags: ["research", "history", "sources"] },
+  { name: "Draft Response", desc: "Professional customer-facing responses tailored to situation, relationship, and communication channel.", type: "skill", category: "Customer Support", icon: "💬", color: "#0284C7", tags: ["response", "professional", "tailored"] },
+  { name: "Customer Escalation", desc: "Package escalations for engineering, product, or leadership with full context, impact, and urgency.", type: "skill", category: "Customer Support", icon: "🚨", color: "#0284C7", tags: ["escalation", "engineering", "context"] },
+  { name: "KB Article", desc: "Draft knowledge base articles from resolved issues. Self-service documentation for common questions.", type: "skill", category: "Customer Support", icon: "📚", color: "#0284C7", tags: ["knowledge-base", "self-service", "docs"] },
+
+  // ===== FINANCE =====
+  { name: "Financial Statements", desc: "Generate income statements, balance sheets, and cash flow with period-over-period comparison and variance analysis.", type: "skill", category: "Finance", icon: "💰", color: "#047857", tags: ["P&L", "balance-sheet", "cash-flow"] },
+  { name: "Variance Analysis", desc: "Decompose financial variances into drivers with narrative explanations and waterfall visualizations.", type: "skill", category: "Finance", icon: "📊", color: "#047857", tags: ["budget", "actuals", "drivers"] },
+  { name: "Journal Entry", desc: "Prepare journal entries with proper debits, credits, and supporting detail for month-end close.", type: "skill", category: "Finance", icon: "📒", color: "#047857", tags: ["debits", "credits", "close"] },
+  { name: "Reconciliation", desc: "Reconcile GL to subledgers, bank statements, or third-party data. Identify and categorize reconciling items.", type: "skill", category: "Finance", icon: "⚖️", color: "#047857", tags: ["GL", "bank-rec", "subledger"] },
+  { name: "Close Management", desc: "Month-end close process with task sequencing, dependencies, status tracking, and blocker identification.", type: "skill", category: "Finance", icon: "📅", color: "#047857", tags: ["month-end", "close", "workflow"] },
+  { name: "SOX Testing", desc: "SOX 404 sample selections, testing workpapers, and control assessments. Compliance-ready documentation.", type: "skill", category: "Finance", icon: "🔒", color: "#047857", tags: ["SOX", "compliance", "controls"] },
+  { name: "Audit Support", desc: "Control testing methodology, sample selection algorithms, and documentation standards for SOX 404.", type: "skill", category: "Finance", icon: "📋", color: "#047857", tags: ["audit", "testing", "samples"] },
+
+  // ===== OPERATIONS =====
+  { name: "Process Documentation", desc: "Flowcharts, RACI matrices, and SOPs. Formalize processes, clarify ownership, and document edge cases.", type: "skill", category: "Operations", icon: "📋", color: "#475569", tags: ["SOP", "RACI", "flowcharts"] },
+  { name: "Process Optimization", desc: "Analyze and improve business processes. Identify bottlenecks, reduce steps, and streamline workflows.", type: "skill", category: "Operations", icon: "⚡", color: "#475569", tags: ["bottlenecks", "efficiency", "workflow"] },
+  { name: "Runbook", desc: "Create operational runbooks for recurring tasks. Step-by-step commands, troubleshooting, escalation paths.", type: "skill", category: "Operations", icon: "📖", color: "#475569", tags: ["runbook", "on-call", "procedures"] },
+  { name: "Status Report", desc: "KPI reports with green/yellow/red status, risks, and action items. Weekly or monthly for leadership.", type: "skill", category: "Operations", icon: "📊", color: "#475569", tags: ["KPIs", "status", "leadership"] },
+  { name: "Capacity Plan", desc: "Resource capacity planning — workload analysis, utilization forecasting, and hire-vs-deprioritize decisions.", type: "skill", category: "Operations", icon: "👥", color: "#475569", tags: ["capacity", "resources", "forecasting"] },
+  { name: "Change Request", desc: "Change management with impact analysis and rollback plans. CAB-ready documentation and stakeholder comms.", type: "skill", category: "Operations", icon: "🔄", color: "#475569", tags: ["change", "CAB", "rollback"] },
+  { name: "Compliance Tracking", desc: "Track compliance requirements and audit readiness for SOC 2, ISO 27001, GDPR, and other frameworks.", type: "skill", category: "Operations", icon: "🔒", color: "#475569", tags: ["SOC2", "ISO", "GDPR"] },
+  { name: "Vendor Review", desc: "Vendor evaluation — cost analysis, risk assessment, TCO breakdown, and negotiation guidance.", type: "skill", category: "Operations", icon: "🤝", color: "#475569", tags: ["vendor", "TCO", "negotiation"] },
+  { name: "Risk Assessment", desc: "Identify, assess, and mitigate operational risks with severity-likelihood matrices and mitigation plans.", type: "skill", category: "Operations", icon: "⚠️", color: "#475569", tags: ["risk", "mitigation", "assessment"] },
+
+  // ===== LEGAL =====
+  { name: "Contract Review", desc: "Review contracts against negotiation playbooks. Flag deviations, generate redlines, and provide impact analysis.", type: "skill", category: "Legal", icon: "📜", color: "#1E3A5F", tags: ["contracts", "redlines", "negotiation"] },
+  { name: "NDA Triage", desc: "Rapidly classify NDAs as GREEN/YELLOW/RED. Screen for non-solicits, non-competes, and missing carveouts.", type: "skill", category: "Legal", icon: "🟢", color: "#1E3A5F", tags: ["NDA", "triage", "classification"] },
+  { name: "Compliance Check", desc: "Run compliance checks on proposed actions, features, or initiatives. Surface regulations and required approvals.", type: "skill", category: "Legal", icon: "✅", color: "#1E3A5F", tags: ["compliance", "regulations", "approvals"] },
+  { name: "Legal Risk Assessment", desc: "Severity-by-likelihood risk framework with escalation criteria. Contract risk, deal exposure, and classification.", type: "skill", category: "Legal", icon: "⚖️", color: "#1E3A5F", tags: ["risk", "severity", "escalation"] },
+  { name: "Legal Response", desc: "Template-based responses for DSRs, litigation holds, vendor questions, and NDA requests with escalation checks.", type: "skill", category: "Legal", icon: "💬", color: "#1E3A5F", tags: ["response", "DSR", "litigation"] },
+  { name: "Meeting Briefing", desc: "Structured briefings for contract negotiations, board meetings, and compliance reviews with action tracking.", type: "skill", category: "Legal", icon: "📋", color: "#1E3A5F", tags: ["briefing", "meetings", "actions"] },
+  { name: "Vendor Check", desc: "Consolidated view of vendor agreements across CLM, CRM, email, and storage. Gap analysis and expiration tracking.", type: "skill", category: "Legal", icon: "🔍", color: "#1E3A5F", tags: ["vendor", "agreements", "gaps"] },
+  { name: "Signature Request", desc: "Pre-signature checklist, signing order configuration, and e-signature routing via DocuSign integration.", type: "skill", category: "Legal", icon: "✍️", color: "#1E3A5F", tags: ["e-sign", "DocuSign", "routing"] },
+
+  // ===== HUMAN RESOURCES =====
+  { name: "Interview Prep", desc: "Structured interview plans with competency-based questions, scorecards, and evaluation rubrics.", type: "skill", category: "Human Resources", icon: "🎤", color: "#7C3AED", tags: ["interviews", "scorecards", "competency"] },
+  { name: "Draft Offer", desc: "Offer letters with total comp packages — base, equity, signing bonus. Includes negotiation guidance.", type: "skill", category: "Human Resources", icon: "📄", color: "#7C3AED", tags: ["offers", "comp", "negotiation"] },
+  { name: "Onboarding", desc: "Onboarding checklists and first-week plans. Pre-start tasks, Day 1 schedule, and 30/60/90 day goals.", type: "skill", category: "Human Resources", icon: "🎉", color: "#7C3AED", tags: ["onboarding", "checklist", "30-60-90"] },
+  { name: "Comp Analysis", desc: "Compensation benchmarking, band placement, equity modeling, and retention risk identification.", type: "skill", category: "Human Resources", icon: "💵", color: "#7C3AED", tags: ["compensation", "bands", "equity"] },
+  { name: "Org Planning", desc: "Headcount planning, org design, team structure optimization. Reporting lines and span of control.", type: "skill", category: "Human Resources", icon: "🏛️", color: "#7C3AED", tags: ["headcount", "org-design", "structure"] },
+  { name: "Performance Review", desc: "Self-assessment templates, manager reviews, calibration prep, and specific behavioral feedback.", type: "skill", category: "Human Resources", icon: "⭐", color: "#7C3AED", tags: ["reviews", "calibration", "feedback"] },
+  { name: "People Report", desc: "Headcount, attrition, diversity, and org health reports. Flight risk analysis and trend identification.", type: "skill", category: "Human Resources", icon: "📊", color: "#7C3AED", tags: ["headcount", "attrition", "diversity"] },
+  { name: "Policy Lookup", desc: "Find and explain company policies in plain language. PTO, remote work, expenses, benefits, and handbook rules.", type: "skill", category: "Human Resources", icon: "📖", color: "#7C3AED", tags: ["policies", "handbook", "benefits"] },
+
+  // ===== PRODUCTIVITY =====
+  { name: "Productivity Start", desc: "Initialize the productivity system. Bootstrap working memory from your existing task list and decode your shorthand.", type: "skill", category: "Productivity", icon: "🚀", color: "#D97706", tags: ["setup", "bootstrap", "memory"] },
+  { name: "Task Management", desc: "Simple task management using shared TASKS.md files. Add, complete, prioritize, and track commitments.", type: "skill", category: "Productivity", icon: "☑️", color: "#D97706", tags: ["tasks", "tracking", "priorities"] },
+  { name: "Memory Management", desc: "Two-tier memory system — CLAUDE.md for working memory, memory/ for full knowledge base. Decodes internal shorthand.", type: "skill", category: "Productivity", icon: "🧠", color: "#D97706", tags: ["memory", "context", "knowledge"] },
+  { name: "Productivity Update", desc: "Sync tasks and refresh memory. Pull new assignments, triage stale items, fill knowledge gaps.", type: "skill", category: "Productivity", icon: "🔄", color: "#D97706", tags: ["sync", "triage", "refresh"] },
+
+  // ===== ENTERPRISE SEARCH =====
+  { name: "Universal Search", desc: "Search across all connected sources in one query. Find decisions, documents, and discussions anywhere.", type: "skill", category: "Enterprise Search", icon: "🔍", color: "#4338CA", tags: ["search", "cross-platform", "unified"] },
+  { name: "Activity Digest", desc: "Daily or weekly digest of activity across all sources. Catch up after time away with prioritized summaries.", type: "skill", category: "Enterprise Search", icon: "📰", color: "#4338CA", tags: ["digest", "catch-up", "summary"] },
+  { name: "Knowledge Synthesis", desc: "Combine search results from multiple sources into coherent, deduplicated answers with source attribution.", type: "skill", category: "Enterprise Search", icon: "🧬", color: "#4338CA", tags: ["synthesis", "dedup", "attribution"] },
+  { name: "Search Strategy", desc: "Query decomposition and multi-source orchestration. Natural language to source-specific searches.", type: "skill", category: "Enterprise Search", icon: "🎯", color: "#4338CA", tags: ["decomposition", "orchestration", "NLP"] },
+  { name: "Source Management", desc: "Manage connected MCP sources. Auto-detect, priority ordering, rate limiting, and connection health.", type: "skill", category: "Enterprise Search", icon: "⚙️", color: "#4338CA", tags: ["sources", "connections", "config"] },
+
+  // ===== SLACK =====
+  { name: "Slack Messaging", desc: "Compose well-formatted Slack messages using mrkdwn syntax. Professional, effective team communication.", type: "skill", category: "Slack", icon: "💬", color: "#611F69", tags: ["messaging", "mrkdwn", "format"] },
+  { name: "Slack Search", desc: "Effectively search Slack for messages, files, channels, and people. Advanced query syntax and filters.", type: "skill", category: "Slack", icon: "🔍", color: "#611F69", tags: ["search", "messages", "channels"] },
+  { name: "Channel Digest", desc: "Digest of recent activity across multiple Slack channels. Stay on top of everything at once.", type: "skill", category: "Slack", icon: "📰", color: "#611F69", tags: ["digest", "multi-channel", "summary"] },
+  { name: "Draft Announcement", desc: "Draft well-formatted Slack announcements and save as drafts. Professional team-wide communications.", type: "skill", category: "Slack", icon: "📢", color: "#611F69", tags: ["announcements", "drafts", "comms"] },
+  { name: "Find Discussions", desc: "Find discussions about specific topics across Slack channels. Track decisions and conversations.", type: "skill", category: "Slack", icon: "🔎", color: "#611F69", tags: ["topics", "discussions", "history"] },
+
+  // ===== APOLLO =====
+  { name: "Enrich Lead", desc: "Instant lead enrichment from a name, company, LinkedIn URL, or email. Full contact card with next actions.", type: "skill", category: "Apollo", icon: "📇", color: "#1D4ED8", tags: ["enrichment", "contacts", "email"] },
+  { name: "Prospect", desc: "Full ICP-to-leads pipeline. Describe ideal customers in plain English, get ranked enriched decision-makers.", type: "skill", category: "Apollo", icon: "🎯", color: "#1D4ED8", tags: ["ICP", "leads", "pipeline"] },
+  { name: "Sequence Load", desc: "Find leads and bulk-add to Apollo sequences. Enrichment, contact creation, dedup, and enrollment in one flow.", type: "skill", category: "Apollo", icon: "🔄", color: "#1D4ED8", tags: ["sequences", "bulk", "automation"] },
+
+  // ===== COMMON ROOM =====
+  { name: "Account Research", desc: "Research companies using Common Room signals. Activity data, engagement patterns, and buying signals.", type: "skill", category: "Common Room", icon: "🏢", color: "#16A34A", tags: ["signals", "engagement", "accounts"] },
+  { name: "Call Prep", desc: "Prepare for calls using Common Room signals. Engagement history, recent activity, and key talking points.", type: "skill", category: "Common Room", icon: "📞", color: "#16A34A", tags: ["prep", "signals", "talking-points"] },
+  { name: "Compose Outreach", desc: "Personalized outreach using Common Room signals. Signal-driven messaging that references real engagement.", type: "skill", category: "Common Room", icon: "✉️", color: "#16A34A", tags: ["outreach", "signals", "personalized"] },
+  { name: "Contact Research", desc: "Research specific people using Common Room data. Activity, engagement, warmth scoring, and context.", type: "skill", category: "Common Room", icon: "👤", color: "#16A34A", tags: ["contacts", "warmth", "activity"] },
+  { name: "Weekly Prep Brief", desc: "Comprehensive weekly briefing for all external calls in the next 7 days. Full context for every meeting.", type: "skill", category: "Common Room", icon: "📅", color: "#16A34A", tags: ["weekly", "briefing", "meetings"] },
+
+  // ===== MCP CONNECTORS =====
+  { name: "Gmail", desc: "Full Gmail access — search messages, read emails/threads, create drafts, manage labels. HTML email support.", type: "connector", category: "Connectors", icon: "📧", color: "#6366F1", tags: ["email", "Google", "drafts"], live: true },
+  { name: "Google Calendar", desc: "List, create, update, delete events. Find meeting times, check availability, respond to invites.", type: "connector", category: "Connectors", icon: "📅", color: "#6366F1", tags: ["calendar", "Google", "scheduling"], live: true },
+  { name: "Google Drive", desc: "Search Drive files and fetch Google Doc contents. Full Drive search API syntax support.", type: "connector", category: "Connectors", icon: "📁", color: "#6366F1", tags: ["storage", "Google", "docs"], live: true },
+  { name: "Notion", desc: "Search, create, and update pages and databases. Comments, views, teams, and rich Markdown content.", type: "connector", category: "Connectors", icon: "📝", color: "#6366F1", tags: ["wiki", "database", "pages"], live: true },
+  { name: "Figma", desc: "Get design context, screenshots, metadata, variables. Generate UI code from Figma nodes directly.", type: "connector", category: "Connectors", icon: "🎨", color: "#6366F1", tags: ["design", "UI", "code-gen"], live: true },
+  { name: "iMessages", desc: "Send and read iMessages. Search contacts, get unread messages. Native Apple ecosystem integration.", type: "connector", category: "Connectors", icon: "💬", color: "#6366F1", tags: ["messaging", "Apple", "contacts"], live: true },
+  { name: "Apple Notes", desc: "List, read, create, and update Apple Notes. Quick capture and cross-device sync.", type: "connector", category: "Connectors", icon: "📒", color: "#6366F1", tags: ["notes", "Apple", "capture"], live: true },
+  { name: "Vercel", desc: "Deploy projects, manage deployments, check build logs, runtime logs. Domain availability and pricing.", type: "connector", category: "Connectors", icon: "▲", color: "#6366F1", tags: ["deploy", "hosting", "CI/CD"], live: true },
+  { name: "AWS", desc: "Execute any AWS CLI command. EC2, S3, Lambda, RDS, IAM, CloudWatch — full cloud infrastructure control.", type: "connector", category: "Connectors", icon: "☁️", color: "#6366F1", tags: ["cloud", "infrastructure", "serverless"], live: true },
+  { name: "Cloudflare", desc: "Workers, D1 databases, KV storage, R2 buckets, Hyperdrive configs. Edge computing and CDN management.", type: "connector", category: "Connectors", icon: "🔶", color: "#6366F1", tags: ["edge", "CDN", "workers"], live: true },
+  { name: "Hugging Face", desc: "Search models, datasets, spaces. ML research papers. Natural language Hub navigation and documentation.", type: "connector", category: "Connectors", icon: "🤗", color: "#6366F1", tags: ["ML", "models", "research"], live: true },
+  { name: "PubMed", desc: "Search articles, get metadata, full text, related articles. Citation lookup and copyright status checks.", type: "connector", category: "Connectors", icon: "🔬", color: "#6366F1", tags: ["research", "medical", "papers"], live: true },
+  { name: "Clinical Trials", desc: "Search ClinicalTrials.gov with Boolean queries. Trial details, eligibility, sponsor pipelines, endpoint analysis.", type: "connector", category: "Connectors", icon: "💊", color: "#6366F1", tags: ["trials", "medical", "research"], live: true },
+  { name: "DocuSign", desc: "Create envelopes, manage templates, route for signature. Workflow management — trigger, pause, resume, cancel.", type: "connector", category: "Connectors", icon: "✍️", color: "#6366F1", tags: ["e-sign", "contracts", "workflows"], live: true },
+  { name: "Vibe Prospecting", desc: "Find companies and prospects with complex filters. Firmographics, technographics, funding, contacts, and events.", type: "connector", category: "Connectors", icon: "🎯", color: "#6366F1", tags: ["prospecting", "enrichment", "B2B"], live: true },
+  { name: "Base44", desc: "AI-powered app builder. Create and edit apps, manage entity schemas, query entities. Visual app development.", type: "connector", category: "Connectors", icon: "🏗️", color: "#6366F1", tags: ["no-code", "apps", "builder"], live: true },
+  { name: "PopHIVE", desc: "Public health data — search, filter, compare states, time series analysis. CDC datasets and health indicators.", type: "connector", category: "Connectors", icon: "🏥", color: "#6366F1", tags: ["health", "CDC", "public-data"], live: true },
+  { name: "Claude in Chrome", desc: "Full browser automation — mouse, keyboard, navigation, screenshots, GIF recording, JS execution, form filling.", type: "connector", category: "Connectors", icon: "🌐", color: "#6366F1", tags: ["browser", "automation", "testing"], live: true },
+  { name: "Desktop Commander", desc: "File operations, process management, system search. Full desktop control with read, write, and execute.", type: "connector", category: "Connectors", icon: "🖥️", color: "#6366F1", tags: ["desktop", "files", "processes"], live: true },
+  { name: "PDF Tools Extended", desc: "Read, fill, validate PDFs. Profile-based bulk filling from CSV. Extract to CSV and form automation.", type: "connector", category: "Connectors", icon: "📄", color: "#6366F1", tags: ["PDF", "forms", "bulk"], live: true },
+  { name: "Mac AppleScript", desc: "Execute AppleScript commands on your Mac. System-level automation and app control.", type: "connector", category: "Connectors", icon: "🍎", color: "#6366F1", tags: ["Mac", "automation", "system"], live: true },
+];
+
+// ========== CATEGORY ORDER ==========
+const categoryOrder = [
+  "Agents", "Core Tools", "Connectors", "Document Creation",
+  "Engineering", "Design", "Product Management", "Sales",
+  "Marketing", "Brand Voice", "Data & Analytics", "Customer Support",
+  "Finance", "Operations", "Legal", "Human Resources",
+  "Productivity", "Enterprise Search", "Slack", "Apollo", "Common Room"
+];
+
+// ========== STATE ==========
+let activeType = 'all';
+let activeCategory = 'all';
+let searchTerm = '';
+
+// ========== RENDER ==========
+function render() {
+  const catalog = document.getElementById('catalog');
+  let filtered = products.filter(p => {
+    if (activeType !== 'all' && p.type !== activeType) return false;
+    if (activeCategory !== 'all' && p.category !== activeCategory) return false;
+    if (searchTerm) {
+      const s = searchTerm.toLowerCase();
+      return p.name.toLowerCase().includes(s) ||
+             p.desc.toLowerCase().includes(s) ||
+             p.category.toLowerCase().includes(s) ||
+             p.tags.some(t => t.toLowerCase().includes(s));
+    }
+    return true;
+  });
+
+  document.getElementById('visible-count').textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    catalog.innerHTML = `
+      <div class="no-results">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C7D0DB" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <h3>No products match your filters</h3>
+        <p>Try adjusting your search or filter criteria</p>
+      </div>`;
+    return;
+  }
+
+  // Group by category
+  const grouped = {};
+  filtered.forEach(p => {
+    if (!grouped[p.category]) grouped[p.category] = [];
+    grouped[p.category].push(p);
+  });
+
+  let html = '';
+  categoryOrder.forEach(cat => {
+    if (!grouped[cat]) return;
+    const items = grouped[cat];
+    const color = items[0].color;
+    html += `
+      <section class="category-section" id="cat-${cat.replace(/[^a-z]/gi, '')}">
+        <div class="category-header">
+          <div class="category-icon" style="background:${color}11; color:${color}">${items[0].icon}</div>
+          <h2>${cat}</h2>
+          <span class="category-count">${items.length} ${items.length === 1 ? 'product' : 'products'}</span>
+        </div>
+        <div class="card-grid">
+          ${items.map(p => `
+            <div class="product-card" style="--accent:${p.color}" onclick="openProduct('${p.name.replace(/'/g, "\\'")}')">
+              <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${p.color};opacity:0;transition:opacity 0.25s" class="card-accent"></div>
+              <div class="card-top">
+                <div class="card-icon" style="background:${p.color}11; color:${p.color}">${p.icon}</div>
+                <div class="card-badges">
+                  <span class="card-type ${p.type}">${p.type}</span>
+                  ${p.live ? '<span class="card-live" title="Live"></span>' : ''}
+                </div>
+              </div>
+              <div class="card-name">${p.name}</div>
+              <div class="card-desc">${p.desc}</div>
+              <div class="card-tags">${p.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}</div>
+              <div class="card-arrow">→</div>
+            </div>
+          `).join('')}
+        </div>
+      </section>`;
+  });
+
+  catalog.innerHTML = html;
+
+  // Activate accent bars on hover via CSS
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('mouseenter', () => card.querySelector('.card-accent').style.opacity = '1');
+    card.addEventListener('mouseleave', () => card.querySelector('.card-accent').style.opacity = '0');
+  });
+}
+
+// ========== CATEGORY CHIPS ==========
+function buildCategoryChips() {
+  const container = document.getElementById('category-chips');
+  const cats = [...new Set(products.map(p => p.category))];
+  container.innerHTML = `<div class="chip active" onclick="filterCategory('all')">All</div>` +
+    categoryOrder.filter(c => cats.includes(c)).map(c =>
+      `<div class="chip" data-cat="${c}" onclick="filterCategory('${c}')">${c}</div>`
+    ).join('');
+}
+
+// ========== FILTERS ==========
+function filterType(type) {
+  activeType = type;
+  document.querySelectorAll('.type-chip').forEach(el => {
+    el.classList.toggle('active', el.dataset.type === type || (type === 'all' && el.dataset.type === 'all'));
+  });
+  // Reset "all" chip
+  if (type !== 'all') {
+    document.querySelector('.type-chip[data-type="all"]').classList.remove('active');
+  } else {
+    document.querySelectorAll('.type-chip').forEach(el => el.classList.remove('active'));
+    document.querySelector('.type-chip[data-type="all"]').classList.add('active');
+  }
+  render();
+}
+
+function filterCategory(cat) {
+  activeCategory = cat;
+  document.querySelectorAll('#category-chips .chip').forEach(el => {
+    const elCat = el.dataset.cat || 'all';
+    el.classList.toggle('active', elCat === cat || (!el.dataset.cat && cat === 'all'));
+  });
+  render();
+}
+
+function openProduct(name) {
+  // Placeholder — individual pages will link here
+  console.log('Open product:', name);
+}
+
+// ========== SEARCH ==========
+document.getElementById('search').addEventListener('input', e => {
+  searchTerm = e.target.value;
+  render();
+});
+
+// ========== INIT ==========
+buildCategoryChips();
+render();
+</script>
+</body>
+</html>
