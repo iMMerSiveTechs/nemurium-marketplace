@@ -391,6 +391,11 @@ body {
   transform: translateY(-2px);
 }
 
+.product-card:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .product-card:hover::before { opacity: 1; }
 
 .card-top {
@@ -862,7 +867,7 @@ function render() {
         </div>
         <div class="card-grid">
           ${items.map(p => `
-            <div class="product-card" style="--accent:${p.color}" onclick="openProduct('${p.name.replace(/'/g, "\\'")}')">
+            <div class="product-card" style="--accent:${p.color}" onclick="openProduct('${p.name.replace(/'/g, "\\'")}')" ${p.url ? `role="link" tabindex="0" aria-label="Open ${p.name}" onkeydown="handleProductKey(event, '${p.name.replace(/'/g, "\\'")}')"` : ''}>
               <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${p.color};opacity:0;transition:opacity 0.25s" class="card-accent"></div>
               <div class="card-top">
                 <div class="card-icon" style="background:${p.color}11; color:${p.color}">${p.icon}</div>
@@ -933,6 +938,14 @@ function openProduct(name) {
   }
   // Placeholder — individual pages will link here
   console.log('Open product:', name);
+}
+
+function handleProductKey(event, name) {
+  if (event.key !== 'Enter' && event.key !== ' ') {
+    return;
+  }
+  event.preventDefault();
+  openProduct(name);
 }
 
 // ========== SEARCH ==========
