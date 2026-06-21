@@ -677,6 +677,7 @@ const products = [
   { name: "Content Creation", desc: "Blog posts, social media, email newsletters, landing pages, press releases, and case studies.", type: "skill", category: "Marketing", icon: "📰", color: "#DB2777", tags: ["blog", "social", "email"] },
   { name: "Draft Content", desc: "Channel-specific drafts with SEO optimization, headline variations, and strong calls to action.", type: "skill", category: "Marketing", icon: "📝", color: "#DB2777", tags: ["SEO", "headlines", "CTAs"] },
   { name: "Email Sequence", desc: "Multi-email drip sequences with timing, branching logic, exit conditions, and A/B test suggestions.", type: "skill", category: "Marketing", icon: "📧", color: "#DB2777", tags: ["drip", "nurture", "automation"] },
+  { name: "Hermes Tweet", desc: "Hermes Agent plugin for X/Twitter research, trend monitoring, draft preparation, and guarded publishing workflows.", type: "skill", category: "Marketing", icon: "𝕏", color: "#DB2777", tags: ["X/Twitter", "Hermes", "social"], url: "skills/marketing/hermes-tweet.html" },
   { name: "Performance Report", desc: "Marketing performance with metrics, trend analysis, wins/misses, and prioritized optimization recommendations.", type: "skill", category: "Marketing", icon: "📊", color: "#DB2777", tags: ["analytics", "ROI", "trends"] },
   { name: "SEO Audit", desc: "Keyword research, on-page analysis, content gaps, technical checks, and competitor SEO comparison.", type: "skill", category: "Marketing", icon: "🔎", color: "#DB2777", tags: ["SEO", "keywords", "technical"] },
 
@@ -925,6 +926,11 @@ function filterCategory(cat) {
 }
 
 function openProduct(name) {
+  const product = products.find(p => p.name === name);
+  if (product?.url) {
+    window.location.href = product.url;
+    return;
+  }
   // Placeholder — individual pages will link here
   console.log('Open product:', name);
 }
