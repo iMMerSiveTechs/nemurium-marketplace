@@ -54,6 +54,36 @@ for (const [pattern, label] of isPrerelease ? forbiddenClaims : []) {
   check(!pattern.test(html), `Pre-release page still contains ${label}.`);
 }
 
+const unsupportedV01Claims = [
+  [/(?:Lens A|Lens B|Lens C|lens-system|lens-agent|lens-build)/i, "the unsupported System/Agent/Build lens presentation"],
+  [/glassgraph\/kernel@0\.1|contract\.gg\.json/i, "the unsupported contract-kernel handoff format"],
+  [/(?:execution evidence|results return|returns to design|execution loop closed)/i, "the unsupported execution-evidence return loop"],
+  [/(?:minimum context shared|user-previewed minimum)/i, "the unsupported minimum-context claim"],
+  [/(?:receipts are plain files|receipt pins|every meaningful change|every proposal, decision, and undo|every change:\s*receipted|approval\s*(?:&amp;|&)\s*undo receipts)/i, "unsupported durable or change-by-change receipt claims"],
+  [/(?:work with us\s*·\s*open now|mapping session|design-partner sprint|architecture conversion|fixed fee)/i, "an unverified paid-services availability claim"],
+  [/glassgraph-(?:board|motion|native)-real(?:-\d+)?\.jpg/i, "a superseded Design Studio screenshot"],
+];
+
+for (const [pattern, label] of unsupportedV01Claims) {
+  check(!pattern.test(html), `Page still contains ${label}.`);
+}
+
+const requiredV01Truth = [
+  [/\bPacks\b/i, "Packs"],
+  [/\bIndex\b[\s\S]{0,160}\bRunbook\b[\s\S]{0,160}\bMatrix\b[\s\S]{0,160}\bCopilot\b/i, "Index, Runbook, Matrix, and Copilot views"],
+  [/\.board\.json/i, "explicit .board.json export"],
+  [/(?:board schema|schema version)\s*(?:v?6|6)/i, "board schema v6"],
+  [/local autosave/i, "local autosave"],
+  [/explicit MCP session/i, "the explicit MCP session boundary"],
+  [/full active board/i, "the full-active-board MCP sharing boundary"],
+  [/no telemetry/i, "the no-telemetry boundary"],
+  [/updater[\s\S]{0,160}GitHub[\s\S]{0,160}when enabled/i, "the conditional GitHub updater check"],
+];
+
+for (const [pattern, label] of requiredV01Truth) {
+  check(pattern.test(html), `Page must state current v0.1 truth: ${label}.`);
+}
+
 const ids = new Set([...html.matchAll(/\bid=["']([^"']+)["']/gi)].map((match) => match[1]));
 for (const match of html.matchAll(/\bhref=["']#([^"']+)["']/gi)) {
   check(ids.has(match[1]), `Fragment link #${match[1]} has no matching id.`);

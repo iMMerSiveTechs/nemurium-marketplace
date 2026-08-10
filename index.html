@@ -1,1888 +1,673 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Pre-release: remove noindex at public launch (Gate 3 pass). -->
-<meta name="robots" content="noindex">
-<title>GlassGraph Studio — see, shape, and hand off your systems | NEMURIUM</title>
-<meta name="description" content="GlassGraph turns products, agents, engines, skills, and processes into validated visual contracts that people and AI can read, change under review, and hand off. Local-first, runtime-neutral, human-directed.">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f7fc">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0f1e">
-<!-- Discoverability launch checklist: set absolute URLs for og:image, twitter:image, add og:url + canonical, remove noindex. -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="NEMURIUM">
-<meta property="og:title" content="GlassGraph Studio — see, shape, and hand off your systems">
-<meta property="og:description" content="Validated visual contracts that people and AI can read and change under review. Local-first, runtime-neutral, human-directed.">
-<meta property="og:image" content="assets/glassgraph-board-real.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="GlassGraph Studio — see, shape, and hand off your systems">
-<meta name="twitter:description" content="Validated visual contracts that people and AI can read and change under review. Local-first, runtime-neutral, human-directed.">
-<meta name="twitter:image" content="assets/glassgraph-board-real.jpg">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "GlassGraph Studio",
-  "applicationCategory": "DeveloperApplication",
-  "description": "The governed system-contract workbench: map a complex system visually, validate and approve every meaningful change, then hand a portable contract to the runtime or agent you choose.",
-  "softwareVersion": "0.1.0",
-  "operatingSystem": "macOS 11+ (Apple Silicon)",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "releaseNotes": "v0.1.0 is the planned first release. Final release testing and automatic-update preparation are in progress; the public download is not open yet.",
-  "author": { "@type": "Organization", "name": "NEMURIUM" }
-}
-</script>
-<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%2360a5fa"/><stop offset="1" stop-color="%23a78bfa"/></linearGradient></defs><rect x="3" y="3" width="26" height="26" rx="7" fill="%230a0f1e"/><path d="M10 22V10l7 8V10" stroke="url(%23g)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22.5" cy="21" r="2.2" fill="%2360a5fa"/></svg>'>
-<script>
-/* stamp theme before first paint: stored choice, else the reference dark look */
-(function () {
-  var t; try { t = localStorage.getItem("gg-theme"); } catch (e) {}
-  if (t !== "light" && t !== "dark") t = "dark";
-  document.documentElement.dataset.theme = t;
-})();
-</script>
-<style>
-/* ================================================================
-   Reference look: deep-navy cinematic stage, typed-node colors,
-   REAL app imagery. Light "Lumière" alternate behind the toggle.
-   Node semantics: trigger/evidence=green · agent/role=violet ·
-   action/adapter=blue · gate/contract=cyan/teal · human=gold (semantic only).
-   Status chips: green=done · blue=preparing · violet=later · red=blocked.
-   All motion sits behind prefers-reduced-motion; glass falls back solid
-   under prefers-reduced-transparency.
-================================================================ */
-:root {
-  --stage: #0a0f1e;
-  --stage-2: #0d1326;
-  --text: #f2f5ff;
-  --text-2: #b8c2dd;
-  --text-3: #7d89a8;
-  --edge: rgba(255,255,255,0.12);
-  --edge-soft: rgba(255,255,255,0.07);
-  --surface: rgba(255,255,255,0.055);
-  --surface-strong: rgba(255,255,255,0.11);
-  --surface-border: rgba(255,255,255,0.13);
-  --surface-solid: #131a30;
-  --card-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 24px 50px rgba(2,5,16,0.55);
-  --header-bg: rgba(10,15,30,0.72);
-  --header-border: rgba(255,255,255,0.08);
-  --chip-bg: rgba(255,255,255,0.05);
-  --chip-text: #a7b2ce;
-  --link: #7db8fc;
-  --n-blue: #60a5fa;
-  --n-violet: #a78bfa;
-  --n-green: #34d399;
-  --n-cyan: #22d3ee;
-  --n-gold: #fbbf24;
-  --grad-a: #3b82f6;
-  --grad-b: #8b5cf6;
-  --good: #6ee7b7; --good-edge: rgba(52,211,153,0.36); --good-bg: rgba(52,211,153,0.11);
-  --info: #7dd3fc; --info-edge: rgba(56,189,248,0.36); --info-bg: rgba(56,189,248,0.11);
-  --soon: #c4b5fd; --soon-edge: rgba(167,139,250,0.36); --soon-bg: rgba(167,139,250,0.11);
-  --bad: #fda4af;  --bad-edge: rgba(244,63,94,0.34);  --bad-bg: rgba(244,63,94,0.10);
-  --dev: #8b97b5;  --dev-edge: rgba(139,151,181,0.28); --dev-bg: rgba(139,151,181,0.08);
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
-  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
-  --radius: 18px;
-  --radius-sm: 11px;
-  --header-h: 64px;
-  --reveal-y: 26px;
-}
-html[data-theme="light"] {
-  --stage: #f4f7fc;
-  --stage-2: #eef2fa;
-  --text: #10182a;
-  --text-2: #46536e;
-  --text-3: #5f6980;
-  --edge: rgba(16,24,42,0.11);
-  --edge-soft: rgba(16,24,42,0.06);
-  --surface: rgba(255,255,255,0.78);
-  --surface-strong: rgba(255,255,255,0.95);
-  --surface-border: rgba(255,255,255,0.95);
-  --surface-solid: #ffffff;
-  --card-shadow: 0 2px 4px rgba(16,24,42,0.04), 0 22px 44px rgba(16,24,42,0.10);
-  --header-bg: rgba(255,255,255,0.70);
-  --header-border: rgba(16,24,42,0.07);
-  --chip-bg: rgba(255,255,255,0.8);
-  --chip-text: #5b6579;
-  --link: #0369a1;
-  --n-blue: #2563eb;
-  --n-violet: #7c3aed;
-  --n-green: #047857;
-  --n-cyan: #0e7490;
-  --n-gold: #b45309;
-  --grad-a: #2563eb;
-  --grad-b: #7c3aed;
-  --good: #047857; --good-edge: rgba(5,150,105,0.32); --good-bg: rgba(16,185,129,0.10);
-  --info: #075e93; --info-edge: rgba(2,132,199,0.32); --info-bg: rgba(14,165,233,0.10);
-  --soon: #6127c9; --soon-edge: rgba(124,58,237,0.30); --soon-bg: rgba(139,92,246,0.10);
-  --bad: #b91c1c;  --bad-edge: rgba(220,38,38,0.30);  --bad-bg: rgba(239,68,68,0.08);
-  --dev: #576374;  --dev-edge: rgba(100,116,139,0.28); --dev-bg: rgba(100,116,139,0.08);
-}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>GlassGraph Studio — the local visual board workplace | NEMURIUM</title>
+  <meta name="description" content="GlassGraph Studio v0.1 is a local-first Mac workplace for Packs, visual board views, local autosave, explicit board export, and user-started MCP sessions. Public release testing is in progress.">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#080d1b">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f7fc">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NEMURIUM">
+  <meta property="og:title" content="GlassGraph Studio — the local visual board workplace">
+  <meta property="og:description" content="A plain-English look at the verified v0.1 workplace while final Mac release testing is completed.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="GlassGraph Studio — the local visual board workplace">
+  <meta name="twitter:description" content="A plain-English look at the verified v0.1 workplace while final Mac release testing is completed.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "GlassGraph Studio",
+    "applicationCategory": "ProductivityApplication",
+    "description": "A local-first visual board workplace for Packs, four board views, local autosave, explicit board export, and user-started MCP sessions.",
+    "softwareVersion": "0.1.0",
+    "operatingSystem": "macOS (Apple Silicon)",
+    "releaseNotes": "v0.1.0 is the planned first release. The public download remains closed while source-bound build, update, install, and recovery acceptance are completed.",
+    "author": { "@type": "Organization", "name": "NEMURIUM" }
+  }
+  </script>
+  <script>
+    (function () {
+      var theme;
+      try { theme = localStorage.getItem("gg-theme"); } catch (error) {}
+      document.documentElement.dataset.theme =
+        theme === "light" || theme === "dark" ? theme : "dark";
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080d1b;
+      --bg-soft: #0e1528;
+      --panel: rgba(18, 27, 49, 0.76);
+      --panel-solid: #121b31;
+      --panel-strong: rgba(27, 39, 69, 0.92);
+      --line: rgba(205, 220, 255, 0.13);
+      --line-strong: rgba(126, 167, 255, 0.34);
+      --text: #f4f7ff;
+      --muted: #aeb9d4;
+      --quiet: #7f8aa6;
+      --blue: #74b0ff;
+      --violet: #b49aff;
+      --green: #67dfb2;
+      --amber: #f4c36c;
+      --red: #ff9da9;
+      --shadow: 0 28px 80px rgba(0, 4, 15, 0.48);
+      --radius: 22px;
+      --radius-small: 14px;
+      --wrap: 1160px;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+      --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+    }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 76px); }
-body {
-  font-family: var(--sans);
-  background: var(--stage);
-  color: var(--text);
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-/* ambient glow field — two layers so parallax can drift them apart */
-.aurora {
-  position: fixed; inset: -12% -8%; z-index: -1; pointer-events: none;
-}
-.aurora-b { will-change: transform; }
-.aurora-a {
-  background:
-    radial-gradient(1000px 620px at 78% 2%, rgba(59,130,246,0.15), transparent 60%),
-    radial-gradient(860px 600px at 6% 40%, rgba(139,92,246,0.12), transparent 60%);
-}
-.aurora-b {
-  background:
-    radial-gradient(900px 700px at 70% 92%, rgba(34,211,238,0.08), transparent 60%),
-    radial-gradient(700px 500px at 20% 85%, rgba(52,211,153,0.06), transparent 60%);
-}
-html[data-theme="light"] .aurora-a {
-  background:
-    radial-gradient(900px 560px at 12% 18%, rgba(125,211,252,0.32), transparent 62%),
-    radial-gradient(860px 600px at 90% 30%, rgba(196,181,253,0.30), transparent 62%);
-}
-html[data-theme="light"] .aurora-b {
-  background:
-    radial-gradient(900px 700px at 74% 88%, rgba(110,231,183,0.22), transparent 62%);
-}
-::selection { background: rgba(96,165,250,0.30); }
-a { color: var(--link); text-decoration: none; }
-a:hover { text-decoration: underline; }
-:focus-visible { outline: 2px solid var(--n-blue); outline-offset: 3px; border-radius: 4px; }
+    html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f4f7fc;
+      --bg-soft: #eaf0fa;
+      --panel: rgba(255, 255, 255, 0.78);
+      --panel-solid: #ffffff;
+      --panel-strong: rgba(255, 255, 255, 0.96);
+      --line: rgba(20, 34, 63, 0.12);
+      --line-strong: rgba(37, 99, 235, 0.28);
+      --text: #10182c;
+      --muted: #4c5974;
+      --quiet: #68748c;
+      --blue: #145ec9;
+      --violet: #6d3bcc;
+      --green: #067354;
+      --amber: #9c5a05;
+      --red: #b42335;
+      --shadow: 0 24px 64px rgba(46, 62, 92, 0.13);
+    }
 
-.skip-link {
-  position: absolute; left: -9999px; top: 0; z-index: 300;
-  background: var(--surface-solid); color: var(--text); padding: 10px 16px; border-radius: 8px;
-  box-shadow: var(--card-shadow);
-}
-.skip-link:focus { left: 12px; top: 12px; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(900px 600px at 92% -10%, rgba(69, 118, 255, 0.18), transparent 62%),
+        radial-gradient(760px 520px at -5% 26%, rgba(148, 93, 255, 0.12), transparent 62%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
 
-.wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+    .wrap { width: min(calc(100% - 48px), var(--wrap)); margin-inline: auto; }
+    .skip {
+      position: fixed;
+      left: 18px;
+      top: -80px;
+      z-index: 1000;
+      padding: 10px 15px;
+      border-radius: 10px;
+      background: var(--panel-solid);
+      color: var(--text);
+    }
+    .skip:focus { top: 18px; }
 
-/* scroll progress */
-.scroll-progress {
-  position: fixed; top: 0; left: 0; height: 2px; width: 100%; z-index: 260;
-  transform-origin: 0 50%; transform: scaleX(0);
-  background: linear-gradient(90deg, var(--grad-a), var(--grad-b), var(--n-cyan));
-  pointer-events: none;
-}
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
+    }
+    .header-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .brand {
+      margin-right: auto;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 780;
+      letter-spacing: 0.22em;
+    }
+    .brand span { color: var(--blue); }
+    .nav { display: flex; align-items: center; gap: 22px; }
+    .nav a {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .nav a:hover { color: var(--text); }
+    .theme {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+    }
 
-/* ---------- honest proof labels ---------- */
-.proof {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 4px 11px;
-  border-radius: 999px;
-  border: 1px solid var(--edge);
-  color: var(--chip-text);
-  background: var(--chip-bg);
-  white-space: nowrap;
-}
-.proof.pass    { color: var(--good); border-color: var(--good-edge); background: var(--good-bg); }
-.proof.partial { color: var(--info); border-color: var(--info-edge); background: var(--info-bg); }
-.proof.blocked { color: var(--bad);  border-color: var(--bad-edge);  background: var(--bad-bg); }
-.proof.soon    { color: var(--soon); border-color: var(--soon-edge); background: var(--soon-bg); }
-.proof.dev     { color: var(--dev);  border-color: var(--dev-edge);  background: var(--dev-bg); }
+    .hero { padding: 92px 0 80px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(350px, 0.92fr);
+      gap: 68px;
+      align-items: center;
+    }
+    .eyebrow, .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--muted);
+      font: 600 11px/1.3 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--amber);
+      box-shadow: 0 0 18px color-mix(in srgb, var(--amber) 72%, transparent);
+    }
+    h1 {
+      margin: 22px 0 0;
+      max-width: 720px;
+      font-size: clamp(44px, 6vw, 76px);
+      line-height: 0.99;
+      letter-spacing: -0.045em;
+    }
+    .gradient {
+      background: linear-gradient(100deg, var(--blue), var(--violet));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .lede {
+      max-width: 650px;
+      margin: 26px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 20px);
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .button.primary {
+      border-color: transparent;
+      background: linear-gradient(100deg, #3178e8, #8158dc);
+      color: white;
+      box-shadow: 0 14px 34px rgba(49, 120, 232, 0.26);
+    }
+    .button[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    .truth-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 28px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 12px;
+      background: var(--panel);
+      color: var(--muted);
+      font: 600 11px/1.2 var(--mono);
+    }
+    .chip.warn { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 35%, transparent); }
+    .chip.closed { color: var(--red); border-color: color-mix(in srgb, var(--red) 35%, transparent); }
+    .chip.good { color: var(--green); border-color: color-mix(in srgb, var(--green) 35%, transparent); }
 
-/* ---------- header ---------- */
-.site-header {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: var(--header-h);
-  background: var(--header-bg);
-  backdrop-filter: blur(20px) saturate(170%);
-  -webkit-backdrop-filter: blur(20px) saturate(170%);
-  border-bottom: 1px solid var(--header-border);
-}
-.header-inner {
-  max-width: 1240px; margin: 0 auto; padding: 0 32px;
-  height: 100%; display: flex; align-items: center; gap: 28px;
-}
-.brand { display: flex; align-items: center; gap: 11px; color: var(--text); margin-right: auto; }
-.brand:hover { text-decoration: none; }
-.brand .mark {
-  width: 30px; height: 30px; border-radius: 8px; flex: none;
-  background: linear-gradient(135deg, rgba(96,165,250,0.18), rgba(167,139,250,0.18));
-  border: 1px solid var(--edge);
-  display: inline-flex; align-items: center; justify-content: center;
-}
-.brand .mark svg { width: 16px; height: 16px; }
-.brand .co { font-weight: 700; letter-spacing: 0.30em; font-size: 13px; }
-.site-nav { display: flex; gap: 26px; align-items: center; }
-.site-nav a { color: var(--text-2); font-size: 13.5px; font-weight: 500; }
-.site-nav a:hover { color: var(--text); text-decoration: none; }
-.site-nav a.active { color: var(--n-blue); }
-.site-nav .caret { font-size: 9px; margin-left: 4px; color: var(--text-3); }
-.header-tools { display: flex; align-items: center; gap: 12px; }
-.btn-explore {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 20px; border-radius: 10px; border: none;
-  font-size: 13.5px; font-weight: 600; color: #fff; cursor: pointer;
-  background: linear-gradient(100deg, var(--grad-a), var(--grad-b));
-  box-shadow: 0 8px 24px rgba(59,130,246,0.30);
-}
-.btn-explore:hover { text-decoration: none; filter: brightness(1.08); }
-.theme-toggle {
-  width: 34px; height: 34px; border-radius: 50%;
-  border: 1px solid var(--edge); background: var(--chip-bg); color: var(--text-2);
-  font-size: 15px; line-height: 1; cursor: pointer;
-  display: inline-flex; align-items: center; justify-content: center;
-}
-.theme-toggle:hover { background: var(--surface-strong); }
-@media (max-width: 940px) { .site-nav { display: none; } }
-.menu-toggle {
-  display: none; width: 34px; height: 34px; border-radius: 8px;
-  border: 1px solid var(--edge); background: var(--chip-bg); color: var(--text-2);
-  font-size: 16px; line-height: 1; cursor: pointer;
-  align-items: center; justify-content: center;
-}
-@media (max-width: 940px) { .menu-toggle { display: inline-flex; } }
-@media (max-width: 560px) { .btn-explore { display: none; } }
-.mobile-nav {
-  position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 190;
-  background: var(--surface-solid); border-bottom: 1px solid var(--edge);
-  display: none; padding: 8px 32px 14px;
-}
-.mobile-nav.open { display: block; }
-.mobile-nav a { display: block; padding: 11px 0; color: var(--text-2); font-size: 15px; border-bottom: 1px solid var(--edge-soft); }
-.mobile-nav a:last-child { border-bottom: none; }
+    .capability-map {
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      border: 1px solid var(--line-strong);
+      border-radius: 26px;
+      background:
+        linear-gradient(145deg, rgba(89, 132, 240, 0.12), rgba(143, 93, 226, 0.06)),
+        var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .capability-map::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -100px;
+      bottom: -120px;
+      border-radius: 50%;
+      background: rgba(112, 86, 220, 0.18);
+      filter: blur(22px);
+      pointer-events: none;
+    }
+    .map-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .map-head strong { font-size: 14px; }
+    .map-head span { color: var(--quiet); font: 10px/1.2 var(--mono); }
+    .map-node {
+      position: relative;
+      z-index: 1;
+      padding: 16px 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: var(--panel-strong);
+    }
+    .map-node + .map-node { margin-top: 11px; }
+    .map-node small {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--quiet);
+      font: 600 10px/1.2 var(--mono);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+    .map-node b { font-size: 15px; }
+    .view-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+    .view-chips span {
+      padding: 5px 9px;
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--blue) 10%, transparent);
+      color: var(--blue);
+      font: 600 11px/1.2 var(--mono);
+    }
+    .map-note {
+      position: relative;
+      z-index: 1;
+      margin: 16px 2px 0;
+      color: var(--quiet);
+      font: 11px/1.5 var(--mono);
+    }
 
-/* ---------- hero ---------- */
-.hero { position: relative; padding: calc(var(--header-h) + 34px) 0 26px; }
-.beta-dot-line {
-  display: flex; justify-content: flex-end; margin-bottom: 20px;
-  font-size: 12.5px; color: var(--text-2); align-items: center; gap: 7px;
-}
-.beta-dot-line .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--n-green); box-shadow: 0 0 10px rgba(52,211,153,0.8); }
-.hero-grid { display: grid; grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr); gap: 44px; align-items: center; }
-@media (max-width: 1060px) { .hero-grid { grid-template-columns: 1fr; } }
-h1 {
-  font-size: clamp(42px, 4.6vw, 62px);
-  line-height: 1.04;
-  letter-spacing: -0.03em;
-  font-weight: 800;
-}
-h1 .hw { display: inline-block; }
-h1 .w-see { color: var(--n-blue); }
-h1 .w-shape { color: var(--n-violet); }
-h1 .w-hand { background: linear-gradient(100deg, var(--n-gold), #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; }
-html[data-theme="light"] h1 .w-hand { background: linear-gradient(100deg, #b45309, #92400e); -webkit-background-clip: text; background-clip: text; color: transparent; }
-/* cinematic entrance */
-.enter { opacity: 0; transform: translateY(18px); animation: enter 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
-.enter-1 { animation-delay: 0.05s; } .enter-2 { animation-delay: 0.15s; }
-.enter-3 { animation-delay: 0.25s; } .enter-4 { animation-delay: 0.35s; }
-.enter-5 { animation-delay: 0.45s; }
-@keyframes enter { to { opacity: 1; transform: translateY(0); } }
-.studio-enter { opacity: 0; transform: scale(1.03) translateY(14px); animation: studioEnter 1s 0.25s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
-@keyframes studioEnter { to { opacity: 1; transform: scale(1) translateY(0); } }
-.lede { margin-top: 22px; max-width: 520px; font-size: 16.5px; line-height: 1.7; color: var(--text-2); }
-.hero-ctas { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.btn {
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 12px 24px; border-radius: 11px;
-  font-size: 14px; font-weight: 600; cursor: pointer;
-  border: 1px solid var(--edge);
-  background: var(--surface); color: var(--text);
-  transition: background 0.2s, transform 0.15s;
-}
-.btn:hover { background: var(--surface-strong); text-decoration: none; transform: translateY(-1px); }
-.btn .play {
-  width: 20px; height: 20px; border-radius: 50%; flex: none;
-  background: var(--surface-strong); border: 1px solid var(--edge);
-  display: inline-flex; align-items: center; justify-content: center; font-size: 8px;
-}
-.btn-primary {
-  border: none; color: #fff;
-  background: linear-gradient(100deg, var(--grad-a), var(--grad-b));
-  box-shadow: 0 10px 30px rgba(59,130,246,0.32);
-}
-.btn-primary:hover { filter: brightness(1.08); background: linear-gradient(100deg, var(--grad-a), var(--grad-b)); }
-.btn[aria-disabled="true"], .btn[disabled] { cursor: not-allowed; opacity: 0.5; }
-.btn[aria-disabled="true"]:hover, .btn[disabled]:hover { transform: none; background: var(--surface); }
-.trust-row {
-  margin-top: 30px; display: flex; flex-wrap: wrap; gap: 0; align-items: center;
-  color: var(--text-2); font-size: 13.5px;
-}
-.trust-row .t { display: inline-flex; align-items: center; gap: 8px; }
-.trust-row .t svg { width: 16px; height: 16px; opacity: 0.8; }
-.trust-row .sep { width: 1px; height: 18px; background: var(--edge); margin: 0 18px; }
-.hero-proofline { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.download-note { font-family: var(--mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.02em; }
+    section.section { padding: 86px 0; border-top: 1px solid var(--line); }
+    .section-head { max-width: 760px; }
+    h2 {
+      margin: 14px 0 0;
+      font-size: clamp(32px, 4vw, 50px);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+    }
+    .section-head p {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .card {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 16px 40px rgba(0, 3, 13, 0.12);
+    }
+    .card .number {
+      display: block;
+      margin-bottom: 20px;
+      color: var(--quiet);
+      font: 11px/1 var(--mono);
+    }
+    .card h3 { margin: 0; font-size: 18px; }
+    .card p { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+    code {
+      padding: 2px 6px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--bg-soft);
+      color: var(--blue);
+      font-family: var(--mono);
+      font-size: 0.9em;
+    }
 
-/* ---------- hero: REAL app frame with tilt + hotspots ---------- */
-.studio-frame-wrap { perspective: 1200px; }
-.studio-frame {
-  position: relative;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: var(--stage-2);
-  box-shadow: 0 40px 90px rgba(2,5,16,0.65), 0 0 0 1px rgba(96,165,250,0.06), 0 0 80px rgba(59,130,246,0.10);
-  overflow: hidden;
-  transform-style: preserve-3d;
-  will-change: transform;
-  transition: transform 0.18s ease-out;
-}
-html[data-theme="light"] .studio-frame { border-color: rgba(16,24,42,0.14); box-shadow: 0 36px 80px rgba(16,24,42,0.20); }
-.studio-frame img { display: block; width: 100%; height: auto; }
-.studio-frame .glare {
-  position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(600px 320px at var(--gx, 70%) var(--gy, 10%), rgba(255,255,255,0.10), transparent 60%);
-  opacity: 0; transition: opacity 0.3s;
-}
-.studio-frame:hover .glare { opacity: 1; }
-.frame-caption {
-  margin-top: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
-  color: var(--text-3); text-align: right;
-}
-/* hotspots: keyboard-operable product callouts over the real screenshot */
-.hotspot {
-  position: absolute; z-index: 4;
-  width: 26px; height: 26px; border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.85);
-  background: rgba(59,130,246,0.55);
-  box-shadow: 0 0 0 4px rgba(59,130,246,0.22), 0 0 18px rgba(59,130,246,0.5);
-  cursor: pointer; color: #fff; font-size: 13px; line-height: 1; font-weight: 700;
-  display: inline-flex; align-items: center; justify-content: center;
-}
-.hotspot::after {
-  content: ""; position: absolute; inset: -4px; border-radius: 50%;
-  border: 2px solid rgba(59,130,246,0.55);
-  animation: hotspotRing 2.6s ease-out infinite;
-}
-@keyframes hotspotRing {
-  0% { transform: scale(1); opacity: 0.7; }
-  70%, 100% { transform: scale(1.65); opacity: 0; }
-}
-.hotspot[aria-expanded="true"] { background: rgba(139,92,246,0.75); }
-.hotspot-tip {
-  position: absolute; z-index: 5; max-width: 250px;
-  padding: 12px 15px; border-radius: 12px;
-  background: rgba(10,15,30,0.92); border: 1px solid rgba(255,255,255,0.18);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 18px 40px rgba(2,5,16,0.6);
-  font-size: 12.5px; line-height: 1.55; color: var(--text-2);
-  opacity: 0; transform: translateY(6px); pointer-events: none;
-  visibility: hidden;
-  transition: opacity 0.22s, transform 0.22s, visibility 0.22s;
-}
-html[data-theme="light"] .hotspot-tip { background: rgba(255,255,255,0.96); border-color: rgba(16,24,42,0.14); box-shadow: 0 18px 40px rgba(16,24,42,0.18); }
-.hotspot-tip.open { opacity: 1; transform: translateY(0); pointer-events: auto; visibility: visible; }
-.hotspot-tip b { display: block; color: var(--text); font-size: 12.5px; margin-bottom: 3px; }
+    .boundary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .boundary {
+      min-height: 210px;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+    .boundary .icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--blue);
+      font: 700 14px/1 var(--mono);
+    }
+    .boundary h3 { margin: 0; font-size: 18px; }
+    .boundary p { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+    .truth-callout {
+      margin-top: 18px;
+      padding: 17px 20px;
+      border: 1px solid color-mix(in srgb, var(--amber) 28%, transparent);
+      border-radius: var(--radius-small);
+      background: color-mix(in srgb, var(--amber) 8%, transparent);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .truth-callout strong { color: var(--amber); }
 
-/* ---------- glowing contract-flow band (scroll-choreographed) ---------- */
-.flow-band { position: relative; padding: 56px 0 64px; overflow: hidden; }
-.flow-title { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-3); margin-bottom: 26px; }
-.flow-rail { position: relative; display: flex; flex-wrap: wrap; gap: 26px 34px; align-items: center; }
-.flow-node {
-  position: relative;
-  display: flex; flex-direction: column; gap: 2px;
-  padding: 12px 18px; border-radius: 12px; border: 1px solid;
-  background: rgba(13,19,38,0.85);
-  min-width: 172px;
-  opacity: 0; transform: translateY(14px);
-  transition: opacity 0.5s cubic-bezier(0.2,0.7,0.2,1), transform 0.5s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.5s;
-  transition-delay: var(--d, 0s);
-}
-html[data-theme="light"] .flow-node { background: rgba(255,255,255,0.92); }
-.flow-rail.lit .flow-node { opacity: 1; transform: translateY(0); }
-.flow-node .ty { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.16em; text-transform: uppercase; }
-.flow-node .nm { font-weight: 650; font-size: 14.5px; color: var(--text); }
-.flow-node.t-role     { border-color: rgba(167,139,250,0.55); } .flow-node.t-role .ty { color: var(--n-violet); }
-.flow-node.t-proposal { border-color: rgba(96,165,250,0.55); }  .flow-node.t-proposal .ty { color: var(--n-blue); }
-.flow-node.t-gate     { border-color: rgba(34,211,238,0.55); }  .flow-node.t-gate .ty { color: var(--n-cyan); }
-.flow-node.t-human    { border-color: rgba(251,191,36,0.60); }  .flow-node.t-human .ty { color: var(--n-gold); }
-.flow-node.t-contract { border-color: rgba(45,212,191,0.55); border-style: dashed; } .flow-node.t-contract .ty { color: #2dd4bf; }
-.flow-node.t-adapter  { border-color: rgba(96,165,250,0.55); }  .flow-node.t-adapter .ty { color: var(--n-blue); }
-.flow-node.t-evidence { border-color: rgba(52,211,153,0.55); }  .flow-node.t-evidence .ty { color: var(--n-green); }
-html[data-theme="light"] .flow-node.t-contract .ty { color: #0f766e; }
-.flow-rail.lit .flow-node.t-role     { box-shadow: 0 0 22px rgba(167,139,250,0.16); }
-.flow-rail.lit .flow-node.t-proposal { box-shadow: 0 0 22px rgba(96,165,250,0.16); }
-.flow-rail.lit .flow-node.t-gate     { box-shadow: 0 0 22px rgba(34,211,238,0.16); }
-.flow-rail.lit .flow-node.t-human    { box-shadow: 0 0 22px rgba(251,191,36,0.18); }
-.flow-rail.lit .flow-node.t-evidence { box-shadow: 0 0 22px rgba(52,211,153,0.16); }
-.flow-node + .flow-node::before {
-  content: ""; position: absolute; left: -30px; top: 50%; width: 26px; height: 0;
-  border-top: 1.5px dashed rgba(148,163,199,0.4);
-}
-.flow-note { margin-top: 22px; font-size: 13px; color: var(--text-3); max-width: 640px; }
+    .release-panel {
+      margin-top: 36px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+    .release-row {
+      display: grid;
+      grid-template-columns: 170px 140px 1fr;
+      gap: 22px;
+      align-items: center;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .release-row:last-child { border-bottom: 0; }
+    .release-row h3 { margin: 0; font-size: 15px; }
+    .release-row p { margin: 0; color: var(--muted); font-size: 13px; }
+    .release-note {
+      margin: 20px 0 0;
+      color: var(--quiet);
+      font: 12px/1.7 var(--mono);
+    }
 
-/* ---------- scroll reveal utility ---------- */
-.reveal { opacity: 0; transform: translateY(var(--reveal-y)); transition: opacity 0.7s cubic-bezier(0.2,0.7,0.2,1), transform 0.7s cubic-bezier(0.2,0.7,0.2,1); transition-delay: var(--d, 0s); }
-.reveal.in { opacity: 1; transform: translateY(0); }
+    .contact-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 34px;
+      padding: 26px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: linear-gradient(110deg, rgba(60, 117, 232, 0.12), rgba(122, 83, 212, 0.09));
+    }
+    .contact-card h3 { margin: 0; font-size: 20px; }
+    .contact-card p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
 
-/* ---------- lens switch ---------- */
-.lens-switch-bar {
-  position: sticky; top: var(--header-h); z-index: 150;
-  padding: 12px 0;
-  background: var(--header-bg);
-  backdrop-filter: blur(18px) saturate(170%);
-  -webkit-backdrop-filter: blur(18px) saturate(170%);
-  border-top: 1px solid var(--edge-soft);
-  border-bottom: 1px solid var(--edge-soft);
-}
-.lens-switch-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-.lens-switch-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); }
-.lens-switch { display: flex; gap: 6px; padding: 5px; border: 1px solid var(--edge); border-radius: 999px; background: var(--chip-bg); }
-.lens-switch a {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 9px 20px; border-radius: 999px;
-  font-size: 13.5px; font-weight: 600; color: var(--text-2);
-}
-.lens-switch a:hover { color: var(--text); text-decoration: none; background: var(--edge-soft); }
-.lens-switch a .k { font-family: var(--mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.06em; }
-.lens-switch a[aria-current="true"] {
-  color: #ffffff;
-  background: linear-gradient(100deg, var(--grad-a), var(--grad-b));
-  box-shadow: 0 6px 18px rgba(59,130,246,0.30);
-}
-.lens-switch a[aria-current="true"] .k { color: rgba(255,255,255,0.75); }
+    footer { padding: 38px 0 52px; border-top: 1px solid var(--line); }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--quiet);
+      font-size: 12px;
+    }
+    .footer-inner a { color: var(--muted); }
 
-/* ---------- lens sections ---------- */
-.lens { position: relative; padding: 84px 0 76px; border-bottom: 1px solid var(--edge-soft); }
-.lens-head { max-width: 800px; }
-.lens-tag { display: inline-flex; gap: 12px; align-items: center; margin-bottom: 16px; }
-.lens-tag .id { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); }
-h2 { font-size: clamp(27px, 3.3vw, 37px); letter-spacing: -0.022em; font-weight: 750; line-height: 1.14; }
-.lens-head p { margin-top: 16px; color: var(--text-2); font-size: 16px; max-width: 700px; }
-.lens-stage { margin-top: 38px; display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 22px; align-items: stretch; }
-@media (max-width: 980px) { .lens-stage { grid-template-columns: 1fr; } }
-.canvas-card {
-  position: relative;
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius);
-  background: linear-gradient(165deg, var(--surface-strong), var(--surface));
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
-}
-.canvas-card::before {
-  content: ""; position: absolute; inset: -30%; pointer-events: none;
-  background: radial-gradient(45% 40% at 62% 28%, rgba(96,165,250,0.10), transparent 70%),
-              radial-gradient(40% 45% at 22% 76%, rgba(167,139,250,0.09), transparent 70%);
-}
-.canvas-card svg { display: block; width: 100%; height: auto; position: relative; }
-.canvas-hint {
-  position: absolute; left: 14px; bottom: 12px;
-  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.05em;
-  color: var(--text-3); background: var(--chip-bg); padding: 4px 10px; border-radius: 999px;
-  border: 1px solid var(--edge-soft); pointer-events: none;
-}
-.inspector {
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--card-shadow);
-  padding: 22px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.inspector h3 {
-  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3);
-}
-.inspector .ins-title { font-weight: 700; font-size: 16.5px; }
-.inspector .ins-body { font-family: var(--mono); font-size: 12px; line-height: 1.75; color: var(--text-2); white-space: pre-line; }
-.inspector .ins-foot { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--edge-soft); font-size: 12px; color: var(--text-3); }
-.lens-gets { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 9px; }
-.get-chip {
-  font-size: 12.5px; font-weight: 500; color: var(--text-2);
-  border: 1px solid var(--edge); border-radius: 999px; padding: 6px 14px;
-  background: var(--chip-bg);
-}
-
-/* ---------- SVG graph styling ---------- */
-.gg-node { cursor: pointer; transition: opacity 0.25s; }
-.gg-node rect, .gg-node circle {
-  fill: rgba(13,19,38,0.85);
-  stroke: rgba(148,163,199,0.4);
-  stroke-width: 1;
-}
-html[data-theme="light"] .gg-node rect, html[data-theme="light"] .gg-node circle {
-  fill: rgba(255,255,255,0.94);
-  stroke: rgba(16,24,42,0.22);
-}
-.gg-node text { fill: var(--text); font-family: var(--sans); font-size: 12.5px; font-weight: 600; }
-.gg-node .sub { fill: var(--text-3); font-size: 10px; font-weight: 500; font-family: var(--mono); }
-.gg-edge { stroke: rgba(148,163,199,0.35); stroke-width: 1.2; fill: none; transition: opacity 0.25s, stroke 0.25s; }
-html[data-theme="light"] .gg-edge { stroke: rgba(16,24,42,0.24); }
-.gg-edge-label { fill: var(--text-3); font-family: var(--mono); font-size: 9.5px; }
-.gg-dimmed { opacity: 0.22; }
-.gg-lit rect, .gg-lit circle { stroke: var(--n-blue); stroke-width: 1.6; filter: drop-shadow(0 0 9px rgba(96,165,250,0.45)); }
-.gg-edge.gg-lit { stroke: var(--n-blue); opacity: 1; }
-.svg-gate { fill: rgba(34,211,238,0.08); stroke: rgba(34,211,238,0.55); }
-.svg-handoff { fill: rgba(45,212,191,0.07); stroke: rgba(45,212,191,0.55); }
-.svg-deny { stroke: rgba(244,63,94,0.55); stroke-dasharray: 4 5; stroke-width: 1.2; fill: none; }
-.svg-deny-label { fill: rgba(253,164,175,0.85); }
-html[data-theme="light"] .svg-deny { stroke: rgba(220,38,38,0.5); }
-html[data-theme="light"] .svg-deny-label { fill: rgba(185,28,28,0.85); }
-.pulse-layer { position: absolute; pointer-events: none; transform-origin: 0 0; }
-.pulse-dot {
-  position: absolute; width: 7px; height: 7px; border-radius: 50%;
-  background: var(--n-blue); box-shadow: 0 0 10px rgba(96,165,250,0.7);
-  offset-rotate: 0deg;
-  animation: travel var(--dur, 5s) linear infinite;
-  animation-delay: var(--delay, 0s);
-  top: 0; left: 0; pointer-events: none;
-}
-.pulse-dot.violet { background: var(--n-violet); box-shadow: 0 0 10px rgba(167,139,250,0.65); }
-@keyframes travel {
-  0% { offset-distance: 0%; opacity: 0; }
-  8% { opacity: 1; }
-  88% { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; }
-}
-
-/* ---------- generic sections ---------- */
-.section { padding: 92px 0 84px; border-bottom: 1px solid var(--edge-soft); position: relative; }
-.section-head { max-width: 780px; }
-.section-head .kicker {
-  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--text-3); margin-bottom: 14px; display: block;
-}
-.section-head p { margin-top: 16px; color: var(--text-2); font-size: 16px; }
-.cards { margin-top: 38px; display: grid; gap: 18px; }
-.cards > *, .portfolio-grid > *, .gate-row > *, .lens-stage > *, .hero-grid > * { min-width: 0; }
-.cards.c3 { grid-template-columns: repeat(3, 1fr); }
-.cards.c4 { grid-template-columns: repeat(4, 1fr); }
-.cards.c2 { grid-template-columns: repeat(2, 1fr); }
-@media (max-width: 980px) { .cards.c3, .cards.c4 { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 640px) { .cards.c3, .cards.c4, .cards.c2 { grid-template-columns: 1fr; } }
-.card {
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--card-shadow);
-  padding: 26px;
-  display: flex; flex-direction: column; gap: 12px;
-}
-.card h3 { font-size: 16.5px; font-weight: 700; letter-spacing: -0.01em; }
-.card p { font-size: 13.5px; color: var(--text-2); }
-.card .card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-.card ul li { font-size: 13px; color: var(--text-2); padding-left: 18px; position: relative; }
-.card ul li::before { content: "—"; position: absolute; left: 0; color: var(--text-3); }
-.card .btn { align-self: flex-start; margin-top: auto; padding: 11px 20px; font-size: 13.5px; }
-.codeblock {
-  font-family: var(--mono); font-size: 11.5px; line-height: 1.7;
-  color: #c9d3ec;
-  background: rgba(5,9,22,0.75);
-  border: 1px solid var(--edge-soft);
-  border-radius: var(--radius-sm);
-  padding: 15px 17px;
-  overflow-x: auto;
-  white-space: pre;
-}
-html[data-theme="light"] .codeblock { background: #0d1326; border-color: rgba(16,24,42,0.2); }
-.codeblock .k { color: var(--n-blue); }
-.codeblock .s { color: var(--n-violet); }
-.codeblock .g { color: var(--n-green); }
-html[data-theme="light"] .codeblock .k { color: #7db8fc; }
-html[data-theme="light"] .codeblock .s { color: #c4b5fd; }
-html[data-theme="light"] .codeblock .g { color: #6ee7b7; }
-
-/* ---------- Inside the Studio (real imagery showcase) ---------- */
-.showcase-grid { margin-top: 38px; display: grid; grid-template-columns: 1.35fr 1fr; gap: 26px; align-items: center; }
-@media (max-width: 980px) { .showcase-grid { grid-template-columns: 1fr; } }
-.showcase-img {
-  border-radius: 14px; overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.16);
-  box-shadow: 0 30px 70px rgba(2,5,16,0.55), 0 0 60px rgba(139,92,246,0.10);
-}
-html[data-theme="light"] .showcase-img { border-color: rgba(16,24,42,0.14); box-shadow: 0 26px 60px rgba(16,24,42,0.16); }
-.showcase-img img { display: block; width: 100%; height: auto; }
-.showcase-points { display: flex; flex-direction: column; gap: 16px; }
-.showcase-points .pt { display: flex; gap: 14px; align-items: flex-start; }
-.showcase-points .pt .ic {
-  width: 34px; height: 34px; border-radius: 10px; flex: none;
-  display: inline-flex; align-items: center; justify-content: center;
-  border: 1px solid var(--edge); background: var(--chip-bg); font-size: 15px;
-}
-.showcase-points .pt b { display: block; font-size: 14.5px; }
-.showcase-points .pt p { font-size: 13px; color: var(--text-2); }
-.showcase-quote {
-  margin-top: 6px; padding: 12px 16px; border-left: 3px solid var(--n-cyan);
-  background: var(--info-bg); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-family: var(--mono); font-size: 12px; color: var(--text-2);
-}
-
-/* ---------- flip cards (Connect AI rails) ---------- */
-.flip-grid { margin-top: 38px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-@media (max-width: 980px) { .flip-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 640px) { .flip-grid { grid-template-columns: 1fr; } }
-.flip { perspective: 1000px; min-height: 240px; }
-.flip-inner {
-  position: relative; width: 100%; min-height: inherit;
-  display: grid;
-  transform-style: preserve-3d;
-  transition: transform 0.65s cubic-bezier(0.3, 0.8, 0.3, 1);
-}
-.flip.flipped .flip-inner { transform: rotateY(180deg); }
-.flip-face {
-  grid-area: 1 / 1;
-  position: relative;
-  backface-visibility: hidden; -webkit-backface-visibility: hidden;
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--card-shadow);
-  padding: 22px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.flip-face.back { transform: rotateY(180deg); }
-.flip-face h3 { font-size: 16px; font-weight: 700; }
-.flip-face p { font-size: 13px; color: var(--text-2); }
-.flip-face .card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.flip-face .flip-hint {
-  margin-top: auto; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em;
-  color: var(--text-3); display: inline-flex; align-items: center; gap: 6px;
-}
-.flip-face .dir { font-family: var(--mono); font-size: 11px; line-height: 1.9; color: var(--text-2); }
-.flip-face .dir .arr { color: var(--n-cyan); }
-.flip-toggle {
-  position: absolute; top: 14px; right: 14px; z-index: 2;
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 1px solid var(--edge); background: var(--chip-bg); color: var(--text-2);
-  font-size: 13px; cursor: pointer;
-  display: inline-flex; align-items: center; justify-content: center;
-}
-.flip-toggle:hover { background: var(--surface-strong); }
-
-/* membrane flow */
-.membrane-flow {
-  margin-top: 38px;
-  display: flex; align-items: stretch; gap: 0;
-  border: 1px solid var(--surface-border); border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
-  flex-wrap: wrap;
-}
-.mf-step {
-  flex: 1 1 150px; padding: 24px 22px; border-right: 1px solid var(--edge-soft); position: relative; min-width: 150px;
-  opacity: 0; transform: translateY(12px);
-  transition: opacity 0.55s cubic-bezier(0.2,0.7,0.2,1), transform 0.55s cubic-bezier(0.2,0.7,0.2,1);
-  transition-delay: var(--d, 0s);
-}
-.membrane-flow.lit .mf-step { opacity: 1; transform: translateY(0); }
-.mf-step:last-child { border-right: none; }
-.mf-step .mf-n { font-family: var(--mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.14em; }
-.mf-step h3 { font-size: 15px; margin-top: 7px; font-weight: 700; }
-.mf-step p { font-size: 12px; color: var(--text-2); margin-top: 6px; }
-.mf-step.mf-gate { background: linear-gradient(180deg, rgba(34,211,238,0.10), rgba(139,92,246,0.08)); }
-.mf-deny {
-  margin-top: 14px; font-family: var(--mono); font-size: 12px; color: var(--text-2);
-  border: 1px dashed var(--bad-edge); border-radius: var(--radius-sm);
-  background: var(--bad-bg);
-  padding: 12px 16px;
-}
-.mf-deny b { color: var(--bad); font-weight: 600; }
-
-/* gates */
-.gates { margin-top: 36px; display: flex; flex-direction: column; gap: 12px; }
-.gate-row {
-  display: grid; grid-template-columns: 210px 130px 1fr; gap: 18px;
-  padding: 22px 24px;
-  border: 1px solid var(--surface-border); border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--card-shadow);
-  align-items: start;
-}
-.gate-row h3 { font-size: 15.5px; font-weight: 700; }
-.gate-row .gate-items { font-size: 13px; color: var(--text-2); line-height: 1.85; }
-.gate-row .gate-items .sep { color: var(--text-3); padding: 0 7px; }
-@media (max-width: 780px) { .gate-row { grid-template-columns: 1fr; gap: 8px; } }
-.release-note {
-  margin-top: 24px; font-family: var(--mono); font-size: 12.5px; color: var(--text-2);
-  border-left: 3px solid var(--n-blue); padding: 11px 16px; background: var(--info-bg);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-}
-
-/* trust with native shot */
-.trust-grid { margin-top: 38px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 26px; align-items: center; }
-@media (max-width: 980px) { .trust-grid { grid-template-columns: 1fr; } }
-.trust-cards { display: flex; flex-direction: column; gap: 16px; }
-
-/* portfolio */
-.portfolio-grid { margin-top: 38px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-@media (max-width: 980px) { .portfolio-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 640px) { .portfolio-grid { grid-template-columns: 1fr; } }
-.p-card {
-  border: 1px solid var(--surface-border); border-radius: var(--radius);
-  padding: 22px 24px; background: var(--surface);
-  box-shadow: var(--card-shadow);
-  display: flex; flex-direction: column; gap: 8px;
-}
-.p-card.focal {
-  grid-column: 1 / -1;
-  background: linear-gradient(120deg, rgba(59,130,246,0.12), rgba(139,92,246,0.10));
-  border-color: rgba(96,165,250,0.32);
-}
-.p-card .card-top h3 { font-size: 16px; font-weight: 700; }
-.p-card p { font-size: 13px; color: var(--text-2); }
-
-/* beta band */
-.beta-band {
-  position: relative;
-  padding: 96px 0 90px;
-  background:
-    radial-gradient(820px 480px at 16% -10%, rgba(139,92,246,0.14), transparent 60%),
-    radial-gradient(760px 480px at 92% 14%, rgba(59,130,246,0.12), transparent 58%);
-}
-.beta-band .wrap { position: relative; z-index: 2; }
-.beta-note { font-family: var(--mono); font-size: 11.5px; color: var(--text-3); margin-top: 18px; }
-
-/* footer */
-footer { padding: 40px 0 56px; border-top: 1px solid var(--edge-soft); }
-.footer-inner { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: flex-start; }
-.footer-brand { font-weight: 700; letter-spacing: 0.30em; font-size: 11px; color: var(--text-3); }
-.footer-inner p { font-size: 12.5px; color: var(--text-3); max-width: 460px; margin-top: 8px; }
-.footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
-.footer-links a { color: var(--text-3); font-size: 12.5px; }
-.footer-links a:hover { color: var(--text); }
-.footer-stamp { margin-top: 26px; font-family: var(--mono); font-size: 10.5px; color: var(--text-3); letter-spacing: 0.04em; }
-
-/* mobile studio frame pans in its own scroller */
-@media (max-width: 720px) {
-  .studio-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 14px; }
-}
-/* long status chips wrap instead of overflowing narrow viewports */
-@media (max-width: 640px) {
-  .proof { white-space: normal; line-height: 1.5; }
-  .card .card-top, .p-card .card-top { flex-wrap: wrap; }
-}
-
-/* accessibility: solid surfaces when transparency is reduced */
-@media (prefers-reduced-transparency: reduce) {
-  .site-header, .lens-switch-bar, .card, .canvas-card, .inspector, .membrane-flow,
-  .gate-row, .p-card, .flip-face, .hotspot-tip, .canvas-hint, .mobile-nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--surface-solid); }
-  html[data-theme="light"] .hotspot-tip { background: var(--surface-solid); }
-}
-
-/* accessibility: kill all motion */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  * { animation-duration: 0.001s !important; animation-iteration-count: 1 !important; transition-duration: 0.001s !important; transition-delay: 0s !important; }
-  .enter, .studio-enter { opacity: 1; transform: none; animation: none; }
-  .reveal, .flow-node, .mf-step { opacity: 1; transform: none; }
-  .pulse-dot { display: none; }
-  .studio-frame { transition: none !important; transform: none !important; }
-  .hotspot { animation: none; }
-  .flip-inner { transition: none; }
-  .aurora { transform: none !important; }
-}
-</style>
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 42px; }
+      .boundary-grid { grid-template-columns: 1fr; }
+      .nav { display: none; }
+      .release-row { grid-template-columns: 1fr; gap: 10px; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: min(calc(100% - 32px), var(--wrap)); }
+      .hero { padding: 68px 0 62px; }
+      .grid { grid-template-columns: 1fr; }
+      .contact-card, .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      .site-header, .card, .boundary, .capability-map, .release-panel {
+        background: var(--panel-solid);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+  </style>
 </head>
 <body data-glassgraph-release-state="prerelease" data-glassgraph-version="0.1.0">
-<a class="skip-link" href="#main">Skip to content</a>
-<div class="aurora aurora-a" aria-hidden="true"></div>
-<div class="aurora aurora-b" aria-hidden="true"></div>
-<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
 
-<header class="site-header">
-  <div class="header-inner">
-    <a class="brand" href="#top" aria-label="NEMURIUM — home">
-      <span class="mark" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M4 12V4l5 6V4" stroke="url(#bg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12.4" cy="11.4" r="1.4" fill="#60a5fa"/><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs></svg></span>
-      <span class="co">NEMURIUM</span>
-    </a>
-    <nav class="site-nav" aria-label="Primary">
-      <a href="#portfolio">Products<span class="caret" aria-hidden="true">▾</span></a>
-      <a href="#top" class="active" aria-current="page">GlassGraph</a>
-      <a href="#work">Work with us</a>
-      <a href="#release">What's next</a>
-      <a href="#trust">About</a>
-    </nav>
-    <div class="header-tools">
-      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">☰</button>
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch theme">☀</button>
-      <a class="btn-explore" href="#studio">Explore GlassGraph →</a>
-    </div>
-  </div>
-</header>
-<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
-  <a href="#portfolio">Products</a>
-  <a href="#top">GlassGraph</a>
-  <a href="#work">Work with us</a>
-  <a href="#release">What's next</a>
-  <a href="#trust">About</a>
-</nav>
-
-<main id="main">
-
-<!-- ============ HERO — real app imagery ============ -->
-<section class="hero" id="top">
-  <div class="wrap">
-    <div class="beta-dot-line enter enter-1"><span class="dot" aria-hidden="true"></span> v0.1.0 · final release testing · coming soon</div>
-    <div class="hero-grid">
-      <div>
-        <h1>
-          <span class="hw enter enter-1">Build systems</span><br>
-          <span class="hw enter enter-2">you can <span class="w-see">see</span>,</span><br>
-          <span class="hw enter enter-3"><span class="w-shape">shape</span>, and</span><br>
-          <span class="hw enter enter-4"><span class="w-hand">hand off.</span></span>
-        </h1>
-        <p class="lede enter enter-4">
-          GlassGraph turns products, agents, engines, skills, and processes into validated
-          visual contracts that people and AI can read, change under review, and hand off.
-        </p>
-        <div class="hero-ctas enter enter-5">
-          <a class="btn btn-primary" href="#studio">Explore GlassGraph →</a>
-          <a class="btn" href="#contract"><span class="play" aria-hidden="true">▶</span> See how it works</a>
-        </div>
-        <div class="trust-row enter enter-5" role="list" aria-label="Product principles">
-          <span class="t" role="listitem"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="9" rx="1.5"/><path d="M5.5 14h5"/></svg> Local-first.</span>
-          <span class="sep" aria-hidden="true"></span>
-          <span class="t" role="listitem"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M8 2l6 3-6 3-6-3 6-3z"/><path d="M2 8l6 3 6-3"/><path d="M2 11l6 3 6-3"/></svg> Runtime-neutral.</span>
-          <span class="sep" aria-hidden="true"></span>
-          <span class="t" role="listitem"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="8" cy="5" r="2.5"/><path d="M3 14c.6-3 2.4-4.5 5-4.5s4.4 1.5 5 4.5"/></svg> Human-directed.</span>
-        </div>
-        <div class="hero-proofline enter enter-5">
-          <span class="btn" aria-disabled="true" style="padding:9px 18px;font-size:12.5px">Download coming soon</span>
-          <span class="download-note">planned v0.1.0 · Apple Silicon · release testing in progress · <a href="#release">see release status</a></span>
-        </div>
-      </div>
-
-      <!-- GlassGraph Studio authoring-build screenshot. -->
-      <div class="studio-scroll studio-enter">
-        <div class="studio-frame-wrap">
-          <figure class="studio-frame" id="studio-frame">
-            <img src="assets/glassgraph-board-real.jpg" srcset="assets/glassgraph-board-real-720.jpg 720w, assets/glassgraph-board-real-1200.jpg 1200w, assets/glassgraph-board-real.jpg 1800w" sizes="(max-width: 1060px) 100vw, 56vw" width="1800" height="1125" fetchpriority="high"
-              alt="GlassGraph Studio, a real board: a Task node flows into an Orchestrator that fans out to Agents A, B and C, converging on a Result node, with a gold Shared memory node below. The role sidebar lists Input, Gatekeeper, Orchestrator, Agent, Tool, Capability intent, Memory and Output; the toolbar shows Simulate, Motion, Tour, Review and Propose.">
-            <span class="glare" aria-hidden="true"></span>
-            <button class="hotspot" style="left:46%;top:44%" aria-expanded="false" aria-controls="tip-1" aria-label="About the Orchestrator role">+</button>
-            <div class="hotspot-tip" id="tip-1" style="left:48%;top:52%" role="note"><b>Roles, not rectangles</b> Every node is typed — this Orchestrator fans a task out to three parallel agents. The vocabulary comes from the board, not a stencil.</div>
-            <button class="hotspot" style="left:66%;top:80%" aria-expanded="false" aria-controls="tip-2" aria-label="About the Shared memory node">+</button>
-            <div class="hotspot-tip" id="tip-2" style="left:56%;top:64%" role="note"><b>Typed memory</b> The gold node is shared memory — human-semantic types (gold = human/memory surfaces) carry through the whole product.</div>
-            <button class="hotspot" style="left:26%;top:6%" aria-expanded="false" aria-controls="tip-3" aria-label="About the governed toolbar">+</button>
-            <div class="hotspot-tip" id="tip-3" style="left:22%;top:13%" role="note"><b>Simulate · Review · Propose</b> The write path is governed in the app itself — proposals are reviewed before they land, and preview never executes effects.</div>
-          </figure>
-          <p class="frame-caption">real authoring-build screenshot · Orchestrated-swarm template</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- the governed write path, lighting up in sequence -->
-  <div class="wrap flow-band">
-    <div class="flow-title">The governed write path — for every AI-proposed change</div>
-    <div class="flow-rail" id="flow-rail">
-      <span class="flow-node t-role" style="--d:0s"><span class="ty">Role</span><span class="nm">Planner drafts</span></span>
-      <span class="flow-node t-proposal" style="--d:0.12s"><span class="ty">Proposal</span><span class="nm">Add relation</span></span>
-      <span class="flow-node t-gate" style="--d:0.24s"><span class="ty">Membrane</span><span class="nm">Validate gates</span></span>
-      <span class="flow-node t-human" style="--d:0.36s"><span class="ty">Human</span><span class="nm">You approve</span></span>
-      <span class="flow-node t-contract" style="--d:0.48s"><span class="ty">Contract</span><span class="nm">rev 42 committed</span></span>
-      <span class="flow-node t-adapter" style="--d:0.60s"><span class="ty">Adapter</span><span class="nm">Runtime handoff</span></span>
-      <span class="flow-node t-evidence" style="--d:0.72s"><span class="ty">Evidence</span><span class="nm">Results return</span></span>
-    </div>
-    <p class="flow-note reveal">Deny means no mutation happens at all — not a filtered one, not one rolled back afterwards. Approving writes a receipt pinned to the exact board bytes before and after. Your own edits on the canvas are direct: this gate is for agents, not for you.</p>
-  </div>
-</section>
-
-<!-- ============ INSIDE THE STUDIO — real feature imagery ============ -->
-<section class="section" id="studio">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">Inside the Studio · real authoring-build screenshots</span>
-      <h2>Motion, simulation, and review — built in, not bolted on</h2>
-    </div>
-    <div class="showcase-grid">
-      <div class="showcase-img reveal">
-        <img src="assets/glassgraph-motion-real.jpg" srcset="assets/glassgraph-motion-real-720.jpg 720w, assets/glassgraph-motion-real-1200.jpg 1200w, assets/glassgraph-motion-real.jpg 1800w" sizes="(max-width: 980px) 100vw, 55vw" width="1800" height="1125" loading="lazy" decoding="async"
-          alt="GlassGraph Studio's Motion studio panel open over the swarm board: Orbit, Pulse, Wave, Spiral, Drift, Converge, Figure-8 and Pendulum presets with Speed, Amplitude and Jitter sliders, a Trails toggle and a Play button. The Preview menu is open, reading 'Simulate visually — preview only; does not authorize or execute effects' and 'Review overlay'.">
-      </div>
-      <div class="showcase-points">
-        <div class="pt reveal" style="--d:0.05s">
-          <span class="ic" aria-hidden="true">〰</span>
-          <div><b>Motion studio</b><p>Eight motion presets — Orbit, Pulse, Converge, Figure-8 — with speed, amplitude and jitter control, so a design can show how it flows, not just how it sits.</p></div>
-        </div>
-        <div class="pt reveal" style="--d:0.15s">
-          <span class="ic" aria-hidden="true">▶</span>
-          <div><b>Visual simulation</b><p>Run the board as a preview: watch a task fan out through the orchestrator and converge — before anything real is connected.</p></div>
-        </div>
-        <div class="pt reveal" style="--d:0.25s">
-          <span class="ic" aria-hidden="true">✓</span>
-          <div><b>Review overlay</b><p>Walk the board change by change in review mode. Approvals are explicit; nothing lands silently.</p></div>
-        </div>
-        <div class="showcase-quote reveal" style="--d:0.35s">
-          From the app's own Preview menu: "Simulate visually — <b>preview only; does not
-          authorize or execute effects</b>." That honesty is the product.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ LENS SWITCH + THREE LENSES ============ -->
-<div id="lenses">
-  <div class="lens-switch-bar">
-    <div class="wrap lens-switch-inner">
-      <span class="lens-switch-label">One canvas · three lenses · one contract</span>
-      <nav class="lens-switch" aria-label="Lens quick switch">
-        <a href="#lens-system" data-lens-link="lens-system"><span class="k">A</span> System</a>
-        <a href="#lens-agent" data-lens-link="lens-agent"><span class="k">B</span> Agent</a>
-        <a href="#lens-build" data-lens-link="lens-build"><span class="k">C</span> Build</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="NEMURIUM GlassGraph home">NEMURIUM <span>/ GlassGraph</span></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#workplace">v0.1 workplace</a>
+        <a href="#connection">Connections</a>
+        <a href="#release">Release status</a>
+        <a href="#contact">Contact</a>
       </nav>
+      <button class="theme" id="theme-toggle" type="button" aria-label="Switch theme">☀</button>
     </div>
-  </div>
+  </header>
 
-  <!-- ——— Lens A ——— -->
-  <section class="lens" id="lens-system" data-lens>
-    <div class="wrap">
-      <div class="lens-head reveal">
-        <span class="lens-tag"><span class="proof">Lens A</span><span class="id">Engine / Matrix modeling</span></span>
-        <h2>Model the system as it actually is</h2>
-        <p>
-          Lay out engines, stores, surfaces, and probes as typed entities with typed relationships —
-          inputs, outputs, constraints, and invariants included. This is architecture as a living
-          model, not a diagram that drifts from reality the day after you draw it.
-        </p>
-      </div>
-      <div class="lens-stage reveal">
-        <figure class="canvas-card" data-canvas>
-          <svg viewBox="0 0 720 400" role="group" aria-label="Interactive architecture graph: gateway, auth, engine core, matrix store, render surface, and telemetry probe connected by typed relationships">
-            <g id="edges-a">
-              <path class="gg-edge" data-conn="n-gw n-auth" d="M172 96 C 230 96, 250 70, 306 70" />
-              <path class="gg-edge" data-conn="n-gw n-core" d="M172 116 C 240 130, 260 178, 318 190" />
-              <path class="gg-edge" data-conn="n-auth n-core" d="M366 92 C 372 130, 372 150, 370 168" />
-              <path class="gg-edge" data-conn="n-core n-matrix" d="M432 196 C 490 196, 500 150, 552 138" />
-              <path class="gg-edge" data-conn="n-matrix n-render" d="M600 160 C 596 210, 586 240, 566 266" />
-              <path class="gg-edge" data-conn="n-core n-tel" d="M382 222 C 390 268, 320 300, 258 306" />
-              <path class="gg-edge" data-conn="n-matrix n-tel" d="M560 152 C 430 190, 330 270, 262 298" />
-              <text class="gg-edge-label" x="222" y="66">verifies ▸</text>
-              <text class="gg-edge-label" x="230" y="162">intent ▸</text>
-              <text class="gg-edge-label" x="474" y="164">commit ▸</text>
-              <text class="gg-edge-label" x="600" y="222">snapshot ▸</text>
-              <text class="gg-edge-label" x="300" y="292">receipts ▸</text>
-            </g>
-            <g class="gg-node" role="img" id="n-gw" tabindex="0" data-info-title="Gateway · service" data-info="type: service&#10;in: https requests&#10;out: routed intents&#10;constraint: rate ≤ 500 rps" aria-label="Gateway service node">
-              <rect x="60" y="76" width="112" height="56" rx="12" />
-              <text x="76" y="100">Gateway</text>
-              <text class="sub" x="76" y="118">service</text>
-            </g>
-            <g class="gg-node" role="img" id="n-auth" tabindex="0" data-info-title="Auth · service" data-info="type: service&#10;in: session tokens&#10;out: scoped identities&#10;constraint: token expiry 15 m" aria-label="Auth service node">
-              <rect x="306" y="44" width="112" height="52" rx="12" />
-              <text x="322" y="66">Auth</text>
-              <text class="sub" x="322" y="84">service</text>
-            </g>
-            <g class="gg-node" role="img" id="n-core" tabindex="0" data-info-title="Engine core" data-info="type: engine&#10;in: validated intents&#10;out: operations&#10;invariant: every write passes&#10;the proposal membrane" aria-label="Engine core node">
-              <rect x="318" y="168" width="114" height="58" rx="12" />
-              <text x="334" y="192">Engine core</text>
-              <text class="sub" x="334" y="210">engine</text>
-            </g>
-            <g class="gg-node" role="img" id="n-matrix" tabindex="0" data-info-title="Matrix store" data-info="type: store&#10;in: approved operations&#10;out: versioned state&#10;invariant: append-only revisions" aria-label="Matrix store node">
-              <rect x="552" y="106" width="112" height="56" rx="12" />
-              <text x="568" y="130">Matrix store</text>
-              <text class="sub" x="568" y="148">store</text>
-            </g>
-            <g class="gg-node" role="img" id="n-render" tabindex="0" data-info-title="Render surface" data-info="type: surface&#10;in: state snapshots&#10;out: views&#10;budget: frame ≤ 16 ms" aria-label="Render surface node">
-              <rect x="500" y="266" width="120" height="54" rx="12" />
-              <text x="516" y="289">Render</text>
-              <text class="sub" x="516" y="307">surface</text>
-            </g>
-            <g class="gg-node" role="img" id="n-tel" tabindex="0" data-info-title="Telemetry probe" data-info="type: probe&#10;in: events&#10;out: receipts&#10;rule: no payload bodies" aria-label="Telemetry probe node">
-              <rect x="140" y="282" width="118" height="54" rx="12" />
-              <text x="156" y="305">Telemetry</text>
-              <text class="sub" x="156" y="323">probe</text>
-            </g>
-          </svg>
-          <figcaption class="canvas-hint">hover / focus a node to inspect its contract</figcaption>
-        </figure>
-        <aside class="inspector" aria-label="Entity inspector">
-          <h3 aria-hidden="true">Entity inspector</h3>
-          <div class="ins-title" data-ins-title>Engine core</div>
-          <div class="ins-body" data-ins-body>type: engine
-in: validated intents
-out: operations
-invariant: every write passes
-the proposal membrane</div>
-          <div class="ins-foot">Every entity carries typed inputs, outputs, and constraints in the contract kernel.</div>
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">v0.1.0 · final release testing · coming soon</span>
+          <h1>One visual board.<br><span class="gradient">One clear workplace.</span></h1>
+          <p class="lede">
+            GlassGraph Studio is a standalone Mac app for organizing connected work on a visual board.
+            This page describes only what is verified in the current v0.1 source.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#workplace">See what v0.1 includes</a>
+            <a class="button" href="#release">Check release status</a>
+          </div>
+          <div class="truth-row" aria-label="Current product boundaries">
+            <span class="chip good">local autosave</span>
+            <span class="chip good">no telemetry</span>
+            <span class="chip">explicit exports</span>
+            <span class="chip closed">public download closed</span>
+          </div>
+        </div>
+
+        <aside class="capability-map" aria-label="Current v0.1 capability summary">
+          <div class="map-head">
+            <strong>Current v0.1</strong>
+            <span>source truth · not a screenshot</span>
+          </div>
+          <div class="map-node">
+            <small>Start with</small>
+            <b>Packs</b>
+          </div>
+          <div class="map-node">
+            <small>Move through</small>
+            <b>Workplace views</b>
+            <div class="view-chips" aria-label="Workplace views">
+              <span>Index</span><span>Runbook</span><span>Matrix</span><span>Copilot</span>
+            </div>
+          </div>
+          <div class="map-node">
+            <small>Keep locally</small>
+            <b>Your active board and autosave</b>
+          </div>
+          <p class="map-note">Current product images will be added only after source-bound release captures are approved.</p>
         </aside>
       </div>
-      <div class="lens-gets reveal">
-        <span class="get-chip">Typed entities &amp; relationships</span>
-        <span class="get-chip">Inputs / outputs per node</span>
-        <span class="get-chip">Constraints &amp; invariants</span>
-        <span class="get-chip">Versioned revisions</span>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ——— Lens B ——— -->
-  <section class="lens" id="lens-agent" data-lens>
-    <div class="wrap">
-      <div class="lens-head reveal">
-        <span class="lens-tag"><span class="proof">Lens B</span><span class="id">Agent / role / workflow modeling</span></span>
-        <h2>Give agents roles, intents — and a gate</h2>
-        <p>
-          Model who acts in the system: roles, their intents, and the capabilities they're allowed.
-          A change proposed by an AI travels through the governance membrane before it can touch
-          anything. Approve or deny. <strong style="color:var(--text)">Deny means no mutation — none.</strong>
-        </p>
+    <section class="section" id="workplace">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">What v0.1 actually includes</span>
+          <h2>The workplace, without the marketing fog.</h2>
+          <p>GlassGraph Studio v0.1 is one product and one local workplace. These are its current user-facing boundaries.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <span class="number">01</span>
+            <h3>Packs</h3>
+            <p>Packs are the starting point for opening organized board material in the workplace.</p>
+          </article>
+          <article class="card">
+            <span class="number">02</span>
+            <h3>Four workplace views</h3>
+            <p>Index, Runbook, Matrix, and Copilot are the current views inside the same GlassGraph workplace.</p>
+          </article>
+          <article class="card">
+            <span class="number">03</span>
+            <h3>Local autosave</h3>
+            <p>The active board is saved locally while you work. Autosave is not presented as an exported file.</p>
+          </article>
+          <article class="card">
+            <span class="number">04</span>
+            <h3>Explicit board export</h3>
+            <p>A <code>.board.json</code> file is created only when you explicitly export it. It uses board schema v6.</p>
+          </article>
+        </div>
       </div>
-      <div class="lens-stage reveal">
-        <figure class="canvas-card" data-canvas>
-          <svg viewBox="0 0 720 400" role="group" aria-label="Agent orchestration graph: planner, builder, and reviewer roles route proposals through a governance membrane before any change reaches the governed board">
-            <g id="edges-b">
-              <path class="gg-edge" data-conn="b-plan b-gate" d="M188 96 C 260 100, 290 140, 330 168" />
-              <path class="gg-edge" data-conn="b-build b-gate" d="M188 200 C 250 200, 280 200, 328 200" />
-              <path class="gg-edge" data-conn="b-rev b-gate" d="M188 306 C 260 300, 292 258, 330 232" />
-              <path class="gg-edge" data-conn="b-gate b-board" d="M432 200 C 500 200, 520 200, 560 200" />
-              <text class="gg-edge-label" x="240" y="122">proposes ▸</text>
-              <text class="gg-edge-label" x="242" y="192">proposes ▸</text>
-              <text class="gg-edge-label" x="238" y="286">approves ▸</text>
-              <text class="gg-edge-label" x="474" y="188">on approval ▸</text>
-            </g>
-            <g class="gg-node" role="img" id="b-plan" tabindex="0" data-info-title="Planner · agent role" data-info="intent: shape roadmap ops&#10;capability: read, propose&#10;writes: proposal-only&#10;binding: exact revision" aria-label="Planner agent role">
-              <circle cx="140" cy="96" r="46" />
-              <text x="112" y="93" style="font-size:12px">Planner</text>
-              <text class="sub" x="112" y="110">agent role</text>
-            </g>
-            <g class="gg-node" role="img" id="b-build" tabindex="0" data-info-title="Builder · agent role" data-info="intent: implement modules&#10;capability: read, propose batch&#10;writes: proposal-only&#10;expiry: lease-bound" aria-label="Builder agent role">
-              <circle cx="140" cy="200" r="46" />
-              <text x="114" y="197" style="font-size:12px">Builder</text>
-              <text class="sub" x="114" y="214">agent role</text>
-            </g>
-            <g class="gg-node" role="img" id="b-rev" tabindex="0" data-info-title="Reviewer · human role" data-info="capability: approve, edit, deny&#10;authority: final&#10;undo: atomic rollback&#10;receipts: every decision" aria-label="Reviewer human role">
-              <circle cx="140" cy="306" r="46" />
-              <text x="108" y="303" style="font-size:12px">Reviewer</text>
-              <text class="sub" x="108" y="320">human role</text>
-            </g>
-            <g class="gg-node" role="img" id="b-gate" tabindex="0" data-info-title="Governance membrane" data-info="exact revision binding&#10;proposal expiry&#10;capacity limits&#10;undo receipts&#10;atomic rollback" aria-label="Governance membrane gate">
-              <rect x="330" y="120" width="102" height="160" rx="14" class="svg-gate" />
-              <text x="348" y="152">Gate</text>
-              <text class="sub" x="348" y="170">membrane</text>
-              <text class="sub" x="348" y="212">validate</text>
-              <text class="sub" x="348" y="232">review</text>
-              <text class="sub" x="348" y="252">approve / deny</text>
-            </g>
-            <g class="gg-node" role="img" id="b-board" tabindex="0" data-info-title="Governed board" data-info="state: versioned&#10;mutation: only via approvals&#10;every change: receipted&#10;rollback: atomic" aria-label="Governed board node">
-              <rect x="560" y="150" width="118" height="100" rx="14" />
-              <text x="578" y="192">Board</text>
-              <text class="sub" x="578" y="210">governed state</text>
-            </g>
-            <g aria-hidden="true">
-              <path id="deny-path" class="svg-deny" d="M368 280 C 360 320, 300 348, 250 350" />
-              <text x="256" y="372" class="gg-edge-label svg-deny-label">denied ▸ no mutation · receipt only</text>
-            </g>
-          </svg>
-          <figcaption class="canvas-hint">hover / focus a role to inspect intents &amp; capabilities</figcaption>
-        </figure>
-        <aside class="inspector" aria-label="Role inspector">
-          <h3 aria-hidden="true">Role inspector</h3>
-          <div class="ins-title" data-ins-title>Governance membrane</div>
-          <div class="ins-body" data-ins-body>exact revision binding
-proposal expiry
-capacity limits
-undo receipts
-atomic rollback</div>
-          <div class="ins-foot">An AI proposal is inert until a human gesture approves it. Nothing mutates on deny.</div>
-        </aside>
-      </div>
-      <div class="lens-gets reveal">
-        <span class="get-chip">Roles &amp; intents</span>
-        <span class="get-chip">Capability allowlists</span>
-        <span class="get-chip">Proposal-first writes</span>
-        <span class="get-chip">Approval &amp; undo receipts</span>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ——— Lens C ——— -->
-  <section class="lens" id="lens-build" data-lens>
-    <div class="wrap">
-      <div class="lens-head reveal">
-        <span class="lens-tag"><span class="proof">Lens C</span><span class="id">App / file / implementation modeling</span></span>
-        <h2>Shape the build — down to files and modules</h2>
-        <p>
-          The same contract projects onto implementation structure: modules, the files that realize
-          them, and the handoff outputs a runtime or agent needs. Change the model and the expected
-          build shape follows; change the build and the drift is visible.
-        </p>
+    <section class="section" id="connection">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Connections and privacy</span>
+          <h2>Nothing connects by implication.</h2>
+          <p>The app stays local by default. Network and AI boundaries are stated plainly so you know what leaves the workplace and when.</p>
+        </div>
+        <div class="boundary-grid">
+          <article class="boundary">
+            <span class="icon" aria-hidden="true">M</span>
+            <h3>Explicit MCP session</h3>
+            <p>When you deliberately start an explicit MCP session, the connected host can receive the full active board. v0.1 does not claim that it shares only a smaller previewed subset.</p>
+          </article>
+          <article class="boundary">
+            <span class="icon" aria-hidden="true">0</span>
+            <h3>No telemetry</h3>
+            <p>GlassGraph Studio sends no product analytics or usage telemetry.</p>
+          </article>
+          <article class="boundary">
+            <span class="icon" aria-hidden="true">↑</span>
+            <h3>Updates are conditional</h3>
+            <p>The updater checks GitHub for GlassGraph release information when enabled. The update path is still completing release acceptance.</p>
+          </article>
+        </div>
+        <div class="truth-callout">
+          <strong>Copilot boundary:</strong> Copilot is a workplace view in v0.1. That does not mean built-in AI execution is active.
+        </div>
       </div>
-      <div class="lens-stage reveal">
-        <figure class="canvas-card" data-canvas>
-          <svg viewBox="0 0 720 400" role="group" aria-label="Implementation mapping: project files on the left connect to the modules they realize on the right, converging on a handoff bundle">
-            <g id="edges-c">
-              <path class="gg-edge" data-conn="c-f1 c-m1" d="M258 88 C 340 88, 380 108, 448 116" />
-              <path class="gg-edge" data-conn="c-f2 c-m1" d="M258 132 C 330 132, 380 126, 448 126" />
-              <path class="gg-edge" data-conn="c-f3 c-m2" d="M258 176 C 330 180, 380 194, 448 200" />
-              <path class="gg-edge" data-conn="c-f4 c-m3" d="M258 220 C 330 232, 380 264, 448 274" />
-              <path class="gg-edge" data-conn="c-f5 c-m3" d="M258 264 C 330 272, 380 278, 448 282" />
-              <path class="gg-edge" data-conn="c-m1 c-out" d="M580 128 C 630 138, 640 160, 646 190" />
-              <path class="gg-edge" data-conn="c-m2 c-out" d="M580 204 C 616 208, 630 212, 644 218" />
-              <path class="gg-edge" data-conn="c-m3 c-out" d="M580 276 C 630 268, 640 250, 646 240" />
-              <text class="gg-edge-label" x="330" y="78">realizes ▸</text>
-              <text class="gg-edge-label" x="596" y="166">emits ▸</text>
-            </g>
-            <g class="gg-node" role="img" id="c-f1" tabindex="0" data-info-title="app/routes.ts" data-info="module: interface&#10;exports: route table&#10;contract: entity Gateway" aria-label="File app/routes.ts">
-              <rect x="80" y="68" width="178" height="38" rx="9" />
-              <text x="96" y="92" style="font-family:var(--mono);font-size:11.5px;font-weight:500">app/routes.ts</text>
-            </g>
-            <g class="gg-node" role="img" id="c-f2" tabindex="0" data-info-title="app/state.ts" data-info="module: interface&#10;exports: state atoms&#10;contract: entity Render" aria-label="File app/state.ts">
-              <rect x="80" y="112" width="178" height="38" rx="9" />
-              <text x="96" y="136" style="font-family:var(--mono);font-size:11.5px;font-weight:500">app/state.ts</text>
-            </g>
-            <g class="gg-node" role="img" id="c-f3" tabindex="0" data-info-title="engine/ops.ts" data-info="module: core&#10;exports: operation set&#10;contract: entity Engine core" aria-label="File engine/ops.ts">
-              <rect x="80" y="156" width="178" height="38" rx="9" />
-              <text x="96" y="180" style="font-family:var(--mono);font-size:11.5px;font-weight:500">engine/ops.ts</text>
-            </g>
-            <g class="gg-node" role="img" id="c-f4" tabindex="0" data-info-title="workers/sync.ts" data-info="module: services&#10;exports: sync worker&#10;contract: relation commit" aria-label="File workers/sync.ts">
-              <rect x="80" y="200" width="178" height="38" rx="9" />
-              <text x="96" y="224" style="font-family:var(--mono);font-size:11.5px;font-weight:500">workers/sync.ts</text>
-            </g>
-            <g class="gg-node" role="img" id="c-f5" tabindex="0" data-info-title="workers/audit.ts" data-info="module: services&#10;exports: receipt writer&#10;contract: entity Telemetry" aria-label="File workers/audit.ts">
-              <rect x="80" y="244" width="178" height="38" rx="9" />
-              <text x="96" y="268" style="font-family:var(--mono);font-size:11.5px;font-weight:500">workers/audit.ts</text>
-            </g>
-            <g class="gg-node" role="img" id="c-m1" tabindex="0" data-info-title="Interface module" data-info="files: 2&#10;realizes: Gateway, Render&#10;status: in sync" aria-label="Interface module">
-              <rect x="448" y="96" width="132" height="56" rx="12" />
-              <text x="464" y="120">Interface</text>
-              <text class="sub" x="464" y="138">module · 2 files</text>
-            </g>
-            <g class="gg-node" role="img" id="c-m2" tabindex="0" data-info-title="Core module" data-info="files: 1&#10;realizes: Engine core&#10;status: in sync" aria-label="Core module">
-              <rect x="448" y="172" width="132" height="56" rx="12" />
-              <text x="464" y="196">Core</text>
-              <text class="sub" x="464" y="214">module · 1 file</text>
-            </g>
-            <g class="gg-node" role="img" id="c-m3" tabindex="0" data-info-title="Services module" data-info="files: 2&#10;realizes: commit, Telemetry&#10;status: in sync" aria-label="Services module">
-              <rect x="448" y="248" width="132" height="56" rx="12" />
-              <text x="464" y="272">Services</text>
-              <text class="sub" x="464" y="290">module · 2 files</text>
-            </g>
-            <g class="gg-node" role="img" id="c-out" tabindex="0" data-info-title="Handoff bundle" data-info="contract.gg.json&#10;module map&#10;review receipts&#10;evidence slots" aria-label="Handoff bundle output">
-              <rect x="622" y="188" width="86" height="52" rx="12" class="svg-handoff" />
-              <text x="634" y="210" style="font-size:11.5px">Handoff</text>
-              <text class="sub" x="634" y="227">bundle</text>
-            </g>
-          </svg>
-          <figcaption class="canvas-hint">hover / focus a file or module to see the mapping</figcaption>
-        </figure>
-        <aside class="inspector" aria-label="Build inspector">
-          <h3 aria-hidden="true">Build inspector</h3>
-          <div class="ins-title" data-ins-title>Handoff bundle</div>
-          <div class="ins-body" data-ins-body>contract.gg.json
-module map
-review receipts
-evidence slots</div>
-          <div class="ins-foot">Handoff-ready outputs stay plain files on your disk — portable, diffable, yours.</div>
-        </aside>
-      </div>
-      <div class="lens-gets reveal">
-        <span class="get-chip">Module &amp; file structure</span>
-        <span class="get-chip">Model ↔ build drift visibility</span>
-        <span class="get-chip">Handoff-ready outputs</span>
-        <span class="get-chip">Plain, portable files</span>
-      </div>
-    </div>
-  </section>
-</div>
+    </section>
 
-<!-- ============ ONE CONTRACT UNDERNEATH ============ -->
-<section class="section" id="contract">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">Cross-lens · what you actually get</span>
-      <h2>Three lenses. One contract underneath.</h2>
-      <p>
-        System, agent, and build views are projections of a single versioned contract kernel —
-        entities, typed relationships, roles, capabilities, and policies. Edit through any lens;
-        the others stay coherent. The kernel is runtime-neutral and compiles only through explicit
-        adapters — no graph is silently claimed to be "executable everywhere."
-      </p>
-    </div>
-    <div class="cards c3">
-      <div class="card reveal" style="--d:0s">
-        <div class="card-top"><h3>Portable contract</h3><span class="proof">plain file</span></div>
-        <p>A small versioned core that humans can read and agents can validate against.</p>
-        <div class="codeblock">{
-  <span class="k">"contract"</span>: <span class="s">"glassgraph/kernel@0.1"</span>,
-  <span class="k">"entities"</span>: [
-    { <span class="k">"id"</span>: <span class="s">"core"</span>, <span class="k">"type"</span>: <span class="s">"engine"</span> },
-    { <span class="k">"id"</span>: <span class="s">"planner"</span>, <span class="k">"type"</span>: <span class="s">"role"</span> }
-  ],
-  <span class="k">"relations"</span>: [
-    { <span class="k">"from"</span>: <span class="s">"planner"</span>,
-      <span class="k">"to"</span>: <span class="s">"core"</span>,
-      <span class="k">"kind"</span>: <span class="s">"proposes"</span> }
-  ],
-  <span class="k">"policies"</span>: [
-    { <span class="k">"rule"</span>: <span class="s">"writes-require-approval"</span> }
-  ]
-}</div>
-        <p class="download-note" style="margin-top:2px">illustrative sample — format shown, not a capture</p>
-      </div>
-      <div class="card reveal" style="--d:0.12s">
-        <div class="card-top"><h3>Review receipts</h3><span class="proof">auditable</span></div>
-        <p>Every proposal, decision, and undo produces a bound receipt you can keep.</p>
-        <div class="codeblock">receipt   op_9f2c…
-bound     rev 41 → 42
-review    <span class="g">approved</span> · reviewer: you
-scope     2 entities · 1 relation
-undo      available · atomic</div>
-        <p class="download-note" style="margin-top:2px">illustrative sample — format shown, not a capture</p>
-        <ul>
-          <li>Exact revision binding</li>
-          <li>Expiry &amp; capacity limits</li>
-          <li>Atomic rollback</li>
-        </ul>
-      </div>
-      <div class="card reveal" style="--d:0.24s">
-        <div class="card-top"><h3>Execution evidence</h3><span class="proof">returns to design</span></div>
-        <p>When a runtime or agent executes against the contract, evidence flows back to the revision it came from.</p>
-        <div class="codeblock">run        adapter/local
-result     <span class="g">pass</span> · 12 checks
-drift      none detected
-returned   rev 42</div>
-        <p class="download-note" style="margin-top:2px">illustrative sample — format shown, not a capture</p>
-        <ul>
-          <li>Runtime-neutral upstream layer</li>
-          <li>Explicit adapters only</li>
-          <li>Design ↔ execution loop closed</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ GOVERNANCE ============ -->
-<section class="section" id="governance">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">Governance membrane</span>
-      <h2>Every meaningful change asks first</h2>
-      <p>
-        One membrane governs every AI authoring rail — an external MCP client today, and the
-        built-in Copilot when it ships. AI writes are proposal-first, bound to the exact board bytes
-        they were made against, and reviewed before anything mutates. Your own edits are direct.
-      </p>
-    </div>
-    <div class="membrane-flow" id="membrane-flow" role="list">
-      <div class="mf-step" role="listitem" style="--d:0s">
-        <span class="mf-n">01</span>
-        <h3>Propose</h3>
-        <p>An AI drafts a change, bound to the exact board bytes it was made against.</p>
-      </div>
-      <div class="mf-step" role="listitem" style="--d:0.12s">
-        <span class="mf-n">02</span>
-        <h3>Validate</h3>
-        <p>Schema, capability, capacity, and expiry checks run before review.</p>
-      </div>
-      <div class="mf-step mf-gate" role="listitem" style="--d:0.24s">
-        <span class="mf-n">03</span>
-        <h3>Review</h3>
-        <p>You approve, edit, or deny in an app-owned review surface.</p>
-      </div>
-      <div class="mf-step" role="listitem" style="--d:0.36s">
-        <span class="mf-n">04</span>
-        <h3>Apply</h3>
-        <p>Approved changes commit atomically to a new revision with a receipt.</p>
-      </div>
-      <div class="mf-step" role="listitem" style="--d:0.48s">
-        <span class="mf-n">05</span>
-        <h3>Record</h3>
-        <p>The receipt pins the board bytes before and after, and that a human decided.</p>
-      </div>
-    </div>
-    <p class="mf-deny reveal"><b>Deny = no mutation.</b> A denied proposal leaves the board untouched and records the decision. A proposal that no longer matches the board it was made against is rejected rather than merged. Verified behaviour, not a promise.</p>
-  </div>
-</section>
-
-<!-- ============ CONNECT AI — flip cards ============ -->
-<section class="section" id="connect">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">Connection modes · flip a card for the details</span>
-      <h2>Manual first. AI on your terms.</h2>
-      <p>
-        The complete authoring experience works with no account, no internet, no AI, and no
-        subscription. When you want AI, you choose the rail — and each rail ships only behind the
-        same governance membrane.
-      </p>
-    </div>
-    <div class="flip-grid">
-      <div class="flip reveal" style="--d:0s">
-        <div class="flip-inner">
-          <div class="flip-face front">
-            <button class="flip-toggle" type="button" aria-expanded="false" aria-label="Show details for Manual mode">⇄</button>
-            <div class="card-top"><h3>Manual</h3><span class="proof pass">core · complete</span></div>
-            <p>Author, validate, and hand off entirely offline. Local-first files, no account.</p>
-            <span class="flip-hint">⇄ flip for the write path</span>
+    <section class="section" id="release">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Release status · NO_SHIP</span>
+          <h2>Closest to finished. Not public yet.</h2>
+          <p>The product is being completed as a source-bound Mac release. The website will not offer a download until the app, update path, recovery path, and hosted file agree exactly.</p>
+        </div>
+        <div class="release-panel">
+          <div class="release-row">
+            <h3>Product source</h3>
+            <span class="chip warn">final verification</span>
+            <p>The recovered standalone source and its v0.1 behavior are being locked and checked as one product.</p>
           </div>
-          <div class="flip-face back">
-            <button class="flip-toggle" type="button" aria-expanded="true" aria-label="Show summary for Manual mode">⇄</button>
-            <h3>Manual — write path</h3>
-            <p class="dir">Human <span class="arr">→</span> GlassGraph <span class="arr">→</span> governed board</p>
-            <p>No AI, internet, MCP, or subscription required for the complete authoring experience. The membrane still receipts every meaningful change.</p>
+          <div class="release-row">
+            <h3>Update and recovery</h3>
+            <span class="chip warn">acceptance pending</span>
+            <p>Install, update, failed-update recovery, and rollback must pass with the actual installed app.</p>
+          </div>
+          <div class="release-row">
+            <h3>Public delivery</h3>
+            <span class="chip closed">download closed</span>
+            <p>Signing, Apple notarization, clean-machine testing, hosting, and exact file parity remain approval-gated.</p>
           </div>
         </div>
+        <p class="release-note">Older installer evidence is historical only. It is not proof of the current source and is not offered here.</p>
       </div>
-      <div class="flip reveal" style="--d:0.1s">
-        <div class="flip-inner">
-          <div class="flip-face front">
-            <button class="flip-toggle" type="button" aria-expanded="false" aria-label="Show details for Built-in Copilot">⇄</button>
-            <div class="card-top"><h3>Built-in Copilot</h3><span class="proof soon">coming soon</span></div>
-            <p>"Connect an agent" — GlassGraph asks a supported agent runtime you already installed and signed into.</p>
-            <span class="flip-hint">⇄ flip for the write path</span>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Questions and support</span>
+          <h2>Need to reach NEMURIUM?</h2>
+          <p>This prerelease page makes no service-availability or paid-engagement promise. Product questions and support notes are welcome.</p>
+        </div>
+        <div class="contact-card">
+          <div>
+            <h3>GlassGraph Studio contact</h3>
+            <p>Replies are read by the NEMURIUM team.</p>
           </div>
-          <div class="flip-face back">
-            <button class="flip-toggle" type="button" aria-expanded="true" aria-label="Show summary for Built-in Copilot">⇄</button>
-            <h3>Copilot — write path</h3>
-            <p class="dir">GlassGraph <span class="arr">→</span> local signed-in agent runtime <span class="arr">→</span> model</p>
-            <p>It never copies or reads that agent's credentials. Designed; intentionally disabled until the first provider-owned adapter is implemented and security-scanned.</p>
-          </div>
+          <a class="button primary" href="mailto:immersivetechs@nemurium.com?subject=GlassGraph%20Studio">Email NEMURIUM</a>
         </div>
       </div>
-      <div class="flip reveal" style="--d:0.2s">
-        <div class="flip-inner">
-          <div class="flip-face front">
-            <button class="flip-toggle" type="button" aria-expanded="false" aria-label="Show details for Local model / BYO key">⇄</button>
-            <div class="card-top"><h3>Local model / BYO key</h3><span class="proof dev">planned</span></div>
-            <p>Point GlassGraph at a local model or your own provider credential.</p>
-            <span class="flip-hint">⇄ flip for the write path</span>
-          </div>
-          <div class="flip-face back">
-            <button class="flip-toggle" type="button" aria-expanded="true" aria-label="Show summary for Local model / BYO key">⇄</button>
-            <h3>Direct provider — write path</h3>
-            <p class="dir">GlassGraph <span class="arr">→</span> user-authorized provider / local model</p>
-            <p>Credentials live in the macOS Keychain — never in board files, logs, or prompts. Each provider gets its own adapter, scopes, and revoke path.</p>
-          </div>
-        </div>
-      </div>
-      <div class="flip reveal" style="--d:0.3s">
-        <div class="flip-inner">
-          <div class="flip-face front">
-            <button class="flip-toggle" type="button" aria-expanded="false" aria-label="Show details for External MCP">⇄</button>
-            <div class="card-top"><h3>External MCP</h3><span class="proof pass">contract verified</span></div>
-            <p>"Use MCP from another AI app" — a compatible AI host connects to the local GlassGraph MCP server and may propose changes. It cannot apply them.</p>
-            <span class="flip-hint">⇄ flip for the write path</span>
-          </div>
-          <div class="flip-face back">
-            <button class="flip-toggle" type="button" aria-expanded="true" aria-label="Show summary for External MCP">⇄</button>
-            <h3>External MCP — write path</h3>
-            <p class="dir">AI host <span class="arr">→</span> GlassGraph MCP server <span class="arr">→</span> governed board</p>
-            <p>The host brings the model; GlassGraph stays the approval authority. Contract test-verified: 9/9 gates, session-scoped with revoke.</p>
-          </div>
-        </div>
-      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© 2026 NEMURIUM · GlassGraph Studio · planned v0.1.0</span>
+      <span>Final release testing · download coming soon</span>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- ============ TRUST / OWNERSHIP — with the real native window ============ -->
-<section class="section" id="trust">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">Ownership &amp; trust</span>
-      <h2>Local-first, and it stays that way</h2>
-    </div>
-    <div class="trust-grid">
-      <div class="trust-cards">
-        <div class="card reveal" style="--d:0s">
-          <h3>Your files, on your disk</h3>
-          <p>Boards, contracts, and receipts are plain files you own and can export, diff, and back up. No cloud dependency to open your own work.</p>
-        </div>
-        <div class="card reveal" style="--d:0.1s">
-          <h3>No silent credentials</h3>
-          <p>GlassGraph never imports provider sessions or credentials on its own. Connecting AI is an explicit, revocable choice — disconnect, lease expiry, and process kill all end access.</p>
-        </div>
-        <div class="card reveal" style="--d:0.2s">
-          <h3>Minimum context shared</h3>
-          <p>A connected agent sees the user-previewed minimum board context for the task — not your machine, not your accounts, not other boards.</p>
-        </div>
-      </div>
-      <div class="showcase-img reveal" style="--d:0.15s">
-        <img src="assets/glassgraph-native-real.jpg" srcset="assets/glassgraph-native-real-720.jpg 720w, assets/glassgraph-native-real-1200.jpg 1200w, assets/glassgraph-native-real.jpg 1800w" sizes="(max-width: 980px) 100vw, 52vw" width="1800" height="1170" loading="lazy" decoding="async"
-          alt="GlassGraph Studio running as a native macOS window: the glass canvas with the Agent Swarm role vocabulary in the sidebar, and onboarding cards offering Templates, Import folder, Try a lesson, and Motion and tour.">
-        <p class="frame-caption" style="padding:8px 14px">a native macOS app — not a wrapper around a website</p>
-      </div>
-    </div>
-  </div>
-</section>
+  <script>
+    (function () {
+      "use strict";
+      var toggle = document.getElementById("theme-toggle");
+      if (!toggle) return;
 
-<!-- ============ RELEASE STATUS ============ -->
-<section class="section" id="release">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">Release integrity · what's next</span>
-      <h2>We publish proof, not promises</h2>
-      <p>
-        GlassGraph Studio is in final release testing. The public download stays closed until
-        the current app, automatic updates, clean installation, and hosted file all pass together.
-      </p>
-    </div>
-    <div class="gates">
-      <div class="gate-row reveal" style="--d:0s">
-        <h3>Gate 1 · Minimal standalone app</h3>
-        <span class="proof pass">pass ✓</span>
-        <div class="gate-items">
-          Dedicated native target <span class="sep">·</span> only GlassGraph-required native commands are allowlisted; unrelated commands are removed <span class="sep">·</span> isolated state &amp; bundle identity <span class="sep">·</span> no inherited providers, sessions, or unrelated runtimes
-        </div>
-      </div>
-      <div class="gate-row reveal" style="--d:0.1s">
-        <h3>Gate 2 · Governed AI surfaces</h3>
-        <span class="proof partial">in progress</span>
-        <div class="gate-items">
-          Proposal membrane verified — exact binding, expiry, capacity, undo, atomic rollback <span class="sep">·</span> MCP contract 9/9 gates passing, session-scoped with revoke <span class="sep">·</span> built-in Copilot execution not yet implemented (marked unavailable in-app)
-        </div>
-      </div>
-      <div class="gate-row reveal" style="--d:0.2s">
-        <h3>Gate 3 · Release operations</h3>
-        <span class="proof partial">preparing</span>
-        <div class="gate-items">
-          Fresh source-bound build <span class="proof partial" style="margin-left:6px">pending</span> <span class="sep">·</span> automatic updates being prepared <span class="sep">·</span> signing and Apple review follow the source gates <span class="sep">·</span> clean install, update, and recovery checks <span class="proof partial">pending</span> <span class="sep">·</span> public download <span class="proof blocked">closed</span>
-        </div>
-      </div>
-    </div>
-    <div class="codeblock reveal" style="margin-top:22px">before the download opens:
-
-  current source locked       <span class="y">in progress</span>
-  automatic update path      <span class="y">in preparation</span>
-  fresh signed app           <span class="y">pending</span>
-  clean install + recovery   <span class="y">pending</span>
-  hosted file matches proof  <span class="y">pending</span></div>
-    <p class="release-note reveal">v0.1.0 is the planned first release. Older installer evidence is historical and is not offered as the current app. The download opens only after the fresh release and hosted file match exactly.</p>
-  </div>
-</section>
-
-<!-- ============ PORTFOLIO ============ -->
-<section class="section" id="portfolio" style="border-bottom:none">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">NEMURIUM products · labeled by evidence, not ambition</span>
-      <h2>One product first. The rest earn their turn.</h2>
-      <p>
-        NEMURIUM is preparing one product for public release — GlassGraph — while the rest of the portfolio is
-        honestly labeled in development. No launch dates are claimed for products that haven't
-        cleared the same gates.
-      </p>
-    </div>
-    <div class="portfolio-grid">
-      <div class="p-card focal reveal">
-        <div class="card-top"><h3>GlassGraph Studio</h3><span class="proof partial">v0.1.0 · coming soon</span></div>
-        <p>The governed system-contract workbench. The product this page is about.</p>
-      </div>
-      <div class="p-card reveal" style="--d:0.05s">
-        <div class="card-top"><h3>Agent Studio</h3><span class="proof dev">in development</span></div>
-      </div>
-      <div class="p-card reveal" style="--d:0.1s">
-        <div class="card-top"><h3>Workspace</h3><span class="proof dev">in development</span></div>
-      </div>
-      <div class="p-card reveal" style="--d:0.15s">
-        <div class="card-top"><h3>NEMURIUM Storybook</h3><span class="proof dev">in development</span></div>
-      </div>
-      <div class="p-card reveal" style="--d:0.2s">
-        <div class="card-top"><h3>Worldbuilding</h3><span class="proof dev">in development</span></div>
-      </div>
-      <div class="p-card reveal" style="--d:0.25s">
-        <div class="card-top"><h3>Rough Diamonds</h3><span class="proof dev">in development</span></div>
-      </div>
-      <div class="p-card reveal" style="--d:0.3s">
-        <div class="card-top"><h3>NEMURIUM Control</h3><span class="proof dev">in development</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SERVICES — the lane that is open today ============ -->
-<section class="section" id="work">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">Work with us · open now</span>
-      <h2>Or have us map your system with you</h2>
-      <p>
-        The public app is planned to be free and yours to use when the download opens. If you'd rather not start from a blank canvas, we'll
-        map a real system of yours together in one working session — and you keep the contract,
-        the governed change map, and the receipts.
-      </p>
-    </div>
-    <div class="cards c3">
-      <div class="card reveal" style="--d:0s">
-        <div class="card-top"><h3>Mapping session</h3><span class="proof pass">open now</span></div>
-        <p>One working session on your real system — an agent workflow, a service architecture, a process nobody can fully explain. We leave with it modeled: typed entities, typed relationships, the constraints that actually matter, and the boundaries where a change should stop and ask.</p>
-        <ul>
-          <li>A portable contract file you own</li>
-          <li>The governed change map for it</li>
-          <li>Written handoff a person or an agent can follow</li>
-        </ul>
-      </div>
-      <div class="card reveal" style="--d:0.12s">
-        <div class="card-top"><h3>Design-partner sprint</h3><span class="proof partial">limited</span></div>
-        <p>A fixed-scope engagement for teams who want their system governed properly, and who want to shape the product while it is still being decided. Partners see the release gates from the inside, including what is failing.</p>
-        <ul>
-          <li>Everything in a mapping session, at system depth</li>
-          <li>Direct influence on the contract model</li>
-          <li>First access when release gates pass</li>
-        </ul>
-      </div>
-      <div class="card reveal" style="--d:0.24s">
-        <div class="card-top"><h3>Architecture conversion</h3><span class="proof dev">by arrangement</span></div>
-        <p>You have diagrams that drifted from reality and documentation nobody trusts. We convert what exists into a single validated model, and show you exactly where the drawing and the running system disagree.</p>
-        <ul>
-          <li>Existing diagrams and docs reconciled</li>
-          <li>Drift surfaced explicitly, not smoothed over</li>
-          <li>A model that can be kept honest afterwards</li>
-        </ul>
-      </div>
-    </div>
-    <div class="membrane-flow" id="work-flow" role="list" style="margin-top:22px">
-      <div class="mf-step" role="listitem" style="--d:0s">
-        <span class="mf-n">01</span><h3>Qualify</h3>
-        <p>A short call. If your system is not a fit, we say so — no engagement.</p>
-      </div>
-      <div class="mf-step" role="listitem" style="--d:0.12s">
-        <span class="mf-n">02</span><h3>Map</h3>
-        <p>We model the real thing together, with you in the room.</p>
-      </div>
-      <div class="mf-step mf-gate" role="listitem" style="--d:0.24s">
-        <span class="mf-n">03</span><h3>Govern</h3>
-        <p>We mark what may change freely and what must stop and ask.</p>
-      </div>
-      <div class="mf-step" role="listitem" style="--d:0.36s">
-        <span class="mf-n">04</span><h3>Hand off</h3>
-        <p>You leave with the contract, the map, and the receipts — files you own.</p>
-      </div>
-    </div>
-    <p class="mf-deny" style="border-style:solid;border-color:var(--info-edge);background:var(--info-bg)">
-      <b style="color:var(--info)">You don't need this to use GlassGraph.</b>
-      GlassGraph Studio is being prepared as a complete standalone app. An engagement is for when you want the modelling
-      done with you, fast, on a system that actually matters.
-    </p>
-    <div class="hero-ctas" style="margin-top:26px">
-      <a class="btn btn-primary" href="mailto:immersivetechs@nemurium.com?subject=GlassGraph%20mapping%20session%20enquiry">Enquire about a mapping session →</a>
-      <a class="btn" href="mailto:immersivetechs@nemurium.com?subject=GlassGraph%20design%20partner%20enquiry">Talk about a sprint →</a>
-    </div>
-    <p class="beta-note">Fixed scope and a fixed fee, quoted on the qualifying call · engagements run one at a time, so availability is genuinely limited</p>
-  </div>
-</section>
-
-<!-- ============ BETA ============ -->
-<section class="beta-band" id="beta">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">Coming soon</span>
-      <h2>Final release testing is underway.</h2>
-    </div>
-    <div class="cards c2">
-      <div class="card reveal" style="--d:0s">
-        <div class="card-top"><h3>Planned v0.1.0 release</h3><span class="proof partial">coming soon</span></div>
-        <p>The first Apple Silicon release is being prepared now. Signing, Apple review, automatic updates, and clean-machine testing must all pass before this download opens.</p>
-        <span class="btn" aria-disabled="true">Download coming soon</span>
-      </div>
-      <div class="card reveal" style="--d:0.12s">
-        <div class="card-top"><h3>Design partners</h3><span class="proof dev">opens with beta</span></div>
-        <p>A small number of teams will shape the first paid services lane: mapping a real system into a governed contract, together. The partner intake opens alongside the private beta.</p>
-        <a class="btn" href="mailto:immersivetechs@nemurium.com?subject=GlassGraph%20Studio%20design%20partner%20inquiry">Inquire as a design partner →</a>
-      </div>
-    </div>
-    <p class="beta-note reveal">// found a bug, or want your system mapped with you? immersivetechs@nemurium.com · replies read personally</p>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <div class="wrap footer-inner">
-    <div>
-      <div class="footer-brand">NEMURIUM</div>
-      <p>Local-first software. Your files remain yours. Complete without an account, AI, or cloud service — AI is optional and always governed.</p>
-    </div>
-    <nav class="footer-links" aria-label="Footer">
-      <a href="#studio">Inside the Studio</a>
-      <a href="#work">Work with us</a>
-      <a href="#lenses">Lenses</a>
-      <a href="#governance">Governance</a>
-      <a href="#release">Release status</a>
-      <a href="#portfolio">Products</a>
-    </nav>
-  </div>
-  <div class="wrap footer-stamp">© 2026 NEMURIUM · GlassGraph Studio · planned v0.1.0 release · final release testing · download coming soon</div>
-</footer>
-
-<script>
-(function () {
-  "use strict";
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ---------- theme toggle ---------- */
-  var toggle = document.getElementById("theme-toggle");
-  function syncToggle() {
-    var dark = document.documentElement.dataset.theme === "dark";
-    toggle.textContent = dark ? "☀" : "☾";
-    toggle.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
-  }
-  if (toggle) {
-    toggle.addEventListener("click", function () {
-      var next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-      document.documentElement.dataset.theme = next;
-      try { localStorage.setItem("gg-theme", next); } catch (e) {}
-      syncToggle();
-    });
-    syncToggle();
-  }
-
-  /* ---------- mobile menu ---------- */
-  var menuBtn = document.getElementById("menu-toggle");
-  var mobileNav = document.getElementById("mobile-nav");
-  if (menuBtn && mobileNav) {
-    function setMenu(open) {
-      mobileNav.classList.toggle("open", open);
-      menuBtn.setAttribute("aria-expanded", String(open));
-      menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-      menuBtn.textContent = open ? "✕" : "☰";
-    }
-    menuBtn.addEventListener("click", function () { setMenu(!mobileNav.classList.contains("open")); });
-    mobileNav.addEventListener("click", function (ev) { if (ev.target.tagName === "A") setMenu(false); });
-    document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") setMenu(false); });
-  }
-
-  /* ---------- scroll progress + aurora parallax (rAF-throttled) ---------- */
-  var progress = document.getElementById("scroll-progress");
-  var auroraB = document.querySelector(".aurora-b");
-  var ticking = false;
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function () {
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      var y = window.scrollY;
-      if (progress) progress.style.transform = "scaleX(" + (h > 0 ? y / h : 0) + ")";
-      if (!reduceMotion && auroraB) auroraB.style.transform = "translateY(" + (y * -0.04) + "px)";
-      ticking = false;
-    });
-  }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
-
-  /* ---------- scroll reveals (stagger via --d) ---------- */
-  if ("IntersectionObserver" in window) {
-    var revealIO = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add("in"); revealIO.unobserve(e.target); }
-      });
-    }, { rootMargin: "0px 0px -12% 0px" });
-    document.querySelectorAll(".reveal").forEach(function (el) { revealIO.observe(el); });
-
-    /* flow band + membrane light in sequence once visible */
-    [["flow-rail", "lit"], ["membrane-flow", "lit"], ["work-flow", "lit"]].forEach(function (pair) {
-      var el = document.getElementById(pair[0]);
-      if (!el) return;
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add(pair[1]); io.unobserve(e.target); }
-        });
-      }, { rootMargin: "0px 0px -18% 0px" });
-      io.observe(el);
-    });
-  } else {
-    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
-    var fr = document.getElementById("flow-rail"); if (fr) fr.classList.add("lit");
-    var mf = document.getElementById("membrane-flow"); if (mf) mf.classList.add("lit");
-    var wf = document.getElementById("work-flow"); if (wf) wf.classList.add("lit");
-  }
-
-  /* ---------- hero frame: pointer tilt + glare (hover devices only) ---------- */
-  var frame = document.getElementById("studio-frame");
-  if (frame && !reduceMotion && window.matchMedia("(hover: hover)").matches) {
-    var raf = null, lastX = 0, lastY = 0, frameRect = null;
-    frame.addEventListener("pointerenter", function () { frameRect = frame.getBoundingClientRect(); });
-    frame.addEventListener("pointermove", function (ev) {
-      lastX = ev.clientX; lastY = ev.clientY;
-      if (raf) return;
-      raf = requestAnimationFrame(function () {
-        var r = frameRect || frame.getBoundingClientRect();
-        var px = (lastX - r.left) / r.width;
-        var py = (lastY - r.top) / r.height;
-        frame.style.transform = "rotateY(" + ((px - 0.5) * 5) + "deg) rotateX(" + ((0.5 - py) * 4) + "deg)";
-        frame.style.setProperty("--gx", (px * 100) + "%");
-        frame.style.setProperty("--gy", (py * 100) + "%");
-        raf = null;
-      });
-    });
-    frame.addEventListener("pointerleave", function () {
-      frameRect = null;
-      frame.style.transform = "rotateY(0deg) rotateX(0deg)";
-    });
-  }
-
-  /* ---------- hero hotspots: click/keyboard toggled callouts ---------- */
-  var hotspots = Array.prototype.slice.call(document.querySelectorAll(".hotspot"));
-  function closeTips(except) {
-    hotspots.forEach(function (h) {
-      if (h === except) return;
-      h.setAttribute("aria-expanded", "false");
-      var tip = document.getElementById(h.getAttribute("aria-controls"));
-      if (tip) tip.classList.remove("open");
-    });
-  }
-  hotspots.forEach(function (h) {
-    h.addEventListener("click", function (ev) {
-      ev.stopPropagation();
-      var tip = document.getElementById(h.getAttribute("aria-controls"));
-      var open = h.getAttribute("aria-expanded") === "true";
-      closeTips(h);
-      h.setAttribute("aria-expanded", String(!open));
-      if (tip) tip.classList.toggle("open", !open);
-    });
-  });
-  document.addEventListener("click", function () { closeTips(null); });
-  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") closeTips(null); });
-
-  /* ---------- flip cards: click/keyboard, aria-expanded, hidden face inert ---------- */
-  document.querySelectorAll(".flip").forEach(function (flip) {
-    var front = flip.querySelector(".flip-face.front");
-    var back = flip.querySelector(".flip-face.back");
-    function syncFaces() {
-      var flipped = flip.classList.contains("flipped");
-      if (front) front.setAttribute("aria-hidden", String(flipped));
-      if (back) back.setAttribute("aria-hidden", String(!flipped));
-      flip.querySelectorAll(".flip-toggle").forEach(function (b) {
-        b.setAttribute("aria-expanded", String(flipped));
-      });
-      /* keep focusables on the hidden face out of the tab order */
-      [front, back].forEach(function (face) {
-        if (!face) return;
-        var hidden = face.getAttribute("aria-hidden") === "true";
-        face.querySelectorAll("button").forEach(function (b) { b.tabIndex = hidden ? -1 : 0; });
-      });
-    }
-    flip.querySelectorAll(".flip-toggle").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        flip.classList.toggle("flipped");
-        syncFaces();
-        var visible = flip.classList.contains("flipped") ? back : front;
-        var t = visible && visible.querySelector(".flip-toggle");
-        if (t) t.focus();
-      });
-    });
-    syncFaces();
-  });
-
-  /* ---------- lens graphs: hover/focus highlighting + inspector ---------- */
-  document.querySelectorAll("[data-lens]").forEach(function (section) {
-    var svg = section.querySelector("svg");
-    var insTitle = section.querySelector("[data-ins-title]");
-    var insBody = section.querySelector("[data-ins-body]");
-    if (!svg) return;
-    var nodes = svg.querySelectorAll(".gg-node");
-    var edges = svg.querySelectorAll(".gg-edge");
-    function clear() {
-      nodes.forEach(function (n) { n.classList.remove("gg-dimmed", "gg-lit"); });
-      edges.forEach(function (e) { e.classList.remove("gg-dimmed", "gg-lit"); });
-    }
-    function highlight(node) {
-      var id = node.id;
-      var connected = {}; connected[id] = true;
-      edges.forEach(function (e) {
-        var conn = (e.getAttribute("data-conn") || "").split(" ");
-        if (conn.indexOf(id) !== -1) {
-          e.classList.add("gg-lit");
-          conn.forEach(function (c) { connected[c] = true; });
-        } else { e.classList.add("gg-dimmed"); }
-      });
-      nodes.forEach(function (n) { n.classList.add(connected[n.id] ? "gg-lit" : "gg-dimmed"); });
-      if (insTitle && node.hasAttribute("data-info-title")) {
-        insTitle.textContent = node.getAttribute("data-info-title");
-        insBody.textContent = node.getAttribute("data-info");
+      function sync() {
+        var isDark = document.documentElement.dataset.theme === "dark";
+        toggle.textContent = isDark ? "☀" : "☾";
+        toggle.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
       }
-    }
-    nodes.forEach(function (node) {
-      node.addEventListener("mouseenter", function () { clear(); highlight(node); });
-      node.addEventListener("focus", function () { clear(); highlight(node); });
-      node.addEventListener("mouseleave", clear);
-      node.addEventListener("blur", clear);
-    });
-  });
 
-  /* ---------- animated flow pulses along lens edges ---------- */
-  var resizeSyncs = [];
-  var resizeRaf = null;
-  window.addEventListener("resize", function () {
-    if (resizeRaf) return;
-    resizeRaf = requestAnimationFrame(function () {
-      resizeSyncs.forEach(function (fn) { fn(); });
-      resizeRaf = null;
-    });
-  });
-  if (!reduceMotion) {
-    var pulseSpecs = [
-      { edge: "edges-a", index: 1, dur: 5.2, delay: 0 },
-      { edge: "edges-a", index: 3, dur: 5.2, delay: 1.4 },
-      { edge: "edges-a", index: 5, dur: 6.4, delay: 2.6, violet: true },
-      { edge: "edges-b", index: 1, dur: 5.0, delay: 0 },
-      { edge: "edges-b", index: 3, dur: 4.6, delay: 2.0, violet: true },
-      { edge: "edges-c", index: 2, dur: 5.4, delay: 0.8 },
-      { edge: "edges-c", index: 5, dur: 5.0, delay: 2.2, violet: true }
-    ];
-    pulseSpecs.forEach(function (spec) {
-      var group = document.getElementById(spec.edge);
-      if (!group) return;
-      var path = group.querySelectorAll("path.gg-edge")[spec.index];
-      if (!path) return;
-      var svg = path.closest("svg");
-      var card = svg.closest(".canvas-card");
-      var layer = card.querySelector(".pulse-layer");
-      if (!layer) {
-        layer = document.createElement("div");
-        layer.className = "pulse-layer";
-        layer.setAttribute("aria-hidden", "true");
-        card.appendChild(layer);
-        var sync = function () {
-          var vb = svg.viewBox.baseVal;
-          var top = svg.offsetTop, left = svg.offsetLeft, cw = svg.clientWidth;
-          layer.style.top = top + "px";
-          layer.style.left = left + "px";
-          layer.style.width = vb.width + "px";
-          layer.style.height = vb.height + "px";
-          layer.style.transform = "scale(" + (cw / vb.width) + "," + (svg.clientHeight / vb.height) + ")";
-        };
+      toggle.addEventListener("click", function () {
+        var next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("gg-theme", next); } catch (error) {}
         sync();
-        resizeSyncs.push(sync);
-      }
-      var dot = document.createElement("span");
-      dot.className = "pulse-dot" + (spec.violet ? " violet" : "");
-      dot.style.setProperty("--dur", spec.dur + "s");
-      dot.style.setProperty("--delay", spec.delay + "s");
-      dot.style.offsetPath = 'path("' + path.getAttribute("d") + '")';
-      layer.appendChild(dot);
-    });
-    if ("IntersectionObserver" in window) {
-      var pulseIO = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          e.target.querySelectorAll(".pulse-dot").forEach(function (d) {
-            d.style.animationPlayState = e.isIntersecting ? "running" : "paused";
-          });
-        });
-      }, { threshold: 0 });
-      document.querySelectorAll(".canvas-card").forEach(function (c) { pulseIO.observe(c); });
-    }
-  }
-
-  /* ---------- lens switch active state ---------- */
-  var links = document.querySelectorAll("[data-lens-link]");
-  if ("IntersectionObserver" in window && links.length) {
-    var map = {};
-    links.forEach(function (l) { map[l.getAttribute("data-lens-link")] = l; });
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        var link = map[entry.target.id];
-        if (!link) return;
-        if (entry.isIntersecting) {
-          links.forEach(function (l) { l.removeAttribute("aria-current"); });
-          link.setAttribute("aria-current", "true");
-        }
       });
-    }, { rootMargin: "-35% 0px -55% 0px" });
-    document.querySelectorAll("[data-lens]").forEach(function (s) { observer.observe(s); });
-  }
-})();
-</script>
+      sync();
+    })();
+  </script>
 </body>
 </html>
