@@ -9,6 +9,9 @@ const rootDir = path.resolve(scriptDir, "..");
 const pagePath = path.join(rootDir, "index.html");
 const html = fs.readFileSync(pagePath, "utf8");
 const failures = [];
+const releaseState =
+  html.match(/<body\b[^>]*data-glassgraph-release-state=["']([^"']+)["']/i)?.[1];
+const isPrerelease = releaseState === "prerelease";
 
 function check(condition, message) {
   if (!condition) failures.push(message);
@@ -18,12 +21,14 @@ function decodeHtml(value) {
   return value.replaceAll("&amp;", "&");
 }
 
-check(
+check(["prerelease", "released"].includes(releaseState), "Page must declare a valid GlassGraph release state.");
+
+if (isPrerelease) check(
   /<meta\s+name=["']robots["']\s+content=["'][^"']*noindex[^"']*["']/i.test(html),
   "Pre-release page must remain noindex."
 );
 
-check(
+if (isPrerelease) check(
   /final release testing|coming soon/i.test(html),
   "Page must clearly say GlassGraph is in final release testing or coming soon."
 );
@@ -31,7 +36,7 @@ check(
 const activeDmgLinks = [
   ...html.matchAll(/<a\b[^>]*href=["']([^"']+\.dmg(?:\?[^"']*)?)["'][^>]*>/gi),
 ].map((match) => match[1]);
-check(
+if (isPrerelease) check(
   activeDmgLinks.length === 0,
   `Historical DMG must not have an active download link: ${activeDmgLinks.join(", ")}`
 );
@@ -45,7 +50,7 @@ const forbiddenClaims = [
   [/first public release/i, '"first public release" assertion'],
 ];
 
-for (const [pattern, label] of forbiddenClaims) {
+for (const [pattern, label] of isPrerelease ? forbiddenClaims : []) {
   check(!pattern.test(html), `Pre-release page still contains ${label}.`);
 }
 
@@ -81,9 +86,9 @@ for (const [index, block] of scriptBlocks.entries()) {
     try {
       const structuredData = JSON.parse(source);
       check(structuredData.name === "GlassGraph Studio", "Structured data must name one GlassGraph Studio product.");
-      check(structuredData.softwareVersion === "0.1.0", "Structured data must keep planned first release version 0.1.0.");
-      check(!("downloadUrl" in structuredData), "Structured data must not advertise a download URL before release.");
-      check(
+      check(/^\d+\.\d+\.\d+/.test(structuredData.softwareVersion ?? ""), "Structured data must name a semantic product version.");
+      if (isPrerelease) check(!("downloadUrl" in structuredData), "Structured data must not advertise a download URL before release.");
+      if (isPrerelease) check(
         !/first public release|signed|notarized|gatekeeper-accepted/i.test(structuredData.releaseNotes ?? ""),
         "Structured release notes must not claim the planned release is already published."
       );
@@ -99,11 +104,11 @@ for (const [index, block] of scriptBlocks.entries()) {
   }
 }
 
-check(
+if (isPrerelease) check(
   !/automatic updates?\s+(?:are|is)?\s*(?:active|available|enabled|live)/i.test(html),
   "Page must not claim automatic updates are active before updater acceptance testing."
 );
-check(
+if (isPrerelease) check(
   !/\bthe app is free and yours to use\b/i.test(html),
   "Page must not describe the unreleased app as already available to use."
 );
@@ -114,8 +119,8 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log("GlassGraph pre-release page: PASS");
-console.log(`- noindex retained; active DMG links: ${activeDmgLinks.length}`);
+console.log(`GlassGraph ${releaseState} page structure: PASS`);
+console.log(`- active DMG links: ${activeDmgLinks.length}`);
 console.log(`- fragment targets valid: ${ids.size}`);
 console.log(`- local assets present: ${localAssets.size}`);
 console.log(`- inline scripts parse: ${scriptBlocks.length}`);

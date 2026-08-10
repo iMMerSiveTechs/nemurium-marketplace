@@ -1,0 +1,30 @@
+{
+  "schema": "glassgraph_product_release_contract_v2",
+  "version": "0.1.0",
+  "releaseState": "NO_SHIP",
+  "product": {
+    "productId": "glassgraph-studio",
+    "appId": "com.nemurium.glassgraph",
+    "name": "GlassGraph Studio",
+    "version": "0.1.0",
+    "build": 1
+  },
+  "delivery": {
+    "provider": "github-releases",
+    "repository": "iMMerSiveTechs/glassgraph-studio-releases",
+    "tagTemplate": "v{version}",
+    "dmgFileNameTemplate": "GlassGraph-Studio_{version}_{build}_{target}.dmg",
+    "latestManifestFileName": "latest.json",
+    "metadataFileName": "glassgraph-release.json"
+  },
+  "updater": {
+    "channel": "stable",
+    "target": "darwin-aarch64",
+    "publicKeyRef": {
+      "kind": "environment",
+      "name": "GLASSGRAPH_UPDATER_PUBLIC_KEY"
+    },
+    "publicKeySha256": "UNVERIFIED",
+    "artifactFileNameTemplate": "GlassGraph-Studio_{version}_{build}_{target}.app.tar.gz"
+  }
+}
