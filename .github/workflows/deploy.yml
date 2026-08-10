@@ -22,6 +22,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Verify GitHub Pages and Vercel publication gates
+        run: node scripts/verify-glassgraph-hosting-gates.mjs
+      - name: Verify GlassGraph page structure
+        run: node scripts/verify-glassgraph-prerelease-page.mjs
+      - name: Verify GlassGraph delivery parity and promotion gates
+        run: node scripts/verify-glassgraph-delivery-parity.mjs --contract release/glassgraph-product.json
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
