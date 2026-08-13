@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://immersivetechs.github.io/nemurium-marketplace/sitemap.xml
+Sitemap: https://www.nemurium.com/sitemap.xml

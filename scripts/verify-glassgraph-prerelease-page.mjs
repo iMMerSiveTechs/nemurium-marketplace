@@ -67,7 +67,7 @@ if (isPrerelease) check(
 );
 
 if (isPrerelease) check(
-  /<link\s+rel=["']canonical["']\s+href=["']https:\/\/immersivetechs\.github\.io\/nemurium-marketplace\/["']/i.test(html),
+  /<link\s+rel=["']canonical["']\s+href=["']https:\/\/www\.nemurium\.com\/["']/i.test(html),
   "Public product-information page must declare its canonical public URL."
 );
 
