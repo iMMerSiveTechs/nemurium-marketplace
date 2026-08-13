@@ -1,5 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node scripts/verify-glassgraph-hosting-gates.mjs && node scripts/verify-glassgraph-prerelease-page.mjs && node scripts/verify-glassgraph-entitlement-page.mjs && node scripts/verify-glassgraph-legal-readiness.mjs --state prerelease && node scripts/verify-glassgraph-delivery-parity.mjs --contract release/glassgraph-product.json && node scripts/stage-glassgraph-public-site.mjs",
+  "buildCommand": "node scripts/build-glassgraph-public-site.mjs",
   "outputDirectory": "dist-site"
 }
