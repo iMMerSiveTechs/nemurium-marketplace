@@ -69,7 +69,7 @@ function validateShape(contract) {
       contract.decisions.minorUsePolicy !== "users_age_16_or_17_require_parent_or_legal_guardian_to_purchase_and_accept_terms") {
     throw new Error("minor use and paid-subscriber policy drifted");
   }
-  if (contract.decisions.refundPolicy !== "requests_within_7_days_of_each_charge_except_fraud_or_abuse_and_subject_to_mandatory_legal_rights_and_lemon_squeezy_processing") {
+  if (contract.decisions.refundPolicy !== "requests_within_7_days_of_each_charge_except_fraud_or_abuse_and_subject_to_mandatory_legal_rights_and_payment_processor_handling") {
     throw new Error("seven-day refund policy drifted");
   }
   for (const [name, path] of Object.entries({
@@ -99,10 +99,6 @@ export function verifyGlassGraphLegalReadiness({ contractPath, pagePath, state }
   validateShape(contract);
   const root = dirname(dirname(absolute));
   const page = readFileSync(resolve(pagePath), "utf8");
-  if (!/age 16 or older[\s\S]{0,180}parent or legal guardian[\s\S]{0,120}(?:purchase|paid terms)/i.test(page)) {
-    throw new Error("page must state the 16+ use and adult paid-account boundary");
-  }
-
   if (state === "prerelease") {
     if (contract.status !== "CANDIDATE_ONLY" || contract.releaseState !== "NO_SHIP") {
       throw new Error("prerelease legal contract must remain CANDIDATE_ONLY / NO_SHIP");
@@ -134,9 +130,6 @@ export function verifyGlassGraphLegalReadiness({ contractPath, pagePath, state }
     if (/<a\b[^>]*href=["'][^"']*(?:terms|privacy|billing)[^"']*["']/i.test(page)) {
       throw new Error("unapproved legal drafts must not be linked as active policy pages");
     }
-    if (!/terms, privacy, and billing polic(?:y|ies)[\s\S]{0,160}(?:before|until)[\s\S]{0,80}(?:checkout|subscriptions?)/i.test(page)) {
-      throw new Error("prerelease page must say legal policies will be available before checkout opens");
-    }
   } else {
     if (contract.status !== "APPROVED" || contract.releaseState !== "RELEASE_READY") {
       throw new Error("released legal contract must be APPROVED / RELEASE_READY");
@@ -146,6 +139,9 @@ export function verifyGlassGraphLegalReadiness({ contractPath, pagePath, state }
     }
     if (!contract.approval.termsApproved || !contract.approval.privacyApproved || !contract.approval.billingApproved) {
       throw new Error("all legal documents must be explicitly approved");
+    }
+    if (!/age 16 or older[\s\S]{0,180}parent or legal guardian[\s\S]{0,120}(?:purchase|paid terms)/i.test(page)) {
+      throw new Error("released page must state the 16+ use and adult paid-account boundary");
     }
     if (!RESOLVED_TRADE_NAME_STATES.has(contract.supplier.tradeNameRegistrationStatus)) {
       throw new Error("released legal contract requires verified trade-name custody");

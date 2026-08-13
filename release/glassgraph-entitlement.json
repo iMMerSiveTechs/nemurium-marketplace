@@ -5,12 +5,12 @@
   "productId": "glassgraph-studio",
   "appId": "com.nemurium.glassgraph",
   "offer": {
-    "trialDays": 14,
+    "trialDays": 7,
     "trialPaymentMethodRequired": false,
-    "maximumInitialTrialAccounts": 50,
+    "maximumInitialTrialAccounts": null,
     "maximumDevicesPerAccount": 2,
     "monthlyPriceUsd": 10,
-    "annualPriceUsd": 100
+    "annualPriceUsd": null
   },
   "service": {
     "baseUrl": "UNVERIFIED"

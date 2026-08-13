@@ -21,7 +21,7 @@
     "billingPolicy": "approval_required"
   },
   "decisions": {
-    "refundPolicy": "requests_within_7_days_of_each_charge_except_fraud_or_abuse_and_subject_to_mandatory_legal_rights_and_lemon_squeezy_processing",
+    "refundPolicy": "requests_within_7_days_of_each_charge_except_fraud_or_abuse_and_subject_to_mandatory_legal_rights_and_payment_processor_handling",
     "governingLaw": "California, USA, subject to mandatory consumer law",
     "minimumUserAge": 16,
     "paidSubscriberMinimumAge": 18,

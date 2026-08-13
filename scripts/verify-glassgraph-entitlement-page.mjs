@@ -16,21 +16,21 @@ export function verifyGlassGraphEntitlementPage({ pagePath, contractPath }) {
     || contract.appId !== "com.nemurium.glassgraph"
   ) fail("GlassGraph entitlement product contract mismatch");
   const offer = contract.offer ?? {};
-  if (offer.trialDays !== 14 || offer.trialPaymentMethodRequired !== false) {
-    fail("page contract must preserve the 14-day no-card trial");
+  if (offer.trialDays !== 7 || offer.trialPaymentMethodRequired !== false) {
+    fail("page contract must preserve the 7-day no-card trial");
   }
-  if (offer.maximumInitialTrialAccounts !== 50) fail("page contract must preserve the first 50 accounts");
+  if (offer.maximumInitialTrialAccounts !== null) fail("page contract must not impose a fixed public trial-account cap");
   if (offer.maximumDevicesPerAccount !== 2) fail("page contract must preserve the two devices limit");
   if (offer.monthlyPriceUsd !== 10 || !html.includes("$10/month")) fail("monthly price mismatch");
-  if (offer.annualPriceUsd !== 100 || !html.includes("$100/year")) fail("annual price mismatch");
-  if (!/14 days free and no card required/i.test(html)) fail("trial copy mismatch");
-  if (!/limited to 50 accounts/i.test(html)) fail("trial cohort copy mismatch");
-  if (!/two personally controlled Macs/i.test(html)) fail("device limit copy mismatch");
+  if (offer.annualPriceUsd !== null || /\$100\/year|\bYearly\b/i.test(html)) fail("annual pricing must remain outside the initial offer");
+  if (!/7 days free and no card required/i.test(html)) fail("trial copy mismatch");
+  if (/(?:first|limited to)\s+50 accounts/i.test(html)) fail("customer page must not advertise a fixed 50-account trial cap");
+  if (!/up to two Macs/i.test(html)) fail("device limit copy mismatch");
 
   const commerceState = /data-glassgraph-commerce-state="([^"]+)"/.exec(html)?.[1];
   if (contract.service?.baseUrl === "UNVERIFIED") {
     if (commerceState !== "closed") fail("commerce must remain closed while entitlement hosting is UNVERIFIED");
-    if (/<a\b[^>]*href="[^"]*(?:checkout|buy|subscribe|lemonsqueezy)[^"]*"/i.test(html)) {
+    if (/<a\b[^>]*href="[^"]*(?:checkout|buy|subscribe|lemonsqueezy|stripe)[^"]*"/i.test(html)) {
       fail("checkout or commerce link is forbidden while entitlement hosting is UNVERIFIED");
     }
   }

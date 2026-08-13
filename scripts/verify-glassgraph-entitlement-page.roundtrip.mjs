@@ -12,12 +12,12 @@ const contract = {
   productId: "glassgraph-studio",
   appId: "com.nemurium.glassgraph",
   offer: {
-    trialDays: 14,
+    trialDays: 7,
     trialPaymentMethodRequired: false,
-    maximumInitialTrialAccounts: 50,
+    maximumInitialTrialAccounts: null,
     maximumDevicesPerAccount: 2,
     monthlyPriceUsd: 10,
-    annualPriceUsd: 100,
+    annualPriceUsd: null,
   },
   service: { baseUrl: "UNVERIFIED" },
   lease: {
@@ -30,8 +30,8 @@ const contract = {
   },
 };
 const page = `<!doctype html><body data-glassgraph-commerce-state="closed">
-<p>Plans to open with 14 days free and no card required. The first public trial is limited to 50 accounts.</p>
-<p>Up to two personally controlled Macs. $10/month. $100/year.</p>
+<p>Plans to open with 7 days free and no card required.</p>
+<p>Up to two Macs. $10/month.</p>
 <p>Trial registration, subscriptions, and checkout remain closed.</p>
 </body>`;
 
@@ -48,6 +48,7 @@ try {
   assert.throws(() => run(page.replace('commerce-state="closed"', 'commerce-state="open"')), /closed/);
   assert.throws(() => run(`${page}<a href="https://checkout.example.com">Subscribe</a>`), /checkout|commerce link/);
   assert.throws(() => run(page.replace("$10/month", "$12/month")), /monthly/);
+  assert.throws(() => run(`${page}<p>$100/year. Yearly.</p>`), /annual/);
   assert.throws(() => run(page, { ...contract, offer: { ...contract.offer, maximumDevicesPerAccount: 3 } }), /two devices/);
 } finally {
   rmSync(root, { recursive: true, force: true });

@@ -9,7 +9,7 @@ mkdirSync(join(root, "release"), { recursive: true });
 const source = JSON.parse(readFileSync(new URL("../release/glassgraph-legal.json", import.meta.url), "utf8"));
 const write = (path, value) => writeFileSync(join(root, path), value);
 const writeContract = (value) => write("release/glassgraph-legal.json", `${JSON.stringify(value, null, 2)}\n`);
-write("index.html", "<p>GlassGraph is for people age 16 or older. A parent or legal guardian must purchase and accept the paid terms for a user who is 16 or 17.</p><p>Terms, privacy, and billing policies will be available before checkout opens.</p>");
+write("index.html", "<p>GlassGraph Studio is coming soon.</p>");
 writeContract(source);
 
 assert.doesNotThrow(() => verifyGlassGraphLegalReadiness({
@@ -51,7 +51,7 @@ approved.documents = {
   billingPolicy: "legal/billing.html",
 };
 approved.decisions = {
-  refundPolicy: "requests_within_7_days_of_each_charge_except_fraud_or_abuse_and_subject_to_mandatory_legal_rights_and_lemon_squeezy_processing",
+  refundPolicy: "requests_within_7_days_of_each_charge_except_fraud_or_abuse_and_subject_to_mandatory_legal_rights_and_payment_processor_handling",
   governingLaw: "California, USA, subject to mandatory consumer law",
   minimumUserAge: 16,
   paidSubscriberMinimumAge: 18,

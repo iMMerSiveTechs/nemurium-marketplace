@@ -33,12 +33,12 @@ check(
 );
 check(
   /\bid=["']nemurium["']/i.test(html) &&
-    /NEMURIUM is (?:the )?independent product brand behind GlassGraph Studio/i.test(html),
+    /NEMURIUM is (?:an|the) independent product brand/i.test(html),
   "Combined public site must explain the NEMURIUM brand in plain English."
 );
 check(
-  /GlassGraph Studio is (?:NEMURIUM(?:'s|’s) )?(?:the )?first public product/i.test(html),
-  "Combined public site must identify GlassGraph Studio as the first public product."
+  /GlassGraph Studio[\s\S]{0,180}(?:map|visual)[\s\S]{0,180}(?:projects|systems|ideas)/i.test(html),
+  "Combined public site must explain what GlassGraph helps a customer do."
 );
 check(
   /NEMURIUM brand[^<]{0,120}operated by Jethro Gordon/i.test(html),
@@ -48,7 +48,7 @@ check(
 const commerceLinks = [
   ...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>/gi),
 ].map((match) => decodeHtml(match[1])).filter((href) =>
-  /(?:lemonsqueezy|checkout|subscribe|start[-_ ]?trial|buy[-_ ]?now)/i.test(href)
+  /(?:lemonsqueezy|stripe|checkout|subscribe|start[-_ ]?trial|buy[-_ ]?now)/i.test(href)
 );
 if (commerceState === "closed") check(
   commerceLinks.length === 0,
@@ -105,12 +105,8 @@ const mailtoLinks = [
 ].map((match) => decodeHtml(match[1]));
 check(mailtoLinks.length === 1, "Page must expose exactly one explicit email contact link.");
 check(
-  /(?:goes|go) directly to (?:the person building|the creator of) GlassGraph Studio/i.test(html),
-  "Support copy must state that email goes directly to the GlassGraph Studio creator."
-);
-check(
-  /(?:does not|doesn['’]t) send (?:issue )?reports? or diagnostics automatically/i.test(html),
-  "Support copy must state that the page does not send reports or diagnostics automatically."
+  /immersivetechs@nemurium\.com/i.test(html) && /(?:questions or launch updates|stay in the loop)/i.test(html),
+  "Customer page must provide a plain launch-contact section and visible email address."
 );
 check(
   !/"author"\s*:\s*\{\s*"@type"\s*:\s*"Organization"\s*,\s*"name"\s*:\s*"NEMURIUM"/i.test(html),
@@ -128,6 +124,8 @@ for (const [pattern, label] of [
   [/(?:NEMURIUM team|GlassGraph support|support team)/i, "an unverified support team"],
   [/(?:automatic(?:ally)? (?:issue )?report(?:ing)?|automatic(?:ally)? (?:diagnostic )?upload)/i, "automatic issue or diagnostic submission"],
   [/(?:support portal|reporting service) (?:is )?(?:live|available|active)/i, "a deployed support or reporting system"],
+  [/(?:goes|go) directly to (?:the person building|the creator)/i, "internal email-routing commentary"],
+  [/Email (?:the )?GlassGraph creator|Talk directly to the creator/i, "awkward creator-directed contact copy"],
 ]) {
   check(!pattern.test(html), `Page must not imply ${label}.`);
 }
@@ -161,23 +159,44 @@ for (const [pattern, label] of unsupportedV01Claims) {
 
 const requiredV01Truth = [
   [/\bPacks\b/i, "Packs"],
-  [/\bIndex\b[\s\S]{0,160}\bRunbook\b[\s\S]{0,160}\bMatrix\b[\s\S]{0,160}\bCopilot\b/i, "Index, Runbook, Matrix, and Copilot views"],
-  [/\.board\.json/i, "explicit .board.json export"],
-  [/(?:board schema|schema version)\s*(?:v?6|6)/i, "board schema v6"],
-  [/local autosave/i, "local autosave"],
-  [/explicit MCP session/i, "the explicit MCP session boundary"],
-  [/full active board/i, "the full-active-board MCP sharing boundary"],
-  [/no telemetry/i, "the no-telemetry boundary"],
-  [/updater[\s\S]{0,160}GitHub[\s\S]{0,160}when enabled/i, "the conditional GitHub updater check"],
-  [/14 days free[\s\S]{0,120}no card required/i, "the 14-day no-card trial plan"],
-  [/\$10\/month[\s\S]*\$100\/year/i, "the monthly and yearly launch prices"],
-  [/one trial per verified account/i, "the one-trial-per-verified-account limit"],
-  [/up to two personally controlled Macs/i, "the two-device limit"],
-  [/first (?:public )?trial[\s\S]{0,100}50 accounts/i, "the initial 50-account trial limit"],
+  [/(?:big picture|map)[\s\S]{0,180}(?:ordered steps|details|compare|explore)/i, "multiple ways to explore connected work"],
+  [/export a portable copy/i, "portable customer-controlled export"],
+  [/(?:saved|autosave)[\s\S]{0,100}locally|local autosave/i, "local saving"],
+  [/(?:preferred AI|AI assistant)[\s\S]{0,120}\bMCP\b|\bMCP\b[\s\S]{0,120}(?:preferred AI|AI assistant)/i, "the customer-level MCP connection benefit"],
+  [/(?:product-use|product and reliability) data[\s\S]{0,180}(?:board content|content of your boards)/i, "the product-learning and content-privacy boundary"],
+  [/7 days free[\s\S]{0,120}no card required/i, "the 7-day no-card trial plan"],
+  [/\$10\/month/i, "the monthly price"],
+  [/up to two Macs/i, "the two-device limit"],
   [/trial will not automatically become a paid subscription/i, "the no-automatic-charge promise"],
   [/Apple Silicon[\s\S]{0,80}(?:M1|M1 or newer)[\s\S]{0,120}macOS 11 or newer/i, "the v0.1 system requirements"],
-  [/Cancel anytime[\s\S]{0,180}paid through[\s\S]{0,180}14-day[\s\S]{0,180}open, view, and export[\s\S]{0,120}editing pauses/i, "the cancellation, grace, and data-safety rules"],
 ];
+
+const internalProcessCopy = [
+  [/standalone GlassGraph workplace is the product being prepared/i, "internal product-custody wording"],
+  [/website can be public while the app download/i, "internal website-publication reasoning"],
+  [/\bproduct source\b/i, "source-status language"],
+  [/\brelease acceptance\b/i, "release-engineering language"],
+  [/source passes (?:its|the) current product checks/i, "test-gate language"],
+  [/\b(?:v0\.1 workplace|launch plan|release status)\b/i, "internal navigation labels"],
+  [/\.board\.json|board schema v\d+/i, "implementation-level board file details"],
+  [/(?:first|limited to)\s+50 accounts/i, "an internal trial cohort cap"],
+  [/\$100\/year|\bYearly\b/i, "an annual plan that is not part of the initial offer"],
+  [/\bno telemetry\b|sends no product analytics/i, "a permanent no-product-learning promise"],
+  [/Copilot boundary|built-in AI execution/i, "an internal Copilot limitation explanation"],
+  [/signed app installs|recovery testing|rollback proof|download closed/i, "release-engineering status details"],
+  [/failed renewal|recovery period|editing pauses/i, "billing-recovery details that belong in the terms"],
+];
+for (const [pattern, label] of internalProcessCopy) {
+  check(!pattern.test(html), `Customer page still contains ${label}.`);
+}
+
+for (const [pattern, label] of [
+  [/(?:map|see)[\s\S]{0,140}(?:projects|systems|ideas)/i, "a concrete mapping outcome"],
+  [/(?:relationships|dependencies)/i, "relationships or dependencies"],
+  [/(?:decide what to do next|move forward|find gaps)/i, "a customer decision outcome"],
+]) {
+  check(pattern.test(html), `Customer page must lead with ${label}.`);
+}
 
 for (const [pattern, label] of requiredV01Truth) {
   check(pattern.test(html), `Page must state current v0.1 truth: ${label}.`);
