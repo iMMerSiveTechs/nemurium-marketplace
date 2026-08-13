@@ -8,3 +8,4 @@ assets/captures/
 downloads/*.dmg
 
 .DS_Store
+dist-site/

@@ -9,6 +9,7 @@ const requiredCommands = [
   "node scripts/verify-glassgraph-legal-readiness.mjs --state prerelease",
   "node scripts/verify-glassgraph-delivery-parity.mjs --contract release/glassgraph-product.json",
 ];
+const stagingCommand = "node scripts/stage-glassgraph-public-site.mjs";
 
 for (const command of requiredCommands) {
   assert.ok(
@@ -24,5 +25,17 @@ assert.ok(
   workflow.indexOf(requiredCommands[2]) < workflow.indexOf("actions/upload-pages-artifact"),
   "GitHub Pages release parity must pass before upload",
 );
-assert.equal(vercel.outputDirectory, ".");
-console.log("PASS GitHub Pages and Vercel both fail closed on the GlassGraph publication gates");
+assert.ok(
+  workflow.includes(`run: ${stagingCommand}`),
+  "GitHub Pages must stage a narrow public site after its gates pass",
+);
+assert.ok(
+  workflow.includes("path: 'dist-site'"),
+  "GitHub Pages must upload only the staged GlassGraph public site",
+);
+assert.ok(
+  vercel.buildCommand?.split(/\s*&&\s*/).includes(stagingCommand),
+  "Vercel must stage the same narrow public site",
+);
+assert.equal(vercel.outputDirectory, "dist-site");
+console.log("PASS GitHub Pages and Vercel fail closed and publish only the staged GlassGraph page");

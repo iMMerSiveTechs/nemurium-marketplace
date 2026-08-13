@@ -13,6 +13,8 @@ const releaseState =
   html.match(/<body\b[^>]*data-glassgraph-release-state=["']([^"']+)["']/i)?.[1];
 const commerceState =
   html.match(/<body\b[^>]*data-glassgraph-commerce-state=["']([^"']+)["']/i)?.[1];
+const siteVisibility =
+  html.match(/<body\b[^>]*data-glassgraph-site-visibility=["']([^"']+)["']/i)?.[1];
 const isPrerelease = releaseState === "prerelease";
 
 function check(condition, message) {
@@ -25,6 +27,23 @@ function decodeHtml(value) {
 
 check(["prerelease", "released"].includes(releaseState), "Page must declare a valid GlassGraph release state.");
 check(["closed", "trial", "paid"].includes(commerceState), "Page must declare a valid GlassGraph commerce state.");
+check(
+  /<title>[^<]*NEMURIUM[^<]*GlassGraph Studio|<title>[^<]*GlassGraph Studio[^<]*NEMURIUM/i.test(html),
+  "Combined public site title must name both NEMURIUM and GlassGraph Studio."
+);
+check(
+  /\bid=["']nemurium["']/i.test(html) &&
+    /NEMURIUM is (?:the )?independent product brand behind GlassGraph Studio/i.test(html),
+  "Combined public site must explain the NEMURIUM brand in plain English."
+);
+check(
+  /GlassGraph Studio is (?:NEMURIUM(?:'s|’s) )?(?:the )?first public product/i.test(html),
+  "Combined public site must identify GlassGraph Studio as the first public product."
+);
+check(
+  /NEMURIUM brand[^<]{0,120}operated by Jethro Gordon/i.test(html),
+  "Combined public site must state the real person operating the NEMURIUM brand."
+);
 
 const commerceLinks = [
   ...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>/gi),
@@ -37,13 +56,24 @@ if (commerceState === "closed") check(
 );
 
 if (isPrerelease) check(
-  /<meta\s+name=["']robots["']\s+content=["'][^"']*noindex[^"']*["']/i.test(html),
-  "Pre-release page must remain noindex."
+  siteVisibility === "public-information",
+  "Pre-release page must declare itself as public product information."
 );
 
 if (isPrerelease) check(
-  /final release testing|coming soon/i.test(html),
-  "Page must clearly say GlassGraph is in final release testing or coming soon."
+  /<meta\s+name=["']robots["']\s+content=["'][^"']*index[^"']*["']/i.test(html) &&
+    !/<meta\s+name=["']robots["']\s+content=["'][^"']*noindex[^"']*["']/i.test(html),
+  "Public product-information page must allow search indexing."
+);
+
+if (isPrerelease) check(
+  /<link\s+rel=["']canonical["']\s+href=["']https:\/\/immersivetechs\.github\.io\/nemurium-marketplace\/["']/i.test(html),
+  "Public product-information page must declare its canonical public URL."
+);
+
+if (isPrerelease) check(
+  /final release testing|release in progress|download (?:is )?not open yet|coming soon/i.test(html),
+  "Page must clearly separate the public product page from the unopened app download."
 );
 
 const activeDmgLinks = [

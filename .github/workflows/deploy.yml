@@ -32,10 +32,12 @@ jobs:
         run: node scripts/verify-glassgraph-legal-readiness.mjs --state prerelease
       - name: Verify GlassGraph delivery parity and promotion gates
         run: node scripts/verify-glassgraph-delivery-parity.mjs --contract release/glassgraph-product.json
+      - name: Stage only the public GlassGraph page
+        run: node scripts/stage-glassgraph-public-site.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: 'dist-site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

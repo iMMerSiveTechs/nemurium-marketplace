@@ -111,6 +111,30 @@ try {
     "PASS current pre-release page matches the canonical product version and stays closed",
   );
 
+  const prereleaseHtml = readFileSync(join(root, "index.html"), "utf8");
+  const hiddenPrereleasePath = join(fixtureRoot, "hidden-prerelease.html");
+  writeFileSync(
+    hiddenPrereleasePath,
+    prereleaseHtml.replace('content="index,follow"', 'content="noindex"'),
+  );
+  const hiddenPrerelease = run({ page: hiddenPrereleasePath });
+  assert.notEqual(hiddenPrerelease.status, 0);
+  assert.match(hiddenPrerelease.stderr, /allow search indexing/);
+  console.log("PASS public product page cannot silently return to noindex");
+
+  const privateCandidatePath = join(fixtureRoot, "private-candidate.html");
+  writeFileSync(
+    privateCandidatePath,
+    prereleaseHtml.replace(
+      'data-glassgraph-site-visibility="public-information"',
+      'data-glassgraph-site-visibility="private-candidate"',
+    ),
+  );
+  const privateCandidate = run({ page: privateCandidatePath });
+  assert.notEqual(privateCandidate.status, 0);
+  assert.match(privateCandidate.stderr, /public-information visibility/);
+  console.log("PASS public product page must declare its public-information boundary");
+
   writeFileSync(dmgPath, dmgBytes);
   writeFileSync(updaterPath, updaterBytes);
   writeFileSync(signaturePath, `${updaterFixture.signature}\n`);

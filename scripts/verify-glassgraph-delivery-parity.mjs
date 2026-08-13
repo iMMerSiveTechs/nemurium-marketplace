@@ -285,9 +285,14 @@ try {
   });
 
   if (state === "prerelease") {
-    if (!/\bnoindex\b/i.test(html)) fail("pre-release page must remain noindex");
-    if (!/final release testing|coming soon/i.test(html)) {
-      fail("pre-release page must retain an explicit coming-soon boundary");
+    if (!/\bdata-glassgraph-site-visibility=["']public-information["']/i.test(html)) {
+      fail("pre-release page must declare public-information visibility");
+    }
+    if (/\bnoindex\b/i.test(html) || !/<meta\s+name=["']robots["']\s+content=["'][^"']*index/i.test(html)) {
+      fail("public product-information page must allow search indexing");
+    }
+    if (!/final release testing|release in progress|download (?:is )?not open yet|coming soon/i.test(html)) {
+      fail("pre-release page must separate the public page from the unopened app download");
     }
     if (dmgLinks.length !== 0) fail("pre-release page must not link a DMG");
     if ("downloadUrl" in structuredData) {
