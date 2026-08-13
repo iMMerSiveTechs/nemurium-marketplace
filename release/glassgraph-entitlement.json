@@ -1,0 +1,26 @@
+{
+  "schema": "glassgraph_entitlement_release_contract_v1",
+  "status": "CANDIDATE_ONLY",
+  "releaseState": "NO_SHIP",
+  "productId": "glassgraph-studio",
+  "appId": "com.nemurium.glassgraph",
+  "offer": {
+    "trialDays": 14,
+    "trialPaymentMethodRequired": false,
+    "maximumInitialTrialAccounts": 50,
+    "maximumDevicesPerAccount": 2,
+    "monthlyPriceUsd": 10,
+    "annualPriceUsd": 100
+  },
+  "service": {
+    "baseUrl": "UNVERIFIED"
+  },
+  "lease": {
+    "algorithm": "Ed25519",
+    "audience": "glassgraph-native",
+    "keyId": "UNVERIFIED",
+    "publicKeyBase64": "UNVERIFIED",
+    "publicKeySha256": "UNVERIFIED",
+    "privateKeyLocation": "server-only"
+  }
+}

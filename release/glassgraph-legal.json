@@ -1,0 +1,37 @@
+{
+  "schema": "glassgraph_legal_release_contract_v1",
+  "status": "CANDIDATE_ONLY",
+  "releaseState": "NO_SHIP",
+  "productId": "glassgraph-studio",
+  "brand": "NEMURIUM",
+  "supplier": {
+    "legalName": "Jethro Gordon",
+    "businessStructure": "individual_sole_proprietor",
+    "countryCode": "US",
+    "region": "CA",
+    "tradeNameRegistrationStatus": "filing_required_before_public_paid_launch"
+  },
+  "contact": {
+    "supportEmail": "immersivetechs@nemurium.com"
+  },
+  "documents": {
+    "effectiveDate": "approval_required",
+    "softwareTerms": "approval_required",
+    "privacyNotice": "approval_required",
+    "billingPolicy": "approval_required"
+  },
+  "decisions": {
+    "refundPolicy": "requests_within_7_days_of_each_charge_except_fraud_or_abuse_and_subject_to_mandatory_legal_rights_and_lemon_squeezy_processing",
+    "governingLaw": "California, USA, subject to mandatory consumer law",
+    "minimumUserAge": 16,
+    "paidSubscriberMinimumAge": 18,
+    "minorUsePolicy": "users_age_16_or_17_require_parent_or_legal_guardian_to_purchase_and_accept_terms"
+  },
+  "approval": {
+    "termsApproved": false,
+    "privacyApproved": false,
+    "billingApproved": false,
+    "approvedBy": "approval_required",
+    "approvedAt": "approval_required"
+  }
+}

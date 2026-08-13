@@ -11,6 +11,8 @@ const html = fs.readFileSync(pagePath, "utf8");
 const failures = [];
 const releaseState =
   html.match(/<body\b[^>]*data-glassgraph-release-state=["']([^"']+)["']/i)?.[1];
+const commerceState =
+  html.match(/<body\b[^>]*data-glassgraph-commerce-state=["']([^"']+)["']/i)?.[1];
 const isPrerelease = releaseState === "prerelease";
 
 function check(condition, message) {
@@ -22,6 +24,17 @@ function decodeHtml(value) {
 }
 
 check(["prerelease", "released"].includes(releaseState), "Page must declare a valid GlassGraph release state.");
+check(["closed", "trial", "paid"].includes(commerceState), "Page must declare a valid GlassGraph commerce state.");
+
+const commerceLinks = [
+  ...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>/gi),
+].map((match) => decodeHtml(match[1])).filter((href) =>
+  /(?:lemonsqueezy|checkout|subscribe|start[-_ ]?trial|buy[-_ ]?now)/i.test(href)
+);
+if (commerceState === "closed") check(
+  commerceLinks.length === 0,
+  `Closed commerce page must not contain checkout, subscription, or trial links: ${commerceLinks.join(", ")}`
+);
 
 if (isPrerelease) check(
   /<meta\s+name=["']robots["']\s+content=["'][^"']*noindex[^"']*["']/i.test(html),
@@ -40,6 +53,54 @@ if (isPrerelease) check(
   activeDmgLinks.length === 0,
   `Historical DMG must not have an active download link: ${activeDmgLinks.join(", ")}`
 );
+
+const activeDeliveryLinks = [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)]
+  .map((match) => ({
+    attributes: match[1],
+    href: decodeHtml(match[1].match(/\bhref=["']([^"']+)["']/i)?.[1] ?? ""),
+    label: match[2].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim(),
+  }))
+  .filter(({ attributes, href, label }) =>
+    /\bdownload(?:\s|=|$)/i.test(attributes) ||
+    /\.(?:dmg|pkg|zip)(?:[?#]|$)/i.test(href) ||
+    /\b(?:download|install)\b/i.test(label)
+  );
+if (isPrerelease) check(
+  activeDeliveryLinks.length === 0,
+  `Pre-release page must not activate a download or installer link: ${activeDeliveryLinks.map(({ href }) => href).join(", ")}`
+);
+
+const mailtoLinks = [
+  ...html.matchAll(/<a\b[^>]*href=["'](mailto:[^"']+)["'][^>]*>/gi),
+].map((match) => decodeHtml(match[1]));
+check(mailtoLinks.length === 1, "Page must expose exactly one explicit email contact link.");
+check(
+  /(?:goes|go) directly to (?:the person building|the creator of) GlassGraph Studio/i.test(html),
+  "Support copy must state that email goes directly to the GlassGraph Studio creator."
+);
+check(
+  /(?:does not|doesn['’]t) send (?:issue )?reports? or diagnostics automatically/i.test(html),
+  "Support copy must state that the page does not send reports or diagnostics automatically."
+);
+check(
+  !/"author"\s*:\s*\{\s*"@type"\s*:\s*"Organization"\s*,\s*"name"\s*:\s*"NEMURIUM"/i.test(html),
+  "Pre-release structured data must not present the NEMURIUM brand as a legal organization."
+);
+check(
+  !/©\s*2026\s+NEMURIUM/i.test(html),
+  "Pre-release footer must not present the NEMURIUM brand as the legal copyright owner."
+);
+check(
+  /NEMURIUM brand/i.test(html),
+  "Pre-release footer must distinguish NEMURIUM as a brand while legal ownership is unresolved."
+);
+for (const [pattern, label] of [
+  [/(?:NEMURIUM team|GlassGraph support|support team)/i, "an unverified support team"],
+  [/(?:automatic(?:ally)? (?:issue )?report(?:ing)?|automatic(?:ally)? (?:diagnostic )?upload)/i, "automatic issue or diagnostic submission"],
+  [/(?:support portal|reporting service) (?:is )?(?:live|available|active)/i, "a deployed support or reporting system"],
+]) {
+  check(!pattern.test(html), `Page must not imply ${label}.`);
+}
 
 const forbiddenClaims = [
   [/available now/i, '"available now"'],
@@ -78,6 +139,14 @@ const requiredV01Truth = [
   [/full active board/i, "the full-active-board MCP sharing boundary"],
   [/no telemetry/i, "the no-telemetry boundary"],
   [/updater[\s\S]{0,160}GitHub[\s\S]{0,160}when enabled/i, "the conditional GitHub updater check"],
+  [/14 days free[\s\S]{0,120}no card required/i, "the 14-day no-card trial plan"],
+  [/\$10\/month[\s\S]*\$100\/year/i, "the monthly and yearly launch prices"],
+  [/one trial per verified account/i, "the one-trial-per-verified-account limit"],
+  [/up to two personally controlled Macs/i, "the two-device limit"],
+  [/first (?:public )?trial[\s\S]{0,100}50 accounts/i, "the initial 50-account trial limit"],
+  [/trial will not automatically become a paid subscription/i, "the no-automatic-charge promise"],
+  [/Apple Silicon[\s\S]{0,80}(?:M1|M1 or newer)[\s\S]{0,120}macOS 11 or newer/i, "the v0.1 system requirements"],
+  [/Cancel anytime[\s\S]{0,180}paid through[\s\S]{0,180}14-day[\s\S]{0,180}open, view, and export[\s\S]{0,120}editing pauses/i, "the cancellation, grace, and data-safety rules"],
 ];
 
 for (const [pattern, label] of requiredV01Truth) {

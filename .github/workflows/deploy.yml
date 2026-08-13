@@ -26,6 +26,10 @@ jobs:
         run: node scripts/verify-glassgraph-hosting-gates.mjs
       - name: Verify GlassGraph page structure
         run: node scripts/verify-glassgraph-prerelease-page.mjs
+      - name: Verify GlassGraph trial and pricing truth
+        run: node scripts/verify-glassgraph-entitlement-page.mjs
+      - name: Verify GlassGraph legal publication state
+        run: node scripts/verify-glassgraph-legal-readiness.mjs --state prerelease
       - name: Verify GlassGraph delivery parity and promotion gates
         run: node scripts/verify-glassgraph-delivery-parity.mjs --contract release/glassgraph-product.json
       - uses: actions/configure-pages@v5

@@ -6,6 +6,7 @@ const workflow = readFileSync(new URL(".github/workflows/deploy.yml", root), "ut
 const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
 const requiredCommands = [
   "node scripts/verify-glassgraph-prerelease-page.mjs",
+  "node scripts/verify-glassgraph-legal-readiness.mjs --state prerelease",
   "node scripts/verify-glassgraph-delivery-parity.mjs --contract release/glassgraph-product.json",
 ];
 
@@ -20,7 +21,7 @@ for (const command of requiredCommands) {
   );
 }
 assert.ok(
-  workflow.indexOf(requiredCommands[1]) < workflow.indexOf("actions/upload-pages-artifact"),
+  workflow.indexOf(requiredCommands[2]) < workflow.indexOf("actions/upload-pages-artifact"),
   "GitHub Pages release parity must pass before upload",
 );
 assert.equal(vercel.outputDirectory, ".");
