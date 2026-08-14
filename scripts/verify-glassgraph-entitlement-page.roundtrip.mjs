@@ -20,6 +20,12 @@ const contract = {
     annualPriceUsd: null,
   },
   service: { baseUrl: "UNVERIFIED" },
+  commerce: {
+    provider: "stripe",
+    apiVersion: "2026-02-25.clover",
+    monthlyPriceId: "UNVERIFIED",
+    annualPriceId: null,
+  },
   lease: {
     algorithm: "Ed25519",
     audience: "glassgraph-native",
@@ -50,6 +56,9 @@ try {
   assert.throws(() => run(page.replace("$10/month", "$12/month")), /monthly/);
   assert.throws(() => run(`${page}<p>$100/year. Yearly.</p>`), /annual/);
   assert.throws(() => run(page, { ...contract, offer: { ...contract.offer, maximumDevicesPerAccount: 3 } }), /two devices/);
+  assert.throws(() => run(page, { ...contract, commerce: { ...contract.commerce, provider: "lemon-squeezy" } }), /Stripe/);
+  assert.throws(() => run(page, { ...contract, commerce: { ...contract.commerce, apiVersion: "UNVERIFIED" } }), /Stripe/);
+  assert.throws(() => run(page, { ...contract, commerce: { ...contract.commerce, monthlyPriceId: "price_not_live_yet" } }), /Stripe/);
 } finally {
   rmSync(root, { recursive: true, force: true });
 }

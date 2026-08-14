@@ -15,6 +15,12 @@
   "service": {
     "baseUrl": "UNVERIFIED"
   },
+  "commerce": {
+    "provider": "stripe",
+    "apiVersion": "2026-02-25.clover",
+    "monthlyPriceId": "UNVERIFIED",
+    "annualPriceId": null
+  },
   "lease": {
     "algorithm": "Ed25519",
     "audience": "glassgraph-native",

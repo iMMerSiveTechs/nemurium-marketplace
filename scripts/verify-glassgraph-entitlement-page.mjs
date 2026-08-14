@@ -16,6 +16,7 @@ export function verifyGlassGraphEntitlementPage({ pagePath, contractPath }) {
     || contract.appId !== "com.nemurium.glassgraph"
   ) fail("GlassGraph entitlement product contract mismatch");
   const offer = contract.offer ?? {};
+  const commerce = contract.commerce ?? {};
   if (offer.trialDays !== 7 || offer.trialPaymentMethodRequired !== false) {
     fail("page contract must preserve the 7-day no-card trial");
   }
@@ -26,6 +27,14 @@ export function verifyGlassGraphEntitlementPage({ pagePath, contractPath }) {
   if (!/7 days free and no card required/i.test(html)) fail("trial copy mismatch");
   if (/(?:first|limited to)\s+50 accounts/i.test(html)) fail("customer page must not advertise a fixed 50-account trial cap");
   if (!/up to two Macs/i.test(html)) fail("device limit copy mismatch");
+  if (
+    commerce.provider !== "stripe"
+    || commerce.apiVersion !== "2026-02-25.clover"
+    || commerce.monthlyPriceId !== "UNVERIFIED"
+    || commerce.annualPriceId !== null
+  ) {
+    fail("closed prerelease commerce must remain pinned to the Stripe monthly-only candidate");
+  }
 
   const commerceState = /data-glassgraph-commerce-state="([^"]+)"/.exec(html)?.[1];
   if (contract.service?.baseUrl === "UNVERIFIED") {

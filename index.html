@@ -14,9 +14,11 @@
   <meta property="og:url" content="https://www.nemurium.com/">
   <meta property="og:title" content="NEMURIUM — GlassGraph Studio">
   <meta property="og:description" content="Turn complicated projects, ideas, and systems into a visual map you can understand, explain, and improve.">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://www.nemurium.com/assets/glassgraph-studio-board-v0.1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="NEMURIUM — GlassGraph Studio">
   <meta name="twitter:description" content="Turn complicated projects, ideas, and systems into a visual map you can understand, explain, and improve.">
+  <meta name="twitter:image" content="https://www.nemurium.com/assets/glassgraph-studio-board-v0.1.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -161,8 +163,8 @@
     .hero { padding: 92px 0 80px; }
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(350px, 0.92fr);
-      gap: 68px;
+      grid-template-columns: minmax(0, 0.85fr) minmax(480px, 1.15fr);
+      gap: 44px;
       align-items: center;
     }
     .eyebrow, .kicker {
@@ -251,70 +253,52 @@
     .chip.closed { color: var(--red); border-color: color-mix(in srgb, var(--red) 35%, transparent); }
     .chip.good { color: var(--green); border-color: color-mix(in srgb, var(--green) 35%, transparent); }
 
-    .capability-map {
-      position: relative;
+    .product-hero,
+    .product-shot {
+      margin: 0;
       overflow: hidden;
-      padding: 24px;
       border: 1px solid var(--line-strong);
-      border-radius: 26px;
-      background:
-        linear-gradient(145deg, rgba(89, 132, 240, 0.12), rgba(143, 93, 226, 0.06)),
-        var(--panel);
+      border-radius: 22px;
+      background: var(--panel);
       box-shadow: var(--shadow);
     }
-    .capability-map::after {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      right: -100px;
-      bottom: -120px;
-      border-radius: 50%;
-      background: rgba(112, 86, 220, 0.18);
-      filter: blur(22px);
-      pointer-events: none;
-    }
-    .map-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .map-head strong { font-size: 14px; }
-    .map-head span { color: var(--quiet); font: 10px/1.2 var(--mono); }
-    .map-node {
-      position: relative;
-      z-index: 1;
-      padding: 16px 17px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-small);
-      background: var(--panel-strong);
-    }
-    .map-node + .map-node { margin-top: 11px; }
-    .map-node small {
+    .product-hero a,
+    .product-shot a {
       display: block;
-      margin-bottom: 5px;
-      color: var(--quiet);
-      font: 600 10px/1.2 var(--mono);
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
     }
-    .map-node b { font-size: 15px; }
-    .view-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
-    .view-chips span {
-      padding: 5px 9px;
-      border-radius: 8px;
-      background: color-mix(in srgb, var(--blue) 10%, transparent);
-      color: var(--blue);
-      font: 600 11px/1.2 var(--mono);
+    .product-hero img,
+    .product-shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 8 / 5;
+      object-fit: cover;
     }
-    .map-note {
-      position: relative;
-      z-index: 1;
-      margin: 16px 2px 0;
-      color: var(--quiet);
-      font: 11px/1.5 var(--mono);
+    .product-hero figcaption,
+    .product-shot figcaption {
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .product-gallery-head {
+      max-width: 700px;
+      margin-top: 54px;
+    }
+    .product-gallery-head h3 {
+      margin: 12px 0 0;
+      font-size: clamp(26px, 3vw, 36px);
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+    }
+    .product-gallery-head p {
+      margin: 14px 0 0;
+      color: var(--muted);
+    }
+    .product-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
     }
 
     section.section { padding: 86px 0; border-top: 1px solid var(--line); }
@@ -448,6 +432,7 @@
 
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; gap: 42px; }
+      .product-gallery { grid-template-columns: 1fr; }
       .boundary-grid { grid-template-columns: 1fr; }
       .nav { display: none; }
       .release-row { grid-template-columns: 1fr; gap: 10px; }
@@ -459,7 +444,7 @@
       .contact-card, .footer-inner { align-items: flex-start; flex-direction: column; }
     }
     @media (prefers-reduced-transparency: reduce) {
-      .site-header, .card, .boundary, .capability-map, .release-panel {
+      .site-header, .card, .boundary, .product-hero, .product-shot, .release-panel {
         background: var(--panel-solid);
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
@@ -511,28 +496,12 @@
           </div>
         </div>
 
-        <aside class="capability-map" aria-label="From complexity to clarity">
-          <div class="map-head">
-            <strong>From complexity to clarity</strong>
-            <span>one connected visual workspace</span>
-          </div>
-          <div class="map-node">
-            <small>Bring together</small>
-            <b>Ideas, tasks, tools, and people</b>
-          </div>
-          <div class="map-node">
-            <small>See clearly</small>
-            <b>Relationships and dependencies</b>
-            <div class="view-chips" aria-label="Ways to explore your work">
-              <span>Map</span><span>Plan</span><span>Compare</span><span>Explore</span>
-            </div>
-          </div>
-          <div class="map-node">
-            <small>Move forward</small>
-            <b>Plan, explain, and improve the system</b>
-          </div>
-          <p class="map-note">Built for people who think in connections—not just lists.</p>
-        </aside>
+        <figure class="product-hero">
+          <a href="assets/glassgraph-studio-board-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio board image">
+            <img src="assets/glassgraph-studio-board-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing a connected system map with an orchestrator, parallel agents, shared memory, and a result" fetchpriority="high">
+          </a>
+          <figcaption>A real GlassGraph Studio workspace: map the system, trace the relationships, and keep the whole picture visible.</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -585,13 +554,32 @@
           <article class="card">
             <span class="number">03</span>
             <h3>Start with a useful structure</h3>
-            <p>Use Packs to begin with a clear visual language, then adapt the board to your project, system, or way of thinking.</p>
+            <p>Begin with a ready-made visual structure, then adapt the board to your project, system, or way of thinking.</p>
           </article>
           <article class="card">
             <span class="number">04</span>
             <h3>Keep and carry your work</h3>
             <p>Your board is saved locally while you work. Export a portable copy whenever you want to share, archive, or move it.</p>
           </article>
+        </div>
+        <div class="product-gallery-head">
+          <span class="kicker">Inside GlassGraph Studio</span>
+          <h3>See the work from more than one angle.</h3>
+          <p>Stay on the same connected board while you bring the system to life or focus on the view that helps you think next.</p>
+        </div>
+        <div class="product-gallery">
+          <figure class="product-shot">
+            <a href="assets/glassgraph-studio-motion-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio Motion Studio image">
+              <img src="assets/glassgraph-studio-motion-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio displaying a connected board with the Motion Studio panel open">
+            </a>
+            <figcaption>Bring the structure to life with Motion Studio.</figcaption>
+          </figure>
+          <figure class="product-shot">
+            <a href="assets/glassgraph-studio-views-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio workplace views image">
+              <img src="assets/glassgraph-studio-views-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing Index, Runbook, Matrix, and Copilot workplace views over the board">
+            </a>
+            <figcaption>Explore overview, step-by-step, and comparison views. Copilot Beta is coming soon.</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -627,28 +615,25 @@
       <div class="wrap">
         <div class="section-head">
           <span class="kicker">Private by design</span>
-          <h2>Improve the product without reading your work.</h2>
-          <p>Limited product and reliability data can help make GlassGraph better. The content of your boards stays private unless you deliberately share it.</p>
+          <h2>Useful product insights without collecting your board.</h2>
+          <p>Basic product-use and reliability data can help improve GlassGraph. The content of your boards is excluded unless you choose to share it.</p>
         </div>
         <div class="boundary-grid">
           <article class="boundary">
             <span class="icon" aria-hidden="true">M</span>
-            <h3>Your content stays yours</h3>
-            <p>Your boards live on your Mac by default. Titles, notes, relationships, and files are not collected as product analytics.</p>
+            <h3>Private by default</h3>
+            <p>Your boards live on your Mac. You choose when to export them or connect another tool.</p>
           </article>
           <article class="boundary">
             <span class="icon" aria-hidden="true">0</span>
-            <h3>Connect your preferred AI</h3>
-            <p>Bring the AI assistant you already use into GlassGraph through MCP.</p>
+            <h3>Copilot Beta coming soon</h3>
+            <p>We are developing a lightweight built-in assistant to help explain your board, surface gaps, and suggest useful next steps.</p>
           </article>
           <article class="boundary">
             <span class="icon" aria-hidden="true">↑</span>
-            <h3>Stay in control</h3>
-            <p>Connected assistants can suggest changes, but your board changes only after you review and approve them.</p>
+            <h3>You decide what changes</h3>
+            <p>The beta is being designed to guide and suggest. Your board will change only after you review and approve a proposal.</p>
           </article>
-        </div>
-        <div class="truth-callout">
-          <strong>Content is the boundary.</strong> Product-use and reliability data may help improve GlassGraph, but your board content is not collected unless you deliberately share it.
         </div>
       </div>
     </section>
@@ -665,7 +650,7 @@
             <h3>Coming first to Apple Silicon Macs</h3>
             <p>GlassGraph Studio is being created for M1 or newer Macs running macOS 11 or newer.</p>
           </div>
-          <a class="button primary" href="#contact">Get launch updates</a>
+          <a class="button primary" href="#contact">Ask about GlassGraph</a>
         </div>
       </div>
     </section>
@@ -674,8 +659,8 @@
       <div class="wrap">
         <div class="section-head">
           <span class="kicker">Stay in the loop</span>
-          <h2>Questions or launch updates?</h2>
-          <p>Tell us what you would like to map with GlassGraph, or ask to hear when the Mac app is ready.</p>
+          <h2>Questions about GlassGraph?</h2>
+          <p>Tell us what you would like to map, ask about Copilot Beta, or ask when the Mac app will be ready.</p>
         </div>
         <div class="contact-card">
           <div>

@@ -16,6 +16,11 @@ const commerceState =
 const siteVisibility =
   html.match(/<body\b[^>]*data-glassgraph-site-visibility=["']([^"']+)["']/i)?.[1];
 const isPrerelease = releaseState === "prerelease";
+const currentProductImages = [
+  "assets/glassgraph-studio-board-v0.1.jpg",
+  "assets/glassgraph-studio-motion-v0.1.jpg",
+  "assets/glassgraph-studio-views-v0.1.jpg",
+];
 
 function check(condition, message) {
   if (!condition) failures.push(message);
@@ -157,13 +162,29 @@ for (const [pattern, label] of unsupportedV01Claims) {
   check(!pattern.test(html), `Page still contains ${label}.`);
 }
 
+for (const imagePath of currentProductImages) {
+  check(
+    html.includes(imagePath),
+    `Customer page must show the current GlassGraph Studio product image: ${imagePath}`,
+  );
+  check(
+    fs.existsSync(path.resolve(rootDir, imagePath)),
+    `Current GlassGraph Studio product image is missing: ${imagePath}`,
+  );
+}
+check(
+  /<img\b[^>]*alt=["'][^"']*(?:GlassGraph Studio|GlassGraph board)[^"']*["']/i.test(html),
+  "Current GlassGraph product imagery must include useful alternative text.",
+);
+
 const requiredV01Truth = [
-  [/\bPacks\b/i, "Packs"],
+  [/ready-made visual structure/i, "a plain-language starting structure"],
   [/(?:big picture|map)[\s\S]{0,180}(?:ordered steps|details|compare|explore)/i, "multiple ways to explore connected work"],
   [/export a portable copy/i, "portable customer-controlled export"],
   [/(?:saved|autosave)[\s\S]{0,100}locally|local autosave/i, "local saving"],
-  [/(?:preferred AI|AI assistant)[\s\S]{0,120}\bMCP\b|\bMCP\b[\s\S]{0,120}(?:preferred AI|AI assistant)/i, "the customer-level MCP connection benefit"],
-  [/(?:product-use|product and reliability) data[\s\S]{0,180}(?:board content|content of your boards)/i, "the product-learning and content-privacy boundary"],
+  [/Copilot Beta[\s\S]{0,120}coming soon|coming soon[\s\S]{0,120}Copilot Beta/i, "the honest Copilot Beta coming-soon state"],
+  [/lightweight built-in assistant/i, "the planned lightweight built-in Copilot direction"],
+  [/(?:product-use and reliability|product-use|product and reliability) data[\s\S]{0,180}(?:board content|content of your boards)/i, "the product-learning and content-privacy boundary"],
   [/7 days free[\s\S]{0,120}no card required/i, "the 7-day no-card trial plan"],
   [/\$10\/month/i, "the monthly price"],
   [/up to two Macs/i, "the two-device limit"],
@@ -185,6 +206,9 @@ const internalProcessCopy = [
   [/Copilot boundary|built-in AI execution/i, "an internal Copilot limitation explanation"],
   [/signed app installs|recovery testing|rollback proof|download closed/i, "release-engineering status details"],
   [/failed renewal|recovery period|editing pauses/i, "billing-recovery details that belong in the terms"],
+  [/Your content stays yours|Content is the boundary/i, "the founder-rejected ownership-defense wording"],
+  [/Connect your preferred AI|Bring the AI assistant you already use into GlassGraph through MCP/i, "an unverified present-tense AI connection claim"],
+  [/Get launch updates/i, "an update-signup claim that only opens a general email contact"],
 ];
 for (const [pattern, label] of internalProcessCopy) {
   check(!pattern.test(html), `Customer page still contains ${label}.`);
