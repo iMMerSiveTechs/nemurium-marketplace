@@ -69,8 +69,16 @@ assert.ok(
 assert.equal(vercel.outputDirectory, "dist-site");
 assert.deepEqual(
   vercel.redirects,
-  [{ source: "/index.html", destination: "/", permanent: true }],
-  "Vercel must collapse /index.html onto the canonical homepage.",
+  [
+    {
+      source: "/(.*)",
+      has: [{ type: "host", value: "nemurium-marketplace.vercel.app" }],
+      destination: "https://www.nemurium.com/$1",
+      permanent: true,
+    },
+    { source: "/index.html", destination: "/", permanent: true },
+  ],
+  "Vercel must redirect its project alias to the canonical homepage and collapse /index.html.",
 );
 const rootHeaders = vercel.headers?.find(({ source }) => source === "/(.*)")?.headers ?? [];
 const headersByKey = new Map(rootHeaders.map(({ key, value }) => [key.toLowerCase(), value]));
