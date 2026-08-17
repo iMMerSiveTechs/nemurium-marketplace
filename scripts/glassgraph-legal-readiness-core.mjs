@@ -127,7 +127,13 @@ export function verifyGlassGraphLegalReadiness({ contractPath, pagePath, state }
         throw new Error("prerelease legal document locations must remain approval_required");
       }
     }
-    if (/<a\b[^>]*href=["'][^"']*(?:terms|privacy|billing)[^"']*["']/i.test(page)) {
+    const candidatePrivacyNotice = /<a\b(?=[^>]*\bdata-nemurium-privacy-notice-state=["']candidate["'])(?=[^>]*\bhref=["']privacy\.html["'])[^>]*>\s*Read the proposed privacy notice\.\s*<\/a>/i;
+    const hasDisabledSignup = /<body\b[^>]*\bdata-launch-signup-state=["']disabled["']/i.test(page);
+    const withoutCandidatePrivacyNotice = page.replace(candidatePrivacyNotice, "");
+    if (candidatePrivacyNotice.test(page) && !hasDisabledSignup) {
+      throw new Error("a proposed privacy notice may be linked only while signup is disabled");
+    }
+    if (/<a\b[^>]*href=["'][^"']*(?:terms|privacy|billing)[^"']*["']/i.test(withoutCandidatePrivacyNotice)) {
       throw new Error("unapproved legal drafts must not be linked as active policy pages");
     }
   } else {

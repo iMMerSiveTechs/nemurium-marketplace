@@ -11,6 +11,7 @@ const vercelBuildScript = readFileSync(
 const requiredCommands = [
   "node scripts/verify-glassgraph-hosting-gates.mjs",
   "node scripts/verify-glassgraph-prerelease-page.mjs",
+  "node scripts/verify-glassgraph-launch-signup.mjs",
   "node scripts/verify-glassgraph-entitlement-page.mjs",
   "node scripts/verify-glassgraph-legal-readiness.mjs --state prerelease",
   "node scripts/verify-glassgraph-delivery-parity.mjs --contract release/glassgraph-product.json",

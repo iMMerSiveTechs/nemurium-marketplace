@@ -19,6 +19,10 @@
   <meta name="twitter:title" content="NEMURIUM — GlassGraph Studio">
   <meta name="twitter:description" content="Turn complicated projects, ideas, and systems into a visual map you can understand, explain, and improve.">
   <meta name="twitter:image" content="https://www.nemurium.com/assets/glassgraph-studio-board-v0.1.jpg">
+  <!-- Public configuration only. Leave disabled and empty until the reviewed Supabase Edge Function is live. -->
+  <meta name="nemurium-launch-signup-state" content="disabled">
+  <meta name="nemurium-launch-signup-endpoint" content="">
+  <meta name="nemurium-launch-signup-policy-version" content="candidate">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -101,7 +105,7 @@
     }
 
     a { color: inherit; }
-    a:focus-visible, button:focus-visible {
+    a:focus-visible, button:focus-visible, input:focus-visible {
       outline: 2px solid var(--blue);
       outline-offset: 4px;
       border-radius: 8px;
@@ -420,6 +424,67 @@
     .contact-card h3 { margin: 0; font-size: 20px; }
     .contact-card p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
 
+    .signup-panel {
+      margin-top: 34px;
+      padding: 28px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: linear-gradient(110deg, rgba(60, 117, 232, 0.12), rgba(122, 83, 212, 0.09));
+    }
+    .signup-form { display: grid; gap: 14px; }
+    .signup-field { display: grid; gap: 8px; }
+    .signup-field label {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .signup-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+    }
+    .signup-email {
+      width: 100%;
+      min-height: 48px;
+      padding: 0 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      background: var(--panel-solid);
+      color: var(--text);
+      font: 400 16px/1.2 var(--sans);
+    }
+    .signup-email::placeholder { color: var(--quiet); }
+    .signup-email:disabled { cursor: not-allowed; opacity: 0.72; }
+    .signup-submit {
+      min-height: 48px;
+      padding: 0 20px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(100deg, #3178e8, #8158dc);
+      color: white;
+      font: 700 14px/1 var(--sans);
+      box-shadow: 0 14px 34px rgba(49, 120, 232, 0.26);
+    }
+    .signup-submit:not(:disabled) { cursor: pointer; }
+    .signup-submit:disabled { cursor: not-allowed; opacity: 0.62; box-shadow: none; }
+    .signup-note, .signup-status {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .signup-note a { color: var(--text); }
+    .signup-status[data-state="error"] { color: var(--red); }
+    .signup-status[data-state="success"] { color: var(--green); }
+    .honeypot {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
     footer { padding: 38px 0 52px; border-top: 1px solid var(--line); }
     .footer-inner {
       display: flex;
@@ -442,6 +507,7 @@
       .hero { padding: 68px 0 62px; }
       .grid { grid-template-columns: 1fr; }
       .contact-card, .footer-inner { align-items: flex-start; flex-direction: column; }
+      .signup-row { grid-template-columns: 1fr; }
     }
     @media (prefers-reduced-transparency: reduce) {
       .site-header, .card, .boundary, .product-hero, .product-shot, .release-panel {
@@ -456,7 +522,7 @@
     }
   </style>
 </head>
-<body data-glassgraph-release-state="prerelease" data-glassgraph-commerce-state="closed" data-glassgraph-site-visibility="public-information" data-glassgraph-version="0.1.0">
+<body data-glassgraph-release-state="prerelease" data-glassgraph-commerce-state="closed" data-glassgraph-site-visibility="public-information" data-glassgraph-version="0.1.0" data-launch-signup-state="disabled">
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -479,14 +545,15 @@
       <div class="wrap hero-grid">
         <div>
           <span class="eyebrow">GlassGraph Studio for Mac</span>
-          <h1>Turn complicated ideas into<br><span class="gradient">a map you can actually use.</span></h1>
+          <h1>See the system. Find the gap.<br><span class="gradient">Know what to do next.</span></h1>
           <p class="lede">
-            See how projects, systems, research, and decisions connect. Find gaps, understand dependencies,
-            explain the whole picture, and decide what to do next—all in one visual workspace.
+            GlassGraph is a visual workspace for Mac that helps you map projects, research, decisions, people,
+            and dependencies on one living board. See the whole picture, ordered steps, and detailed comparisons
+            without losing the connections.
           </p>
           <div class="actions">
-            <a class="button primary" href="#workplace">Explore GlassGraph</a>
-            <a class="button" href="#launch-plan">See pricing</a>
+            <a class="button primary" href="#workplace">See it in action</a>
+            <a class="button" href="#contact">Ask about GlassGraph</a>
           </div>
           <div class="truth-row" aria-label="GlassGraph highlights">
             <span class="chip good">map projects</span>
@@ -511,7 +578,7 @@
           <span class="kicker">Why GlassGraph</span>
           <h2>Some work is too connected for a list.</h2>
           <p>When a project has too many moving pieces, ordinary notes and task lists hide the relationships that matter most.</p>
-          <p>GlassGraph Studio gives those relationships a place to live. NEMURIUM is an independent product brand creating tools for people who understand the world through systems, patterns, and connections.</p>
+          <p>GlassGraph turns scattered pieces into a shared picture, so you can understand the work before deciding what to change. NEMURIUM is an independent product brand behind GlassGraph Studio.</p>
         </div>
         <div class="grid">
           <article class="card">
@@ -564,21 +631,21 @@
         </div>
         <div class="product-gallery-head">
           <span class="kicker">Inside GlassGraph Studio</span>
-          <h3>See the work from more than one angle.</h3>
-          <p>Stay on the same connected board while you bring the system to life or focus on the view that helps you think next.</p>
+          <h3>One map. More useful ways to see it.</h3>
+          <p>Keep the same connected map while you focus on the view that helps you decide what to do next.</p>
         </div>
         <div class="product-gallery">
           <figure class="product-shot">
             <a href="assets/glassgraph-studio-motion-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio Motion Studio image">
               <img src="assets/glassgraph-studio-motion-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio displaying a connected board with the Motion Studio panel open">
             </a>
-            <figcaption>Bring the structure to life with Motion Studio.</figcaption>
+            <figcaption>See your map in motion with Motion Studio.</figcaption>
           </figure>
           <figure class="product-shot">
             <a href="assets/glassgraph-studio-views-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio workplace views image">
               <img src="assets/glassgraph-studio-views-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing Index, Runbook, Matrix, and Copilot workplace views over the board">
             </a>
-            <figcaption>Explore overview, step-by-step, and comparison views. Copilot Beta is coming soon.</figcaption>
+            <figcaption>Switch between the big picture, step-by-step work, and detailed comparisons—all from the same map. Copilot Beta is coming soon.</figcaption>
           </figure>
         </div>
       </div>
@@ -587,9 +654,9 @@
     <section class="section" id="launch-plan">
       <div class="wrap">
         <div class="section-head">
-          <span class="kicker">Pricing</span>
-          <h2>Try it before deciding.</h2>
-          <p>Start with 7 days free and no card required. Your trial will not automatically become a paid subscription.</p>
+          <span class="kicker">Planned launch pricing</span>
+          <h2>Try it first. Subscribe only if it helps.</h2>
+          <p>When GlassGraph opens, the planned launch offer is 7 days free and no card required. Your trial will not automatically become a paid subscription.</p>
         </div>
         <div class="grid">
           <article class="card">
@@ -600,12 +667,12 @@
           <article class="card">
             <span class="number">$10</span>
             <h3>Monthly</h3>
-            <p>$10/month after the trial, only if you actively choose to subscribe.</p>
+            <p>Planned price: $10/month after the trial, only if you actively choose to subscribe.</p>
           </article>
           <article class="card">
             <span class="number">M1+</span>
-            <h3>System requirements</h3>
-            <p>Apple Silicon Mac, M1 or newer, running macOS 11 or newer. Intel Macs are not supported in version 0.1.</p>
+            <h3>Apple Silicon Macs first</h3>
+            <p>GlassGraph is being built first for Apple Silicon Macs. Final system requirements will be confirmed at launch.</p>
           </article>
         </div>
       </div>
@@ -614,25 +681,25 @@
     <section class="section" id="connection">
       <div class="wrap">
         <div class="section-head">
-          <span class="kicker">Private by design</span>
-          <h2>Useful product insights without collecting your board.</h2>
-          <p>Basic product-use and reliability data can help improve GlassGraph. The content of your boards is excluded unless you choose to share it.</p>
+          <span class="kicker">Private by default</span>
+          <h2>Your maps stay private by default.</h2>
+          <p>Your board stays on your Mac unless you choose to export it or connect a tool. We’ll be clear about any limited product-use and reliability data we use to improve GlassGraph; your board content is not included unless you choose to share it.</p>
         </div>
         <div class="boundary-grid">
           <article class="boundary">
             <span class="icon" aria-hidden="true">M</span>
             <h3>Private by default</h3>
-            <p>Your boards live on your Mac. You choose when to export them or connect another tool.</p>
+            <p>Your board stays on your Mac unless you choose to export it or connect a tool.</p>
           </article>
           <article class="boundary">
             <span class="icon" aria-hidden="true">0</span>
             <h3>Copilot Beta coming soon</h3>
-            <p>We are developing a lightweight built-in assistant to help explain your board, surface gaps, and suggest useful next steps.</p>
+            <p>We are developing a lightweight built-in assistant designed to help you understand your map and think through next steps.</p>
           </article>
           <article class="boundary">
             <span class="icon" aria-hidden="true">↑</span>
-            <h3>You decide what changes</h3>
-            <p>The beta is being designed to guide and suggest. Your board will change only after you review and approve a proposal.</p>
+            <h3>You stay in control</h3>
+            <p>When Copilot Beta arrives, it will ask before changing your board.</p>
           </article>
         </div>
       </div>
@@ -642,15 +709,40 @@
       <div class="wrap">
         <div class="section-head">
           <span class="kicker">Coming soon for Mac</span>
-          <h2>GlassGraph Studio is coming soon.</h2>
-          <p>See what it can do today, then get in touch if you would like launch news or want to share what you hope to map.</p>
+          <h2>GlassGraph Studio is on its way.</h2>
+          <p>Explore the workspace above, or get in touch if you’d like to hear when it’s ready.</p>
         </div>
         <div class="contact-card">
           <div>
             <h3>Coming first to Apple Silicon Macs</h3>
-            <p>GlassGraph Studio is being created for M1 or newer Macs running macOS 11 or newer.</p>
+            <p>Final system requirements will be confirmed when GlassGraph Studio opens.</p>
           </div>
           <a class="button primary" href="#contact">Ask about GlassGraph</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="updates" hidden>
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Stay in the loop</span>
+          <h2>Be first to know when GlassGraph is ready.</h2>
+          <p>Get a note when GlassGraph Studio is ready to try, plus occasional product news.</p>
+        </div>
+        <div class="signup-panel">
+          <form class="signup-form" id="launch-signup" data-source="nemurium.com/glassgraph" aria-describedby="launch-signup-note launch-signup-status">
+            <div class="signup-field">
+              <label for="launch-email">Email address</label>
+              <div class="signup-row">
+                <input class="signup-email" id="launch-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required disabled>
+                <button class="signup-submit" type="submit" disabled>Get launch news</button>
+              </div>
+            </div>
+            <label class="honeypot" for="launch-company">Company</label>
+            <input class="honeypot" id="launch-company" name="company" type="text" autocomplete="off" tabindex="-1" aria-hidden="true" disabled>
+            <p class="signup-note" id="launch-signup-note">By joining, you are asking NEMURIUM to send GlassGraph Studio launch and product-update emails. You can unsubscribe anytime. <a data-nemurium-privacy-notice-state="candidate" href="privacy.html">Read the proposed privacy notice.</a></p>
+            <p class="signup-status" id="launch-signup-status" role="status" aria-live="polite" data-state="info">Launch-list sign-up opens soon.</p>
+          </form>
         </div>
       </div>
     </section>
@@ -658,16 +750,16 @@
     <section class="section" id="contact">
       <div class="wrap">
         <div class="section-head">
-          <span class="kicker">Stay in the loop</span>
-          <h2>Questions about GlassGraph?</h2>
-          <p>Tell us what you would like to map, ask about Copilot Beta, or ask when the Mac app will be ready.</p>
+          <span class="kicker">Contact</span>
+          <h2>Questions? Get in touch.</h2>
+          <p>Questions or launch updates? Send us an email.</p>
         </div>
         <div class="contact-card">
           <div>
-            <h3>Contact GlassGraph</h3>
+            <h3>GlassGraph Studio</h3>
             <p>immersivetechs@nemurium.com</p>
           </div>
-          <a class="button primary" href="mailto:immersivetechs@nemurium.com?subject=GlassGraph%20Studio">Send an email</a>
+          <a class="button primary" href="mailto:immersivetechs@nemurium.com?subject=GlassGraph%20Studio">Email GlassGraph</a>
         </div>
       </div>
     </section>
@@ -675,8 +767,8 @@
 
   <footer>
     <div class="wrap footer-inner">
-      <span>NEMURIUM brand · operated by Jethro Gordon · GlassGraph Studio v0.1.0</span>
-      <span>Visual systems thinking for Mac · coming soon</span>
+      <span>NEMURIUM brand · operated by Jethro Gordon · GlassGraph Studio v0.1.0 preview</span>
+      <span>Coming soon for Apple Silicon Macs</span>
     </div>
   </footer>
 
@@ -699,6 +791,92 @@
         sync();
       });
       sync();
+    })();
+
+    (function () {
+      "use strict";
+      var form = document.getElementById("launch-signup");
+      var updates = document.getElementById("updates");
+      if (!form || !updates) return;
+
+      var email = document.getElementById("launch-email");
+      var company = document.getElementById("launch-company");
+      var submit = form.querySelector("button[type=submit]");
+      var status = document.getElementById("launch-signup-status");
+      var state = document.body.getAttribute("data-launch-signup-state");
+      var endpoint = document.querySelector('meta[name="nemurium-launch-signup-endpoint"]')?.getAttribute("content")?.trim() || "";
+      var policyVersion = document.querySelector('meta[name="nemurium-launch-signup-policy-version"]')?.getAttribute("content")?.trim() || "";
+
+      function setStatus(message, nextState) {
+        status.textContent = message;
+        status.dataset.state = nextState;
+      }
+
+      function isApprovedEndpoint(value) {
+        try {
+          var url = new URL(value);
+          return url.protocol === "https:" &&
+            url.hostname.endsWith(".supabase.co") &&
+            /^\/functions\/v1\/launch-signup\/?$/.test(url.pathname);
+        } catch (error) {
+          return false;
+        }
+      }
+
+      var live = state === "live" && policyVersion !== "candidate" && isApprovedEndpoint(endpoint);
+      form.dataset.state = live ? "live" : "disabled";
+      email.disabled = !live;
+      company.disabled = !live;
+      submit.disabled = !live;
+
+      if (!live) return;
+
+      updates.hidden = false;
+
+      setStatus("", "info");
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        if (!email.checkValidity()) {
+          email.reportValidity();
+          return;
+        }
+        if (company.value.trim()) {
+          setStatus("Thanks. You're on the list.", "success");
+          form.reset();
+          return;
+        }
+
+        submit.disabled = true;
+        setStatus("Adding you to the list…", "info");
+        try {
+          var response = await fetch(endpoint, {
+            method: "POST",
+            credentials: "omit",
+            redirect: "error",
+            referrerPolicy: "same-origin",
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              email: email.value.trim(),
+              source: form.dataset.source,
+              consent: {
+                purpose: "glassgraph_launch_news",
+                policyVersion: policyVersion,
+                capturedAt: new Date().toISOString()
+              }
+            })
+          });
+          if (!response.ok) throw new Error("Launch signup request failed");
+          setStatus("You're on the list. We'll write when GlassGraph Studio is ready to try.", "success");
+          form.reset();
+        } catch (error) {
+          setStatus("We couldn't add you right now. Please try again or email us.", "error");
+        } finally {
+          submit.disabled = false;
+        }
+      });
     })();
   </script>
 </body>

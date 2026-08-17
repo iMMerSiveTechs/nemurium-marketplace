@@ -189,7 +189,7 @@ const requiredV01Truth = [
   [/\$10\/month/i, "the monthly price"],
   [/up to two Macs/i, "the two-device limit"],
   [/trial will not automatically become a paid subscription/i, "the no-automatic-charge promise"],
-  [/Apple Silicon[\s\S]{0,80}(?:M1|M1 or newer)[\s\S]{0,120}macOS 11 or newer/i, "the v0.1 system requirements"],
+  [/Apple Silicon Macs first[\s\S]{0,180}Final system requirements will be confirmed at launch/i, "the honest Apple Silicon-first launch posture"],
 ];
 
 const internalProcessCopy = [

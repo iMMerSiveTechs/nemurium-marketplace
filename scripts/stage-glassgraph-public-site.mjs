@@ -16,6 +16,7 @@ if (!output.startsWith(`${root}/`)) {
 rmSync(output, { recursive: true, force: true });
 mkdirSync(output, { recursive: true });
 copyFileSync(resolve(root, "index.html"), resolve(output, "index.html"));
+copyFileSync(resolve(root, "privacy.html"), resolve(output, "privacy.html"));
 copyFileSync(resolve(root, "robots.txt"), resolve(output, "robots.txt"));
 copyFileSync(resolve(root, "sitemap.xml"), resolve(output, "sitemap.xml"));
 mkdirSync(resolve(output, "assets"));
@@ -28,7 +29,7 @@ for (const assetName of publicAssetNames) {
 writeFileSync(resolve(output, ".nojekyll"), "");
 
 const staged = readdirSync(output).sort();
-const expected = [".nojekyll", "assets", "index.html", "robots.txt", "sitemap.xml"];
+const expected = [".nojekyll", "assets", "index.html", "privacy.html", "robots.txt", "sitemap.xml"];
 if (JSON.stringify(staged) !== JSON.stringify(expected)) {
   throw new Error(`Unexpected staged public files: ${staged.join(", ")}`);
 }
