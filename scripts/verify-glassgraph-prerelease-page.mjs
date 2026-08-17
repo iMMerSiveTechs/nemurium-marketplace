@@ -17,9 +17,8 @@ const siteVisibility =
   html.match(/<body\b[^>]*data-glassgraph-site-visibility=["']([^"']+)["']/i)?.[1];
 const isPrerelease = releaseState === "prerelease";
 const currentProductImages = [
-  "assets/glassgraph-studio-board-v0.1.jpg",
-  "assets/glassgraph-studio-motion-v0.1.jpg",
-  "assets/glassgraph-studio-views-v0.1.jpg",
+  "assets/glassgraph-studio-system-map-v0.1.jpg",
+  "assets/glassgraph-studio-decision-map-v0.1.jpg",
 ];
 
 function check(condition, message) {
@@ -156,6 +155,7 @@ const unsupportedV01Claims = [
   [/(?:receipts are plain files|receipt pins|every meaningful change|every proposal, decision, and undo|every change:\s*receipted|approval\s*(?:&amp;|&)\s*undo receipts)/i, "unsupported durable or change-by-change receipt claims"],
   [/(?:work with us\s*·\s*open now|mapping session|design-partner sprint|architecture conversion|fixed fee)/i, "an unverified paid-services availability claim"],
   [/glassgraph-(?:board|motion|native)-real(?:-\d+)?\.jpg/i, "a superseded Design Studio screenshot"],
+  [/glassgraph-studio-(?:board|motion|views)-v0\.1\.jpg/i, "an AI-heavy product screenshot that contradicts the Copilot Beta coming-soon state"],
 ];
 
 for (const [pattern, label] of unsupportedV01Claims) {
@@ -229,7 +229,7 @@ for (const [pattern, label] of internalProcessCopy) {
 for (const [pattern, label] of [
   [/(?:map|see)[\s\S]{0,140}(?:projects|systems|ideas)/i, "a concrete mapping outcome"],
   [/(?:relationships|dependencies)/i, "relationships or dependencies"],
-  [/(?:decide what to do next|move forward|find gaps)/i, "a customer decision outcome"],
+  [/(?:know|decide) what to do next|move forward|find gaps/i, "a customer decision outcome"],
 ]) {
   check(pattern.test(html), `Customer page must lead with ${label}.`);
 }

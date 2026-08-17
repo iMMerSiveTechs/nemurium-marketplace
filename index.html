@@ -17,14 +17,14 @@
   <meta property="og:url" content="https://www.nemurium.com/">
   <meta property="og:title" content="GlassGraph Studio for Apple Silicon Macs | NEMURIUM">
   <meta property="og:description" content="See the system, find the gap, and know what to do next with a visual workspace for Apple Silicon Macs.">
-  <meta property="og:image" content="https://www.nemurium.com/assets/glassgraph-studio-board-v0.1.jpg">
+  <meta property="og:image" content="https://www.nemurium.com/assets/glassgraph-studio-system-map-v0.1.jpg">
   <meta property="og:image:width" content="1600">
   <meta property="og:image:height" content="1000">
   <meta property="og:image:alt" content="GlassGraph Studio showing a connected system map">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="GlassGraph Studio for Apple Silicon Macs | NEMURIUM">
   <meta name="twitter:description" content="See the system, find the gap, and know what to do next with a visual workspace for Apple Silicon Macs.">
-  <meta name="twitter:image" content="https://www.nemurium.com/assets/glassgraph-studio-board-v0.1.jpg">
+  <meta name="twitter:image" content="https://www.nemurium.com/assets/glassgraph-studio-system-map-v0.1.jpg">
   <meta name="twitter:image:alt" content="GlassGraph Studio showing a connected system map">
   <!-- Public configuration only. Leave disabled and empty until the reviewed Supabase Edge Function is live. -->
   <meta name="nemurium-launch-signup-state" content="disabled">
@@ -40,7 +40,7 @@
     "softwareVersion": "0.1.0",
     "operatingSystem": "macOS (Apple Silicon)",
     "url": "https://www.nemurium.com/",
-    "screenshot": "https://www.nemurium.com/assets/glassgraph-studio-board-v0.1.jpg",
+    "screenshot": "https://www.nemurium.com/assets/glassgraph-studio-system-map-v0.1.jpg",
     "releaseNotes": "GlassGraph Studio for Apple Silicon Macs is coming soon."
   }
   </script>
@@ -354,6 +354,7 @@
       gap: 16px;
       margin-top: 24px;
     }
+    .product-gallery-single { grid-template-columns: minmax(0, 720px); }
 
     section.section { padding: 86px 0; border-top: 1px solid var(--line); }
     .section-head { max-width: 760px; }
@@ -630,8 +631,8 @@
         </div>
 
         <figure class="product-hero">
-          <a href="assets/glassgraph-studio-board-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio board image">
-            <img src="assets/glassgraph-studio-board-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing a connected system map" fetchpriority="high">
+          <a href="assets/glassgraph-studio-system-map-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio system map image">
+            <img src="assets/glassgraph-studio-system-map-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing a connected system map from customer signal to a decision" fetchpriority="high">
           </a>
           <figcaption>A real GlassGraph Studio workspace: map the system, trace the relationships, and keep the whole picture visible.</figcaption>
         </figure>
@@ -697,21 +698,15 @@
         </div>
         <div class="product-gallery-head">
           <span class="kicker">Inside GlassGraph Studio</span>
-          <h3>One map. More useful ways to see it.</h3>
-          <p>Keep the same connected map while you focus on the view that helps you decide what to do next.</p>
+          <h3>Follow a question to the next useful step.</h3>
+          <p>Keep the signal, the question, the evidence, and the decision together on one connected map.</p>
         </div>
-        <div class="product-gallery">
+        <div class="product-gallery product-gallery-single">
           <figure class="product-shot">
-            <a href="assets/glassgraph-studio-motion-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio Motion Studio image">
-              <img src="assets/glassgraph-studio-motion-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio displaying a connected board with the Motion Studio panel open" loading="lazy" decoding="async">
+            <a href="assets/glassgraph-studio-decision-map-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio decision map image">
+              <img src="assets/glassgraph-studio-decision-map-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing a customer signal connected to a key question, evidence, and a next step" loading="lazy" decoding="async">
             </a>
-            <figcaption>See your map in motion with Motion Studio.</figcaption>
-          </figure>
-          <figure class="product-shot">
-            <a href="assets/glassgraph-studio-views-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio workplace views image">
-              <img src="assets/glassgraph-studio-views-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing Index, Runbook, Matrix, and Copilot workplace views over the board" loading="lazy" decoding="async">
-            </a>
-            <figcaption>Switch between the big picture, step-by-step work, and detailed comparisons—all from the same map. Copilot Beta is coming soon.</figcaption>
+            <figcaption>Trace the path from an early signal to the next useful step.</figcaption>
           </figure>
         </div>
       </div>

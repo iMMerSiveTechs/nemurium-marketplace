@@ -184,6 +184,9 @@ try {
     "/assets/glassgraph-board-real.jpg",
     "/assets/glassgraph-motion-real.jpg",
     "/assets/glassgraph-native-real.jpg",
+    "/assets/glassgraph-studio-board-v0.1.jpg",
+    "/assets/glassgraph-studio-motion-v0.1.jpg",
+    "/assets/glassgraph-studio-views-v0.1.jpg",
   ]) {
     const { response } = await fetchLive(protectedPath);
     assert.ok(

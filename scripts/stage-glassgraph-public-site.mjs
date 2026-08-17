@@ -5,9 +5,8 @@ const root = resolve(import.meta.dirname, "..");
 const output = resolve(root, "dist-site");
 const publicAssetNames = [
   "glassgraph-mark.svg",
-  "glassgraph-studio-board-v0.1.jpg",
-  "glassgraph-studio-motion-v0.1.jpg",
-  "glassgraph-studio-views-v0.1.jpg",
+  "glassgraph-studio-system-map-v0.1.jpg",
+  "glassgraph-studio-decision-map-v0.1.jpg",
 ];
 
 if (!output.startsWith(`${root}/`)) {
