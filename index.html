@@ -577,7 +577,7 @@
     }
   </style>
 </head>
-<body data-glassgraph-release-state="prerelease" data-glassgraph-commerce-state="closed" data-glassgraph-site-visibility="public-information" data-glassgraph-version="0.1.0" data-launch-signup-state="disabled">
+<body data-glassgraph-release-state="prerelease" data-glassgraph-commerce-state="closed" data-glassgraph-site-visibility="public-information" data-glassgraph-version="0.1.0">
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -869,7 +869,7 @@
       var company = document.getElementById("launch-company");
       var submit = form.querySelector("button[type=submit]");
       var status = document.getElementById("launch-signup-status");
-      var state = document.body.getAttribute("data-launch-signup-state");
+      var state = document.querySelector('meta[name="nemurium-launch-signup-state"]')?.getAttribute("content")?.trim() || "disabled";
       var endpoint = document.querySelector('meta[name="nemurium-launch-signup-endpoint"]')?.getAttribute("content")?.trim() || "";
       var policyVersion = document.querySelector('meta[name="nemurium-launch-signup-policy-version"]')?.getAttribute("content")?.trim() || "";
 

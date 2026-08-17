@@ -15,7 +15,7 @@ const configState = page.match(/<meta\s+name=["']nemurium-launch-signup-state["'
 const endpoint = page.match(/<meta\s+name=["']nemurium-launch-signup-endpoint["']\s+content=["']([^"']*)["']/i)?.[1];
 const policyVersion = page.match(/<meta\s+name=["']nemurium-launch-signup-policy-version["']\s+content=["']([^"']*)["']/i)?.[1];
 
-assert.equal(bodyState, "disabled", "The source candidate must fail closed before a reviewed signup service exists.");
+assert.equal(bodyState, undefined, "Launch-signup state must have one configuration source, not a duplicate body attribute.");
 assert.equal(configState, "disabled", "The public signup configuration must start disabled.");
 assert.equal(endpoint, "", "The source candidate must not embed an endpoint before its service is reviewed.");
 assert.equal(policyVersion, "candidate", "The source candidate must not present an unapproved privacy notice as effective.");
@@ -33,6 +33,8 @@ assert.match(page, /url\.protocol === ["']https:["']/i, "Only HTTPS signup endpo
 assert.match(page, /url\.hostname\.endsWith\(["']\.supabase\.co["']\)/i, "Only the intended Supabase host may be configured.");
 assert.match(page, /functions\\\/v1\\\/launch-signup/i, "Only the dedicated launch-signup endpoint may be configured.");
 assert.match(page, /state === ["']live["'] && policyVersion !== ["']candidate["']/i, "A live signup requires both a live state and an approved policy version.");
+assert.match(page, /var state = document\.querySelector\([^;]*nemurium-launch-signup-state[^;]*\)\?\.getAttribute\([^;]*content[^;]*\)/i, "The runtime must read the canonical public signup state metadata.");
+assert.doesNotMatch(page, /document\.body\.getAttribute\(["']data-launch-signup-state["']\)/i, "The runtime must not read a duplicate launch-signup state.");
 assert.match(page, /updates\.hidden\s*=\s*false/i, "Only a live, reviewed signup configuration may reveal the public form.");
 assert.doesNotMatch(page, /(service[_-]?role|sb_secret|SUPABASE_SERVICE_ROLE_KEY|SUPABASE_SECRET_KEY)/i, "Private Supabase credentials must never enter the public site.");
 

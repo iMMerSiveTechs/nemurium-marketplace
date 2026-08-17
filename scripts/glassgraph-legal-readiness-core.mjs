@@ -128,7 +128,7 @@ export function verifyGlassGraphLegalReadiness({ contractPath, pagePath, state }
       }
     }
     const candidatePrivacyNotice = /<a\b(?=[^>]*\bdata-nemurium-privacy-notice-state=["']candidate["'])(?=[^>]*\bhref=["']privacy\.html["'])[^>]*>\s*Read the proposed privacy notice\.\s*<\/a>/i;
-    const hasDisabledSignup = /<body\b[^>]*\bdata-launch-signup-state=["']disabled["']/i.test(page);
+    const hasDisabledSignup = /<meta\s+name=["']nemurium-launch-signup-state["']\s+content=["']disabled["']/i.test(page);
     const withoutCandidatePrivacyNotice = page.replace(candidatePrivacyNotice, "");
     if (candidatePrivacyNotice.test(page) && !hasDisabledSignup) {
       throw new Error("a proposed privacy notice may be linked only while signup is disabled");
