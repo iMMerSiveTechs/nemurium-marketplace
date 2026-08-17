@@ -316,9 +316,15 @@
       background: var(--panel);
       box-shadow: var(--shadow);
     }
-    .product-hero a,
-    .product-shot a {
+    .product-image-trigger {
       display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: zoom-in;
+      text-align: left;
     }
     .product-hero img,
     .product-shot img {
@@ -355,6 +361,69 @@
       margin-top: 24px;
     }
     .product-gallery-single { grid-template-columns: minmax(0, 720px); }
+
+    .image-lightbox {
+      width: 100vw;
+      max-width: none;
+      height: 100vh;
+      height: 100dvh;
+      max-height: none;
+      margin: auto;
+      padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+      overflow: auto;
+      overscroll-behavior: contain;
+      border: 0;
+      background: rgba(3, 8, 20, 0.82);
+      color: var(--text);
+    }
+    .image-lightbox[open] {
+      display: grid;
+      place-items: center;
+    }
+    .image-lightbox::backdrop {
+      background: rgba(3, 8, 20, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .image-lightbox-content {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: min(1400px, 100%);
+      max-height: calc(100dvh - 32px);
+      min-height: 180px;
+      padding: 16px;
+      overflow: auto;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--panel-solid);
+      box-shadow: var(--shadow);
+    }
+    .image-lightbox img {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      max-height: calc(100vh - 88px);
+      height: auto;
+      object-fit: contain;
+      border-radius: calc(var(--radius) - 8px);
+    }
+    .image-lightbox-close {
+      position: absolute;
+      z-index: 1;
+      top: 28px;
+      right: 28px;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 8px 13px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--panel-solid) 90%, transparent);
+      color: var(--text);
+      font: 700 12px/1 var(--sans);
+      cursor: pointer;
+    }
+    .image-lightbox-close:hover { background: var(--panel-strong); }
 
     section.section { padding: 86px 0; border-top: 1px solid var(--line); }
     .section-head { max-width: 760px; }
@@ -564,9 +633,12 @@
       .grid { grid-template-columns: 1fr; }
       .contact-card, .footer-inner { align-items: flex-start; flex-direction: column; }
       .signup-row { grid-template-columns: 1fr; }
+      .image-lightbox-content { max-height: calc(100dvh - 20px); padding: 10px; }
+      .image-lightbox img { max-height: calc(100dvh - 64px); }
+      .image-lightbox-close { top: 20px; right: 20px; }
     }
     @media (prefers-reduced-transparency: reduce) {
-      .site-header, .card, .boundary, .product-hero, .product-shot, .release-panel {
+      .site-header, .card, .boundary, .product-hero, .product-shot, .release-panel, .image-lightbox-close {
         background: var(--panel-solid);
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
@@ -631,9 +703,9 @@
         </div>
 
         <figure class="product-hero">
-          <a href="assets/glassgraph-studio-system-map-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio system map image">
+          <button class="product-image-trigger" type="button" data-image-lightbox-src="assets/glassgraph-studio-system-map-v0.1.jpg" data-image-lightbox-alt="GlassGraph Studio showing a connected system map from customer signal to a decision" aria-label="View the full-size GlassGraph Studio system map image">
             <img src="assets/glassgraph-studio-system-map-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing a connected system map from customer signal to a decision" fetchpriority="high">
-          </a>
+          </button>
           <figcaption>A real GlassGraph Studio workspace: map the system, trace the relationships, and keep the whole picture visible.</figcaption>
         </figure>
       </div>
@@ -703,9 +775,9 @@
         </div>
         <div class="product-gallery product-gallery-single">
           <figure class="product-shot">
-            <a href="assets/glassgraph-studio-decision-map-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio decision map image">
+            <button class="product-image-trigger" type="button" data-image-lightbox-src="assets/glassgraph-studio-decision-map-v0.1.jpg" data-image-lightbox-alt="GlassGraph Studio showing a customer signal connected to a key question, evidence, and a next step" aria-label="View the full-size GlassGraph Studio decision map image">
               <img src="assets/glassgraph-studio-decision-map-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing a customer signal connected to a key question, evidence, and a next step" loading="lazy" decoding="async">
-            </a>
+            </button>
             <figcaption>Trace the path from an early signal to the next useful step.</figcaption>
           </figure>
         </div>
@@ -825,6 +897,13 @@
       </div>
     </section>
   </main>
+
+  <dialog class="image-lightbox" id="image-lightbox" aria-label="Image viewer">
+    <div class="image-lightbox-content">
+      <button class="image-lightbox-close" type="button" aria-label="Close image viewer">Close</button>
+      <img id="image-lightbox-image" alt="">
+    </div>
+  </dialog>
 
   <footer>
     <div class="wrap footer-inner">
@@ -952,6 +1031,42 @@
         if (event.key !== "Escape") return;
         mobileNav.removeAttribute("open");
         mobileNav.querySelector("summary")?.focus();
+      });
+    })();
+
+    (function () {
+      "use strict";
+      var lightbox = document.getElementById("image-lightbox");
+      var lightboxImage = document.getElementById("image-lightbox-image");
+      var closeButton = lightbox?.querySelector(".image-lightbox-close");
+      var triggers = document.querySelectorAll("[data-image-lightbox-src]");
+      var returnFocus = null;
+      if (!lightbox || !lightboxImage || !closeButton || triggers.length === 0) return;
+
+      function closeLightbox() {
+        if (lightbox.open) lightbox.close();
+      }
+
+      for (var i = 0; i < triggers.length; i += 1) {
+        triggers[i].addEventListener("click", function (event) {
+          var trigger = event.currentTarget;
+          returnFocus = trigger;
+          lightboxImage.src = trigger.dataset.imageLightboxSrc;
+          lightboxImage.alt = trigger.dataset.imageLightboxAlt || "";
+          lightbox.showModal();
+          closeButton.focus();
+        });
+      }
+
+      closeButton.addEventListener("click", closeLightbox);
+      lightbox.addEventListener("click", function (event) {
+        if (event.target === lightbox) closeLightbox();
+      });
+      lightbox.addEventListener("close", function () {
+        lightboxImage.removeAttribute("src");
+        lightboxImage.alt = "";
+        if (returnFocus) returnFocus.focus();
+        returnFocus = null;
       });
     })();
   </script>

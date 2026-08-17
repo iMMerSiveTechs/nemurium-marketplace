@@ -172,6 +172,26 @@ for (const imagePath of currentProductImages) {
     `Current GlassGraph Studio product image is missing: ${imagePath}`,
   );
 }
+for (const imagePath of currentProductImages) {
+  const escapedImagePath = imagePath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  check(
+    new RegExp(`<button\\b[^>]*data-image-lightbox-src=["']${escapedImagePath}["'][^>]*>`, "i").test(html),
+    `Product image must open through the in-page image viewer: ${imagePath}`,
+  );
+  check(
+    !new RegExp(`<a\\b[^>]*href=["']${escapedImagePath}["'][^>]*>`, "i").test(html),
+    `Product image must not navigate a visitor away to a raw image file: ${imagePath}`,
+  );
+}
+for (const [pattern, label] of [
+  [/<dialog\b[^>]*id=["']image-lightbox["'][^>]*>/i, "an accessible in-page image viewer"],
+  [/aria-label=["']Close image viewer["']/i, "a visible image-viewer close control"],
+  [/lightbox\.showModal\(\)/i, "image-viewer modal opening"],
+  [/lightbox\.addEventListener\(["']click["'][\s\S]{0,700}event\.target\s*===\s*lightbox[\s\S]{0,160}closeLightbox\(\)/i, "image-viewer click-outside closing"],
+  [/lightbox\.addEventListener\(["']close["'][\s\S]{0,400}returnFocus\.focus\(\)/i, "image-viewer focus restoration"],
+]) {
+  check(pattern.test(html), `Customer image viewer must provide ${label}.`);
+}
 check(
   /<img\b[^>]*alt=["'][^"']*(?:GlassGraph Studio|GlassGraph board)[^"']*["']/i.test(html),
   "Current GlassGraph product imagery must include useful alternative text.",
