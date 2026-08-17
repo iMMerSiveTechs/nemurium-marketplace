@@ -117,6 +117,8 @@ const expectedContentType = (relativePath) => {
   if (relativePath.endsWith(".xml")) return /^(?:application|text)\/xml\b/i;
   if (relativePath.endsWith(".webmanifest")) return /^application\/(?:manifest\+json|json)\b/i;
   if (relativePath.endsWith(".svg")) return /^image\/svg\+xml\b/i;
+  if (relativePath.endsWith(".png")) return /^image\/png\b/i;
+  if (relativePath.endsWith(".ico")) return /^image\/(?:x-icon|vnd\.microsoft\.icon)\b/i;
   if (relativePath.endsWith(".jpg") || relativePath.endsWith(".jpeg")) return /^image\/jpeg\b/i;
   throw new Error(`No content-type expectation is defined for staged ${relativePath}`);
 };

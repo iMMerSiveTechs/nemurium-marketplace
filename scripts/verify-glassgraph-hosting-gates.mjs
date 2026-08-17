@@ -149,6 +149,16 @@ assert.match(
 );
 assert.match(
   liveProofScript,
+  /relativePath\.endsWith\("\.png"\)/,
+  "Live-site proof must define a PNG MIME expectation for the Apple touch icon.",
+);
+assert.match(
+  liveProofScript,
+  /relativePath\.endsWith\("\.ico"\)/,
+  "Live-site proof must define an ICO MIME expectation for the favicon fallback.",
+);
+assert.match(
+  liveProofScript,
   /index\.html must redirect to the canonical homepage/,
   "Live-site proof must reject a duplicate /index.html response.",
 );
