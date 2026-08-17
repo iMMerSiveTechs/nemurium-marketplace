@@ -16,6 +16,10 @@ const liveProofScript = readFileSync(
   new URL("scripts/verify-glassgraph-live-site.mjs", root),
   "utf8",
 );
+const stagedReferenceClosureScript = readFileSync(
+  new URL("scripts/verify-glassgraph-staged-reference-closure.mjs", root),
+  "utf8",
+);
 const page = readFileSync(new URL("index.html", root), "utf8");
 const siteManifest = JSON.parse(readFileSync(new URL("site.webmanifest", root), "utf8"));
 const requiredCommands = [
@@ -27,6 +31,7 @@ const requiredCommands = [
   "node scripts/verify-glassgraph-delivery-parity.mjs --contract release/glassgraph-product.json",
 ];
 const stagingCommand = "node scripts/stage-glassgraph-public-site.mjs";
+const stagedReferenceClosureCommand = "node scripts/verify-glassgraph-staged-reference-closure.mjs";
 const vercelBuildCommand = "node scripts/build-glassgraph-public-site.mjs";
 
 for (const command of requiredCommands) {
@@ -43,6 +48,15 @@ assert.ok(
   vercelBuildScript.includes(JSON.stringify(stagingCommand)),
   "Vercel build wrapper must stage the same narrow public site",
 );
+assert.ok(
+  vercelBuildScript.includes(JSON.stringify(stagedReferenceClosureCommand)),
+  "Vercel build wrapper must prove every staged local reference resolves before deployment",
+);
+assert.match(
+  stagedReferenceClosureScript,
+  /Staged public reference is missing/,
+  "Staged-reference proof must reject a page or manifest reference that would deploy as a 404.",
+);
 assert.equal(
   vercel.buildCommand,
   vercelBuildCommand,
@@ -53,6 +67,11 @@ assert.ok(
   "Vercel buildCommand must stay within the platform's 256-character limit",
 );
 assert.equal(vercel.outputDirectory, "dist-site");
+assert.deepEqual(
+  vercel.redirects,
+  [{ source: "/index.html", destination: "/", permanent: true }],
+  "Vercel must collapse /index.html onto the canonical homepage.",
+);
 const rootHeaders = vercel.headers?.find(({ source }) => source === "/(.*)")?.headers ?? [];
 const headersByKey = new Map(rootHeaders.map(({ key, value }) => [key.toLowerCase(), value]));
 for (const [key, pattern] of [
@@ -77,6 +96,11 @@ assert.doesNotMatch(
   stageScript,
   /\.nojekyll/,
   "Vercel staging must not carry GitHub Pages-only deployment artifacts.",
+);
+assert.match(
+  workflow,
+  /actions\/setup-node@v4[\s\S]*node-version:\s*["']22["']/,
+  "GitHub validation must use the pinned Node 22 runtime used by the public-site build.",
 );
 assert.match(
   page,
@@ -114,6 +138,16 @@ assert.match(
   liveProofScript,
   /assertContentType\(relativePath, response\)/,
   "Live-site proof must validate the delivered MIME type for every staged file.",
+);
+assert.match(
+  liveProofScript,
+  /index\.html must redirect to the canonical homepage/,
+  "Live-site proof must reject a duplicate /index.html response.",
+);
+assert.match(
+  liveProofScript,
+  /\[404, 410\]\.includes\(response\.status\)/,
+  "Live-site proof must reject arbitrary error responses from retired public origins.",
 );
 for (const retiredOrigin of [
   "https://nemurium-marketplace.vercel.app/",

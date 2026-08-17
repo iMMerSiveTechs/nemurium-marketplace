@@ -10,6 +10,7 @@ const commands = [
   "node scripts/verify-glassgraph-legal-readiness.mjs --state prerelease",
   "node scripts/verify-glassgraph-delivery-parity.mjs --contract release/glassgraph-product.json",
   "node scripts/stage-glassgraph-public-site.mjs",
+  "node scripts/verify-glassgraph-staged-reference-closure.mjs",
 ];
 
 for (const command of commands) {

@@ -139,8 +139,8 @@ const assertRetiredOrCanonical = async (url, label) => {
     return;
   }
   assert.ok(
-    response.status < 200 || response.status >= 300,
-    `${label} must be retired or redirect to the canonical site; received HTTP ${response.status}`,
+    [404, 410].includes(response.status),
+    `${label} must return 404/410 or redirect to the canonical site; received HTTP ${response.status}`,
   );
 };
 
@@ -148,6 +148,21 @@ try {
   const rootResponse = await fetchLive("/");
   assert.equal(rootResponse.response.status, 200, "canonical homepage must return HTTP 200");
   assertSecurityHeaders(rootResponse.response);
+
+  const indexResponse = await fetch(new URL("/index.html", origin), {
+    redirect: "manual",
+    headers: { "cache-control": "no-cache" },
+    signal: AbortSignal.timeout(20_000),
+  });
+  assert.ok(
+    [301, 302, 307, 308].includes(indexResponse.status),
+    "index.html must redirect to the canonical homepage",
+  );
+  const indexRedirect = new URL(indexResponse.headers.get("location") ?? "", origin);
+  assert.equal(indexRedirect.origin, origin.origin, "index.html redirect must stay on the current origin");
+  assert.equal(indexRedirect.pathname, "/", "index.html redirect must target the homepage");
+  assert.equal(indexRedirect.search, "", "index.html redirect must not add a query string");
+
   if (isCanonicalOrigin) {
     assert.doesNotMatch(
       rootResponse.response.headers.get("x-robots-tag") ?? "",
