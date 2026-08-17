@@ -12,6 +12,10 @@ const stageScript = readFileSync(
   new URL("scripts/stage-glassgraph-public-site.mjs", root),
   "utf8",
 );
+const liveProofScript = readFileSync(
+  new URL("scripts/verify-glassgraph-live-site.mjs", root),
+  "utf8",
+);
 const page = readFileSync(new URL("index.html", root), "utf8");
 const siteManifest = JSON.parse(readFileSync(new URL("site.webmanifest", root), "utf8"));
 const requiredCommands = [
@@ -91,4 +95,34 @@ assert.ok(
   stageScript.includes('"glassgraph-mark.svg"') && stageScript.includes('"site.webmanifest"'),
   "Vercel staging must include the site mark and manifest.",
 );
+assert.match(
+  liveProofScript,
+  /execFileSync\(process\.execPath, \["scripts\/build-glassgraph-public-site\.mjs"\]/,
+  "Live-site proof must rebuild the fixed current candidate before comparing it to Vercel.",
+);
+assert.doesNotMatch(
+  liveProofScript,
+  /--staged-dir/,
+  "Live-site proof must not accept an arbitrary staged directory.",
+);
+assert.match(
+  liveProofScript,
+  /readFileSync\(resolve\(root, "vercel\.json"\)/,
+  "Live-site proof must derive expected headers from the actual Vercel configuration.",
+);
+assert.match(
+  liveProofScript,
+  /assertContentType\(relativePath, response\)/,
+  "Live-site proof must validate the delivered MIME type for every staged file.",
+);
+for (const retiredOrigin of [
+  "https://nemurium-marketplace.vercel.app/",
+  "https://immersivetechs.github.io/nemurium-marketplace/",
+  "https://nemurium.macaly-app.com/",
+]) {
+  assert.ok(
+    liveProofScript.includes(retiredOrigin),
+    `Live-site proof must require retirement or canonical redirection for ${retiredOrigin}.`,
+  );
+}
 console.log("PASS Vercel is the only site delivery target; GitHub Actions validates the staged public site.");

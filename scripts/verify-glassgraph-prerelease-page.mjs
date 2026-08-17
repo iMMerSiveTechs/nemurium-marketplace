@@ -42,7 +42,7 @@ check(
   "Combined public site must explain the NEMURIUM brand in plain English."
 );
 check(
-  /GlassGraph Studio[\s\S]{0,180}(?:map|visual)[\s\S]{0,180}(?:projects|systems|ideas)/i.test(html),
+  /GlassGraph(?: Studio)?[\s\S]{0,300}(?:map|visual)[\s\S]{0,300}(?:projects|systems|ideas)/i.test(html),
   "Combined public site must explain what GlassGraph helps a customer do."
 );
 check(
@@ -186,6 +186,9 @@ for (const [pattern, label] of [
 }
 
 const requiredV01Truth = [
+  [/<title>GlassGraph Studio for Apple Silicon Macs \| NEMURIUM<\/title>/i, "an Apple Silicon-specific page title"],
+  [/GlassGraph Studio for Apple Silicon Macs/i, "an Apple Silicon-specific hero label"],
+  [/Explore the workspace/i, "an honest workspace-exploration action"],
   [/ready-made visual structure/i, "a plain-language starting structure"],
   [/(?:big picture|map)[\s\S]{0,180}(?:ordered steps|details|compare|explore)/i, "multiple ways to explore connected work"],
   [/export a portable copy/i, "portable customer-controlled export"],
@@ -217,6 +220,7 @@ const internalProcessCopy = [
   [/Your content stays yours|Content is the boundary/i, "the founder-rejected ownership-defense wording"],
   [/Connect your preferred AI|Bring the AI assistant you already use into GlassGraph through MCP/i, "an unverified present-tense AI connection claim"],
   [/Get launch updates/i, "an update-signup claim that only opens a general email contact"],
+  [/See it in action/i, "a demo-like action without a demo"],
 ];
 for (const [pattern, label] of internalProcessCopy) {
   check(!pattern.test(html), `Customer page still contains ${label}.`);

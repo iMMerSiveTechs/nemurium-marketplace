@@ -1,7 +1,7 @@
 {
   "name": "GlassGraph Studio",
   "short_name": "GlassGraph",
-  "description": "A visual workspace for Mac by NEMURIUM.",
+  "description": "A visual workspace for Apple Silicon Macs by NEMURIUM.",
   "start_url": "/",
   "display": "browser",
   "background_color": "#080d1b",

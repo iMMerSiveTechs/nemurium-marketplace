@@ -1,20 +1,22 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readdirSync, readFileSync } from "node:fs";
 import { relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = resolve(new URL("../", import.meta.url).pathname);
+const root = resolve(fileURLToPath(new URL("../", import.meta.url)));
 const options = {};
 const args = process.argv.slice(2);
-const allowedOptions = new Set(["--origin", "--staged-dir"]);
+const allowedOptions = new Set(["--origin"]);
 
 while (args.length > 0) {
   const option = args.shift();
   const value = args.shift();
   if (!allowedOptions.has(option) || !value || options[option.slice(2)]) {
     console.error(
-      "usage: node scripts/verify-glassgraph-live-site.mjs [--origin https://www.nemurium.com] [--staged-dir dist-site]",
+      "usage: node scripts/verify-glassgraph-live-site.mjs [--origin https://www.nemurium.com]",
     );
     process.exit(2);
   }
@@ -35,10 +37,21 @@ if (
 }
 const isCanonicalOrigin = origin.origin === "https://www.nemurium.com";
 
-const stagedDir = resolve(root, options.stagedDir ?? "dist-site");
-if (relative(root, stagedDir).startsWith("..")) {
-  throw new Error("staged-dir must remain inside the site source tree");
-}
+// Always stage from the current source first. A live proof must never compare
+// production against a caller-supplied or stale output directory.
+execFileSync(process.execPath, ["scripts/build-glassgraph-public-site.mjs"], {
+  cwd: root,
+  stdio: "inherit",
+});
+
+const stagedDir = resolve(root, "dist-site");
+const vercelConfig = JSON.parse(readFileSync(resolve(root, "vercel.json"), "utf8"));
+const expectedVercelHeaders = new Map(
+  (vercelConfig.headers ?? [])
+    .find(({ source }) => source === "/(.*)")
+    ?.headers?.map(({ key, value }) => [key.toLowerCase(), value]) ?? [],
+);
+assert.ok(expectedVercelHeaders.size > 0, "vercel.json must declare source-bound response headers");
 
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const walk = (directory) =>
@@ -68,20 +81,24 @@ const fetchLive = async (path) => {
   return { response, bytes, url };
 };
 
+const fetchExternal = async (url) => {
+  const response = await fetch(url, {
+    redirect: "manual",
+    headers: { "cache-control": "no-cache" },
+    signal: AbortSignal.timeout(20_000),
+  });
+  return { response, url: new URL(url) };
+};
+
 const assertSecurityHeaders = (response) => {
   const headers = response.headers;
-  assert.match(
-    headers.get("content-security-policy") ?? "",
-    /default-src 'self';[\s\S]*frame-ancestors 'none'/,
-    "live page must send its source-bound Content-Security-Policy",
-  );
-  assert.equal(headers.get("x-content-type-options"), "nosniff");
-  assert.equal(headers.get("x-frame-options"), "DENY");
-  assert.equal(headers.get("referrer-policy"), "strict-origin-when-cross-origin");
-  assert.match(
-    headers.get("permissions-policy") ?? "",
-    /camera=\(\)[\s\S]*microphone=\(\)[\s\S]*geolocation=\(\)/,
-  );
+  for (const [key, expectedValue] of expectedVercelHeaders) {
+    assert.equal(
+      headers.get(key),
+      expectedValue,
+      `live page must send the exact source-bound ${key} header`,
+    );
+  }
   assert.match(
     headers.get("strict-transport-security") ?? "",
     /max-age=\d+/,
@@ -91,6 +108,39 @@ const assertSecurityHeaders = (response) => {
     headers.get("server") ?? "",
     /vercel/i,
     "live public site must be served by the intended Vercel delivery path",
+  );
+};
+
+const expectedContentType = (relativePath) => {
+  if (relativePath.endsWith(".html")) return /^text\/html\b/i;
+  if (relativePath.endsWith(".txt")) return /^text\/plain\b/i;
+  if (relativePath.endsWith(".xml")) return /^(?:application|text)\/xml\b/i;
+  if (relativePath.endsWith(".webmanifest")) return /^application\/(?:manifest\+json|json)\b/i;
+  if (relativePath.endsWith(".svg")) return /^image\/svg\+xml\b/i;
+  if (relativePath.endsWith(".jpg") || relativePath.endsWith(".jpeg")) return /^image\/jpeg\b/i;
+  throw new Error(`No content-type expectation is defined for staged ${relativePath}`);
+};
+
+const assertContentType = (relativePath, response) => {
+  assert.match(
+    response.headers.get("content-type") ?? "",
+    expectedContentType(relativePath),
+    `live ${relativePath} must have the expected content type`,
+  );
+};
+
+const assertRetiredOrCanonical = async (url, label) => {
+  const { response } = await fetchExternal(url);
+  if ([301, 302, 307, 308].includes(response.status)) {
+    const redirect = new URL(response.headers.get("location") ?? "", url);
+    assert.equal(redirect.origin, origin.origin, `${label} must redirect to the canonical site`);
+    assert.equal(redirect.pathname, "/", `${label} redirect must land on the canonical homepage`);
+    assert.equal(redirect.search, "", `${label} redirect must not add a query string`);
+    return;
+  }
+  assert.ok(
+    response.status < 200 || response.status >= 300,
+    `${label} must be retired or redirect to the canonical site; received HTTP ${response.status}`,
   );
 };
 
@@ -113,6 +163,7 @@ try {
       relativePath === "index.html" ? rootResponse : await fetchLive(livePath);
     assert.equal(response.status, 200, `${url} must return HTTP 200`);
     assertSecurityHeaders(response);
+    assertContentType(relativePath, response);
     const expectedBytes = readFileSync(resolve(stagedDir, relativePath));
     assert.equal(
       sha256(bytes),
@@ -155,6 +206,19 @@ try {
     assert.equal(redirect.origin, origin.origin, "apex redirect must target the canonical www origin");
     assert.equal(redirect.pathname, "/", "apex redirect must target the canonical homepage");
     assert.equal(redirect.search, "", "apex redirect must not add a query string");
+
+    await assertRetiredOrCanonical(
+      "https://nemurium-marketplace.vercel.app/",
+      "Vercel alias",
+    );
+    await assertRetiredOrCanonical(
+      "https://immersivetechs.github.io/nemurium-marketplace/",
+      "legacy GitHub Pages site",
+    );
+    await assertRetiredOrCanonical(
+      "https://nemurium.macaly-app.com/",
+      "legacy Macaly site",
+    );
   }
 
   console.log(
