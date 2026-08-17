@@ -107,9 +107,13 @@ if (isPrerelease) check(
 const mailtoLinks = [
   ...html.matchAll(/<a\b[^>]*href=["'](mailto:[^"']+)["'][^>]*>/gi),
 ].map((match) => decodeHtml(match[1]));
-check(mailtoLinks.length === 1, "Page must expose exactly one explicit email contact link.");
+check(mailtoLinks.length >= 1, "Page must expose at least one explicit email contact link.");
 check(
-  /immersivetechs@nemurium\.com/i.test(html) && /(?:questions or launch updates|stay in the loop)/i.test(html),
+  mailtoLinks.every((href) => href === "mailto:immersivetechs@nemurium.com?subject=GlassGraph%20launch%20updates"),
+  "Public email actions must use the approved GlassGraph launch-updates address and subject."
+);
+check(
+  /immersivetechs@nemurium\.com/i.test(html) && /(?:want launch updates\? email us|stay in the loop)/i.test(html),
   "Customer page must provide a plain launch-contact section and visible email address."
 );
 check(

@@ -2,6 +2,7 @@
 # Only the optimized JPEGs the page actually references belong here.
 assets/captures/
 *.png
+!assets/apple-touch-icon.png
 
 # The signed DMG is a build artifact, not source. Regenerate with
 # `npm run build:glassgraph-release` in work/glassgraph-studio.

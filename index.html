@@ -6,6 +6,8 @@
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://www.nemurium.com/">
   <link rel="icon" href="assets/glassgraph-mark.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180">
   <link rel="manifest" href="site.webmanifest">
   <meta name="application-name" content="GlassGraph Studio">
   <title>GlassGraph Studio for Apple Silicon Macs | NEMURIUM</title>
@@ -26,10 +28,6 @@
   <meta name="twitter:description" content="See the system, find the gap, and know what to do next with a visual workspace for Apple Silicon Macs.">
   <meta name="twitter:image" content="https://www.nemurium.com/assets/glassgraph-studio-system-map-v0.1.jpg">
   <meta name="twitter:image:alt" content="GlassGraph Studio showing a connected system map">
-  <!-- Public configuration only. Leave disabled and empty until the reviewed Supabase Edge Function is live. -->
-  <meta name="nemurium-launch-signup-state" content="disabled">
-  <meta name="nemurium-launch-signup-endpoint" content="">
-  <meta name="nemurium-launch-signup-policy-version" content="candidate">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -544,67 +542,6 @@
     .contact-card h3 { margin: 0; font-size: 20px; }
     .contact-card p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
 
-    .signup-panel {
-      margin-top: 34px;
-      padding: 28px;
-      border: 1px solid var(--line-strong);
-      border-radius: var(--radius);
-      background: linear-gradient(110deg, rgba(60, 117, 232, 0.12), rgba(122, 83, 212, 0.09));
-    }
-    .signup-form { display: grid; gap: 14px; }
-    .signup-field { display: grid; gap: 8px; }
-    .signup-field label {
-      color: var(--text);
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .signup-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 12px;
-    }
-    .signup-email {
-      width: 100%;
-      min-height: 48px;
-      padding: 0 14px;
-      border: 1px solid var(--line-strong);
-      border-radius: 12px;
-      background: var(--panel-solid);
-      color: var(--text);
-      font: 400 16px/1.2 var(--sans);
-    }
-    .signup-email::placeholder { color: var(--quiet); }
-    .signup-email:disabled { cursor: not-allowed; opacity: 0.72; }
-    .signup-submit {
-      min-height: 48px;
-      padding: 0 20px;
-      border: 0;
-      border-radius: 12px;
-      background: linear-gradient(100deg, #3178e8, #8158dc);
-      color: white;
-      font: 700 14px/1 var(--sans);
-      box-shadow: 0 14px 34px rgba(49, 120, 232, 0.26);
-    }
-    .signup-submit:not(:disabled) { cursor: pointer; }
-    .signup-submit:disabled { cursor: not-allowed; opacity: 0.62; box-shadow: none; }
-    .signup-note, .signup-status {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-    }
-    .signup-note a { color: var(--text); }
-    .signup-status[data-state="error"] { color: var(--red); }
-    .signup-status[data-state="success"] { color: var(--green); }
-    .honeypot {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0 0 0 0);
-      white-space: nowrap;
-    }
-
     footer { padding: 38px 0 52px; border-top: 1px solid var(--line); }
     .footer-inner {
       display: flex;
@@ -632,7 +569,6 @@
       .hero { padding: 68px 0 62px; }
       .grid { grid-template-columns: 1fr; }
       .contact-card, .footer-inner { align-items: flex-start; flex-direction: column; }
-      .signup-row { grid-template-columns: 1fr; }
       .image-lightbox-content { max-height: calc(100dvh - 20px); padding: 10px; }
       .image-lightbox img { max-height: calc(100dvh - 64px); }
       .image-lightbox-close { top: 20px; right: 20px; }
@@ -660,7 +596,7 @@
         <a href="#nemurium">Why GlassGraph</a>
         <a href="#workplace">What you can do</a>
         <a href="#launch-plan">Pricing</a>
-        <a href="#connection">Privacy</a>
+        <a href="#connection">Local by default</a>
         <a href="#release">Coming soon</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -670,7 +606,7 @@
           <a href="#nemurium">Why GlassGraph</a>
           <a href="#workplace">What you can do</a>
           <a href="#launch-plan">Pricing</a>
-          <a href="#connection">Privacy</a>
+          <a href="#connection">Local by default</a>
           <a href="#release">Coming soon</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -692,7 +628,7 @@
           </p>
           <div class="actions">
             <a class="button primary" href="#workplace">Explore the workspace</a>
-            <a class="button" href="#contact">Ask about GlassGraph</a>
+            <a class="button" href="mailto:immersivetechs@nemurium.com?subject=GlassGraph%20launch%20updates">Email us for launch updates</a>
           </div>
           <div class="truth-row" aria-label="GlassGraph highlights">
             <span class="chip good">map projects</span>
@@ -850,33 +786,7 @@
             <h3>Coming first to Apple Silicon Macs</h3>
             <p>Final system requirements will be confirmed when GlassGraph Studio opens.</p>
           </div>
-          <a class="button primary" href="#contact">Ask about GlassGraph</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="updates" hidden>
-      <div class="wrap">
-        <div class="section-head">
-          <span class="kicker">Stay in the loop</span>
-          <h2>Be first to know when GlassGraph is ready.</h2>
-          <p>Get a note when GlassGraph Studio is ready to try, plus occasional product news.</p>
-        </div>
-        <div class="signup-panel">
-          <form class="signup-form" id="launch-signup" data-source="nemurium.com/glassgraph" aria-describedby="launch-signup-note launch-signup-status">
-            <div class="signup-field">
-              <label for="launch-email">Email address</label>
-              <div class="signup-row">
-                <input class="signup-email" id="launch-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required disabled>
-                <button class="signup-submit" type="submit" disabled>Get launch news</button>
-              </div>
-            </div>
-            <label class="honeypot" for="launch-website">Website</label>
-            <input class="honeypot" id="launch-website" name="website" type="text" autocomplete="off" tabindex="-1" aria-hidden="true" disabled>
-            <p class="signup-note" id="launch-signup-note">By joining, you are asking NEMURIUM to send GlassGraph Studio launch and product-update emails. You can unsubscribe anytime. <a data-nemurium-privacy-notice-state="candidate" href="privacy.html">Read the proposed privacy notice.</a></p>
-            <p class="signup-status" id="launch-signup-status" role="status" aria-live="polite" data-state="info">Launch-list sign-up opens soon.</p>
-          </form>
-        </div>
+          <a class="button primary" href="mailto:immersivetechs@nemurium.com?subject=GlassGraph%20launch%20updates">Email us for launch updates</a>
       </div>
     </section>
 
@@ -885,14 +795,14 @@
         <div class="section-head">
           <span class="kicker">Contact</span>
           <h2>Questions? Get in touch.</h2>
-          <p>Have a question or want to know more? Send us an email.</p>
+          <p>Have a question or want launch updates? Email us.</p>
         </div>
         <div class="contact-card">
           <div>
             <h3>GlassGraph Studio</h3>
             <p>immersivetechs@nemurium.com</p>
           </div>
-          <a class="button primary" href="mailto:immersivetechs@nemurium.com?subject=GlassGraph%20Studio">Email GlassGraph</a>
+          <a class="button primary" href="mailto:immersivetechs@nemurium.com?subject=GlassGraph%20launch%20updates">Email us for launch updates</a>
         </div>
       </div>
     </section>
@@ -931,87 +841,6 @@
         sync();
       });
       sync();
-    })();
-
-    (function () {
-      "use strict";
-      var form = document.getElementById("launch-signup");
-      var updates = document.getElementById("updates");
-      if (!form || !updates) return;
-
-      var email = document.getElementById("launch-email");
-      var website = document.getElementById("launch-website");
-      var submit = form.querySelector("button[type=submit]");
-      var status = document.getElementById("launch-signup-status");
-      var state = document.querySelector('meta[name="nemurium-launch-signup-state"]')?.getAttribute("content")?.trim() || "disabled";
-      var endpoint = document.querySelector('meta[name="nemurium-launch-signup-endpoint"]')?.getAttribute("content")?.trim() || "";
-      var policyVersion = document.querySelector('meta[name="nemurium-launch-signup-policy-version"]')?.getAttribute("content")?.trim() || "";
-
-      function setStatus(message, nextState) {
-        status.textContent = message;
-        status.dataset.state = nextState;
-      }
-
-      function isApprovedEndpoint(value) {
-        try {
-          var url = new URL(value);
-          return url.protocol === "https:" &&
-            url.hostname.endsWith(".supabase.co") &&
-            /^\/functions\/v1\/launch-signup\/?$/.test(url.pathname);
-        } catch (error) {
-          return false;
-        }
-      }
-
-      var live = state === "live" && policyVersion !== "candidate" && isApprovedEndpoint(endpoint);
-      form.dataset.state = live ? "live" : "disabled";
-      email.disabled = !live;
-      website.disabled = !live;
-      submit.disabled = !live;
-
-      if (!live) return;
-
-      updates.hidden = false;
-
-      setStatus("", "info");
-      form.addEventListener("submit", async function (event) {
-        event.preventDefault();
-        if (!email.checkValidity()) {
-          email.reportValidity();
-          return;
-        }
-        if (website.value.trim()) {
-          setStatus("Thanks. You're on the list.", "success");
-          form.reset();
-          return;
-        }
-
-        submit.disabled = true;
-        setStatus("Adding you to the list…", "info");
-        try {
-          var response = await fetch(endpoint, {
-            method: "POST",
-            credentials: "omit",
-            redirect: "error",
-            referrerPolicy: "same-origin",
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              email: email.value.trim(),
-              website: website.value
-            })
-          });
-          if (!response.ok) throw new Error("Launch signup request failed");
-          setStatus("You're on the list. We'll write when GlassGraph Studio is ready to try.", "success");
-          form.reset();
-        } catch (error) {
-          setStatus("We couldn't add you right now. Please try again or email us.", "error");
-        } finally {
-          submit.disabled = false;
-        }
-      });
     })();
 
     (function () {

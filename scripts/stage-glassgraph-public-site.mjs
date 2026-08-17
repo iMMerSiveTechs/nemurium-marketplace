@@ -4,6 +4,8 @@ import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, "..");
 const output = resolve(root, "dist-site");
 const publicAssetNames = [
+  "apple-touch-icon.png",
+  "favicon.ico",
   "glassgraph-mark.svg",
   "glassgraph-studio-system-map-v0.1.jpg",
   "glassgraph-studio-decision-map-v0.1.jpg",
