@@ -24,7 +24,7 @@ assert.match(page, /<form\b[^>]*\bid=["']launch-signup["'][^>]*>/i, "Launch sign
 assert.match(page, /<section\b[^>]*\bid=["']updates["'][^>]*\bhidden\b[^>]*>/i, "A disabled signup candidate must stay out of the public customer flow.");
 assert.match(page, /<input\b[^>]*\bid=["']launch-email["'][^>]*type=["']email["'][^>]*required[^>]*disabled/i, "The disabled candidate must not accept email without a service.");
 assert.match(page, /<button\b[^>]*type=["']submit["'][^>]*disabled[^>]*>Get launch news<\/button>/i, "The signup action must start disabled.");
-assert.match(page, /id=["']launch-company["'][^>]*aria-hidden=["']true["']/i, "A hidden spam trap is required before the public endpoint is enabled.");
+assert.match(page, /id=["']launch-website["'][^>]*name=["']website["'][^>]*aria-hidden=["']true["']/i, "A hidden website spam trap is required before the public endpoint is enabled.");
 assert.match(page, /data-nemurium-privacy-notice-state=["']candidate["'][^>]*href=["']privacy\.html["'][^>]*>Read the proposed privacy notice\.<\/a>/i, "The disabled candidate must link only to its clearly marked proposed privacy notice.");
 assert.match(page, /By joining, you are asking NEMURIUM to send GlassGraph Studio launch and product-update emails\. You can unsubscribe anytime\./i, "The signup needs specific, customer-readable consent copy.");
 assert.match(page, /credentials:\s*["']omit["']/i, "The browser signup request must not send cross-site cookies.");
@@ -36,6 +36,8 @@ assert.match(page, /state === ["']live["'] && policyVersion !== ["']candidate["'
 assert.match(page, /var state = document\.querySelector\([^;]*nemurium-launch-signup-state[^;]*\)\?\.getAttribute\([^;]*content[^;]*\)/i, "The runtime must read the canonical public signup state metadata.");
 assert.doesNotMatch(page, /document\.body\.getAttribute\(["']data-launch-signup-state["']\)/i, "The runtime must not read a duplicate launch-signup state.");
 assert.match(page, /updates\.hidden\s*=\s*false/i, "Only a live, reviewed signup configuration may reveal the public form.");
+assert.match(page, /body:\s*JSON\.stringify\(\{\s*email:\s*email\.value\.trim\(\),\s*website:\s*website\.value\s*\}\)/s, "The browser must send only the endpoint's reviewed email and website fields.");
+assert.doesNotMatch(page, /source:\s*form\.dataset\.source|consent:\s*\{/i, "The browser must not invent provenance or consent timestamps that the server must establish itself.");
 assert.doesNotMatch(page, /(service[_-]?role|sb_secret|SUPABASE_SERVICE_ROLE_KEY|SUPABASE_SECRET_KEY)/i, "Private Supabase credentials must never enter the public site.");
 
 assert.match(privacy, /data-nemurium-privacy-state=["']candidate["']/i, "The privacy notice must remain candidate-only until approval.");

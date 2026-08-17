@@ -871,8 +871,8 @@
                 <button class="signup-submit" type="submit" disabled>Get launch news</button>
               </div>
             </div>
-            <label class="honeypot" for="launch-company">Company</label>
-            <input class="honeypot" id="launch-company" name="company" type="text" autocomplete="off" tabindex="-1" aria-hidden="true" disabled>
+            <label class="honeypot" for="launch-website">Website</label>
+            <input class="honeypot" id="launch-website" name="website" type="text" autocomplete="off" tabindex="-1" aria-hidden="true" disabled>
             <p class="signup-note" id="launch-signup-note">By joining, you are asking NEMURIUM to send GlassGraph Studio launch and product-update emails. You can unsubscribe anytime. <a data-nemurium-privacy-notice-state="candidate" href="privacy.html">Read the proposed privacy notice.</a></p>
             <p class="signup-status" id="launch-signup-status" role="status" aria-live="polite" data-state="info">Launch-list sign-up opens soon.</p>
           </form>
@@ -940,7 +940,7 @@
       if (!form || !updates) return;
 
       var email = document.getElementById("launch-email");
-      var company = document.getElementById("launch-company");
+      var website = document.getElementById("launch-website");
       var submit = form.querySelector("button[type=submit]");
       var status = document.getElementById("launch-signup-status");
       var state = document.querySelector('meta[name="nemurium-launch-signup-state"]')?.getAttribute("content")?.trim() || "disabled";
@@ -966,7 +966,7 @@
       var live = state === "live" && policyVersion !== "candidate" && isApprovedEndpoint(endpoint);
       form.dataset.state = live ? "live" : "disabled";
       email.disabled = !live;
-      company.disabled = !live;
+      website.disabled = !live;
       submit.disabled = !live;
 
       if (!live) return;
@@ -980,7 +980,7 @@
           email.reportValidity();
           return;
         }
-        if (company.value.trim()) {
+        if (website.value.trim()) {
           setStatus("Thanks. You're on the list.", "success");
           form.reset();
           return;
@@ -1000,12 +1000,7 @@
             },
             body: JSON.stringify({
               email: email.value.trim(),
-              source: form.dataset.source,
-              consent: {
-                purpose: "glassgraph_launch_news",
-                policyVersion: policyVersion,
-                capturedAt: new Date().toISOString()
-              }
+              website: website.value
             })
           });
           if (!response.ok) throw new Error("Launch signup request failed");
