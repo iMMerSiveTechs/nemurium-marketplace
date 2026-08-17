@@ -5,20 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://www.nemurium.com/">
-  <title>NEMURIUM — GlassGraph Studio for visual systems thinking</title>
-  <meta name="description" content="Turn complicated projects, ideas, and systems into a visual map you can understand, explain, and improve with GlassGraph Studio for Mac.">
+  <link rel="icon" href="assets/glassgraph-mark.svg" type="image/svg+xml">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="application-name" content="GlassGraph Studio">
+  <title>GlassGraph Studio for Mac | NEMURIUM</title>
+  <meta name="description" content="See the system, find the gap, and know what to do next with a visual workspace for Mac.">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#080d1b">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f7fc">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="NEMURIUM">
   <meta property="og:url" content="https://www.nemurium.com/">
-  <meta property="og:title" content="NEMURIUM — GlassGraph Studio">
-  <meta property="og:description" content="Turn complicated projects, ideas, and systems into a visual map you can understand, explain, and improve.">
+  <meta property="og:title" content="GlassGraph Studio for Mac | NEMURIUM">
+  <meta property="og:description" content="See the system, find the gap, and know what to do next with a visual workspace for Mac.">
   <meta property="og:image" content="https://www.nemurium.com/assets/glassgraph-studio-board-v0.1.jpg">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="1000">
+  <meta property="og:image:alt" content="GlassGraph Studio showing a connected system map">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="NEMURIUM — GlassGraph Studio">
-  <meta name="twitter:description" content="Turn complicated projects, ideas, and systems into a visual map you can understand, explain, and improve.">
+  <meta name="twitter:title" content="GlassGraph Studio for Mac | NEMURIUM">
+  <meta name="twitter:description" content="See the system, find the gap, and know what to do next with a visual workspace for Mac.">
   <meta name="twitter:image" content="https://www.nemurium.com/assets/glassgraph-studio-board-v0.1.jpg">
+  <meta name="twitter:image:alt" content="GlassGraph Studio showing a connected system map">
   <!-- Public configuration only. Leave disabled and empty until the reviewed Supabase Edge Function is live. -->
   <meta name="nemurium-launch-signup-state" content="disabled">
   <meta name="nemurium-launch-signup-endpoint" content="">
@@ -32,6 +39,8 @@
     "description": "A Mac app that turns complicated ideas, projects, and systems into a visual map you can understand, explain, and improve.",
     "softwareVersion": "0.1.0",
     "operatingSystem": "macOS (Apple Silicon)",
+    "url": "https://www.nemurium.com/",
+    "screenshot": "https://www.nemurium.com/assets/glassgraph-studio-board-v0.1.jpg",
     "releaseNotes": "GlassGraph Studio for Apple Silicon Macs is coming soon."
   }
   </script>
@@ -80,7 +89,7 @@
       --line-strong: rgba(37, 99, 235, 0.28);
       --text: #10182c;
       --muted: #4c5974;
-      --quiet: #68748c;
+      --quiet: #657188;
       --blue: #145ec9;
       --violet: #6d3bcc;
       --green: #067354;
@@ -105,7 +114,7 @@
     }
 
     a { color: inherit; }
-    a:focus-visible, button:focus-visible, input:focus-visible {
+    a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
       outline: 2px solid var(--blue);
       outline-offset: 4px;
       border-radius: 8px;
@@ -154,6 +163,47 @@
       text-decoration: none;
     }
     .nav a:hover { color: var(--text); }
+    .mobile-nav {
+      display: none;
+      position: relative;
+    }
+    .mobile-nav summary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+      font: 700 12px/1 var(--sans);
+      list-style: none;
+    }
+    .mobile-nav summary::-webkit-details-marker { display: none; }
+    .mobile-nav-panel {
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      z-index: 110;
+      display: grid;
+      width: min(280px, calc(100vw - 32px));
+      padding: 10px;
+      border: 1px solid var(--line-strong);
+      border-radius: 16px;
+      background: var(--panel-solid);
+      box-shadow: var(--shadow);
+    }
+    .mobile-nav-panel a {
+      padding: 11px 12px;
+      border-radius: 9px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+      text-decoration: none;
+    }
+    .mobile-nav-panel a:hover { background: var(--bg-soft); color: var(--text); }
     .theme {
       width: 36px;
       height: 36px;
@@ -500,10 +550,15 @@
       .product-gallery { grid-template-columns: 1fr; }
       .boundary-grid { grid-template-columns: 1fr; }
       .nav { display: none; }
+      .mobile-nav { display: block; }
       .release-row { grid-template-columns: 1fr; gap: 10px; }
     }
     @media (max-width: 640px) {
       .wrap { width: min(calc(100% - 32px), var(--wrap)); }
+      .header-inner { gap: 8px; }
+      .brand { font-size: 11px; letter-spacing: 0.16em; white-space: nowrap; }
+      .mobile-nav summary { min-height: 40px; padding-inline: 11px; }
+      .theme { width: 40px; height: 40px; }
       .hero { padding: 68px 0 62px; }
       .grid { grid-template-columns: 1fr; }
       .contact-card, .footer-inner { align-items: flex-start; flex-direction: column; }
@@ -536,6 +591,17 @@
         <a href="#release">Coming soon</a>
         <a href="#contact">Contact</a>
       </nav>
+      <details class="mobile-nav">
+        <summary aria-label="Open site navigation">Menu</summary>
+        <nav class="mobile-nav-panel" aria-label="Mobile navigation">
+          <a href="#nemurium">Why GlassGraph</a>
+          <a href="#workplace">What you can do</a>
+          <a href="#launch-plan">Pricing</a>
+          <a href="#connection">Privacy</a>
+          <a href="#release">Coming soon</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </details>
       <button class="theme" id="theme-toggle" type="button" aria-label="Switch theme">☀</button>
     </div>
   </header>
@@ -637,13 +703,13 @@
         <div class="product-gallery">
           <figure class="product-shot">
             <a href="assets/glassgraph-studio-motion-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio Motion Studio image">
-              <img src="assets/glassgraph-studio-motion-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio displaying a connected board with the Motion Studio panel open">
+              <img src="assets/glassgraph-studio-motion-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio displaying a connected board with the Motion Studio panel open" loading="lazy" decoding="async">
             </a>
             <figcaption>See your map in motion with Motion Studio.</figcaption>
           </figure>
           <figure class="product-shot">
             <a href="assets/glassgraph-studio-views-v0.1.jpg" aria-label="Open the full-size GlassGraph Studio workplace views image">
-              <img src="assets/glassgraph-studio-views-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing Index, Runbook, Matrix, and Copilot workplace views over the board">
+              <img src="assets/glassgraph-studio-views-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing Index, Runbook, Matrix, and Copilot workplace views over the board" loading="lazy" decoding="async">
             </a>
             <figcaption>Switch between the big picture, step-by-step work, and detailed comparisons—all from the same map. Copilot Beta is coming soon.</figcaption>
           </figure>
@@ -683,13 +749,13 @@
         <div class="section-head">
           <span class="kicker">Private by default</span>
           <h2>Your maps stay private by default.</h2>
-          <p>Your board stays on your Mac unless you choose to export it or connect a tool. We’ll be clear about any limited product-use and reliability data we use to improve GlassGraph; your board content is not included unless you choose to share it.</p>
+          <p>GlassGraph is designed to keep your board on your Mac unless you choose to export it or connect a tool. We’ll be clear about any limited product-use and reliability data we use to improve GlassGraph; your board content is not included unless you choose to share it.</p>
         </div>
         <div class="boundary-grid">
           <article class="boundary">
             <span class="icon" aria-hidden="true">M</span>
             <h3>Private by default</h3>
-            <p>Your board stays on your Mac unless you choose to export it or connect a tool.</p>
+            <p>GlassGraph is designed to keep your board on your Mac unless you choose to export it or connect a tool.</p>
           </article>
           <article class="boundary">
             <span class="icon" aria-hidden="true">0</span>
@@ -876,6 +942,21 @@
         } finally {
           submit.disabled = false;
         }
+      });
+    })();
+
+    (function () {
+      "use strict";
+      var mobileNav = document.querySelector(".mobile-nav");
+      if (!mobileNav) return;
+
+      mobileNav.addEventListener("click", function (event) {
+        if (event.target.closest("a")) mobileNav.removeAttribute("open");
+      });
+      mobileNav.addEventListener("keydown", function (event) {
+        if (event.key !== "Escape") return;
+        mobileNav.removeAttribute("open");
+        mobileNav.querySelector("summary")?.focus();
       });
     })();
   </script>

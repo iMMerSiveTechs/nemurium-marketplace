@@ -1,0 +1,17 @@
+{
+  "name": "GlassGraph Studio",
+  "short_name": "GlassGraph",
+  "description": "A visual workspace for Mac by NEMURIUM.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#080d1b",
+  "theme_color": "#080d1b",
+  "icons": [
+    {
+      "src": "/assets/glassgraph-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

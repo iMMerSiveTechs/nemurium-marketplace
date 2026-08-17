@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">GlassGraph mark</title>
+  <defs>
+    <linearGradient id="frame" x1="7" y1="5" x2="57" y2="59" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8ed3ff"/>
+      <stop offset=".45" stop-color="#6b7dff"/>
+      <stop offset="1" stop-color="#b38bff"/>
+    </linearGradient>
+    <radialGradient id="blue" cx="0" cy="0" r="1" gradientTransform="rotate(45 2 34) scale(14)">
+      <stop stop-color="#d9f4ff"/>
+      <stop offset=".42" stop-color="#43c1ff"/>
+      <stop offset="1" stop-color="#1269ed"/>
+    </radialGradient>
+    <radialGradient id="amber" cx="0" cy="0" r="1" gradientTransform="rotate(45 19 41) scale(14)">
+      <stop stop-color="#fff1ca"/>
+      <stop offset=".42" stop-color="#f7b245"/>
+      <stop offset="1" stop-color="#e06b17"/>
+    </radialGradient>
+    <radialGradient id="violet" cx="0" cy="0" r="1" gradientTransform="rotate(45 -7 42) scale(14)">
+      <stop stop-color="#f0e7ff"/>
+      <stop offset=".42" stop-color="#b588ff"/>
+      <stop offset="1" stop-color="#6133df"/>
+    </radialGradient>
+  </defs>
+  <rect x="3" y="3" width="58" height="58" rx="18" fill="#091226" stroke="url(#frame)" stroke-width="2"/>
+  <path d="M20 23c7 3 16 4 25 15M22 41c8 3 17 1 23-5M20 24c-2 6-1 12 2 17" fill="none" stroke="url(#frame)" stroke-linecap="round" stroke-width="2.8"/>
+  <circle cx="20" cy="22" r="7" fill="url(#blue)" stroke="#b9efff" stroke-width="1.2"/>
+  <circle cx="45" cy="37" r="7" fill="url(#amber)" stroke="#ffdf9d" stroke-width="1.2"/>
+  <circle cx="23" cy="42" r="7" fill="url(#violet)" stroke="#ddc8ff" stroke-width="1.2"/>
+</svg>

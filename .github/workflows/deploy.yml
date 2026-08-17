@@ -1,45 +1,25 @@
-name: Deploy to GitHub Pages
+name: Verify GlassGraph public site
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: "pages"
+  group: "glassgraph-public-site-validation-${{ github.ref }}"
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify GitHub Pages and Vercel publication gates
-        run: node scripts/verify-glassgraph-hosting-gates.mjs
-      - name: Verify GlassGraph page structure
-        run: node scripts/verify-glassgraph-prerelease-page.mjs
-      - name: Verify GlassGraph launch-list safety
+      - name: Verify launch-signup safety
         run: node scripts/verify-glassgraph-launch-signup.mjs
-      - name: Verify GlassGraph trial and pricing truth
-        run: node scripts/verify-glassgraph-entitlement-page.mjs
-      - name: Verify GlassGraph legal publication state
-        run: node scripts/verify-glassgraph-legal-readiness.mjs --state prerelease
-      - name: Verify GlassGraph delivery parity and promotion gates
-        run: node scripts/verify-glassgraph-delivery-parity.mjs --contract release/glassgraph-product.json
-      - name: Stage only the public GlassGraph page
-        run: node scripts/stage-glassgraph-public-site.mjs
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'dist-site'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Verify the Vercel public-site build
+        run: node scripts/build-glassgraph-public-site.mjs

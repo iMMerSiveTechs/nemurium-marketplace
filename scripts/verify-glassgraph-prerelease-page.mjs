@@ -176,6 +176,14 @@ check(
   /<img\b[^>]*alt=["'][^"']*(?:GlassGraph Studio|GlassGraph board)[^"']*["']/i.test(html),
   "Current GlassGraph product imagery must include useful alternative text.",
 );
+for (const [pattern, label] of [
+  [/<meta\b[^>]*property=["']og:image:alt["'][^>]*content=["'][^"']*GlassGraph Studio[^"']*["']/i, "Open Graph image description"],
+  [/<meta\b[^>]*property=["']og:image:width["'][^>]*content=["']1600["']/i, "Open Graph image width"],
+  [/<meta\b[^>]*property=["']og:image:height["'][^>]*content=["']1000["']/i, "Open Graph image height"],
+  [/<meta\b[^>]*name=["']twitter:image:alt["'][^>]*content=["'][^"']*GlassGraph Studio[^"']*["']/i, "Twitter image description"],
+]) {
+  check(pattern.test(html), `Customer page must provide ${label}.`);
+}
 
 const requiredV01Truth = [
   [/ready-made visual structure/i, "a plain-language starting structure"],
@@ -230,6 +238,23 @@ const ids = new Set([...html.matchAll(/\bid=["']([^"']+)["']/gi)].map((match) =>
 for (const match of html.matchAll(/\bhref=["']#([^"']+)["']/gi)) {
   check(ids.has(match[1]), `Fragment link #${match[1]} has no matching id.`);
 }
+
+check(
+  /<details\b[^>]*class=["'][^"']*mobile-nav[^"']*["'][^>]*>[\s\S]*?<nav\b[^>]*aria-label=["']Mobile navigation["']/i.test(html),
+  "Customer page must provide keyboard-accessible navigation when the desktop links collapse.",
+);
+check(
+  /@media\s*\(max-width:\s*900px\)[\s\S]{0,700}\.mobile-nav\s*\{\s*display:\s*block/i.test(html),
+  "Mobile navigation must become visible at the same breakpoint that hides desktop navigation.",
+);
+check(
+  /mobileNav\.addEventListener\([\s\S]{0,260}event\.target\.closest\(["']a["']\)[\s\S]{0,180}mobileNav\.removeAttribute\(["']open["']\)/i.test(html),
+  "Mobile navigation must close after a visitor chooses a same-page destination.",
+);
+check(
+  /mobileNav\.addEventListener\(["']keydown["'][\s\S]{0,240}event\.key\s*!==?\s*["']Escape["'][\s\S]{0,120}return;[\s\S]{0,180}mobileNav\.removeAttribute\(["']open["']\)/i.test(html),
+  "Mobile navigation must let a keyboard visitor dismiss it with Escape.",
+);
 
 const localAssets = new Set();
 for (const match of html.matchAll(/<(?:img|source)\b[^>]*\bsrc=["']([^"']+)["']/gi)) {
