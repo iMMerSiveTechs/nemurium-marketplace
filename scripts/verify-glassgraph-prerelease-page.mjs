@@ -37,7 +37,7 @@ check(
 );
 check(
   /\bid=["']nemurium["']/i.test(html) &&
-    /NEMURIUM is (?:an|the) independent product brand/i.test(html),
+  /NEMURIUM is (?:an|the) independent (?:product )?brand(?: behind GlassGraph Studio)?/i.test(html),
   "Combined public site must explain the NEMURIUM brand in plain English."
 );
 check(

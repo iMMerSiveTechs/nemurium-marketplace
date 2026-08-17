@@ -1,0 +1,58 @@
+{
+  "schema": "glassgraph_legal_draft_register_v1",
+  "status": "CANDIDATE_ONLY",
+  "releaseState": "NO_SHIP",
+  "reviewState": "DRAFT_APPROVAL_REQUIRED",
+  "publication": "SOURCE_ONLY_NOT_STAGED",
+  "productId": "glassgraph-studio",
+  "legalContract": "release/glassgraph-legal.json",
+  "entitlementContract": "release/glassgraph-entitlement.json",
+  "documents": {
+    "softwareTerms": {
+      "path": "legal/software-terms.html",
+      "state": "DRAFT_APPROVAL_REQUIRED",
+      "requiredFounderBlanks": [
+        "approved_effective_date",
+        "notice_address",
+        "notice_recipient",
+        "legal_review_approval"
+      ]
+    },
+    "privacyNotice": {
+      "path": "legal/privacy.html",
+      "state": "DRAFT_APPROVAL_REQUIRED",
+      "requiredFounderBlanks": [
+        "approved_effective_date",
+        "notice_address",
+        "data_operations_and_vendor_register",
+        "retention_schedule",
+        "privacy_request_process",
+        "legal_review_approval"
+      ]
+    },
+    "billingPolicy": {
+      "path": "legal/billing.html",
+      "state": "DRAFT_APPROVAL_REQUIRED",
+      "requiredFounderBlanks": [
+        "approved_effective_date",
+        "notice_address",
+        "merchant_descriptor_and_receipt_contact",
+        "live_cancellation_path",
+        "refund_handling_process",
+        "legal_review_approval"
+      ]
+    }
+  },
+  "founderRequired": {
+    "approvedEffectiveDate": "approval_required",
+    "noticeAddress": "approval_required",
+    "noticeRecipient": "approval_required",
+    "legalReviewApproval": "approval_required",
+    "dataOperationsAndVendorRegister": "approval_required",
+    "retentionSchedule": "approval_required",
+    "privacyRequestProcess": "approval_required",
+    "merchantDescriptorAndReceiptContact": "approval_required",
+    "liveCancellationPath": "approval_required",
+    "refundHandlingProcess": "approval_required"
+  }
+}
