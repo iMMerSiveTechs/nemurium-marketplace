@@ -26,10 +26,10 @@ assert.doesNotMatch(page, /Ask about GlassGraph/i, "Generic contact CTAs must be
 const mailtoLinks = [...page.matchAll(/<a\b[^>]*href=["'](mailto:[^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)];
 assert.equal(mailtoLinks.length, 3, "The page must expose the three intentional direct email actions.");
 for (const [, href, label] of mailtoLinks) {
-  assert.equal(href, mailto, "Every public email action must use the honest launch-updates subject.");
-  assert.equal(label.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(), "Email us for launch updates", "Every public email action must use customer-facing launch-update copy.");
+  assert.equal(href, mailto, "Every public email action must use the approved GlassGraph contact subject.");
+  assert.equal(label.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(), "Email us", "Every public email action must use plain customer-facing contact copy.");
 }
-assert.match(page, /Have a question or want launch updates\? Email us\./i, "The contact section must plainly explain the email action.");
+assert.match(page, /Have a question about GlassGraph\? Email us\./i, "The contact section must plainly explain the email action.");
 
 for (const pattern of [
   /<section\b[^>]*\bid=["']updates["']/i,

@@ -114,7 +114,7 @@ check(
   "Public email actions must use the approved GlassGraph launch-updates address and subject."
 );
 check(
-  /immersivetechs@nemurium\.com/i.test(html) && /(?:want launch updates\? email us|stay in the loop)/i.test(html),
+  /immersivetechs@nemurium\.com/i.test(html) && /have a question about GlassGraph\? email us/i.test(html),
   "Customer page must provide a plain launch-contact section and visible email address."
 );
 check(
@@ -226,6 +226,8 @@ const requiredV01Truth = [
   [/up to two Macs/i, "the two-device limit"],
   [/trial will not automatically become a paid subscription/i, "the no-automatic-charge promise"],
   [/Apple Silicon Macs first[\s\S]{0,180}Final system requirements will be confirmed at launch/i, "the honest Apple Silicon-first launch posture"],
+  [/Early authoring preview[\s\S]{0,180}Copilot will arrive as a separate beta/i, "an honest explanation of the in-development authoring preview"],
+  [/Illustrative examples of how a connected map/i, "a clear distinction between example maps and the app preview"],
 ];
 
 const internalProcessCopy = [
