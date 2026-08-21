@@ -17,6 +17,7 @@ const siteVisibility =
   html.match(/<body\b[^>]*data-glassgraph-site-visibility=["']([^"']+)["']/i)?.[1];
 const isPrerelease = releaseState === "prerelease";
 const currentProductImages = [
+  "assets/glassgraph-native-real.jpg",
   "assets/glassgraph-studio-system-map-v0.1.jpg",
   "assets/glassgraph-studio-decision-map-v0.1.jpg",
 ];
@@ -158,7 +159,7 @@ const unsupportedV01Claims = [
   [/(?:minimum context shared|user-previewed minimum)/i, "the unsupported minimum-context claim"],
   [/(?:receipts are plain files|receipt pins|every meaningful change|every proposal, decision, and undo|every change:\s*receipted|approval\s*(?:&amp;|&)\s*undo receipts)/i, "unsupported durable or change-by-change receipt claims"],
   [/(?:work with us\s*·\s*open now|mapping session|design-partner sprint|architecture conversion|fixed fee)/i, "an unverified paid-services availability claim"],
-  [/glassgraph-(?:board|motion|native)-real(?:-\d+)?\.jpg/i, "a superseded Design Studio screenshot"],
+  [/glassgraph-(?:board|motion)-real(?:-\d+)?\.jpg/i, "an internal-only Design Studio screenshot"],
   [/glassgraph-studio-(?:board|motion|views)-v0\.1\.jpg/i, "an AI-heavy product screenshot that contradicts the Copilot Beta coming-soon state"],
 ];
 
@@ -202,8 +203,8 @@ check(
 );
 for (const [pattern, label] of [
   [/<meta\b[^>]*property=["']og:image:alt["'][^>]*content=["'][^"']*GlassGraph Studio[^"']*["']/i, "Open Graph image description"],
-  [/<meta\b[^>]*property=["']og:image:width["'][^>]*content=["']1600["']/i, "Open Graph image width"],
-  [/<meta\b[^>]*property=["']og:image:height["'][^>]*content=["']1000["']/i, "Open Graph image height"],
+  [/<meta\b[^>]*property=["']og:image:width["'][^>]*content=["']1800["']/i, "Open Graph image width"],
+  [/<meta\b[^>]*property=["']og:image:height["'][^>]*content=["']1170["']/i, "Open Graph image height"],
   [/<meta\b[^>]*name=["']twitter:image:alt["'][^>]*content=["'][^"']*GlassGraph Studio[^"']*["']/i, "Twitter image description"],
 ]) {
   check(pattern.test(html), `Customer page must provide ${label}.`);

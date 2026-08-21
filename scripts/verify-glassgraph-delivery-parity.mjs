@@ -257,7 +257,9 @@ try {
     /\bdata-glassgraph-version=["']([^"']+)["']/i,
   )?.[1];
   exact("page release version", pageVersion, version);
-  if (!html.includes(`v${version}`)) fail(`page must visibly name v${version}`);
+  if (/GlassGraph Studio\s+v\d+\.\d+\.\d+\s+preview/i.test(html)) {
+    fail("page must not present an internal preview-version label as customer-facing copy");
+  }
 
   const structuredDataBlocks = [
     ...html.matchAll(
