@@ -19,15 +19,15 @@
   <meta property="og:url" content="https://www.nemurium.com/">
   <meta property="og:title" content="GlassGraph Studio for Apple Silicon Macs | NEMURIUM">
   <meta property="og:description" content="See the system, find the gap, and know what to do next with a visual workspace for Apple Silicon Macs.">
-  <meta property="og:image" content="https://www.nemurium.com/assets/glassgraph-native-real.jpg">
-  <meta property="og:image:width" content="1800">
-  <meta property="og:image:height" content="1170">
-  <meta property="og:image:alt" content="Working preview of the GlassGraph Studio visual workspace on Mac">
+  <meta property="og:image" content="https://www.nemurium.com/assets/glassgraph-studio-system-map-v0.1.jpg">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="1000">
+  <meta property="og:image:alt" content="GlassGraph Studio example map connecting a customer signal, evidence, and a decision">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="GlassGraph Studio for Apple Silicon Macs | NEMURIUM">
   <meta name="twitter:description" content="See the system, find the gap, and know what to do next with a visual workspace for Apple Silicon Macs.">
-  <meta name="twitter:image" content="https://www.nemurium.com/assets/glassgraph-native-real.jpg">
-  <meta name="twitter:image:alt" content="Working preview of the GlassGraph Studio visual workspace on Mac">
+  <meta name="twitter:image" content="https://www.nemurium.com/assets/glassgraph-studio-system-map-v0.1.jpg">
+  <meta name="twitter:image:alt" content="GlassGraph Studio example map connecting a customer signal, evidence, and a decision">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -38,7 +38,7 @@
     "softwareVersion": "0.1.0",
     "operatingSystem": "macOS (Apple Silicon)",
     "url": "https://www.nemurium.com/",
-    "screenshot": "https://www.nemurium.com/assets/glassgraph-native-real.jpg",
+    "screenshot": "https://www.nemurium.com/assets/glassgraph-studio-system-map-v0.1.jpg",
     "releaseNotes": "GlassGraph Studio for Apple Silicon Macs is coming soon."
   }
   </script>
@@ -474,22 +474,11 @@
       margin-top: 36px;
     }
     .boundary {
-      min-height: 210px;
+      min-height: 170px;
       padding: 25px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--panel);
-    }
-    .boundary .icon {
-      display: grid;
-      place-items: center;
-      width: 38px;
-      height: 38px;
-      margin-bottom: 24px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      color: var(--blue);
-      font: 700 14px/1 var(--mono);
     }
     .boundary h3 { margin: 0; font-size: 18px; }
     .boundary p { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
@@ -615,7 +604,7 @@
     </div>
   </header>
 
-  <main id="main">
+  <main id="main" tabindex="-1">
     <section class="hero" id="top">
       <div class="wrap hero-grid">
         <div>
@@ -627,7 +616,7 @@
             without losing the connections.
           </p>
           <div class="actions">
-            <a class="button primary" href="#workplace">Explore the workspace</a>
+            <a class="button primary" href="#examples">See example maps</a>
             <a class="button" href="mailto:immersivetechs@nemurium.com?subject=GlassGraph%20launch%20updates">Email us</a>
           </div>
           <div class="truth-row" aria-label="GlassGraph highlights">
@@ -639,10 +628,10 @@
         </div>
 
         <figure class="product-hero">
-          <button class="product-image-trigger" type="button" data-image-lightbox-src="assets/glassgraph-native-real.jpg" data-image-lightbox-alt="Working preview of the GlassGraph Studio visual workspace on Mac" aria-label="View the full-size GlassGraph Studio preview">
-            <img src="assets/glassgraph-native-real.jpg" width="1800" height="1170" alt="Working preview of the GlassGraph Studio visual workspace on Mac" fetchpriority="high">
+          <button class="product-image-trigger" type="button" data-image-lightbox-src="assets/glassgraph-studio-system-map-v0.1.jpg" data-image-lightbox-alt="GlassGraph Studio example map connecting a customer signal, evidence, and a decision" aria-label="View the full-size GlassGraph Studio example map">
+            <img src="assets/glassgraph-studio-system-map-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio example map connecting a customer signal, evidence, and a decision" fetchpriority="high">
           </button>
-          <figcaption>Early authoring preview of GlassGraph Studio. The interface and experimental tools may change before launch; Copilot will arrive as a separate beta.</figcaption>
+          <figcaption>Example GlassGraph map: connect a customer signal, the evidence behind it, and the decision it informs.</figcaption>
         </figure>
       </div>
     </section>
@@ -704,23 +693,17 @@
             <p>Your board is saved locally while you work. Export a portable copy whenever you want to share, archive, or move it.</p>
           </article>
         </div>
-        <div class="product-gallery-head">
+        <div class="product-gallery-head" id="examples">
           <span class="kicker">Example maps</span>
           <h3>Follow a question to the next useful step.</h3>
-          <p>Illustrative examples of how a connected map can keep the signal, question, evidence, and decision together.</p>
+          <p>Keep the signal, question, evidence, and decision together on one connected map.</p>
         </div>
-        <div class="product-gallery">
-          <figure class="product-shot">
-            <button class="product-image-trigger" type="button" data-image-lightbox-src="assets/glassgraph-studio-system-map-v0.1.jpg" data-image-lightbox-alt="GlassGraph Studio showing a connected system map from customer signal to a decision" aria-label="View the full-size GlassGraph Studio system map image">
-              <img src="assets/glassgraph-studio-system-map-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing a connected system map from customer signal to a decision" loading="lazy" decoding="async">
-            </button>
-            <figcaption>Illustrative example: trace the relationships that shape a decision, all in one view.</figcaption>
-          </figure>
+        <div class="product-gallery product-gallery-single">
           <figure class="product-shot">
             <button class="product-image-trigger" type="button" data-image-lightbox-src="assets/glassgraph-studio-decision-map-v0.1.jpg" data-image-lightbox-alt="GlassGraph Studio showing a customer signal connected to a key question, evidence, and a next step" aria-label="View the full-size GlassGraph Studio decision map image">
               <img src="assets/glassgraph-studio-decision-map-v0.1.jpg" width="1600" height="1000" alt="GlassGraph Studio showing a customer signal connected to a key question, evidence, and a next step" loading="lazy" decoding="async">
             </button>
-            <figcaption>Illustrative example: trace the path from an early signal to the next useful step.</figcaption>
+            <figcaption>Example map: trace the path from an early signal to the next useful step.</figcaption>
           </figure>
         </div>
       </div>
@@ -758,21 +741,18 @@
         <div class="section-head">
           <span class="kicker">Private by default</span>
           <h2>Your maps stay private by default.</h2>
-          <p>GlassGraph is designed to keep your board on your Mac unless you choose to export it or connect a tool. We’ll be clear about any limited product-use and reliability data we use to improve GlassGraph; your board content is not included unless you choose to share it.</p>
+          <p>GlassGraph is designed to keep your board on your Mac unless you choose to export it or connect a tool. We’ll explain any optional product-use or reliability data before it is collected; your board content is not included unless you choose to share it.</p>
         </div>
         <div class="boundary-grid">
           <article class="boundary">
-            <span class="icon" aria-hidden="true">M</span>
             <h3>Private by default</h3>
             <p>GlassGraph is designed to keep your board on your Mac unless you choose to export it or connect a tool.</p>
           </article>
           <article class="boundary">
-            <span class="icon" aria-hidden="true">0</span>
             <h3>Copilot Beta coming soon</h3>
             <p>We are developing a lightweight built-in assistant designed to help you understand your map and think through next steps.</p>
           </article>
           <article class="boundary">
-            <span class="icon" aria-hidden="true">↑</span>
             <h3>You stay in control</h3>
             <p>When Copilot Beta arrives, it will ask before changing your board.</p>
           </article>

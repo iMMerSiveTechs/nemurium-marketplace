@@ -17,7 +17,6 @@ const siteVisibility =
   html.match(/<body\b[^>]*data-glassgraph-site-visibility=["']([^"']+)["']/i)?.[1];
 const isPrerelease = releaseState === "prerelease";
 const currentProductImages = [
-  "assets/glassgraph-native-real.jpg",
   "assets/glassgraph-studio-system-map-v0.1.jpg",
   "assets/glassgraph-studio-decision-map-v0.1.jpg",
 ];
@@ -160,6 +159,7 @@ const unsupportedV01Claims = [
   [/(?:receipts are plain files|receipt pins|every meaningful change|every proposal, decision, and undo|every change:\s*receipted|approval\s*(?:&amp;|&)\s*undo receipts)/i, "unsupported durable or change-by-change receipt claims"],
   [/(?:work with us\s*·\s*open now|mapping session|design-partner sprint|architecture conversion|fixed fee)/i, "an unverified paid-services availability claim"],
   [/glassgraph-(?:board|motion)-real(?:-\d+)?\.jpg/i, "an internal-only Design Studio screenshot"],
+  [/glassgraph-native-real\.jpg/i, "an internal Agent Swarm screenshot"],
   [/glassgraph-studio-(?:board|motion|views)-v0\.1\.jpg/i, "an AI-heavy product screenshot that contradicts the Copilot Beta coming-soon state"],
 ];
 
@@ -203,8 +203,8 @@ check(
 );
 for (const [pattern, label] of [
   [/<meta\b[^>]*property=["']og:image:alt["'][^>]*content=["'][^"']*GlassGraph Studio[^"']*["']/i, "Open Graph image description"],
-  [/<meta\b[^>]*property=["']og:image:width["'][^>]*content=["']1800["']/i, "Open Graph image width"],
-  [/<meta\b[^>]*property=["']og:image:height["'][^>]*content=["']1170["']/i, "Open Graph image height"],
+  [/<meta\b[^>]*property=["']og:image:width["'][^>]*content=["']1600["']/i, "Open Graph image width"],
+  [/<meta\b[^>]*property=["']og:image:height["'][^>]*content=["']1000["']/i, "Open Graph image height"],
   [/<meta\b[^>]*name=["']twitter:image:alt["'][^>]*content=["'][^"']*GlassGraph Studio[^"']*["']/i, "Twitter image description"],
 ]) {
   check(pattern.test(html), `Customer page must provide ${label}.`);
@@ -213,21 +213,21 @@ for (const [pattern, label] of [
 const requiredV01Truth = [
   [/<title>GlassGraph Studio for Apple Silicon Macs \| NEMURIUM<\/title>/i, "an Apple Silicon-specific page title"],
   [/GlassGraph Studio for Apple Silicon Macs/i, "an Apple Silicon-specific hero label"],
-  [/Explore the workspace/i, "an honest workspace-exploration action"],
+  [/See example maps/i, "an honest example-map action"],
   [/ready-made visual structure/i, "a plain-language starting structure"],
   [/(?:big picture|map)[\s\S]{0,180}(?:ordered steps|details|compare|explore)/i, "multiple ways to explore connected work"],
   [/export a portable copy/i, "portable customer-controlled export"],
   [/(?:saved|autosave)[\s\S]{0,100}locally|local autosave/i, "local saving"],
   [/Copilot Beta[\s\S]{0,120}coming soon|coming soon[\s\S]{0,120}Copilot Beta/i, "the honest Copilot Beta coming-soon state"],
   [/lightweight built-in assistant/i, "the planned lightweight built-in Copilot direction"],
-  [/(?:product-use and reliability|product-use|product and reliability) data[\s\S]{0,180}(?:board content|content of your boards)/i, "the product-learning and content-privacy boundary"],
+  [/(?:product-use and reliability|product-use or reliability|product-use|product and reliability) data[\s\S]{0,180}(?:board content|content of your boards)/i, "the product-learning and content-privacy boundary"],
   [/7 days free[\s\S]{0,120}no card required/i, "the 7-day no-card trial plan"],
   [/\$10\/month/i, "the monthly price"],
   [/up to two Macs/i, "the two-device limit"],
   [/trial will not automatically become a paid subscription/i, "the no-automatic-charge promise"],
   [/Apple Silicon Macs first[\s\S]{0,180}Final system requirements will be confirmed at launch/i, "the honest Apple Silicon-first launch posture"],
-  [/Early authoring preview[\s\S]{0,180}Copilot will arrive as a separate beta/i, "an honest explanation of the in-development authoring preview"],
-  [/Illustrative examples of how a connected map/i, "a clear distinction between example maps and the app preview"],
+  [/Example GlassGraph map:[\s\S]{0,180}(?:signal|evidence|decision)/i, "a clear customer-facing example-map caption"],
+  [/Example map:[\s\S]{0,180}(?:signal|question|evidence|decision)/i, "a clear customer-facing example-map explanation"],
 ];
 
 const internalProcessCopy = [

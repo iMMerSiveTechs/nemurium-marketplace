@@ -30,6 +30,9 @@ for (const [, href, label] of mailtoLinks) {
   assert.equal(label.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(), "Email us", "Every public email action must use plain customer-facing contact copy.");
 }
 assert.match(page, /Have a question about GlassGraph\? Email us\./i, "The contact section must plainly explain the email action.");
+assert.match(page, /<a\b[^>]*href=["']#examples["'][^>]*>See example maps<\/a>/i, "The primary action must lead to the actual example maps.");
+assert.doesNotMatch(page, /glassgraph-native-real\.jpg/i, "The public page must not show the internal Agent Swarm screenshot.");
+assert.doesNotMatch(stage, /glassgraph-native-real\.jpg/i, "The internal Agent Swarm screenshot must not enter the staged public bundle.");
 
 for (const pattern of [
   /<section\b[^>]*\bid=["']updates["']/i,
