@@ -9,7 +9,7 @@ const stage = readFileSync(join(root, "scripts", "stage-glassgraph-public-site.m
 const generator = readFileSync(join(root, "scripts", "generate-glassgraph-icon-fallbacks.sh"), "utf8");
 const signupTemplate = readFileSync(join(root, "templates", "launch-signup.html"), "utf8");
 const manifest = JSON.parse(readFileSync(join(root, "site.webmanifest"), "utf8"));
-const mailto = "mailto:immersivetechs@nemurium.com?subject=GlassGraph%20launch%20updates";
+const mailto = "mailto:immersivetechs@nemurium.com?subject=GlassGraph%20inquiry";
 
 function navBody(className) {
   const match = page.match(new RegExp(`<nav\\b[^>]*class=["']${className}["'][^>]*>([\\s\\S]*?)<\\/nav>`, "i"));
@@ -75,7 +75,7 @@ assert.equal(favicon.readUInt16LE(4), 1, "The favicon must contain one generated
 assert.equal(favicon[6], 64, "The favicon fallback must contain a 64px image.");
 
 console.log("PASS prelaunch customer UX regressions");
-console.log("- direct launch-update email actions: 3");
+console.log("- direct customer-inquiry email actions: 3");
 console.log("- inactive signup form: absent from public HTML");
 console.log("- source-only signup template: retained outside staging");
 console.log("- standard icon fallbacks: staged");

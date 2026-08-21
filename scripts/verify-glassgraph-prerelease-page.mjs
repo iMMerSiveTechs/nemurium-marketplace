@@ -16,7 +16,7 @@ const commerceState =
 const siteVisibility =
   html.match(/<body\b[^>]*data-glassgraph-site-visibility=["']([^"']+)["']/i)?.[1];
 const isPrerelease = releaseState === "prerelease";
-const currentProductImages = [
+const publicIllustrationImages = [
   "assets/glassgraph-studio-system-map-v0.1.jpg",
   "assets/glassgraph-studio-decision-map-v0.1.jpg",
 ];
@@ -109,7 +109,7 @@ const mailtoLinks = [
 ].map((match) => decodeHtml(match[1]));
 check(mailtoLinks.length >= 1, "Page must expose at least one explicit email contact link.");
 check(
-  mailtoLinks.every((href) => href === "mailto:immersivetechs@nemurium.com?subject=GlassGraph%20launch%20updates"),
+  mailtoLinks.every((href) => href === "mailto:immersivetechs@nemurium.com?subject=GlassGraph%20inquiry"),
   "Public email actions must use the approved GlassGraph launch-updates address and subject."
 );
 check(
@@ -167,17 +167,17 @@ for (const [pattern, label] of unsupportedV01Claims) {
   check(!pattern.test(html), `Page still contains ${label}.`);
 }
 
-for (const imagePath of currentProductImages) {
+for (const imagePath of publicIllustrationImages) {
   check(
     html.includes(imagePath),
-    `Customer page must show the current GlassGraph Studio product image: ${imagePath}`,
+    `Customer page must show the approved GlassGraph illustration: ${imagePath}`,
   );
   check(
     fs.existsSync(path.resolve(rootDir, imagePath)),
-    `Current GlassGraph Studio product image is missing: ${imagePath}`,
+    `Approved GlassGraph illustration is missing: ${imagePath}`,
   );
 }
-for (const imagePath of currentProductImages) {
+for (const imagePath of publicIllustrationImages) {
   const escapedImagePath = imagePath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   check(
     new RegExp(`<button\\b[^>]*data-image-lightbox-src=["']${escapedImagePath}["'][^>]*>`, "i").test(html),
@@ -198,14 +198,14 @@ for (const [pattern, label] of [
   check(pattern.test(html), `Customer image viewer must provide ${label}.`);
 }
 check(
-  /<img\b[^>]*alt=["'][^"']*(?:GlassGraph Studio|GlassGraph board)[^"']*["']/i.test(html),
-  "Current GlassGraph product imagery must include useful alternative text.",
+  /<img\b[^>]*alt=["'][^"']*Illustrative GlassGraph map[^"']*["']/i.test(html),
+  "GlassGraph illustrations must include useful alternative text.",
 );
 for (const [pattern, label] of [
-  [/<meta\b[^>]*property=["']og:image:alt["'][^>]*content=["'][^"']*GlassGraph Studio[^"']*["']/i, "Open Graph image description"],
+  [/<meta\b[^>]*property=["']og:image:alt["'][^>]*content=["'][^"']*Illustrative GlassGraph map[^"']*["']/i, "Open Graph illustration description"],
   [/<meta\b[^>]*property=["']og:image:width["'][^>]*content=["']1600["']/i, "Open Graph image width"],
   [/<meta\b[^>]*property=["']og:image:height["'][^>]*content=["']1000["']/i, "Open Graph image height"],
-  [/<meta\b[^>]*name=["']twitter:image:alt["'][^>]*content=["'][^"']*GlassGraph Studio[^"']*["']/i, "Twitter image description"],
+  [/<meta\b[^>]*name=["']twitter:image:alt["'][^>]*content=["'][^"']*Illustrative GlassGraph map[^"']*["']/i, "Twitter illustration description"],
 ]) {
   check(pattern.test(html), `Customer page must provide ${label}.`);
 }
@@ -217,7 +217,7 @@ const requiredV01Truth = [
   [/ready-made visual structure/i, "a plain-language starting structure"],
   [/(?:big picture|map)[\s\S]{0,180}(?:ordered steps|details|compare|explore)/i, "multiple ways to explore connected work"],
   [/export a portable copy/i, "portable customer-controlled export"],
-  [/(?:saved|autosave)[\s\S]{0,100}locally|local autosave/i, "local saving"],
+  [/(?:saved|autosave)[\s\S]{0,100}locally|local autosave|designed to save[^.]{0,100}locally/i, "local saving"],
   [/Copilot Beta[\s\S]{0,120}coming soon|coming soon[\s\S]{0,120}Copilot Beta/i, "the honest Copilot Beta coming-soon state"],
   [/lightweight built-in assistant/i, "the planned lightweight built-in Copilot direction"],
   [/(?:product-use and reliability|product-use or reliability|product-use|product and reliability) data[\s\S]{0,180}(?:board content|content of your boards)/i, "the product-learning and content-privacy boundary"],
@@ -226,8 +226,8 @@ const requiredV01Truth = [
   [/up to two Macs/i, "the two-device limit"],
   [/trial will not automatically become a paid subscription/i, "the no-automatic-charge promise"],
   [/Apple Silicon Macs first[\s\S]{0,180}Final system requirements will be confirmed at launch/i, "the honest Apple Silicon-first launch posture"],
-  [/Example GlassGraph map:[\s\S]{0,180}(?:signal|evidence|decision)/i, "a clear customer-facing example-map caption"],
-  [/Example map:[\s\S]{0,180}(?:signal|question|evidence|decision)/i, "a clear customer-facing example-map explanation"],
+  [/Illustrative map:[\s\S]{0,180}(?:signal|evidence|decision)/i, "a clear customer-facing illustrative-map caption"],
+  [/Illustrative map:[\s\S]{0,180}(?:signal|question|evidence|decision)/i, "a clear customer-facing illustrative-map explanation"],
 ];
 
 const internalProcessCopy = [
