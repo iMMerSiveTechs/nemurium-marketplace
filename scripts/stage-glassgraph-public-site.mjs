@@ -18,7 +18,6 @@ if (!output.startsWith(`${root}/`)) {
 rmSync(output, { recursive: true, force: true });
 mkdirSync(output, { recursive: true });
 copyFileSync(resolve(root, "index.html"), resolve(output, "index.html"));
-copyFileSync(resolve(root, "privacy.html"), resolve(output, "privacy.html"));
 copyFileSync(resolve(root, "site.webmanifest"), resolve(output, "site.webmanifest"));
 copyFileSync(resolve(root, "robots.txt"), resolve(output, "robots.txt"));
 copyFileSync(resolve(root, "sitemap.xml"), resolve(output, "sitemap.xml"));
@@ -30,7 +29,7 @@ for (const assetName of publicAssetNames) {
   );
 }
 const staged = readdirSync(output).sort();
-const expected = ["assets", "index.html", "privacy.html", "robots.txt", "site.webmanifest", "sitemap.xml"];
+const expected = ["assets", "index.html", "robots.txt", "site.webmanifest", "sitemap.xml"];
 if (JSON.stringify(staged) !== JSON.stringify(expected)) {
   throw new Error(`Unexpected staged public files: ${staged.join(", ")}`);
 }
