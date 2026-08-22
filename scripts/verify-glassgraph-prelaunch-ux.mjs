@@ -34,6 +34,21 @@ assert.match(page, /<a\b[^>]*href=["']#examples["'][^>]*>See example maps<\/a>/i
 assert.doesNotMatch(page, /glassgraph-native-real\.jpg/i, "The public page must not show the internal Agent Swarm screenshot.");
 assert.doesNotMatch(stage, /glassgraph-native-real\.jpg/i, "The internal Agent Swarm screenshot must not enter the staged public bundle.");
 
+const imageTriggers = [...page.matchAll(/<button\b[^>]*\bclass=["']product-image-trigger["'][^>]*>([\s\S]*?)<\/button>/gi)];
+assert.equal(imageTriggers.length, 2, "Every public product image must open through the two intentional in-page viewer triggers.");
+for (const [trigger] of imageTriggers) {
+  assert.match(trigger, /\bdata-image-lightbox-src=["']assets\/glassgraph-studio-[^"']+\.jpg["']/i, "Product image triggers must source the in-page viewer from the approved illustrative asset.");
+  assert.match(trigger, /\baria-haspopup=["']dialog["']/i, "Product image triggers must announce the modal viewer.");
+  assert.match(trigger, /\baria-controls=["']image-lightbox["']/i, "Product image triggers must identify the image viewer they open.");
+  assert.doesNotMatch(trigger, /\bhref=/i, "Product image triggers must not navigate to raw asset files.");
+}
+assert.match(page, /<dialog\b[^>]*\bid=["']image-lightbox["'][^>]*>/i, "The page must provide an in-page image viewer dialog.");
+assert.match(page, /class=["']image-lightbox-close["'][^>]*aria-label=["']Close image viewer["'][^>]*>Close image<\/button>/i, "The image viewer must offer an obvious close control.");
+assert.match(page, /lightbox\.showModal\(\)/, "Image triggers must open the dialog rather than navigating away.");
+assert.match(page, /lightbox\.addEventListener\(["']cancel["'][\s\S]*?event\.preventDefault\(\)[\s\S]*?closeLightbox\(\)/i, "Escape must close the image viewer through the same controlled path.");
+assert.match(page, /event\.target === lightbox\) closeLightbox\(\)/, "Clicking the viewer backdrop must close the image viewer.");
+assert.match(page, /if \(returnFocus\) returnFocus\.focus\(\)/, "Closing the image viewer must return focus to its trigger.");
+
 for (const pattern of [
   /<section\b[^>]*\bid=["']updates["']/i,
   /<form\b[^>]*\bid=["']launch-signup["']/i,

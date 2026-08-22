@@ -627,7 +627,7 @@
         </div>
 
         <figure class="product-hero">
-          <button class="product-image-trigger" type="button" data-image-lightbox-src="assets/glassgraph-studio-system-map-v0.1.jpg" data-image-lightbox-alt="Illustrative GlassGraph map connecting a customer signal, evidence, and a decision" aria-label="View the full-size illustrative GlassGraph map">
+          <button class="product-image-trigger" type="button" data-image-lightbox-src="assets/glassgraph-studio-system-map-v0.1.jpg" data-image-lightbox-alt="Illustrative GlassGraph map connecting a customer signal, evidence, and a decision" aria-label="View the full-size illustrative GlassGraph map" aria-haspopup="dialog" aria-controls="image-lightbox">
             <img src="assets/glassgraph-studio-system-map-v0.1.jpg" width="1600" height="1000" alt="Illustrative GlassGraph map connecting a customer signal, evidence, and a decision" fetchpriority="high">
           </button>
           <figcaption>Illustrative map: connect a customer signal, the evidence behind it, and the decision it informs.</figcaption>
@@ -699,7 +699,7 @@
         </div>
         <div class="product-gallery product-gallery-single">
           <figure class="product-shot">
-            <button class="product-image-trigger" type="button" data-image-lightbox-src="assets/glassgraph-studio-decision-map-v0.1.jpg" data-image-lightbox-alt="Illustrative GlassGraph map showing a customer signal connected to a key question, evidence, and a next step" aria-label="View the full-size illustrative GlassGraph decision map">
+            <button class="product-image-trigger" type="button" data-image-lightbox-src="assets/glassgraph-studio-decision-map-v0.1.jpg" data-image-lightbox-alt="Illustrative GlassGraph map showing a customer signal connected to a key question, evidence, and a next step" aria-label="View the full-size illustrative GlassGraph decision map" aria-haspopup="dialog" aria-controls="image-lightbox">
               <img src="assets/glassgraph-studio-decision-map-v0.1.jpg" width="1600" height="1000" alt="Illustrative GlassGraph map showing a customer signal connected to a key question, evidence, and a next step" loading="lazy" decoding="async">
             </button>
             <figcaption>Illustrative map: trace the path from an early signal to the next useful step.</figcaption>
@@ -796,7 +796,7 @@
 
   <dialog class="image-lightbox" id="image-lightbox" aria-label="Image viewer">
     <div class="image-lightbox-content">
-      <button class="image-lightbox-close" type="button" aria-label="Close image viewer">Close</button>
+      <button class="image-lightbox-close" type="button" aria-label="Close image viewer">Close image</button>
       <img id="image-lightbox-image" alt="">
     </div>
   </dialog>
@@ -869,6 +869,10 @@
       }
 
       closeButton.addEventListener("click", closeLightbox);
+      lightbox.addEventListener("cancel", function (event) {
+        event.preventDefault();
+        closeLightbox();
+      });
       lightbox.addEventListener("click", function (event) {
         if (event.target === lightbox) closeLightbox();
       });
