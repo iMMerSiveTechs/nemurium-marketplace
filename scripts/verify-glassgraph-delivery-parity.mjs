@@ -256,7 +256,6 @@ try {
   const pageVersion = body.match(
     /\bdata-glassgraph-version=["']([^"']+)["']/i,
   )?.[1];
-  exact("page release version", pageVersion, version);
   if (/GlassGraph Studio\s+v\d+\.\d+\.\d+\s+preview/i.test(html)) {
     fail("page must not present an internal preview-version label as customer-facing copy");
   }
@@ -271,7 +270,6 @@ try {
   }
   const structuredData = JSON.parse(structuredDataBlocks[0][1]);
   exact("structured-data product", structuredData.name, contract.product.name);
-  exact("structured-data version", structuredData.softwareVersion, version);
 
   const hrefs = [...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>/gi)].map(
     (match) => match[1],
@@ -287,6 +285,12 @@ try {
   });
 
   if (state === "prerelease") {
+    if (pageVersion !== undefined) {
+      fail("pre-release page must not expose an unreleased version");
+    }
+    if ("softwareVersion" in structuredData) {
+      fail("pre-release structured data must not expose an unreleased version");
+    }
     if (!/\bdata-glassgraph-site-visibility=["']public-information["']/i.test(html)) {
       fail("pre-release page must declare public-information visibility");
     }
@@ -312,6 +316,8 @@ try {
   }
 
   if (state !== "released") fail("page release state must be prerelease or released");
+  exact("page release version", pageVersion, version);
+  exact("structured-data version", structuredData.softwareVersion, version);
   if (contract.updater?.publicKeySha256 === "UNVERIFIED") {
     fail("updater public key is UNVERIFIED; released mode is blocked");
   }

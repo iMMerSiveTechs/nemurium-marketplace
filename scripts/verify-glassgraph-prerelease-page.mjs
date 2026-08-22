@@ -314,7 +314,8 @@ for (const [index, block] of scriptBlocks.entries()) {
     try {
       const structuredData = JSON.parse(source);
       check(structuredData.name === "GlassGraph Studio", "Structured data must name one GlassGraph Studio product.");
-      check(/^\d+\.\d+\.\d+/.test(structuredData.softwareVersion ?? ""), "Structured data must name a semantic product version.");
+      if (isPrerelease) check(!("softwareVersion" in structuredData), "Pre-release structured data must not advertise an unreleased version.");
+      if (!isPrerelease) check(/^\d+\.\d+\.\d+/.test(structuredData.softwareVersion ?? ""), "Released structured data must name a semantic product version.");
       if (isPrerelease) check(!("downloadUrl" in structuredData), "Structured data must not advertise a download URL before release.");
       if (isPrerelease) check(
         !/first public release|signed|notarized|gatekeeper-accepted/i.test(structuredData.releaseNotes ?? ""),

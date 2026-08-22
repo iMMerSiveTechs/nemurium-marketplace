@@ -108,10 +108,23 @@ try {
   assert.equal(prerelease.status, 0, prerelease.stderr || prerelease.stdout);
   assert.match(prerelease.stdout, /GLASSGRAPH_SITE_PRERELEASE_PARITY_OK/);
   console.log(
-    "PASS current pre-release page matches the canonical product version and stays closed",
+    "PASS current pre-release page stays closed without exposing an unreleased version",
   );
 
   const prereleaseHtml = readFileSync(join(root, "index.html"), "utf8");
+  const versionedPrereleasePath = join(fixtureRoot, "versioned-prerelease.html");
+  writeFileSync(
+    versionedPrereleasePath,
+    prereleaseHtml.replace(
+      'data-glassgraph-site-visibility="public-information"',
+      'data-glassgraph-site-visibility="public-information" data-glassgraph-version="0.1.0"',
+    ),
+  );
+  const versionedPrerelease = run({ page: versionedPrereleasePath });
+  assert.notEqual(versionedPrerelease.status, 0);
+  assert.match(versionedPrerelease.stderr, /must not expose an unreleased version/);
+  console.log("PASS pre-release page cannot silently expose an unreleased version");
+
   const hiddenPrereleasePath = join(fixtureRoot, "hidden-prerelease.html");
   writeFileSync(
     hiddenPrereleasePath,
