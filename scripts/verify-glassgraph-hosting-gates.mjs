@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 const root = new URL("../", import.meta.url);
 const workflow = readFileSync(new URL(".github/workflows/deploy.yml", root), "utf8");
 const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
+const packageManifest = JSON.parse(readFileSync(new URL("package.json", root), "utf8"));
 const vercelBuildScript = readFileSync(
   new URL("scripts/build-glassgraph-public-site.mjs", root),
   "utf8",
@@ -62,6 +63,9 @@ assert.equal(
   vercelBuildCommand,
   "Vercel must use the short, checked build wrapper",
 );
+assert.equal(vercel.installCommand, "", "The static site must not install unnecessary dependencies during Vercel builds.");
+assert.equal(packageManifest.private, true, "The deployment manifest must remain a private site package.");
+assert.equal(packageManifest.engines?.node, "22.x", "The Vercel build must pin the verified Node 22 runtime.");
 assert.ok(
   vercel.buildCommand.length <= 256,
   "Vercel buildCommand must stay within the platform's 256-character limit",

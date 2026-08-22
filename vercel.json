@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "",
   "buildCommand": "node scripts/build-glassgraph-public-site.mjs",
   "outputDirectory": "dist-site",
   "redirects": [
