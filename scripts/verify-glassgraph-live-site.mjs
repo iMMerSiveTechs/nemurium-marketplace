@@ -68,6 +68,7 @@ const expectedFiles = walk(stagedDir)
 assert.ok(expectedFiles.includes("index.html"), "staged site must contain index.html");
 assert.ok(expectedFiles.includes("robots.txt"), "staged site must contain robots.txt");
 assert.ok(expectedFiles.includes("sitemap.xml"), "staged site must contain sitemap.xml");
+assert.ok(expectedFiles.includes("account/index.html"), "staged site must contain the GlassGraph account return page");
 assert.ok(expectedFiles.includes("glassgraph/index.html"), "staged site must contain the GlassGraph product page");
 assert.ok(expectedFiles.includes("glassgraph/site.webmanifest"), "staged site must contain the GlassGraph product manifest");
 
@@ -84,6 +85,7 @@ const fetchLive = async (path) => {
 
 const livePathFor = (relativePath) => {
   if (relativePath === "index.html") return "/";
+  if (relativePath === "account/index.html") return "/account";
   if (relativePath === "glassgraph/index.html") return "/glassgraph";
   return "/" + relativePath;
 };
@@ -160,6 +162,9 @@ try {
   const productResponse = await fetchLive("/glassgraph");
   assert.equal(productResponse.response.status, 200, "canonical GlassGraph page must return HTTP 200");
   assertSecurityHeaders(productResponse.response);
+  const accountResponse = await fetchLive("/account");
+  assert.equal(accountResponse.response.status, 200, "GlassGraph account return page must return HTTP 200");
+  assertSecurityHeaders(accountResponse.response);
 
   const indexResponse = await fetch(new URL("/index.html", origin), {
     redirect: "manual",
@@ -215,9 +220,11 @@ try {
     const { response, bytes, url } =
       relativePath === "index.html"
         ? rootResponse
-        : relativePath === "glassgraph/index.html"
-          ? productResponse
-          : await fetchLive(livePath);
+        : relativePath === "account/index.html"
+          ? accountResponse
+          : relativePath === "glassgraph/index.html"
+            ? productResponse
+            : await fetchLive(livePath);
     assert.equal(response.status, 200, `${url} must return HTTP 200`);
     assertSecurityHeaders(response);
     assertContentType(relativePath, response);
