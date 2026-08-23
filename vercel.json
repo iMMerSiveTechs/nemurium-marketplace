@@ -33,6 +33,10 @@
   ],
   "rewrites": [
     {
+      "source": "/account",
+      "destination": "/account/index.html"
+    },
+    {
       "source": "/glassgraph",
       "destination": "/glassgraph/index.html"
     }

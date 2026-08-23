@@ -5,7 +5,7 @@ import { relative, resolve } from "node:path";
 const root = resolve(import.meta.dirname, "..");
 const stagedRoot = resolve(root, "dist-site");
 const stagedOrigin = "https://staged.nemurium.invalid";
-const expectedHtmlPaths = ["index.html", "glassgraph/index.html"];
+const expectedHtmlPaths = ["index.html", "glassgraph/index.html", "account/index.html"];
 const expectedManifestPaths = ["glassgraph/site.webmanifest"];
 const references = new Set();
 

@@ -20,6 +20,11 @@ mkdirSync(output, { recursive: true });
 copyFileSync(resolve(root, "index.html"), resolve(output, "index.html"));
 copyFileSync(resolve(root, "robots.txt"), resolve(output, "robots.txt"));
 copyFileSync(resolve(root, "sitemap.xml"), resolve(output, "sitemap.xml"));
+mkdirSync(resolve(output, "account"));
+copyFileSync(
+  resolve(root, "account", "index.html"),
+  resolve(output, "account", "index.html"),
+);
 mkdirSync(resolve(output, "assets"));
 for (const assetName of publicAssetNames) {
   copyFileSync(
@@ -37,13 +42,18 @@ copyFileSync(
   resolve(output, "glassgraph", "site.webmanifest"),
 );
 const staged = readdirSync(output).sort();
-const expected = ["assets", "glassgraph", "index.html", "robots.txt", "sitemap.xml"];
+const expected = ["account", "assets", "glassgraph", "index.html", "robots.txt", "sitemap.xml"];
 if (JSON.stringify(staged) !== JSON.stringify(expected)) {
   throw new Error(`Unexpected staged public files: ${staged.join(", ")}`);
 }
 const stagedAssets = readdirSync(resolve(output, "assets")).sort();
 if (JSON.stringify(stagedAssets) !== JSON.stringify(publicAssetNames.toSorted())) {
   throw new Error(`Unexpected staged public assets: ${stagedAssets.join(", ")}`);
+}
+const stagedAccount = readdirSync(resolve(output, "account")).sort();
+const expectedAccount = ["index.html"];
+if (JSON.stringify(stagedAccount) !== JSON.stringify(expectedAccount)) {
+  throw new Error(`Unexpected staged account files: ${stagedAccount.join(", ")}`);
 }
 const stagedGlassGraph = readdirSync(resolve(output, "glassgraph")).sort();
 const expectedGlassGraph = ["index.html", "site.webmanifest"];

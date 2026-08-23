@@ -8,6 +8,7 @@ const commands = [
   "node scripts/verify-glassgraph-prerelease-page.mjs",
   "node scripts/verify-glassgraph-launch-signup.mjs",
   "node scripts/verify-glassgraph-prelaunch-ux.mjs",
+  "node scripts/verify-glassgraph-account-return.mjs",
   "node scripts/verify-glassgraph-entitlement-page.mjs",
   "node scripts/verify-glassgraph-legal-readiness.mjs --state prerelease",
   "node scripts/verify-glassgraph-legal-drafts.mjs",
