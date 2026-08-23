@@ -104,14 +104,14 @@ const run = ({ page, metadata, receipt, contractOverride = contractPath }) => {
 
 try {
   writeJson(contractPath, contract);
-  const prerelease = run({ page: join(root, "index.html") });
+  const prerelease = run({ page: join(root, "glassgraph", "index.html") });
   assert.equal(prerelease.status, 0, prerelease.stderr || prerelease.stdout);
   assert.match(prerelease.stdout, /GLASSGRAPH_SITE_PRERELEASE_PARITY_OK/);
   console.log(
     "PASS current pre-release page stays closed without exposing an unreleased version",
   );
 
-  const prereleaseHtml = readFileSync(join(root, "index.html"), "utf8");
+  const prereleaseHtml = readFileSync(join(root, "glassgraph", "index.html"), "utf8");
   const versionedPrereleasePath = join(fixtureRoot, "versioned-prerelease.html");
   writeFileSync(
     versionedPrereleasePath,

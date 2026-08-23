@@ -14,7 +14,7 @@ if (args.length > 1 || (args.length === 1 && args[0] !== "--assert-not-staged"))
 try {
   verifyGlassGraphLegalReadiness({
     contractPath: resolve(root, "release/glassgraph-legal.json"),
-    pagePath: resolve(root, "index.html"),
+    pagePath: resolve(root, "glassgraph", "index.html"),
     state: "prerelease",
   });
   const result = verifyGlassGraphLegalDrafts({ root });

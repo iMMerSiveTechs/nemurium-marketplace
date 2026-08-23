@@ -8,7 +8,7 @@ const contractIndex = args.indexOf("--contract");
 const pageIndex = args.indexOf("--page");
 const state = stateIndex >= 0 ? args[stateIndex + 1] : "prerelease";
 const contractPath = resolve(contractIndex >= 0 ? args[contractIndex + 1] : "release/glassgraph-legal.json");
-const pagePath = resolve(pageIndex >= 0 ? args[pageIndex + 1] : "index.html");
+const pagePath = resolve(pageIndex >= 0 ? args[pageIndex + 1] : "glassgraph/index.html");
 
 try {
   const result = verifyGlassGraphLegalReadiness({ contractPath, pagePath, state });

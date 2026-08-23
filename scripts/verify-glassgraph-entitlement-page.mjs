@@ -49,7 +49,7 @@ export function verifyGlassGraphEntitlementPage({ pagePath, contractPath }) {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const result = verifyGlassGraphEntitlementPage({
-      pagePath: resolve(process.argv[2] ?? "index.html"),
+      pagePath: resolve(process.argv[2] ?? "glassgraph/index.html"),
       contractPath: resolve(process.argv[3] ?? "release/glassgraph-entitlement.json"),
     });
     console.log(`GLASSGRAPH_ENTITLEMENT_PAGE_OK ${JSON.stringify(result)}`);

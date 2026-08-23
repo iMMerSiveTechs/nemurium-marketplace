@@ -45,7 +45,7 @@ if (!options.contract) {
 }
 
 const pagePath = resolve(
-  options.page ?? new URL("../index.html", import.meta.url).pathname,
+  options.page ?? new URL("../glassgraph/index.html", import.meta.url).pathname,
 );
 const contractPath = resolve(options.contract);
 const htmlBytes = readFileSync(pagePath);

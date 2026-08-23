@@ -19,6 +19,22 @@
       "source": "/index.html",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/glassgraph/index.html",
+      "destination": "/glassgraph",
+      "permanent": true
+    },
+    {
+      "source": "/glassgraph/",
+      "destination": "/glassgraph",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/glassgraph",
+      "destination": "/glassgraph/index.html"
     }
   ],
   "headers": [

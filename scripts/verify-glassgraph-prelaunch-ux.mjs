@@ -4,11 +4,11 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const page = readFileSync(join(root, "index.html"), "utf8");
+const page = readFileSync(join(root, "glassgraph", "index.html"), "utf8");
 const stage = readFileSync(join(root, "scripts", "stage-glassgraph-public-site.mjs"), "utf8");
 const generator = readFileSync(join(root, "scripts", "generate-glassgraph-icon-fallbacks.sh"), "utf8");
 const signupTemplate = readFileSync(join(root, "templates", "launch-signup.html"), "utf8");
-const manifest = JSON.parse(readFileSync(join(root, "site.webmanifest"), "utf8"));
+const manifest = JSON.parse(readFileSync(join(root, "glassgraph", "site.webmanifest"), "utf8"));
 const mailto = "mailto:immersivetechs@nemurium.com?subject=GlassGraph%20inquiry";
 
 function navBody(className) {
@@ -18,7 +18,7 @@ function navBody(className) {
 }
 
 for (const [name, nav] of [["primary", navBody("nav")], ["mobile", navBody("mobile-nav-panel")]]) {
-  assert.match(nav, /<a\b[^>]*href=["']#connection["'][^>]*>Local by default<\/a>/i, `${name} navigation must describe the privacy section as Local by default.`);
+  assert.match(nav, /<a\b[^>]*href=["']\/glassgraph#connection["'][^>]*>Local by default<\/a>/i, `${name} navigation must describe the privacy section as Local by default.`);
   assert.doesNotMatch(nav, />Privacy<\/a>/i, `${name} navigation must not label the product section as a privacy policy.`);
 }
 
@@ -30,14 +30,14 @@ for (const [, href, label] of mailtoLinks) {
   assert.equal(label.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(), "Email us", "Every public email action must use plain customer-facing contact copy.");
 }
 assert.match(page, /Have a question about GlassGraph\? Email us\./i, "The contact section must plainly explain the email action.");
-assert.match(page, /<a\b[^>]*href=["']#examples["'][^>]*>See example maps<\/a>/i, "The primary action must lead to the actual example maps.");
+assert.match(page, /<a\b[^>]*href=["']\/glassgraph#examples["'][^>]*>See example maps<\/a>/i, "The primary action must lead to the actual example maps.");
 assert.doesNotMatch(page, /glassgraph-native-real\.jpg/i, "The public page must not show the internal Agent Swarm screenshot.");
 assert.doesNotMatch(stage, /glassgraph-native-real\.jpg/i, "The internal Agent Swarm screenshot must not enter the staged public bundle.");
 
 const imageTriggers = [...page.matchAll(/<button\b[^>]*\bclass=["']product-image-trigger["'][^>]*>([\s\S]*?)<\/button>/gi)];
 assert.equal(imageTriggers.length, 2, "Every public product image must open through the two intentional in-page viewer triggers.");
 for (const [trigger] of imageTriggers) {
-  assert.match(trigger, /\bdata-image-lightbox-src=["']assets\/glassgraph-studio-[^"']+\.jpg["']/i, "Product image triggers must source the in-page viewer from the approved illustrative asset.");
+  assert.match(trigger, /\bdata-image-lightbox-src=["']\/assets\/glassgraph-studio-[^"']+\.jpg["']/i, "Product image triggers must source the in-page viewer from the approved illustrative asset.");
   assert.match(trigger, /\baria-haspopup=["']dialog["']/i, "Product image triggers must announce the modal viewer.");
   assert.match(trigger, /\baria-controls=["']image-lightbox["']/i, "Product image triggers must identify the image viewer they open.");
   assert.doesNotMatch(trigger, /\bhref=/i, "Product image triggers must not navigate to raw asset files.");
@@ -66,8 +66,8 @@ assert.match(signupTemplate, /disabled/i, "The source-only signup template must 
 assert.doesNotMatch(signupTemplate, /(service[_-]?role|sb_secret|SUPABASE_SERVICE_ROLE_KEY|SUPABASE_SECRET_KEY)/i, "The retained signup template must not contain private credentials.");
 assert.doesNotMatch(stage, /templates\//i, "The Vercel staging allowlist must keep source-only templates out of the public output.");
 
-assert.match(page, /<link\b[^>]*rel=["']icon["'][^>]*href=["']assets\/favicon\.ico["'][^>]*>/i, "The page must link the standard favicon fallback.");
-assert.match(page, /<link\b[^>]*rel=["']apple-touch-icon["'][^>]*href=["']assets\/apple-touch-icon\.png["'][^>]*sizes=["']180x180["'][^>]*>/i, "The page must link the Apple touch icon fallback.");
+assert.match(page, /<link\b[^>]*rel=["']icon["'][^>]*href=["']\/assets\/favicon\.ico["'][^>]*>/i, "The page must link the standard favicon fallback.");
+assert.match(page, /<link\b[^>]*rel=["']apple-touch-icon["'][^>]*href=["']\/assets\/apple-touch-icon\.png["'][^>]*sizes=["']180x180["'][^>]*>/i, "The page must link the Apple touch icon fallback.");
 assert.ok(manifest.icons.some((icon) => icon.src === "/assets/apple-touch-icon.png" && icon.sizes === "180x180" && icon.type === "image/png"), "The web manifest must declare the generated Apple touch fallback.");
 assert.match(stage, /"apple-touch-icon\.png"/, "Staging must include the Apple touch fallback.");
 assert.match(stage, /"favicon\.ico"/, "Staging must include the favicon fallback.");

@@ -4,7 +4,10 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const page = readFileSync(join(root, "index.html"), "utf8");
+const publicPages = [
+  readFileSync(join(root, "index.html"), "utf8"),
+  readFileSync(join(root, "glassgraph", "index.html"), "utf8"),
+];
 const stage = readFileSync(join(root, "scripts", "stage-glassgraph-public-site.mjs"), "utf8");
 const build = readFileSync(join(root, "scripts", "build-glassgraph-public-site.mjs"), "utf8");
 const workflow = readFileSync(join(root, ".github", "workflows", "deploy.yml"), "utf8");
@@ -21,9 +24,13 @@ for (const pattern of [
   /nemurium-launch-signup-/i,
   /functions\/v1\/launch-signup/i,
 ]) {
-  assert.doesNotMatch(page, pattern, "The public site must not expose an inactive launch-signup form or endpoint.");
+  for (const page of publicPages) {
+    assert.doesNotMatch(page, pattern, "The public site must not expose an inactive launch-signup form or endpoint.");
+  }
 }
-assert.doesNotMatch(page, /(service[_-]?role|sb_secret|SUPABASE_SERVICE_ROLE_KEY|SUPABASE_SECRET_KEY)/i, "Private Supabase credentials must never enter the public site.");
+for (const page of publicPages) {
+  assert.doesNotMatch(page, /(service[_-]?role|sb_secret|SUPABASE_SERVICE_ROLE_KEY|SUPABASE_SECRET_KEY)/i, "Private Supabase credentials must never enter the public site.");
+}
 
 const privacy = readFileSync(privacyTemplatePath, "utf8");
 assert.match(privacy, /SOURCE-ONLY LAUNCH-SIGNUP PRIVACY CANDIDATE/i, "The privacy candidate must be clearly marked source-only.");

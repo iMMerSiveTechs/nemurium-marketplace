@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const commands = [
   "node scripts/verify-glassgraph-hosting-gates.mjs",
+  "node scripts/verify-nemurium-hub.mjs",
   "node scripts/verify-glassgraph-prerelease-page.mjs",
   "node scripts/verify-glassgraph-launch-signup.mjs",
   "node scripts/verify-glassgraph-prelaunch-ux.mjs",

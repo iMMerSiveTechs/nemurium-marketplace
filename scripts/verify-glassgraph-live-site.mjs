@@ -68,7 +68,8 @@ const expectedFiles = walk(stagedDir)
 assert.ok(expectedFiles.includes("index.html"), "staged site must contain index.html");
 assert.ok(expectedFiles.includes("robots.txt"), "staged site must contain robots.txt");
 assert.ok(expectedFiles.includes("sitemap.xml"), "staged site must contain sitemap.xml");
-assert.ok(expectedFiles.includes("site.webmanifest"), "staged site must contain site.webmanifest");
+assert.ok(expectedFiles.includes("glassgraph/index.html"), "staged site must contain the GlassGraph product page");
+assert.ok(expectedFiles.includes("glassgraph/site.webmanifest"), "staged site must contain the GlassGraph product manifest");
 
 const fetchLive = async (path) => {
   const url = new URL(path, origin);
@@ -79,6 +80,12 @@ const fetchLive = async (path) => {
   });
   const bytes = Buffer.from(await response.arrayBuffer());
   return { response, bytes, url };
+};
+
+const livePathFor = (relativePath) => {
+  if (relativePath === "index.html") return "/";
+  if (relativePath === "glassgraph/index.html") return "/glassgraph";
+  return "/" + relativePath;
 };
 
 const fetchExternal = async (url) => {
@@ -150,6 +157,9 @@ try {
   const rootResponse = await fetchLive("/");
   assert.equal(rootResponse.response.status, 200, "canonical homepage must return HTTP 200");
   assertSecurityHeaders(rootResponse.response);
+  const productResponse = await fetchLive("/glassgraph");
+  assert.equal(productResponse.response.status, 200, "canonical GlassGraph page must return HTTP 200");
+  assertSecurityHeaders(productResponse.response);
 
   const indexResponse = await fetch(new URL("/index.html", origin), {
     redirect: "manual",
@@ -165,6 +175,32 @@ try {
   assert.equal(indexRedirect.pathname, "/", "index.html redirect must target the homepage");
   assert.equal(indexRedirect.search, "", "index.html redirect must not add a query string");
 
+  const productIndexResponse = await fetch(new URL("/glassgraph/index.html", origin), {
+    redirect: "manual",
+    headers: { "cache-control": "no-cache" },
+    signal: AbortSignal.timeout(20_000),
+  });
+  assert.ok(
+    [301, 302, 307, 308].includes(productIndexResponse.status),
+    "glassgraph/index.html must redirect to the canonical product URL",
+  );
+  const productIndexRedirect = new URL(productIndexResponse.headers.get("location") ?? "", origin);
+  assert.equal(productIndexRedirect.origin, origin.origin, "glassgraph/index.html redirect must stay on the current origin");
+  assert.equal(productIndexRedirect.pathname, "/glassgraph", "glassgraph/index.html redirect must target the product URL");
+  assert.equal(productIndexRedirect.search, "", "glassgraph/index.html redirect must not add a query string");
+
+  const productSlashResponse = await fetch(new URL("/glassgraph/", origin), {
+    redirect: "manual",
+    headers: { "cache-control": "no-cache" },
+    signal: AbortSignal.timeout(20_000),
+  });
+  assert.ok(
+    [301, 302, 307, 308].includes(productSlashResponse.status),
+    "glassgraph trailing slash must redirect to the canonical product URL",
+  );
+  const productSlashRedirect = new URL(productSlashResponse.headers.get("location") ?? "", origin);
+  assert.equal(productSlashRedirect.pathname, "/glassgraph", "glassgraph trailing slash must target the product URL");
+
   if (isCanonicalOrigin) {
     assert.doesNotMatch(
       rootResponse.response.headers.get("x-robots-tag") ?? "",
@@ -175,9 +211,13 @@ try {
 
   const results = [];
   for (const relativePath of expectedFiles) {
-    const livePath = relativePath === "index.html" ? "/" : `/${relativePath}`;
+    const livePath = livePathFor(relativePath);
     const { response, bytes, url } =
-      relativePath === "index.html" ? rootResponse : await fetchLive(livePath);
+      relativePath === "index.html"
+        ? rootResponse
+        : relativePath === "glassgraph/index.html"
+          ? productResponse
+          : await fetchLive(livePath);
     assert.equal(response.status, 200, `${url} must return HTTP 200`);
     assertSecurityHeaders(response);
     assertContentType(relativePath, response);
@@ -246,6 +286,7 @@ try {
       origin: origin.origin,
       files: results.length,
       indexSha256: results.find(({ path }) => path === "index.html")?.sha256,
+      glassgraphSha256: results.find(({ path }) => path === "glassgraph/index.html")?.sha256,
       delivery: isCanonicalOrigin ? "vercel-canonical" : "vercel-preview",
     })}`,
   );
