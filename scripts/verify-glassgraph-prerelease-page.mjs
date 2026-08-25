@@ -29,6 +29,9 @@ for (const [pattern, message] of [
   [/<title>GlassGraph Studio for Apple Silicon Macs \| NEMURIUM<\/title>/i, "The product title must identify GlassGraph and NEMURIUM."],
   [/<link\b[^>]*rel=["']canonical["'][^>]*href=["']https:\/\/www\.nemurium\.com\/glassgraph["']/i, "GlassGraph must have the dedicated /glassgraph canonical URL."],
   [/<meta\b[^>]*property=["']og:url["'][^>]*content=["']https:\/\/www\.nemurium\.com\/glassgraph["']/i, "Open Graph must identify the dedicated /glassgraph URL."],
+  [/<meta\b[^>]*name=["']description["'][^>]*content=["'][^"']*visual systems-mapping workspace[^"']*dependencies[^"']*living board[^"']*["']/i, "Search metadata must explain the product in concrete customer language."],
+  [/<meta\b[^>]*property=["']og:description["'][^>]*content=["'][^"']*visual systems-mapping workspace[^"']*dependencies[^"']*living board[^"']*["']/i, "Open Graph metadata must carry the concrete product description."],
+  [/<meta\b[^>]*name=["']twitter:description["'][^>]*content=["'][^"']*visual systems-mapping workspace[^"']*dependencies[^"']*living board[^"']*["']/i, "Twitter metadata must carry the concrete product description."],
   [/<link\b[^>]*rel=["']manifest["'][^>]*href=["']\/glassgraph\/site\.webmanifest["']/i, "The GlassGraph page must use its route-specific web manifest."],
   [/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*index[^"']*["']/i, "The public product page must remain indexable."],
   [/See the system\. Find the gap\.[\s\S]{0,160}Know what to do next\./i, "The product page must retain the customer-facing GlassGraph promise."],
@@ -128,6 +131,8 @@ for (const [index, block] of [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/sc
       const data = JSON.parse(source);
       check(data["@type"] === "SoftwareApplication" && data.name === "GlassGraph Studio", "Structured data must describe GlassGraph Studio.");
       check(data.url === "https://www.nemurium.com/glassgraph", "Structured data must use the dedicated product URL.");
+      check(data.image === "https://www.nemurium.com/assets/glassgraph-studio-system-map-v0.1.jpg", "Structured data must use the approved public product image.");
+      check(Array.isArray(data.featureList) && data.featureList.includes("Visual project and systems mapping") && data.featureList.includes("Portable board export"), "Structured data must explain the verified product capabilities.");
       check(!("downloadUrl" in data) && !("softwareVersion" in data), "Pre-release structured data must not advertise a download or version.");
     } else if (!/\bsrc=["']/i.test(attributes)) {
       new vm.Script(source, { filename: "glassgraph/index.html:inline-script-" + (index + 1) + ".js" });
