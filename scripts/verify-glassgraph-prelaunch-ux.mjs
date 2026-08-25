@@ -31,6 +31,16 @@ for (const [, href, label] of mailtoLinks) {
 }
 assert.match(page, /Have a question about GlassGraph\? Email us\./i, "The contact section must plainly explain the email action.");
 assert.match(page, /<a\b[^>]*href=["']\/glassgraph#examples["'][^>]*>See example maps<\/a>/i, "The primary action must lead to the actual example maps.");
+assert.match(page, /visual-sharing beta for compatible AI assistants[\s\S]{0,100}coming soon/i, "Visual MCP sharing must be presented as a forthcoming customer benefit, not as a live feature.");
+assert.match(page, /stays off until you turn it on/i, "Visual sharing must be clearly opt-in.");
+assert.match(page, /not your desktop, other windows, source files, or hidden content/i, "Visual sharing must preserve the customer-facing privacy boundary.");
+assert.match(page, /Sharing stops when you switch boards, turn off agent access, or close GlassGraph/i, "Visual sharing must explain immediate revocation.");
+assert.match(page, /Suggestions wait for review by default/i, "Agent-originated changes must retain the default review path.");
+assert.match(page, /board-building for the open board[\s\S]{0,120}without approving every node/i, "The page must explain the optional low-friction board-building mode.");
+assert.match(page, /anything outside the board still stops for review/i, "The page must preserve review outside the authorized board.");
+assert.doesNotMatch(page, /every (?:suggested )?(?:board )?(?:change|edit)[^<]{0,80}(?:waits|requires)[^<]{0,40}(?:approval|review)/i, "The page must not claim that every board edit needs per-change approval.");
+assert.match(page, /Copilot Beta and guided presentations are coming soon/i, "Guided presentations must remain an honest coming-soon benefit.");
+assert.match(page, /privacy-respecting problem report[\s\S]{0,180}Nothing is sent automatically/i, "Issue reporting must explain preview-first, no-automatic-send behavior.");
 assert.doesNotMatch(page, /glassgraph-native-real\.jpg/i, "The public page must not show the internal Agent Swarm screenshot.");
 assert.doesNotMatch(stage, /glassgraph-native-real\.jpg/i, "The internal Agent Swarm screenshot must not enter the staged public bundle.");
 
