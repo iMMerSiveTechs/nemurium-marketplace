@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Runbook | Operations Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #FAFAFA;
+      color: #1F2937;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+      padding: 1rem 2rem;
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+      color: #6B7280;
+    }
+
+    .nav-content a {
+      color: #475569;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-content a:hover {
+      color: #1F2937;
+    }
+
+    .nav-separator {
+      margin: 0 0.75rem;
+      color: #D1D5DB;
+    }
+
+    header {
+      background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
+      padding: 4rem 2rem;
+      border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .skill-badge {
+      display: inline-block;
+      background: #475569;
+      color: white;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #0F172A;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      color: #4B5563;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: #475569;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #334155;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(71, 85, 105, 0.2);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #475569;
+      border: 1.5px solid #475569;
+    }
+
+    .btn-secondary:hover {
+      background: #475569;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #0F172A;
+    }
+
+    .section-subtitle {
+      color: #6B7280;
+      margin-bottom: 3rem;
+      font-size: 1.025rem;
+    }
+
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .capability-card {
+      background: white;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .capability-card:hover {
+      border-color: #475569;
+      box-shadow: 0 12px 24px rgba(71, 85, 105, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .capability-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .capability-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #0F172A;
+    }
+
+    .capability-card p {
+      color: #6B7280;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .use-cases {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 3rem;
+      margin-bottom: 5rem;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .use-case-item {
+      padding: 1.5rem;
+      background: #F8FAFC;
+      border-radius: 0.5rem;
+      border-left: 3px solid #475569;
+    }
+
+    .use-case-item h4 {
+      font-weight: 600;
+      color: #0F172A;
+      margin-bottom: 0.5rem;
+    }
+
+    .use-case-item p {
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+
+    .integrations {
+      margin-bottom: 5rem;
+    }
+
+    .integration-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .pill {
+      background: white;
+      border: 1px solid #D1D5DB;
+      color: #475569;
+      padding: 0.625rem 1.25rem;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .pill:hover {
+      border-color: #475569;
+      box-shadow: 0 4px 12px rgba(71, 85, 105, 0.1);
+    }
+
+    .audience-section {
+      margin-bottom: 5rem;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .audience-card {
+      background: white;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .audience-card:hover {
+      border-color: #475569;
+      box-shadow: 0 8px 16px rgba(71, 85, 105, 0.08);
+    }
+
+    .audience-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .audience-card h3 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #0F172A;
+    }
+
+    .audience-card p {
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+
+    .pricing-section {
+      background: #F8FAFC;
+      border-radius: 0.75rem;
+      padding: 3rem;
+      text-align: center;
+      margin-bottom: 5rem;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .pricing-placeholder {
+      font-size: 1.125rem;
+      color: #6B7280;
+      margin-top: 1.5rem;
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid rgba(71, 85, 105, 0.1);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: #6B7280;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .hero-description {
+        font-size: 1rem;
+      }
+
+      .capabilities-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-content">
+      <a href="#">← Marketplace</a>
+      <span class="nav-separator">/</span>
+      <a href="#">Operations</a>
+      <span class="nav-separator">/</span>
+      <span>Runbook</span>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-content">
+      <span class="skill-badge">SKILL</span>
+      <div class="hero-icon">📖</div>
+      <h1>Runbook</h1>
+      <p class="hero-description">
+        Every incident, maintenance window, and recurring task deserves a playbook. Step-by-step commands, decision trees, troubleshooting paths, and escalation protocols all in one place. When crises hit at 3am, your runbook is the truth.
+      </p>
+      <div class="cta-group">
+        <button class="btn btn-primary">Add to Workspace</button>
+        <button class="btn btn-secondary">Learn More</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <section>
+      <h2 class="section-title">Core Capabilities</h2>
+      <p class="section-subtitle">What you can do with Runbook</p>
+      <div class="capabilities-grid">
+        <div class="capability-card">
+          <div class="capability-icon">📋</div>
+          <h3>Step-by-Step Procedures</h3>
+          <p>Break complex tasks into numbered steps. Include expected outputs, timing, and who should perform each action.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">🛠️</div>
+          <h3>Command Snippets</h3>
+          <p>Copy-paste ready commands. Include prerequisites, parameters, expected results. Works offline when you need it most.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">🌳</div>
+          <h3>Decision Trees</h3>
+          <p>If X happens, do Y. If Y fails, try Z. Branch logic so anyone can resolve issues without guessing.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">🚨</div>
+          <h3>Escalation Paths</h3>
+          <p>When to page the on-call engineer. Who has the keys. How to declare a SEV-1. Emergency contacts and war rooms.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">⚠️</div>
+          <h3>Troubleshooting Guides</h3>
+          <p>Symptom-based navigation. "App is slow" → Check CPU → Check memory → Check DB connections. Fast diagnosis.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">📞</div>
+          <h3>Contact & Dependency Maps</h3>
+          <p>Who owns what system. Slack channels, phone numbers, escalation contacts. Know who to call instantly.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="use-cases">
+      <h2 class="section-title">Perfect For</h2>
+      <div class="use-cases-grid">
+        <div class="use-case-item">
+          <h4>On-Call Rotations</h4>
+          <p>New on-call? Read the runbook instead of waking your manager at 2am. Resolution time drops 70% with good runbooks.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Planned Maintenance</h4>
+          <p>Database upgrades, OS patching, traffic migrations. Every step documented. Reduce downtime windows by half.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Disaster Recovery</h4>
+          <p>When prod is down, chaos kills you. Runbook says exactly what to do and in what order. Restore in minutes, not hours.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Team Scaling</h4>
+          <p>New engineer? New ops person? Runbook onboards them. They execute with confidence day one, not month three.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="integrations">
+      <h2 class="section-title">Works With</h2>
+      <div class="integration-pills">
+        <span class="pill">Incident management (PagerDuty)</span>
+        <span class="pill">Monitoring (Datadog)</span>
+        <span class="pill">Confluence</span>
+        <span class="pill">Notion</span>
+        <span class="pill">GitHub</span>
+        <span class="pill">Slack</span>
+        <span class="pill">Terminal/SSH</span>
+        <span class="pill">Cloud consoles</span>
+      </div>
+    </section>
+
+    <section class="audience-section">
+      <h2 class="section-title">Built For</h2>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="audience-icon">⚙️</div>
+          <h3>SRE/DevOps Teams</h3>
+          <p>Incident response at scale. Codify your firefighting. Every incident becomes a runbook improvement.</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🏥</div>
+          <h3>Healthcare/Finance Ops</h3>
+          <p>Regulated environments demand audit trails. Every action documented, timestamped, authorized.</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">👥</div>
+          <h3>Distributed Teams</h3>
+          <p>No single expert. Runbook distributes knowledge globally. APAC handles the incident. No timezone penalty.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <h2 class="section-title">Pricing</h2>
+      <p class="pricing-placeholder">$300/month base + $50 per runbook. Unlimited team access. Integrations included.</p>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Operations Marketplace. All rights reserved.</p>
+  </footer>
+</body>
+</html>

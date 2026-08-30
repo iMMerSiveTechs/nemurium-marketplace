@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Risk Assessment - Legal Skills</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #FAFAFA; color: #1F2937; line-height: 1.6; }
+        nav { position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding: 1rem 2rem; }
+        nav-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-size: 1.25rem; font-weight: 700; color: #1E3A5F; }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: #6B7280; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: #1E3A5F; }
+        .btn-primary { background: #1E3A5F; color: white; padding: 0.625rem 1.5rem; border-radius: 0.5rem; border: none; cursor: pointer; font-size: 0.95rem; font-weight: 500; transition: all 0.3s; }
+        .btn-primary:hover { background: #152847; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(30, 58, 95, 0.2); }
+        .hero { max-width: 1200px; margin: 3rem auto 0; padding: 4rem 2rem; text-align: center; }
+        .hero-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+        .skill-badge { display: inline-block; background: #ECF0F6; color: #1E3A5F; padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: 0.5px; }
+        .hero h1 { font-size: 2.5rem; color: #1F2937; margin-bottom: 1.5rem; font-weight: 700; }
+        .hero p { font-size: 1.1rem; color: #6B7280; max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.8; }
+        .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn-secondary { background: white; color: #1E3A5F; padding: 0.625rem 1.5rem; border: 2px solid #1E3A5F; border-radius: 0.5rem; cursor: pointer; font-size: 0.95rem; font-weight: 500; transition: all 0.3s; }
+        .btn-secondary:hover { background: #F0F4F8; }
+        .section { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+        .section-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 3rem; text-align: center; color: #1F2937; }
+        .capabilities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+        .capability-card { background: white; padding: 2rem; border-radius: 0.75rem; border: 1px solid #E5E7EB; transition: all 0.3s; }
+        .capability-card:hover { box-shadow: 0 12px 24px rgba(30, 58, 95, 0.1); border-color: #1E3A5F; transform: translateY(-4px); }
+        .capability-icon { font-size: 1.75rem; margin-bottom: 1rem; }
+        .capability-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; color: #1F2937; }
+        .capability-card p { font-size: 0.95rem; color: #6B7280; line-height: 1.6; }
+        .use-cases { background: white; border-radius: 0.75rem; padding: 3rem; border: 1px solid #E5E7EB; }
+        .use-case-item { margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid #F3F4F6; }
+        .use-case-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .use-case-title { font-size: 1rem; font-weight: 600; color: #1E3A5F; margin-bottom: 0.5rem; }
+        .use-case-desc { font-size: 0.95rem; color: #6B7280; }
+        .integrations { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 3rem; }
+        .integration-pill { background: #F3F4F6; color: #374151; padding: 0.625rem 1.25rem; border-radius: 2rem; font-size: 0.9rem; font-weight: 500; border: 1px solid #E5E7EB; }
+        .audience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .audience-card { background: white; padding: 2rem; border-radius: 0.75rem; border: 1px solid #E5E7EB; text-align: center; }
+        .audience-emoji { font-size: 2rem; margin-bottom: 1rem; }
+        .audience-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; color: #1F2937; }
+        .audience-card p { font-size: 0.9rem; color: #6B7280; line-height: 1.6; }
+        .pricing-placeholder { background: linear-gradient(135deg, #ECF0F6 0%, #F9FAFB 100%); padding: 3rem; border-radius: 0.75rem; text-align: center; border: 1px solid #E5E7EB; }
+        .pricing-placeholder h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #1F2937; }
+        .pricing-placeholder p { font-size: 0.95rem; color: #6B7280; margin-bottom: 1.5rem; }
+        footer { background: white; border-top: 1px solid #E5E7EB; padding: 3rem 2rem; text-align: center; color: #6B7280; font-size: 0.9rem; }
+        @media (max-width: 768px) {
+            .hero { padding: 2rem 1.5rem; }
+            .hero h1 { font-size: 1.75rem; }
+            .section { padding: 2rem 1.5rem; }
+            .hero-ctas { flex-direction: column; }
+            .nav-links { gap: 1rem; display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <nav-content>
+            <div class="nav-logo">⚖️ Legal Skills</div>
+            <div class="nav-links">
+                <a href="#capabilities">Capabilities</a>
+                <a href="#use-cases">Use Cases</a>
+                <a href="#integrations">Integrations</a>
+                <button class="btn-primary">Get Started</button>
+            </div>
+        </nav-content>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-icon">⚖️</div>
+        <div class="skill-badge">SKILL</div>
+        <h1>Legal Risk Assessment</h1>
+        <p>Quantify legal exposure using a severity-by-likelihood framework. Get risk scores, escalation criteria, and recommended mitigation strategies for any legal issue.</p>
+        <div class="hero-ctas">
+            <button class="btn-primary">Start Free Trial</button>
+            <button class="btn-secondary">See Demo</button>
+        </div>
+    </div>
+
+    <div class="section" id="capabilities">
+        <h2 class="section-title">Core Capabilities</h2>
+        <div class="capabilities-grid">
+            <div class="capability-card">
+                <div class="capability-icon">📊</div>
+                <h3>Risk Quantification</h3>
+                <p>Apply severity-by-likelihood framework to any legal issue. Get numerical risk scores (1-10) that translate legal concerns into business decision metrics.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🎯</div>
+                <h3>Severity Scoring</h3>
+                <p>Assess financial impact, reputational damage, operational disruption, and regulatory consequence. Weight factors by importance to your organization.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📈</div>
+                <h3>Likelihood Assessment</h3>
+                <p>Estimate probability of adverse outcome based on jurisdiction, precedent, facts, and counterparty behavior. Context-aware predictions informed by case law.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🚨</div>
+                <h3>Escalation Criteria</h3>
+                <p>Auto-flag risks that exceed your tolerance thresholds. Route to GC, CFO, or board based on exposure size and probability. Define escalation rules once.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">💡</div>
+                <h3>Mitigation Strategy</h3>
+                <p>For high-risk items, get recommended mitigation approaches. Negotiate terms, obtain insurance, restructure deals, or escalate to leadership.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📋</div>
+                <h3>Risk Register</h3>
+                <p>Build and maintain risk register. Track exposure over time. Document decisions. Prepare audit trail for board and investors.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="use-cases">
+        <h2 class="section-title">Common Use Cases</h2>
+        <div class="use-cases">
+            <div class="use-case-item">
+                <div class="use-case-title">📋 Deal Committee Review</div>
+                <p>M&A, partnership, or major contract on the table? Get quantified legal risk score. Present to deal committee with severity and likelihood breakdown. Make better decisions.</p>
+            </div>
+            <div class="use-case-item">
+                <div class="use-case-title">🏢 Litigation Risk Assessment</div>
+                <p>Demand letter or threatened suit? Assess likelihood of adverse judgment and likely damages. Inform settlement strategy. Know when to fight versus when to settle.</p>
+            </div>
+            <div class="use-case-item">
+                <div class="use-case-title">🔍 Compliance Issue Triage</div>
+                <p>Potential regulatory violation identified. Score severity and enforcement likelihood. Decide whether to self-report, remediate quietly, or escalate to board.</p>
+            </div>
+            <div class="use-case-item">
+                <div class="use-case-title">📊 Risk Portfolio Management</div>
+                <p>Portfolio of known legal risks across the org. Assess each one. Rank by severity. Allocate resources to highest-impact mitigation efforts.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="integrations">
+        <h2 class="section-title">Works With Your Stack</h2>
+        <div class="integrations">
+            <div class="integration-pill">Notion</div>
+            <div class="integration-pill">Google Drive</div>
+            <div class="integration-pill">Excel</div>
+            <div class="integration-pill">Slack</div>
+            <div class="integration-pill">ServiceNow</div>
+            <div class="integration-pill">Airtable</div>
+            <div class="integration-pill">Email</div>
+            <div class="integration-pill">LegalTech Platforms</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Built For</h2>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-emoji">⚖️</div>
+                <h3>General Counsel</h3>
+                <p>Quantify risk in business terms. Communicate with CFO and CEO in their language. Make resource allocation decisions based on data.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-emoji">👤</div>
+                <h3>Risk Committee</h3>
+                <p>Assess legal exposure systematically. Compare risks apples-to-apples. Make informed prioritization of remediation efforts and insurance needs.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-emoji">📊</div>
+                <h3>CFO & Finance</h3>
+                <p>Quantify legal contingencies for financial reporting. Inform reserve and insurance budgeting. Know your maximum exposure ceiling.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-emoji">🎯</div>
+                <h3>Business Leaders</h3>
+                <p>Understand deal risks before committing. Know which risks are worth taking and which warrant negotiation or insurance.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="pricing-placeholder">
+            <h3>Flexible Pricing</h3>
+            <p>Per-assessment pricing. Volume discounts available. Enterprise packages for ongoing risk management.</p>
+            <button class="btn-primary">View Pricing</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Legal Skills Marketplace. Enterprise-grade AI for in-house legal teams.</p>
+    </footer>
+</body>
+</html>

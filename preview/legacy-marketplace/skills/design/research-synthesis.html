@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Synthesis - Design Skill</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        .breadcrumb a {
+            color: #8B5CF6;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .hero-content p {
+            font-size: 1.125rem;
+            color: #4B5563;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: #8B5CF6;
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            background: #8B5CF6;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #8B5CF6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #7C3AED;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #8B5CF6;
+            border: 2px solid #8B5CF6;
+        }
+
+        .btn-secondary:hover {
+            background: #F3F0FF;
+            transform: translateY(-2px);
+        }
+
+        /* Capabilities */
+        .capabilities {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #111827;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .capability-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .capability-card:hover {
+            border-color: #8B5CF6;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            margin-bottom: 4rem;
+        }
+
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .use-case-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid #8B5CF6;
+        }
+
+        .use-case-card h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .use-case-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+        }
+
+        /* Works With */
+        .works-with {
+            margin-bottom: 4rem;
+        }
+
+        .pills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .pill {
+            background: white;
+            border: 1px solid #E5E7EB;
+            padding: 0.75rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            color: #6B7280;
+            transition: all 0.3s ease;
+        }
+
+        .pill:hover {
+            border-color: #8B5CF6;
+            color: #8B5CF6;
+            background: #F3F0FF;
+        }
+
+        /* Audience */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .audience-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .audience-card:hover {
+            border-color: #8B5CF6;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+        }
+
+        .audience-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .audience-card p {
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            border: 2px solid #8B5CF6;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8B5CF6;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-note {
+            font-size: 0.9rem;
+            color: #6B7280;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .nav-container {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <span class="breadcrumb">← <a href="../../index.html">Marketplace</a> / <a href="#design">Design</a> / Research Synthesis</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div>
+                <div class="hero-icon">🔬</div>
+            </div>
+            <div class="hero-content">
+                <span class="skill-badge">SKILL</span>
+                <h1>Research Synthesis</h1>
+                <p>Transform raw research data into strategic insights. Extract themes, identify patterns, and synthesize actionable recommendations from interviews, surveys, usability tests, and ethnographic studies. Get clear narrative of your users' needs, pain points, and opportunities—with specificity that drives product decisions.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary">Analyze Research</button>
+                    <button class="btn btn-secondary">View Sample Report</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section class="capabilities">
+            <h2 class="section-title">What You Get</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <h3>Qualitative Theme Extraction</h3>
+                    <p>Systematic thematic analysis of interview transcripts and open-ended responses. Identifies recurring patterns, contradictions, and edge cases. Organized by user segment and behavior type.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>User Journey Mapping</h3>
+                    <p>Multi-dimensional journey maps showing user context, emotions, and pain points at each stage. Identifies moments of opportunity and failure modes that matter most.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Quantitative Pattern Analysis</h3>
+                    <p>Survey data synthesis with frequency analysis, correlation identification, and demographic breakdown. Validates qualitative themes with statistical evidence.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>User Persona Development</h3>
+                    <p>Evidence-based personas grounded in actual research data, not assumptions. Each persona includes motivations, constraints, and jobs-to-be-done aligned with findings.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Insights & Opportunity Gap</h3>
+                    <p>Clear articulation of customer needs alongside competitive landscape. Identifies white space opportunities and areas of unmet customer demand.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Recommendation Roadmap</h3>
+                    <p>Prioritized strategic recommendations with supporting evidence. Each recommendation tied directly to research findings with expected impact quantification.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="use-cases">
+            <h2 class="section-title">Real-World Impact</h2>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <h4>Product Strategy Pivot</h4>
+                    <p>Healthcare SaaS conducted 30 user interviews but felt lost in the data. Research Synthesis revealed core insight: procurement teams needed different feature than clinical users. Pivoted strategy, increased enterprise deals by 5x.</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>Market Expansion Research</h4>
+                    <p>FinTech planning expansion into Europe conducted 50-interview research program. Synthesis identified regional regulatory concerns and trust requirements that would have been missed. Informed GTM strategy and saved $1M+ in misdirected investment.</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>Competitive Repositioning</h4>
+                    <p>B2B software company conducted research to understand market position. Synthesis revealed they were solving adjacent problem better than core competitor. Repositioned messaging, increased win rate by 30%.</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>Feature Prioritization</h4>
+                    <p>Product team with $2M in feature requests conducted research synthesis on 8 potential features. Research grounded priority decisions and eliminated 3 features nobody actually needed. Accelerated ROI on engineering resources by 40%.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Works With -->
+        <section class="works-with">
+            <h2 class="section-title">Works With</h2>
+            <div class="pills-container">
+                <span class="pill">User Research Skill</span>
+                <span class="pill">Figma</span>
+                <span class="pill">Claude Analysis</span>
+                <span class="pill">Survey Tools</span>
+                <span class="pill">Transcription Services</span>
+                <span class="pill">Product Strategy</span>
+            </div>
+        </section>
+
+        <!-- Audience -->
+        <section>
+            <h2 class="section-title">Built For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h4>Product Leaders</h4>
+                    <p>Evidence-based strategic decisions. Transform research into clear narrative that guides product direction.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>Startups</h4>
+                    <p>Fast product-market fit validation. Rapid synthesis of customer research informs critical pivots.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>Research Teams</h4>
+                    <p>Streamline synthesis process and ensure consistent rigor. Move faster from data collection to insights.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>Enterprises</h4>
+                    <p>Multi-study synthesis and portfolio-level insights. Coordinate research across business units.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section style="margin-top: 4rem; margin-bottom: 4rem;">
+            <div class="pricing-card">
+                <h3>Research Synthesis</h3>
+                <div class="price">From $2,000</div>
+                <div class="price-note">Per study + presentation + strategic recommendations</div>
+                <button class="btn btn-primary" style="width: 100%;">Get Started</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

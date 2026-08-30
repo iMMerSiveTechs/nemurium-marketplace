@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KB Article - Customer Support Skills</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        /* Sticky Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 0.75rem 2rem;
+        }
+
+        nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #6B7280;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #0284C7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 3rem;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: #E0F2FE;
+            color: #0284C7;
+            padding: 0.375rem 0.875rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #0284C7;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0369A1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.15);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0284C7;
+            border: 1.5px solid #0284C7;
+        }
+
+        .btn-secondary:hover {
+            background: #E0F2FE;
+            transform: translateY(-2px);
+        }
+
+        /* Capabilities Grid */
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            border-color: #0284C7;
+            box-shadow: 0 12px 35px rgba(2, 132, 199, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .use-cases h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .use-case-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .use-case-item {
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .use-case-item:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #0284C7;
+            font-weight: 700;
+        }
+
+        .use-case-item h4 {
+            font-weight: 600;
+            margin-bottom: 0.375rem;
+        }
+
+        .use-case-item p {
+            font-size: 0.95rem;
+            color: #6B7280;
+        }
+
+        /* Integrations */
+        .integrations {
+            margin-bottom: 4rem;
+        }
+
+        .integrations h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .integration-pill {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.625rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .integration-pill:hover {
+            border-color: #0284C7;
+            background: #E0F2FE;
+            color: #0284C7;
+        }
+
+        /* Audience Cards */
+        .audience {
+            margin-bottom: 4rem;
+        }
+
+        .audience h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .audience-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .audience-card:hover {
+            border-color: #0284C7;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.08);
+        }
+
+        .audience-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .audience-card p {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        /* Pricing */
+        .pricing {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .pricing h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #0284C7;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-note {
+            color: #6B7280;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#"><span>←</span> Marketplace / Customer Support / KB Article</a>
+    </nav>
+
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-icon">📚</div>
+            <div class="skill-badge">Skill</div>
+            <h1>KB Article</h1>
+            <p>Transform resolved support tickets into polished, searchable knowledge base articles. Empower customers with self-service documentation. Reduce ticket volume. Build your knowledge library.</p>
+            <div class="cta-group">
+                <button class="btn btn-primary">Install Skill</button>
+                <button class="btn btn-secondary">See Demo</button>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section>
+            <h2 class="section-title">Key Capabilities</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon">✍️</div>
+                    <h3>Auto-Draft from Tickets</h3>
+                    <p>Transform a resolved ticket into a structured article: problem, solution, and gotchas. AI handles the heavy lifting.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🎯</div>
+                    <h3>Smart Organization</h3>
+                    <p>Auto-categorize articles. Auto-generate section headers, table of contents, and metadata. Consistent structure across KB.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🔍</div>
+                    <h3>SEO & Discoverability</h3>
+                    <p>Optimize for search. Auto-generate meta descriptions, tags, and related links. Customers find answers faster.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📊</div>
+                    <h3>Deduplication</h3>
+                    <p>Check against existing KB. Merge or link related articles automatically. No duplicate content.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">👥</div>
+                    <h3>Crowdsourced Improvement</h3>
+                    <p>Collect feedback from KB readers. Update articles based on helpfulness votes and comments.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📱</div>
+                    <h3>Multi-Format Publishing</h3>
+                    <p>Publish to your KB, Zendesk, Intercom, or custom platforms. One source, many destinations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="use-cases">
+            <h2>Common Use Cases</h2>
+            <div class="use-case-list">
+                <div class="use-case-item">
+                    <h4>Self-Service Deflection</h4>
+                    <p>Top 20% of tickets are repeats. Turn them into KB articles. Same 80% of customers find answers without contacting support.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>Onboarding Documentation</h4>
+                    <p>As customers onboard, capture common questions. Build a living onboarding guide from real support interactions.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>Product Release Documentation</h4>
+                    <p>After launch, support tickets reveal real-world usage patterns. Auto-generate docs from actual customer questions.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>Troubleshooting Guides</h4>
+                    <p>Complex technical issues resolved? Turn into step-by-step guides with screenshots and error codes for future reference.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integrations -->
+        <section class="integrations">
+            <h2>Works With</h2>
+            <div class="integration-pills">
+                <div class="integration-pill">Zendesk Guide</div>
+                <div class="integration-pill">Intercom Articles</div>
+                <div class="integration-pill">Freshdesk Wiki</div>
+                <div class="integration-pill">Confluence</div>
+                <div class="integration-pill">Notion</div>
+                <div class="integration-pill">Slack</div>
+                <div class="integration-pill">GitHub Wiki</div>
+                <div class="integration-pill">Custom APIs</div>
+            </div>
+        </section>
+
+        <!-- Audience -->
+        <section class="audience">
+            <h2>Built For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h4>📚 Knowledge Managers</h4>
+                    <p>Build your KB faster. Less manual writing, more coverage, better organization.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>👥 Support Leaders</h4>
+                    <p>Reduce ticket volume 20-30%. Shift reps to higher-value work. Improve self-service metrics.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>🎯 Product Docs Teams</h4>
+                    <p>Real customer questions fuel docs. Identify gaps and add real-world examples from support interactions.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>👨‍💻 Customer Success</h4>
+                    <p>Share articles with customers. Reduce onboarding time and improve time-to-value.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section class="pricing">
+            <h2>Pricing</h2>
+            <div class="price">Coming Soon</div>
+            <p class="price-note">Early access available for pilot customers. Contact sales for details.</p>
+            <button class="btn btn-primary">Request Pilot Access</button>
+        </section>
+    </div>
+</body>
+</html>

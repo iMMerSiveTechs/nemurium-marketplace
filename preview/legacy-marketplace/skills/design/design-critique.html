@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Critique - Design Skill</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        .breadcrumb a {
+            color: #8B5CF6;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .hero-content p {
+            font-size: 1.125rem;
+            color: #4B5563;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: #8B5CF6;
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            background: #8B5CF6;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #8B5CF6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #7C3AED;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #8B5CF6;
+            border: 2px solid #8B5CF6;
+        }
+
+        .btn-secondary:hover {
+            background: #F3F0FF;
+            transform: translateY(-2px);
+        }
+
+        /* Capabilities */
+        .capabilities {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #111827;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .capability-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .capability-card:hover {
+            border-color: #8B5CF6;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            margin-bottom: 4rem;
+        }
+
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .use-case-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid #8B5CF6;
+        }
+
+        .use-case-card h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .use-case-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+        }
+
+        /* Works With */
+        .works-with {
+            margin-bottom: 4rem;
+        }
+
+        .pills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .pill {
+            background: white;
+            border: 1px solid #E5E7EB;
+            padding: 0.75rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            color: #6B7280;
+            transition: all 0.3s ease;
+        }
+
+        .pill:hover {
+            border-color: #8B5CF6;
+            color: #8B5CF6;
+            background: #F3F0FF;
+        }
+
+        /* Audience */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .audience-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .audience-card:hover {
+            border-color: #8B5CF6;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+        }
+
+        .audience-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .audience-card p {
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            border: 2px solid #8B5CF6;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8B5CF6;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-note {
+            font-size: 0.9rem;
+            color: #6B7280;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .nav-container {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <span class="breadcrumb">← <a href="../../index.html">Marketplace</a> / <a href="#design">Design</a> / Design Critique</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div>
+                <div class="hero-icon">🎨</div>
+            </div>
+            <div class="hero-content">
+                <span class="skill-badge">SKILL</span>
+                <h1>Design Critique</h1>
+                <p>Transform feedback into better products. Structured design critique covering usability, visual hierarchy, consistency, and interaction patterns. Get expert perspective on design decisions—not opinions. Understand why something works or doesn't, with specific, actionable recommendations backed by design principles.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary">Submit Design</button>
+                    <button class="btn btn-secondary">See Example Feedback</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section class="capabilities">
+            <h2 class="section-title">What You Get</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <h3>Usability Evaluation</h3>
+                    <p>Deep analysis of user flows, task completion patterns, and potential friction points. Identifies where users might get stuck and why, with specific interaction improvements.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Visual Hierarchy Analysis</h3>
+                    <p>Examines information architecture, contrast, sizing, and spacing. Ensures critical information is discoverable and supporting information doesn't distract from primary actions.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Design System Consistency</h3>
+                    <p>Audits adherence to design tokens, component usage, and pattern consistency. Identifies instances of inconsistency that undermine user confidence and increase cognitive load.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Interaction Critique</h3>
+                    <p>Evaluates animation timing, transition logic, loading states, and feedback mechanisms. Ensures interactions feel intentional, responsive, and communicate system status effectively.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Comparative Analysis</h3>
+                    <p>Contextualizes your design against competitive products and industry standards. Identifies opportunity gaps and design leadership opportunities.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Priority-Ordered Recommendations</h3>
+                    <p>Clear guidance on which improvements deliver maximum user impact. Strategic roadmap separating quick wins from systemic improvements.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="use-cases">
+            <h2 class="section-title">Real-World Impact</h2>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <h4>Startup Series A Product Refinement</h4>
+                    <p>Early-stage marketplace platform received design critique before investor demos. Feedback identified confusing checkout flow and weak value prop hierarchy. Design tweaks increased demo conversion rate by 34%.</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>Enterprise Dashboard Redesign</h4>
+                    <p>Large financial services firm conducting comprehensive dashboard UX overhaul. Design critique framework ensured 15 different screens maintained consistency and logical information hierarchy across complex workflows.</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>Design Team Maturity Building</h4>
+                    <p>Agency client used design critique methodology to formalize feedback process. Within 6 months, team shipping 40% fewer revision rounds because critique standards were clearly understood upfront.</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>Mobile App Polish Phase</h4>
+                    <p>Consumer health app approaching launch conducted design critique before beta release. Identified animation over-usage that created performance perception issues. Post-critique build saw 2.3 second faster perceived load times.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Works With -->
+        <section class="works-with">
+            <h2 class="section-title">Works With</h2>
+            <div class="pills-container">
+                <span class="pill">Figma Comments</span>
+                <span class="pill">Claude in Chrome</span>
+                <span class="pill">Design Handoff Skill</span>
+                <span class="pill">Design System Skill</span>
+                <span class="pill">User Research Skill</span>
+                <span class="pill">Accessibility Review</span>
+            </div>
+        </section>
+
+        <!-- Audience -->
+        <section>
+            <h2 class="section-title">Built For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h4>Product Teams</h4>
+                    <p>Structured feedback backed by design principles. Eliminate bikeshedding and get alignment on design direction.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>Design Teams</h4>
+                    <p>External perspective that challenges assumptions. Develop critical design thinking and improve feedback culture.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>Startups</h4>
+                    <p>Fast-track product-market fit. Design critique identifies high-impact improvements before user research reveals problems.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>Agencies</h4>
+                    <p>Strengthen deliverables and client satisfaction. Design critique becomes a signature service quality differentiator.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section style="margin-top: 4rem; margin-bottom: 4rem;">
+            <div class="pricing-card">
+                <h3>Design Critique</h3>
+                <div class="price">From $1,200</div>
+                <div class="price-note">Per review session + 60 min presentation</div>
+                <button class="btn btn-primary" style="width: 100%;">Request Review</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

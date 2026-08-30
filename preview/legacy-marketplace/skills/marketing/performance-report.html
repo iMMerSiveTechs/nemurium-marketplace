@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Report - Marketing Skills</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #FAFAFA;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 16px 40px;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .nav-link {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #DB2777;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .hero {
+            margin-bottom: 80px;
+        }
+
+        .hero-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            background: #DB2777;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            flex-shrink: 0;
+        }
+
+        .hero-text h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #333;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            max-width: 800px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-family: 'Inter', sans-serif;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            padding: 12px 28px;
+        }
+
+        .btn-primary {
+            background: #DB2777;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #c51f68;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(219, 39, 119, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #DB2777;
+            border: 1.5px solid #DB2777;
+        }
+
+        .btn-secondary:hover {
+            background: #ffe6f0;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #1a1a1a;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+            border-color: #DB2777;
+        }
+
+        .capability-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .capability-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .use-case-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s;
+        }
+
+        .use-case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .use-case-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .use-case-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .use-case-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .integrations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .integration-pill {
+            background: white;
+            border: 1px solid #e8e8e8;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .integration-pill:hover {
+            background: #f0f0f0;
+            border-color: #DB2777;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e8e8e8;
+            text-align: center;
+        }
+
+        .audience-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .audience-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .audience-card p {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .pricing-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #e8e8e8;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .pricing-section h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .pricing-section p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #DB2777;
+            margin-bottom: 8px;
+        }
+
+        .price-note {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 40px 24px;
+            }
+
+            .hero-header {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .hero-text h1 {
+                font-size: 32px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            nav {
+                padding: 12px 24px;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .section h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="nav-link">← Marketplace</a>
+            <span>/</span>
+            <a href="#" class="nav-link">Marketing</a>
+            <span>/</span>
+            <span>Performance Report</span>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-header">
+                <div class="hero-icon">📊</div>
+                <div class="hero-text">
+                    <span class="skill-badge">SKILL</span>
+                    <h1>Performance Report</h1>
+                    <p class="hero-description">
+                        Turn marketing data into actionable insights. Aggregate metrics across campaigns, channels, and timeframes with AI-powered analysis that identifies trends, celebrates wins, and flags opportunities for improvement. Get executive summaries for leadership, detailed performance breakdowns by segment, and prescriptive optimization recommendations backed by your actual data.
+                    </p>
+                    <div class="cta-group">
+                        <button class="btn-primary">Get Started</button>
+                        <button class="btn-secondary">View Demo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Core Capabilities</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <h3>Multi-Channel Aggregation</h3>
+                    <p>Pull data from email, social, ads, website analytics, and CRM. Correlate metrics across channels to understand true impact of integrated campaigns and identify attribution patterns.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Smart Trend Detection</h3>
+                    <p>Automatically identify MoM and YoY trends in key metrics. Detect anomalies, seasonal patterns, and inflection points. Understand what's working, what's plateauing, and what needs intervention.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Competitive Analysis</h3>
+                    <p>Benchmark your performance against industry standards. Understand how your metrics stack up on engagement rates, conversion rates, ROI, and spend efficiency compared to your competitive set.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Prescriptive Recommendations</h3>
+                    <p>AI-generated optimization suggestions backed by your data. Specific, actionable advice: reallocate budget here, test this creative angle, expand to this audience segment. Ranked by expected impact.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Executive Summaries</h3>
+                    <p>One-pager reports for board meetings and leadership reviews. Key metrics highlighted, wins celebrated, risks flagged, next quarter priorities outlined. Perfect for stakeholder communication.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Segment Breakdowns</h3>
+                    <p>Analyze performance by campaign, audience segment, geography, device, and more. Identify which segments drive revenue, which show promise, and which need re-evaluation or pausing.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Real-World Use Cases</h2>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-icon">📈</div>
+                    <h3>Monthly Marketing Review</h3>
+                    <p>Generate comprehensive monthly reports in minutes. Traffic breakdown, conversion analysis, revenue attribution, customer acquisition costs, and ROI by channel. Present to leadership with confidence backed by data analysis.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🎯</div>
+                    <h3>Campaign Performance Evaluation</h3>
+                    <p>After running a major campaign, get automated analysis of what worked. Compare against benchmarks, identify winning segments, understand which creatives resonated, and extract learnings for next campaign.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">💰</div>
+                    <h3>Marketing Budget Optimization</h3>
+                    <p>Use performance data and trend analysis to make budget reallocation decisions. Which channels have highest ROI? Where is spend underutilized? What test budgets should you increase? Get recommendations with confidence.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🔍</div>
+                    <h3>Quarterly Strategy Planning</h3>
+                    <p>Build Q4 strategy on Q1-Q3 performance data. Understand seasonal patterns, identify growth opportunities, flag declining segments. Use AI analysis to inform hypothesis testing and set evidence-backed OKRs.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Works With</h2>
+            <div class="integrations">
+                <div class="integration-pill">Google Analytics</div>
+                <div class="integration-pill">Mixpanel</div>
+                <div class="integration-pill">Amplitude</div>
+                <div class="integration-pill">HubSpot</div>
+                <div class="integration-pill">Salesforce</div>
+                <div class="integration-pill">Meta Ads</div>
+                <div class="integration-pill">Google Ads</div>
+                <div class="integration-pill">Mailchimp</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Built For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-icon">👤</div>
+                    <h3>Solopreneurs</h3>
+                    <p>Understand your business health at a glance. Get insights you'd normally need a data analyst for without the overhead cost.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">🏢</div>
+                    <h3>Enterprise</h3>
+                    <p>Consolidate reporting across teams and regions. Standardized dashboards, audit trails, and approval workflows for governance and compliance.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">👨‍💻</div>
+                    <h3>Developers</h3>
+                    <p>Embed analytics and reporting directly into your dashboard. Programmatic access to insights and recommendations via API.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="pricing-section">
+                <h3>Transparent Pricing</h3>
+                <p>No hidden fees. Pay only for what you use.</p>
+                <div class="price">$59</div>
+                <div class="price-note">Starting at per month</div>
+                <button class="btn-primary">View Plans</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
