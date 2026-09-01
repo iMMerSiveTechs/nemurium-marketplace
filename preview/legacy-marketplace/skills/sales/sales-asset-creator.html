@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Asset Creator - Sales Skills Marketplace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif;
+            background-color: #FAFAFA;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-breadcrumb a {
+            color: #EA580C;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .nav-breadcrumb a:hover {
+            opacity: 0.7;
+        }
+
+        .nav-breadcrumb span {
+            color: #ccc;
+            margin: 0 0.3rem;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #EA580C;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            background: #EA580C;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #EA580C;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d04a09;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(234, 88, 12, 0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #EA580C;
+            border: 2px solid #EA580C;
+        }
+
+        .btn-secondary:hover {
+            background: #FFF5F0;
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+            border-color: #EA580C;
+        }
+
+        .capability-icon {
+            width: 40px;
+            height: 40px;
+            background: #FFF5F0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .use-case {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+        }
+
+        .use-case h3 {
+            color: #EA580C;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .use-case p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .integrations {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            margin-bottom: 3rem;
+        }
+
+        .integrations h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .pill {
+            background: #FFF5F0;
+            color: #EA580C;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #FFE4D6;
+            transition: all 0.2s;
+        }
+
+        .pill:hover {
+            background: #EA580C;
+            color: white;
+        }
+
+        .audience {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #f0f0f0;
+            text-align: center;
+        }
+
+        .audience-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .audience-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .audience-card p {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .pricing-section {
+            max-width: 400px;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .pricing-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #EA580C;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-desc {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-button {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                font-size: 0.8rem;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-breadcrumb">
+                <a href="#">← Marketplace</a>
+                <span>/</span>
+                <a href="#">Sales</a>
+                <span>/</span>
+                <span>Sales Asset Creator</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">SKILL</div>
+            <h1>Sales Asset Creator</h1>
+            <p>Generate polished sales assets in minutes, not weeks. Create landing pages, pitch decks, one-pagers, and interactive demos that showcase your value and close deals faster.</p>
+            <div class="hero-cta">
+                <button class="btn btn-primary">Add to Workspace</button>
+                <button class="btn btn-secondary">View Demo</button>
+            </div>
+        </div>
+        <div>
+            <div class="hero-icon">🎁</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">What You Can Do</h2>
+        <div class="capabilities-grid">
+            <div class="capability-card">
+                <div class="capability-icon">🌐</div>
+                <h3>Branded Landing Pages</h3>
+                <p>Generate custom landing pages for specific campaigns, personas, or use cases. Fully responsive, mobile-optimized, with built-in CTAs and analytics integration.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📊</div>
+                <h3>Pitch Deck Generator</h3>
+                <p>Create beautiful, persuasive pitch decks for investor meetings, customer presentations, or board reviews. Customizable slides with data visualizations included.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📄</div>
+                <h3>One-Pagers & Briefs</h3>
+                <p>Design compelling one-pagers that summarize your value proposition, pricing, and ROI. Perfect for leave-behinds and quick reference during conversations.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">💻</div>
+                <h3>Interactive Product Demos</h3>
+                <p>Build clickable, interactive demos of your product without engineering help. Guide prospects through key features and show immediate value.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🎨</div>
+                <h3>Brand Consistency Tools</h3>
+                <p>All assets use your brand guidelines automatically. Colors, fonts, logos, and messaging stay consistent across every sales asset.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📥</div>
+                <h3>Export & Share Ready</h3>
+                <p>Download as PDF, PowerPoint, HTML, or interactive link. Share directly with prospects, embed on your website, or send via email.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Real-World Use Cases</h2>
+        <div class="use-cases">
+            <div class="use-case">
+                <h3>🚀 Campaign Launch</h3>
+                <p>New vertical launch. Create targeted landing pages, one-pagers, and pitch decks for each persona in days, not months. Speed to market is your competitive advantage.</p>
+            </div>
+            <div class="use-case">
+                <h3>👥 Account-Based Marketing</h3>
+                <p>ABM campaign for 10 target accounts. Generate customized assets for each account highlighting their specific pain points and use cases. Show you've done your homework.</p>
+            </div>
+            <div class="use-case">
+                <h3>🎯 Persona-Specific Assets</h3>
+                <p>Same product, different buyers. Create separate assets for CFO, CTO, and CMO that speak to their unique priorities, metrics, and concerns.</p>
+            </div>
+            <div class="use-case">
+                <h3>🌍 Multi-Regional Campaigns</h3>
+                <p>Go global with localized assets. Generate region-specific landing pages and pitch decks with local messaging, currency, and compliance information.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="integrations">
+            <h3>Works With</h3>
+            <div class="integration-pills">
+                <div class="pill">Google Drive</div>
+                <div class="pill">Microsoft Office</div>
+                <div class="pill">Salesforce</div>
+                <div class="pill">HubSpot</div>
+                <div class="pill">Slack</div>
+                <div class="pill">Gmail</div>
+                <div class="pill">Figma</div>
+                <div class="pill">Canva</div>
+                <div class="pill">Webflow</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Built For</h2>
+        <div class="audience">
+            <div class="audience-card">
+                <div class="audience-icon">💼</div>
+                <h3>Sales Reps</h3>
+                <p>Create client-ready materials on demand without design skills.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">📢</div>
+                <h3>Marketing Teams</h3>
+                <p>Scale asset creation across campaigns and product lines.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">👨‍💼</div>
+                <h3>Product Managers</h3>
+                <p>Demo new features and gather feedback with interactive prototypes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="pricing-section">
+            <h3>Usage-Based Pricing</h3>
+            <div class="price">Free</div>
+            <div class="price-desc">+ pay-per-asset credits</div>
+            <button class="btn btn-primary price-button">Start Free</button>
+        </div>
+    </section>
+</body>
+</html>

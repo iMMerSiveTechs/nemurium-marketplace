@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Sequence - Marketing Skills</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #FAFAFA;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 16px 40px;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .nav-link {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #DB2777;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .hero {
+            margin-bottom: 80px;
+        }
+
+        .hero-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            background: #DB2777;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            flex-shrink: 0;
+        }
+
+        .hero-text h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #333;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            max-width: 800px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-family: 'Inter', sans-serif;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            padding: 12px 28px;
+        }
+
+        .btn-primary {
+            background: #DB2777;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #c51f68;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(219, 39, 119, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #DB2777;
+            border: 1.5px solid #DB2777;
+        }
+
+        .btn-secondary:hover {
+            background: #ffe6f0;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #1a1a1a;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+            border-color: #DB2777;
+        }
+
+        .capability-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .capability-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .use-case-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s;
+        }
+
+        .use-case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .use-case-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .use-case-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .use-case-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .integrations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .integration-pill {
+            background: white;
+            border: 1px solid #e8e8e8;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .integration-pill:hover {
+            background: #f0f0f0;
+            border-color: #DB2777;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e8e8e8;
+            text-align: center;
+        }
+
+        .audience-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .audience-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .audience-card p {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .pricing-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #e8e8e8;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .pricing-section h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .pricing-section p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #DB2777;
+            margin-bottom: 8px;
+        }
+
+        .price-note {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 40px 24px;
+            }
+
+            .hero-header {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .hero-text h1 {
+                font-size: 32px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            nav {
+                padding: 12px 24px;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .section h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="nav-link">← Marketplace</a>
+            <span>/</span>
+            <a href="#" class="nav-link">Marketing</a>
+            <span>/</span>
+            <span>Email Sequence</span>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-header">
+                <div class="hero-icon">📧</div>
+                <div class="hero-text">
+                    <span class="skill-badge">SKILL</span>
+                    <h1>Email Sequence</h1>
+                    <p class="hero-description">
+                        Build high-converting email sequences that nurture leads into customers. Design multi-email drip campaigns with intelligent timing, behavioral branching, and exit conditions. Test subject lines and copy variations, set up automated A/B tests, and let AI optimize each email for opens, clicks, and conversions. From welcome series to cart abandonment to loyalty campaigns—all template-driven and ready to deploy.
+                    </p>
+                    <div class="cta-group">
+                        <button class="btn-primary">Get Started</button>
+                        <button class="btn-secondary">View Demo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Core Capabilities</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <h3>Multi-Email Sequences</h3>
+                    <p>Generate complete 5-15 email sequences with strategic spacing. Welcome series, nurture sequences, re-engagement campaigns, win-back sequences—all templated and ready to customize with your messaging.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Intelligent Timing</h3>
+                    <p>Auto-calculate optimal send times based on subscriber timezone, behavior patterns, and engagement history. Space emails to maximize open rates and prevent list fatigue while maintaining campaign momentum.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Behavioral Branching</h3>
+                    <p>Create conditional email paths based on subscriber actions: opened, clicked, purchased, or took no action. Route subscribers to different sequences automatically and increase relevance through personalized journeys.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Subject Line Optimization</h3>
+                    <p>Generate multiple subject line variations with proven emotional triggers. Includes curiosity gaps, urgency, social proof, and personalization tokens. Built-in preview text optimization for mobile displays.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>A/B Testing Framework</h3>
+                    <p>Automated testing of subject lines, body copy, CTAs, and send times. Intelligent segment splitting ensures statistical significance. Auto-scale winning variations and continuously improve performance metrics.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Exit Condition Rules</h3>
+                    <p>Smart unsubscribe prevention and engagement recovery. Set up rules to pause sequences for active converters, re-route disengaged subscribers, or trigger alternative messaging before someone leaves.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Real-World Use Cases</h2>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-icon">🎯</div>
+                    <h3>SaaS Onboarding Funnel</h3>
+                    <p>8-email sequence from signup through activation. Behavioral branching routes users based on product use: activated users get upgrade series, inactive users get help/troubleshooting sequence, churn risk users get VIP support offers.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🛒</div>
+                    <h3>E-Commerce Cart Abandonment</h3>
+                    <p>3-email cart recovery sequence with escalating urgency and incentives. First email is product reminder, second adds social proof/reviews, third includes limited-time discount. Branching handles completed purchases and shows different post-purchase sequences.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">📚</div>
+                    <h3>Lead Nurturing Sequence</h3>
+                    <p>12-email educational drip campaign that builds trust and positions your company as thought leader. Different sequences for different industries/use cases based on signup data. Built-in case study and demo requests at optimal points.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">💎</div>
+                    <h3>VIP Win-Back Campaign</h3>
+                    <p>6-email sequence targeting churned customers with special re-engagement offers. High-value personalization with their purchase history. Branching detects if they've already re-purchased and stops further emails automatically.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Works With</h2>
+            <div class="integrations">
+                <div class="integration-pill">Mailchimp</div>
+                <div class="integration-pill">ConvertKit</div>
+                <div class="integration-pill">ActiveCampaign</div>
+                <div class="integration-pill">GetResponse</div>
+                <div class="integration-pill">HubSpot</div>
+                <div class="integration-pill">Klaviyo</div>
+                <div class="integration-pill">Zapier</div>
+                <div class="integration-pill">Segment</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Built For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-icon">👤</div>
+                    <h3>Solopreneurs</h3>
+                    <p>Automate customer relationships with minimal manual effort. Set and forget email sequences that nurture while you focus on product.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">🏢</div>
+                    <h3>Enterprise</h3>
+                    <p>Manage complex, multi-segment campaigns across teams. Audit trail, approval workflows, and performance analytics built-in for compliance.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">👨‍💻</div>
+                    <h3>Developers</h3>
+                    <p>Integrate email sequence generation into your product. API-first design for programmatic campaign creation and optimization.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="pricing-section">
+                <h3>Transparent Pricing</h3>
+                <p>No hidden fees. Pay only for what you use.</p>
+                <div class="price">$79</div>
+                <div class="price-note">Starting at per month</div>
+                <button class="btn-primary">View Plans</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

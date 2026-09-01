@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyze - Data & Analytics Skills</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1rem 2rem;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+        
+        .breadcrumb a {
+            color: #0891B2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .breadcrumb a:hover {
+            color: #0369A1;
+        }
+        
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        
+        .icon-badge {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            background: #E0F2FE;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #0F172A;
+        }
+        
+        .tagline {
+            font-size: 1.25rem;
+            color: #4B5563;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: #0891B2;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0369A1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(8, 145, 178, 0.2);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #0891B2;
+            border: 2px solid #0891B2;
+        }
+        
+        .btn-secondary:hover {
+            background: #F0F9FF;
+            transform: translateY(-2px);
+        }
+        
+        /* Content Sections */
+        .section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #0F172A;
+        }
+        
+        /* Capabilities Grid */
+        .capabilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .capability-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+        
+        .capability-card:hover {
+            border-color: #0891B2;
+            box-shadow: 0 10px 30px rgba(8, 145, 178, 0.1);
+            transform: translateY(-4px);
+        }
+        
+        .capability-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .capability-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0F172A;
+        }
+        
+        .capability-card p {
+            color: #6B7280;
+            font-size: 0.95rem;
+        }
+        
+        /* Use Cases */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .use-case {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #0891B2;
+        }
+        
+        .use-case h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #0F172A;
+        }
+        
+        .use-case p {
+            color: #6B7280;
+            font-size: 0.95rem;
+        }
+        
+        /* Pills */
+        .pills-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 2rem 0;
+        }
+        
+        .pill {
+            display: inline-block;
+            background: #F3F4F6;
+            color: #374151;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .pill.accent {
+            background: #E0F2FE;
+            color: #0369A1;
+            border-color: #BAE6FD;
+        }
+        
+        /* Audience Cards */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .audience-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+        
+        .audience-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .audience-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0F172A;
+        }
+        
+        .audience-card p {
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+        
+        /* Pricing */
+        .pricing-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+        
+        .pricing-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #0F172A;
+        }
+        
+        .pricing-placeholder {
+            color: #6B7280;
+            font-size: 1rem;
+            margin: 2rem 0;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 6rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6B7280;
+            border-top: 1px solid #E5E7EB;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .section {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> / <a href="../../index.html">Marketplace</a> / <a href="../../index.html#data">Data & Analytics</a> / Analyze
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero -->
+    <section class="hero">
+        <div class="icon-badge">📊</div>
+        <h1>Analyze</h1>
+        <p class="tagline">Quick lookups to full statistical analyses. Turn raw numbers into confident insights in minutes, not hours.</p>
+        <div class="cta-group">
+            <button class="btn btn-primary">Try Analyze Now</button>
+            <button class="btn btn-secondary">View Documentation</button>
+        </div>
+    </section>
+    
+    <!-- Capabilities -->
+    <section class="section">
+        <h2 class="section-title">What You Can Do</h2>
+        <div class="capabilities">
+            <div class="capability-card">
+                <div class="capability-icon">🎯</div>
+                <h3>Instant Summaries</h3>
+                <p>Get key metrics, averages, ranges, and outliers in seconds. Perfect for dashboard snapshots and quick reports.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📈</div>
+                <h3>Trend Detection</h3>
+                <p>Identify patterns, growth trajectories, and anomalies. Spot what's moving and what isn't.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔬</div>
+                <h3>Deep Dives</h3>
+                <p>Multi-dimensional analysis across segments, cohorts, and time periods. Slice data every way that matters.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📊</div>
+                <h3>Comparative Analysis</h3>
+                <p>Year-over-year, month-over-month, cohort comparisons. See how performance stacks up.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⚡</div>
+                <h3>Speed Optimized</h3>
+                <p>Get results in your preferred format—JSON, CSV, markdown tables, or natural language summaries.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🛡️</div>
+                <h3>Context & Caveats</h3>
+                <p>Every analysis includes limitations, data quality flags, and assumptions. Know what your data can and can't tell you.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Use Cases -->
+    <section class="section">
+        <h2 class="section-title">Common Use Cases</h2>
+        <div class="use-cases">
+            <div class="use-case">
+                <h4>Product Metrics Reviews</h4>
+                <p>Weekly standup? Analyze key adoption, engagement, retention metrics across your feature set. Spot winners and problem areas fast.</p>
+            </div>
+            <div class="use-case">
+                <h4>Customer Health Checks</h4>
+                <p>Understand churn risk, NPS trends, support ticket patterns. Flag accounts at risk before they become problems.</p>
+            </div>
+            <div class="use-case">
+                <h4>Marketing Performance</h4>
+                <p>Analyze campaign ROI, channel efficiency, conversion funnels. See what campaigns drive real business value.</p>
+            </div>
+            <div class="use-case">
+                <h4>Financial Analysis</h4>
+                <p>Revenue breakdown by segment, MRR growth, unit economics. Build the numbers for investor updates and board decks.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Works With -->
+    <section class="section">
+        <h2 class="section-title">Works With</h2>
+        <div class="pills-group">
+            <span class="pill accent">SQL Queries</span>
+            <span class="pill accent">Build Dashboard</span>
+            <span class="pill accent">Explore Data</span>
+            <span class="pill accent">Create Viz</span>
+            <span class="pill accent">Statistical Analysis</span>
+            <span class="pill">Snowflake</span>
+            <span class="pill">BigQuery</span>
+            <span class="pill">PostgreSQL</span>
+            <span class="pill">MySQL</span>
+            <span class="pill">Google Sheets</span>
+        </div>
+    </section>
+    
+    <!-- Audience -->
+    <section class="section">
+        <h2 class="section-title">Built For</h2>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">👨‍💼</div>
+                <h4>Product Managers</h4>
+                <p>Get metrics answers without waiting for analysts. Own your data narrative.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">📊</div>
+                <h4>Data Analysts</h4>
+                <p>Automate the mundane. Focus on insights that matter, not query writing.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">👔</div>
+                <h4>Executives & Finance</h4>
+                <p>Understand the business instantly. Numbers that inform decisions, not distract.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🚀</div>
+                <h4>Startup Founders</h4>
+                <p>Lean data practice. Understand traction, unit economics, growth. No analyst salary needed.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing -->
+    <section class="section">
+        <div class="pricing-section">
+            <h3>Flexible Pricing</h3>
+            <p class="pricing-placeholder">Usage-based. Pay for what you analyze. Starts at $29/month, scales with your needs.</p>
+            <button class="btn btn-primary">See Pricing Plans</button>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Data & Analytics Skills. Built for curious minds with questions to answer.</p>
+    </footer>
+</body>
+</html>

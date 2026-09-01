@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment - Operations Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            background-color: #FAFAFA;
+            color: #0F172A;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: #64748B;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .breadcrumb a {
+            color: #475569;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: #0F172A;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-secondary {
+            padding: 0.5rem 1rem;
+            border: 1px solid #E2E8F0;
+            background: white;
+            color: #475569;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: #F8FAFC;
+            border-color: #475569;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin: 1rem 0;
+            color: #0F172A;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #F0F4F8;
+            color: #475569;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            padding: 0.75rem 2rem;
+            background: #475569;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: #364553;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(71, 85, 105, 0.15);
+        }
+
+        .btn-tertiary {
+            padding: 0.75rem 2rem;
+            background: white;
+            color: #475569;
+            border: 2px solid #475569;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-tertiary:hover {
+            background: #F8FAFC;
+            transform: translateY(-2px);
+        }
+
+        .hero-icon {
+            font-size: 6rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .hero-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Capabilities Section */
+        .capabilities {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            color: #0F172A;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .capability-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .capability-card:hover {
+            border-color: #475569;
+            box-shadow: 0 12px 24px rgba(71, 85, 105, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #0F172A;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #64748B;
+            line-height: 1.6;
+        }
+
+        /* Use Cases Section */
+        .use-cases {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: white;
+            border-top: 1px solid #E2E8F0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .use-case-item {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+            border-left: 4px solid #475569;
+        }
+
+        .use-case-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .use-case-item h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #0F172A;
+        }
+
+        .use-case-item p {
+            font-size: 0.95rem;
+            color: #64748B;
+            line-height: 1.6;
+        }
+
+        /* Integrations Section */
+        .integrations {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .integrations h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #0F172A;
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .integration-pill {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 2rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #475569;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .integration-pill:hover {
+            background: #F8FAFC;
+            border-color: #475569;
+            transform: translateY(-2px);
+        }
+
+        /* Audience Section */
+        .audience {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: white;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .audience h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #0F172A;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .audience-card {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .audience-card:hover {
+            background: white;
+            border-color: #475569;
+            box-shadow: 0 8px 16px rgba(71, 85, 105, 0.08);
+        }
+
+        .audience-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #0F172A;
+        }
+
+        .audience-card p {
+            font-size: 0.9rem;
+            color: #64748B;
+            line-height: 1.6;
+        }
+
+        .audience-meta {
+            font-size: 0.8rem;
+            color: #94A3B8;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
+            border-top: 1px solid #E2E8F0;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #0F172A;
+        }
+
+        .pricing p {
+            font-size: 1rem;
+            color: #64748B;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-cta {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: #475569;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pricing-cta:hover {
+            background: #364553;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(71, 85, 105, 0.15);
+        }
+
+        /* Footer */
+        footer {
+            background: #0F172A;
+            color: #CBD5E1;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: #E2E8F0;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: #FFFFFF;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero-icon {
+                font-size: 4rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .nav-actions {
+                align-self: flex-end;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .integration-pills {
+                justify-content: center;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-tertiary {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="breadcrumb">
+                <a href="../../index.html">Marketplace</a>
+                <span>•</span>
+                <a href="/operations">Operations</a>
+                <span>•</span>
+                <span>Risk Assessment</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-secondary">View Docs</button>
+                <button class="btn-primary">Get Started</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">SKILL</div>
+                <h1>Risk Assessment</h1>
+                <p class="hero-description">Identify, quantify, and mitigate operational risks before they impact your business. Build severity-likelihood matrices, maintain living risk registers, and track mitigation progress in real time.</p>
+                <div class="hero-ctas">
+                    <button class="btn-primary">Start Risk Assessment</button>
+                    <button class="btn-tertiary">See in Action</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-icon">⚠️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section class="capabilities">
+        <h2 class="section-title">What You Can Do</h2>
+        <div class="capabilities-grid">
+            <div class="capability-card">
+                <div class="capability-icon">📊</div>
+                <h3>Severity-Likelihood Matrices</h3>
+                <p>Plot risks on 5x5 grids with color-coded heat maps. Instantly see which risks demand immediate attention and which can be monitored.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📋</div>
+                <h3>Living Risk Registers</h3>
+                <p>Maintain dynamic, department-wide risk inventories. Track owners, update status, and link mitigations to reduce exposure systematically.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🎯</div>
+                <h3>Mitigation Planning</h3>
+                <p>Define concrete, measurable mitigation steps for high-impact risks. Assign owners and set deadlines to shrink the risk surface.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📈</div>
+                <h3>Risk Trend Analysis</h3>
+                <p>Watch how risk scores change month-over-month. Spot emerging threats and celebrate risks you've successfully eliminated.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔗</div>
+                <h3>Cross-Function Risk Mapping</h3>
+                <p>Show how risks cascade across teams. Identify single points of failure and dependencies that could trigger downstream failures.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⏱️</div>
+                <h3>Risk Impact Forecasting</h3>
+                <p>Model financial, operational, and reputational impacts. Quantify the cost of inaction and the ROI of mitigation investments.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 class="section-title" style="background: white; margin-bottom: 2rem;">When You Need Risk Assessment</h2>
+            <div class="use-case-item">
+                <h3>Post-Acquisition Integration</h3>
+                <p>Rapidly map risks from the newly acquired entity into your environment. Identify cultural clashes, data fragmentation, and process conflicts before they derail integration. Track mitigation to keep the deal on track.</p>
+            </div>
+            <div class="use-case-item">
+                <h3>Scaling to New Markets</h3>
+                <p>Entering a new geography, customer segment, or product line introduces blind spots. Build risk matrices for regulatory, operational, and market risks upfront. Shift resources to de-risk the launch.</p>
+            </div>
+            <div class="use-case-item">
+                <h3>Regulatory or Compliance Audits</h3>
+                <p>Auditors expect a formal risk assessment framework. Document current exposure, mitigation roadmaps, and owner accountability. Demonstrate continuous monitoring and improvement to pass audits with flying colors.</p>
+            </div>
+            <div class="use-case-item">
+                <h3>Crisis Preparedness and Business Continuity</h3>
+                <p>Map supply chain disruptions, key-person dependencies, and infrastructure failures. Build playbooks for your highest-impact risks. Test them annually to keep the organization ready when disaster strikes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations Section -->
+    <section class="integrations">
+        <h2>Works With</h2>
+        <div class="integration-pills">
+            <div class="integration-pill">Tableau & Looker (dashboards)</div>
+            <div class="integration-pill">Jira (issue tracking)</div>
+            <div class="integration-pill">Slack (alerts)</div>
+            <div class="integration-pill">Microsoft Teams (async updates)</div>
+            <div class="integration-pill">GCP Risk Management</div>
+            <div class="integration-pill">Salesforce (customer risk)</div>
+            <div class="integration-pill">SAP (enterprise risks)</div>
+            <div class="integration-pill">Confluence (documentation)</div>
+        </div>
+    </section>
+
+    <!-- Audience Section -->
+    <section class="audience">
+        <h2>Best For</h2>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <h3>Solopreneurs & Startups</h3>
+                <p>Early-stage founders who need lightweight, intuitive risk frameworks to stay ahead of problems without overwhelming overhead or spreadsheets.</p>
+                <div class="audience-meta">Ideal for bootstrapped teams</div>
+            </div>
+            <div class="audience-card">
+                <h3>Mid-Market Operations Leaders</h3>
+                <p>Operations and compliance teams managing growing complexity, managing stakeholder expectations, and proving control frameworks to boards and auditors.</p>
+                <div class="audience-meta">Ideal for scaling teams</div>
+            </div>
+            <div class="audience-card">
+                <h3>Enterprise Risk & Compliance Teams</h3>
+                <p>Large organizations needing governance-grade risk management, cross-department collaboration, and audit-ready documentation and proof of continuous monitoring.</p>
+                <div class="audience-meta">Ideal for Fortune 500 teams</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <h2>Simple, Usage-Based Pricing</h2>
+        <p>Start free. Scale as you grow.</p>
+        <button class="pricing-cta">View Pricing Plans</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Operations Marketplace. All rights reserved. | <a href="#">Privacy</a> • <a href="#">Terms</a> • <a href="#">Contact</a></p>
+    </footer>
+</body>
+</html>

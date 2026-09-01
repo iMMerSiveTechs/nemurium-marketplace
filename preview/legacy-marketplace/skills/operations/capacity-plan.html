@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capacity Plan | Operations Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #FAFAFA;
+      color: #1F2937;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+      padding: 1rem 2rem;
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+      color: #6B7280;
+    }
+
+    .nav-content a {
+      color: #475569;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-content a:hover {
+      color: #1F2937;
+    }
+
+    .nav-separator {
+      margin: 0 0.75rem;
+      color: #D1D5DB;
+    }
+
+    header {
+      background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
+      padding: 4rem 2rem;
+      border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .skill-badge {
+      display: inline-block;
+      background: #475569;
+      color: white;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #0F172A;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      color: #4B5563;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: #475569;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #334155;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(71, 85, 105, 0.2);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #475569;
+      border: 1.5px solid #475569;
+    }
+
+    .btn-secondary:hover {
+      background: #475569;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #0F172A;
+    }
+
+    .section-subtitle {
+      color: #6B7280;
+      margin-bottom: 3rem;
+      font-size: 1.025rem;
+    }
+
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .capability-card {
+      background: white;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .capability-card:hover {
+      border-color: #475569;
+      box-shadow: 0 12px 24px rgba(71, 85, 105, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .capability-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .capability-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #0F172A;
+    }
+
+    .capability-card p {
+      color: #6B7280;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .use-cases {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 3rem;
+      margin-bottom: 5rem;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .use-case-item {
+      padding: 1.5rem;
+      background: #F8FAFC;
+      border-radius: 0.5rem;
+      border-left: 3px solid #475569;
+    }
+
+    .use-case-item h4 {
+      font-weight: 600;
+      color: #0F172A;
+      margin-bottom: 0.5rem;
+    }
+
+    .use-case-item p {
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+
+    .integrations {
+      margin-bottom: 5rem;
+    }
+
+    .integration-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .pill {
+      background: white;
+      border: 1px solid #D1D5DB;
+      color: #475569;
+      padding: 0.625rem 1.25rem;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .pill:hover {
+      border-color: #475569;
+      box-shadow: 0 4px 12px rgba(71, 85, 105, 0.1);
+    }
+
+    .audience-section {
+      margin-bottom: 5rem;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .audience-card {
+      background: white;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .audience-card:hover {
+      border-color: #475569;
+      box-shadow: 0 8px 16px rgba(71, 85, 105, 0.08);
+    }
+
+    .audience-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .audience-card h3 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #0F172A;
+    }
+
+    .audience-card p {
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+
+    .pricing-section {
+      background: #F8FAFC;
+      border-radius: 0.75rem;
+      padding: 3rem;
+      text-align: center;
+      margin-bottom: 5rem;
+      border: 1px solid rgba(71, 85, 105, 0.1);
+    }
+
+    .pricing-placeholder {
+      font-size: 1.125rem;
+      color: #6B7280;
+      margin-top: 1.5rem;
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid rgba(71, 85, 105, 0.1);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: #6B7280;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .hero-description {
+        font-size: 1rem;
+      }
+
+      .capabilities-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-content">
+      <a href="#">← Marketplace</a>
+      <span class="nav-separator">/</span>
+      <a href="#">Operations</a>
+      <span class="nav-separator">/</span>
+      <span>Capacity Plan</span>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-content">
+      <span class="skill-badge">SKILL</span>
+      <div class="hero-icon">👥</div>
+      <h1>Capacity Plan</h1>
+      <p class="hero-description">
+        Do you have enough people? Should you hire or rebalance? Analyze workload, forecast utilization, and make hire-vs-deprioritize decisions with data instead of gut feel. Build plans that scale without constantly firefighting.
+      </p>
+      <div class="cta-group">
+        <button class="btn btn-primary">Add to Workspace</button>
+        <button class="btn btn-secondary">Learn More</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <section>
+      <h2 class="section-title">Core Capabilities</h2>
+      <p class="section-subtitle">What you can do with Capacity Plan</p>
+      <div class="capabilities-grid">
+        <div class="capability-card">
+          <div class="capability-icon">📊</div>
+          <h3>Workload Analysis</h3>
+          <p>Map all projects and tasks. Volume, complexity, owner, deadline. See where all hours go. Identify overload early.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">📈</div>
+          <h3>Utilization Forecasting</h3>
+          <p>Current load + roadmap = utilization 6 months out. Will you be 70% full or 140%? Plan accordingly.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">💼</div>
+          <h3>Skill-Based Allocation</h3>
+          <p>Not all engineers are equal. Match project needs to team skills. Identify gaps and hiring priorities.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">💰</div>
+          <h3>Hire-vs-Deprioritize Modeling</h3>
+          <p>Cost of new headcount vs delay on feature X. Run scenarios. What if we hired 2 people? Promoted someone? Outsourced Y?</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">🎯</div>
+          <h3>Burnout Early Warning</h3>
+          <p>Track hours per person per week. Flag when someone hits 50+ sustained hours. Intervene before they leave.</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">📆</div>
+          <h3>Seasonal/Cyclical Planning</h3>
+          <p>Some teams peak in Q4, quiet in Q2. Capacity plan adjusts for your cycle. Hire/ramp/contract at the right time.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="use-cases">
+      <h2 class="section-title">Perfect For</h2>
+      <div class="use-cases-grid">
+        <div class="use-case-item">
+          <h4>Annual Budget Cycle</h4>
+          <p>Build hiring headcount request on data. Show CFO exactly where the 3 new roles go. Approval in days, not weeks.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Scaling Pains</h4>
+          <p>Hypergrowth means resource chaos. Capacity plan keeps org aligned as you scale. Track FTE needs vs reality.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Retention & Burnout</h4>
+          <p>See who's overloaded before exit interviews. Rebalance workload, hire support, offer sabbaticals. Act early.</p>
+        </div>
+        <div class="use-case-item">
+          <h4>Cross-Team Prioritization</h4>
+          <p>Multiple teams competing for shared resources. Capacity plan shows what fits. Kill "everything is priority one."</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="integrations">
+      <h2 class="section-title">Works With</h2>
+      <div class="integration-pills">
+        <span class="pill">Jira</span>
+        <span class="pill">Asana</span>
+        <span class="pill">Monday.com</span>
+        <span class="pill">Harvest (time tracking)</span>
+        <span class="pill">Tableau</span>
+        <span class="pill">Workday</span>
+        <span class="pill">ADP</span>
+        <span class="pill">Greenhouse</span>
+      </div>
+    </section>
+
+    <section class="audience-section">
+      <h2 class="section-title">Built For</h2>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="audience-icon">📊</div>
+          <h3>Finance/HR Teams</h3>
+          <p>Align hiring with headcount budget. Build business case for new roles. Track FTE cost and utilization ROI.</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">👔</div>
+          <h3>Department Leaders</h3>
+          <p>Own your team's capacity. Plan workload strategically. Know 6 months out if you're overstaffed or drowning.</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🏢</div>
+          <h3>Enterprise Ops</h3>
+          <p>Allocate resources across dozens of teams. Balance strategic initiatives with BAU. Portfolio-level visibility.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <h2 class="section-title">Pricing</h2>
+      <p class="pricing-placeholder">$400/month up to 100 FTE. Enterprise: custom pricing for 500+ employee orgs. Integrations included.</p>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Operations Marketplace. All rights reserved.</p>
+  </footer>
+</body>
+</html>

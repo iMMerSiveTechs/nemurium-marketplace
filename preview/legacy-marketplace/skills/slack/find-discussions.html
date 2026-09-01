@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Discussions - Command Center Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #FAFAFA; color: #1F2937; }
+        .nav-bar {
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 2rem;
+        }
+        .nav-content {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 1.2rem; font-weight: 600; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #611F69; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .hero {
+            padding: 4rem 0; text-align: center;
+        }
+        .skill-badge {
+            display: inline-block;
+            background: #611F69;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+        .hero-icon {
+            font-size: 4rem; margin-bottom: 1.5rem;
+        }
+        h1 {
+            font-size: 3rem; font-weight: 700;
+            margin-bottom: 1rem; color: #111827;
+            line-height: 1.2;
+        }
+        .hero-description {
+            font-size: 1.125rem; color: #6B7280;
+            max-width: 600px; margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+        .cta-buttons {
+            display: flex; gap: 1rem; justify-content: center;
+            flex-wrap: wrap; margin-bottom: 3rem;
+        }
+        .btn {
+            padding: 0.875rem 2rem; border-radius: 8px;
+            font-weight: 600; border: none; cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background: #611F69; color: white;
+        }
+        .btn-primary:hover {
+            background: #4A1651; transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(97, 31, 105, 0.3);
+        }
+        .btn-secondary {
+            background: white; color: #611F69; border: 2px solid #611F69;
+        }
+        .btn-secondary:hover {
+            background: #f9f5ff; transform: translateY(-2px);
+        }
+        .section-title {
+            font-size: 2rem; font-weight: 700;
+            margin: 3rem 0 2rem; color: #111827;
+        }
+        .capabilities {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem; margin-bottom: 3rem;
+        }
+        .capability-card {
+            background: white; padding: 2rem;
+            border-radius: 12px; border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+        .capability-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(97, 31, 105, 0.1);
+            border-color: #611F69;
+        }
+        .cap-icon {
+            font-size: 2rem; margin-bottom: 1rem;
+        }
+        .cap-title {
+            font-size: 1.125rem; font-weight: 600;
+            margin-bottom: 0.5rem; color: #111827;
+        }
+        .cap-description {
+            font-size: 0.95rem; color: #6B7280; line-height: 1.5;
+        }
+        .use-cases {
+            margin-bottom: 3rem;
+        }
+        .use-case-item {
+            background: white; padding: 1.5rem;
+            border-radius: 8px; margin-bottom: 1rem;
+            border-left: 4px solid #611F69;
+        }
+        .use-case-title {
+            font-weight: 600; font-size: 1.05rem;
+            margin-bottom: 0.5rem; color: #111827;
+        }
+        .use-case-description {
+            color: #6B7280; font-size: 0.95rem; line-height: 1.5;
+        }
+        .works-with {
+            margin-bottom: 3rem;
+        }
+        .pill-container {
+            display: flex; flex-wrap: wrap; gap: 1rem;
+        }
+        .pill {
+            background: white; border: 2px solid #611F69;
+            color: #611F69; padding: 0.5rem 1.25rem;
+            border-radius: 20px; font-weight: 500; font-size: 0.9rem;
+        }
+        .audience {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem; margin-bottom: 3rem;
+        }
+        .audience-card {
+            background: white; padding: 1.5rem;
+            border-radius: 12px; border: 1px solid #E5E7EB;
+        }
+        .audience-icon {
+            font-size: 2.5rem; margin-bottom: 1rem;
+        }
+        .audience-title {
+            font-weight: 600; font-size: 1.05rem;
+            margin-bottom: 0.5rem; color: #111827;
+        }
+        .audience-description {
+            color: #6B7280; font-size: 0.9rem; line-height: 1.5;
+        }
+        .pricing {
+            background: white; padding: 3rem;
+            border-radius: 12px; text-align: center; margin-bottom: 3rem;
+        }
+        .pricing-value {
+            font-size: 2.5rem; font-weight: 700;
+            color: #611F69; margin: 1rem 0;
+        }
+        .pricing-note {
+            color: #6B7280; font-size: 0.95rem;
+        }
+        footer {
+            text-align: center; padding: 2rem;
+            color: #9CA3AF; font-size: 0.9rem;
+            border-top: 1px solid #E5E7EB;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .hero-icon { font-size: 3rem; }
+            .section-title { font-size: 1.5rem; }
+            .cta-buttons { flex-direction: column; }
+            .btn { width: 100%; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <div class="logo">Command Center</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#usecases">Use Cases</a>
+                <a href="#pricing">Pricing</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="hero">
+            <div class="hero-icon">🔎</div>
+            <span class="skill-badge">SKILL</span>
+            <h1>Find Discussions</h1>
+            <p class="hero-description">Locate relevant conversations about specific topics across your Slack workspace. Find stakeholders, understand context, and gather information from discussions without manually scanning channels.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Add to Command Center</button>
+                <button class="btn btn-secondary">View Documentation</button>
+            </div>
+        </section>
+
+        <section id="features">
+            <h2 class="section-title">Capabilities</h2>
+            <div class="capabilities">
+                <div class="capability-card">
+                    <div class="cap-icon">🎯</div>
+                    <div class="cap-title">Topic-Based Discovery</div>
+                    <div class="cap-description">Search for discussions by topic, project, or keyword. Find all mentions and conversations related to what you're looking for.</div>
+                </div>
+                <div class="capability-card">
+                    <div class="cap-icon">👥</div>
+                    <div class="cap-title">Stakeholder Identification</div>
+                    <div class="cap-description">Discover who is involved in discussions about specific topics. Identify key decision makers, contributors, and interested parties.</div>
+                </div>
+                <div class="capability-card">
+                    <div class="cap-icon">🗺️</div>
+                    <div class="cap-title">Cross-Channel Navigation</div>
+                    <div class="cap-description">Find discussions spread across multiple channels. Get a complete picture of conversations without knowing which channels to check.</div>
+                </div>
+                <div class="capability-card">
+                    <div class="cap-icon">📌</div>
+                    <div class="cap-title">Context Aggregation</div>
+                    <div class="cap-description">Collect related messages and threads into a cohesive context summary. Understand the full story without jumping between channels.</div>
+                </div>
+                <div class="capability-card">
+                    <div class="cap-icon">⏱️</div>
+                    <div class="cap-title">Timeline View</div>
+                    <div class="cap-description">See how discussions evolved over time. Track decisions, debates, and changes in perspective chronologically.</div>
+                </div>
+                <div class="capability-card">
+                    <div class="cap-icon">🔗</div>
+                    <div class="cap-title">Deep Link Generation</div>
+                    <div class="cap-description">Generate shareable links to specific discussions and thread timestamps for easy reference and collaboration.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="usecases">
+            <h2 class="section-title">Use Cases</h2>
+            <div class="use-cases">
+                <div class="use-case-item">
+                    <div class="use-case-title">Onboarding & Context Building</div>
+                    <div class="use-case-description">New team members can quickly find discussions about their team, projects, and processes to understand organizational context and history.</div>
+                </div>
+                <div class="use-case-item">
+                    <div class="use-case-title">Meeting Preparation</div>
+                    <div class="use-case-description">Before important meetings, find all relevant discussions, decisions, and stakeholder perspectives to come prepared and informed.</div>
+                </div>
+                <div class="use-case-item">
+                    <div class="use-case-title">Root Cause Analysis</div>
+                    <div class="use-case-description">Investigate incidents or problems by finding all related discussions, decisions that led to the issue, and lessons learned.</div>
+                </div>
+                <div class="use-case-item">
+                    <div class="use-case-title">Project & Initiative Discovery</div>
+                    <div class="use-case-description">Learn about projects across the organization by finding and reading their Slack discussions, planning, and execution conversations.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="works-with">
+            <h2 class="section-title">Works With</h2>
+            <div class="pill-container">
+                <div class="pill">Slack</div>
+                <div class="pill">Linear</div>
+                <div class="pill">Jira</div>
+                <div class="pill">GitHub</div>
+                <div class="pill">Notion</div>
+                <div class="pill">Google Drive</div>
+                <div class="pill">Confluence</div>
+            </div>
+        </section>
+
+        <section class="audience">
+            <h2 class="section-title" style="grid-column: 1 / -1;">Best For</h2>
+            <div class="audience-card">
+                <div class="audience-icon">🚀</div>
+                <div class="audience-title">Project Leads & Managers</div>
+                <div class="audience-description">Find stakeholder input, decisions, and progress updates across channels without manually tracking conversations.</div>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">👨‍💼</div>
+                <div class="audience-title">New Team Members</div>
+                <div class="audience-description">Get up to speed quickly by finding historical discussions and understanding how decisions were made in your organization.</div>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🔍</div>
+                <div class="audience-title">Incident Response & Support</div>
+                <div class="audience-description">Find related issues, previous solutions, and stakeholder context for incident investigation and customer support.</div>
+            </div>
+        </section>
+
+        <section class="pricing" id="pricing">
+            <h2 class="section-title">Pricing</h2>
+            <p class="pricing-note">Pricing information coming soon</p>
+            <div class="pricing-value">Coming Soon</div>
+            <p class="pricing-note">Contact sales for enterprise custom plans</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Command Center. All rights reserved.</p>
+    </footer>
+</body>
+</html>

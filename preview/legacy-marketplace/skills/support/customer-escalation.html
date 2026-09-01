@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Escalation - Customer Support Skills</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        /* Sticky Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 0.75rem 2rem;
+        }
+
+        nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #6B7280;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #0284C7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 3rem;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: #E0F2FE;
+            color: #0284C7;
+            padding: 0.375rem 0.875rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #0284C7;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0369A1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.15);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0284C7;
+            border: 1.5px solid #0284C7;
+        }
+
+        .btn-secondary:hover {
+            background: #E0F2FE;
+            transform: translateY(-2px);
+        }
+
+        /* Capabilities Grid */
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            border-color: #0284C7;
+            box-shadow: 0 12px 35px rgba(2, 132, 199, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .use-cases h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .use-case-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .use-case-item {
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .use-case-item:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #0284C7;
+            font-weight: 700;
+        }
+
+        .use-case-item h4 {
+            font-weight: 600;
+            margin-bottom: 0.375rem;
+        }
+
+        .use-case-item p {
+            font-size: 0.95rem;
+            color: #6B7280;
+        }
+
+        /* Integrations */
+        .integrations {
+            margin-bottom: 4rem;
+        }
+
+        .integrations h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .integration-pill {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.625rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .integration-pill:hover {
+            border-color: #0284C7;
+            background: #E0F2FE;
+            color: #0284C7;
+        }
+
+        /* Audience Cards */
+        .audience {
+            margin-bottom: 4rem;
+        }
+
+        .audience h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .audience-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .audience-card:hover {
+            border-color: #0284C7;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.08);
+        }
+
+        .audience-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .audience-card p {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        /* Pricing */
+        .pricing {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .pricing h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #0284C7;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-note {
+            color: #6B7280;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#"><span>←</span> Marketplace / Customer Support / Customer Escalation</a>
+    </nav>
+
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-icon">🚨</div>
+            <div class="skill-badge">Skill</div>
+            <h1>Customer Escalation</h1>
+            <p>Package escalations for engineering, product, and leadership with full context. Auto-build executive summaries, attach evidence, set severity levels, and notify the right stakeholders—instantly.</p>
+            <div class="cta-group">
+                <button class="btn btn-primary">Install Skill</button>
+                <button class="btn btn-secondary">See Demo</button>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section>
+            <h2 class="section-title">Key Capabilities</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon">📋</div>
+                    <h3>Executive Summary</h3>
+                    <p>Auto-generate 1-page summaries of the issue: what happened, customer impact, expected resolution, and next steps.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🔍</div>
+                    <h3>Evidence Attachment</h3>
+                    <p>Gather logs, screenshots, error traces, and customer feedback. Compile into a dossier with context.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🎯</div>
+                    <h3>Severity & SLA Marking</h3>
+                    <p>Auto-assess severity (Critical/High/Medium/Low) and assign SLA timers. Flag time-sensitive escalations.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📧</div>
+                    <h3>Smart Routing</h3>
+                    <p>Route to engineering, product, or leadership based on issue type. Notify via email, Slack, or ticketing system.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🔗</div>
+                    <h3>Cross-Team Alignment</h3>
+                    <p>Link escalations to Jira issues, product roadmap items, and known bugs. Keep teams in sync.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📊</div>
+                    <h3>Escalation Analytics</h3>
+                    <p>Track escalation volume, resolution time, and root causes. Spot systemic issues early.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="use-cases">
+            <h2>Common Use Cases</h2>
+            <div class="use-case-list">
+                <div class="use-case-item">
+                    <h4>Critical Production Incidents</h4>
+                    <p>Customer down. P1 escalation sent to engineering and leadership in seconds with full logs and impact assessment.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>Enterprise Customer Churn Risk</h4>
+                    <p>VIP customer threatening to leave. Flag to CSM and product leadership with retention strategy and talking points.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>Product Feedback at Scale</h4>
+                    <p>Multiple customers requesting a feature. Auto-escalate patterns to product team with demand signals and use cases.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>Compliance & Legal Issues</h4>
+                    <p>Potential data breach or legal issue. Escalate to legal/security with full evidence, timeline, and remediation steps.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integrations -->
+        <section class="integrations">
+            <h2>Works With</h2>
+            <div class="integration-pills">
+                <div class="integration-pill">Jira</div>
+                <div class="integration-pill">Linear</div>
+                <div class="integration-pill">Zendesk</div>
+                <div class="integration-pill">Slack</div>
+                <div class="integration-pill">PagerDuty</div>
+                <div class="integration-pill">Datadog</div>
+                <div class="integration-pill">Salesforce</div>
+                <div class="integration-pill">Email</div>
+                <div class="integration-pill">Custom Webhooks</div>
+            </div>
+        </section>
+
+        <!-- Audience -->
+        <section class="audience">
+            <h2>Built For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h4>👥 Support Leaders</h4>
+                    <p>Escalate with confidence. Engineering knows what they're getting. Faster resolutions.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>🏢 Engineering Leads</h4>
+                    <p>Get escalations with context, not surprises. Prioritize by real impact, not noise.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>📈 Product Managers</h4>
+                    <p>Aggregate feature requests and pain points. Data-driven roadmap decisions.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>👔 Executives</h4>
+                    <p>One-page summaries of critical issues. Visibility without information overload.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section class="pricing">
+            <h2>Pricing</h2>
+            <div class="price">Coming Soon</div>
+            <p class="price-note">Early access available for pilot customers. Contact sales for details.</p>
+            <button class="btn btn-primary">Request Pilot Access</button>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Triage - Customer Support Skills</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        /* Sticky Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 0.75rem 2rem;
+        }
+
+        nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #6B7280;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #0284C7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 3rem;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: #E0F2FE;
+            color: #0284C7;
+            padding: 0.375rem 0.875rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #0284C7;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0369A1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.15);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0284C7;
+            border: 1.5px solid #0284C7;
+        }
+
+        .btn-secondary:hover {
+            background: #E0F2FE;
+            transform: translateY(-2px);
+        }
+
+        /* Capabilities Grid */
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            border-color: #0284C7;
+            box-shadow: 0 12px 35px rgba(2, 132, 199, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .use-cases h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .use-case-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .use-case-item {
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .use-case-item:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #0284C7;
+            font-weight: 700;
+        }
+
+        .use-case-item h4 {
+            font-weight: 600;
+            margin-bottom: 0.375rem;
+        }
+
+        .use-case-item p {
+            font-size: 0.95rem;
+            color: #6B7280;
+        }
+
+        /* Integrations */
+        .integrations {
+            margin-bottom: 4rem;
+        }
+
+        .integrations h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .integration-pill {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.625rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .integration-pill:hover {
+            border-color: #0284C7;
+            background: #E0F2FE;
+            color: #0284C7;
+        }
+
+        /* Audience Cards */
+        .audience {
+            margin-bottom: 4rem;
+        }
+
+        .audience h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .audience-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .audience-card:hover {
+            border-color: #0284C7;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.08);
+        }
+
+        .audience-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .audience-card p {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        /* Pricing */
+        .pricing {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .pricing h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #0284C7;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-note {
+            color: #6B7280;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#"><span>←</span> Marketplace / Customer Support / Ticket Triage</a>
+    </nav>
+
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-icon">🎫</div>
+            <div class="skill-badge">Skill</div>
+            <h1>Ticket Triage</h1>
+            <p>Instantly categorize incoming support tickets, assign P1-P4 priority levels, route to the right team, and identify duplicates or known issues—all automatically. Reduce MTTR and increase first-contact resolution.</p>
+            <div class="cta-group">
+                <button class="btn btn-primary">Install Skill</button>
+                <button class="btn btn-secondary">See Demo</button>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section>
+            <h2 class="section-title">Key Capabilities</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon">⚡</div>
+                    <h3>Smart Categorization</h3>
+                    <p>Automatically classify tickets by issue type: billing, technical, account, feature request, or complaint—using context and language analysis.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📊</div>
+                    <h3>Priority Assignment</h3>
+                    <p>Assign P1–P4 priority levels based on customer tier, issue severity, and business impact to optimize queue management.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🔄</div>
+                    <h3>Duplicate Detection</h3>
+                    <p>Identify duplicate tickets and link to existing issues, preventing wasted effort and keeping conversations unified.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🎯</div>
+                    <h3>Intelligent Routing</h3>
+                    <p>Auto-route tickets to the right team or specialist based on category, priority, and workload distribution.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🧠</div>
+                    <h3>Known Issue Matching</h3>
+                    <p>Cross-reference against your KB and issue tracker to flag recurring problems and suggest documented solutions.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📝</div>
+                    <h3>Summary Generation</h3>
+                    <p>Generate concise ticket summaries for faster context capture and better team communication on handoff.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="use-cases">
+            <h2>Common Use Cases</h2>
+            <div class="use-case-list">
+                <div class="use-case-item">
+                    <h4>High-Volume Support Teams</h4>
+                    <p>Triage hundreds of tickets daily without manual review. Ensure P1 incidents surface instantly and reach the right engineer in seconds.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>Multi-Channel Support Centers</h4>
+                    <p>Unified triage for email, chat, forms, and social media. One standard categorization across all channels reduces confusion.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>Distributed Support Teams</h4>
+                    <p>Distribute tickets fairly across global teams based on expertise and workload. No more bottlenecks or missed escalations.</p>
+                </div>
+                <div class="use-case-item">
+                    <h4>SLA-Critical Environments</h4>
+                    <p>Enforce consistent P1-P4 assignment tied to SLA timers. Automatically flag at-risk tickets before deadlines.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integrations -->
+        <section class="integrations">
+            <h2>Works With</h2>
+            <div class="integration-pills">
+                <div class="integration-pill">Slack</div>
+                <div class="integration-pill">Zendesk</div>
+                <div class="integration-pill">Intercom</div>
+                <div class="integration-pill">Jira</div>
+                <div class="integration-pill">Microsoft Teams</div>
+                <div class="integration-pill">Salesforce Service Cloud</div>
+                <div class="integration-pill">Freshdesk</div>
+                <div class="integration-pill">Linear</div>
+            </div>
+        </section>
+
+        <!-- Audience -->
+        <section class="audience">
+            <h2>Built For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h4>🎯 Support Leaders</h4>
+                    <p>Monitor triage accuracy and routing performance. Optimize team capacity in real time.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>⚙️ Support Ops</h4>
+                    <p>Configure categories, rules, and routing logic without code. Build SLA-aligned workflows.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>👥 Support Reps</h4>
+                    <p>Receive pre-triaged, routed tickets with full context. Spend more time solving, less time organizing.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>📈 Customer Success</h4>
+                    <p>Identify at-risk customers via escalation patterns. Proactive intervention before churn.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section class="pricing">
+            <h2>Pricing</h2>
+            <div class="price">Coming Soon</div>
+            <p class="price-note">Early access available for pilot customers. Contact sales for details.</p>
+            <button class="btn btn-primary">Request Pilot Access</button>
+        </section>
+    </div>
+</body>
+</html>

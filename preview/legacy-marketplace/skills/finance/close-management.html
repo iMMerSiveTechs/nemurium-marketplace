@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Close Management | Finance Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 16px 32px;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .nav-breadcrumb {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav-breadcrumb span {
+            color: #D1D5DB;
+        }
+
+        .nav-breadcrumb a {
+            color: #047857;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-breadcrumb a:hover {
+            color: #065F46;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding: 0 32px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #111827;
+        }
+
+        .hero-icon {
+            width: 100px;
+            height: 100px;
+            background: #047857;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #DBEAFE;
+            color: #0369A1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-description {
+            font-size: 16px;
+            color: #4B5563;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #047857;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #065F46;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(4, 120, 87, 0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #047857;
+            border: 1px solid #E5E7EB;
+        }
+
+        .btn-secondary:hover {
+            background: #F3F4F6;
+            border-color: #047857;
+        }
+
+        .hero-visual {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #047857 0%, #10B981 100%);
+            border-radius: 8px;
+            opacity: 0.15;
+        }
+
+        .capabilities {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 48px;
+        }
+
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            border-color: #047857;
+            box-shadow: 0 12px 24px rgba(4, 120, 87, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            width: 48px;
+            height: 48px;
+            background: #ECFDF5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .capability-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .capability-card p {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .use-cases {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .use-case-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            border-left: 4px solid #047857;
+        }
+
+        .use-case-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .use-case-card p {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .use-case-highlight {
+            font-size: 13px;
+            background: #ECFDF5;
+            color: #065F46;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .integrations {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .pill {
+            background: white;
+            border: 1px solid #E5E7EB;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4B5563;
+            transition: all 0.2s;
+        }
+
+        .pill:hover {
+            background: #047857;
+            color: white;
+            border-color: #047857;
+        }
+
+        .audience {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+
+        .audience-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .audience-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .audience-card p {
+            font-size: 13px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .pricing {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #E5E7EB;
+            max-width: 400px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #047857;
+            margin: 24px 0;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 0 20px 60px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            nav {
+                padding: 12px 20px;
+            }
+
+            .nav-content {
+                font-size: 12px;
+            }
+
+            .capability-grid,
+            .use-case-grid,
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="nav-breadcrumb">
+                <a href="../../index.html">← Marketplace</a>
+                <span>/</span>
+                <a href="#finance">Finance</a>
+                <span>/</span>
+                <span>Close Management</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">📅</div>
+            <div class="badge">Skill</div>
+            <h1>Close Management</h1>
+            <p class="hero-description">
+                Master your month-end close process with real-time task management, dependency tracking, and status visibility. Plan closes with precision. Track dependencies. Know exactly where you are every day. Compress 15-day closes into 8 days. Pure operational control.
+            </p>
+            <div class="cta-group">
+                <button class="btn btn-primary">Get Started Free</button>
+                <button class="btn btn-secondary">Schedule Demo</button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="chart-placeholder"></div>
+        </div>
+    </section>
+
+    <section class="capabilities">
+        <h2 class="section-title">Core Capabilities</h2>
+        <p class="section-subtitle">Complete month-end close orchestration</p>
+        
+        <div class="capability-grid">
+            <div class="capability-card">
+                <div class="capability-icon">📋</div>
+                <h3>Configurable Close Checklists</h3>
+                <p>Build your close process once. Reuse every month. Add tasks, assign owners, set deadlines, and link dependencies. Template-based for consistency.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔗</div>
+                <h3>Task Dependencies & Sequencing</h3>
+                <p>Define task dependencies automatically. Identify the critical path. Know which tasks unlock others. Visualize bottlenecks before they happen.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📊</div>
+                <h3>Real-Time Close Dashboard</h3>
+                <p>Live close progress by status and by owner. See completion % by day. Track vs. target timeline. Instant visibility into close health.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⏰</div>
+                <h3>Deadline & SLA Tracking</h3>
+                <p>Set task deadlines and SLAs. Auto-escalate late tasks. Highlight at-risk items before they slip. Push notifications to owners.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📝</div>
+                <h3>Task Comments & Documentation</h3>
+                <p>Attach notes, evidence, and supporting documents to every task. Build audit trail. Comment threads for collaboration without email.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📈</div>
+                <h3>Close Analytics & Insights</h3>
+                <p>Track close performance over time. Identify recurring bottlenecks. Measure time spent per task and by team member. Continuous improvement.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="use-cases">
+        <h2 class="section-title">Real-World Use Cases</h2>
+        <p class="section-subtitle">How finance teams use Close Management</p>
+        
+        <div class="use-case-grid">
+            <div class="use-case-card">
+                <h3>Coordinating Multi-Team Closes</h3>
+                <p>Coordinate 30+ tasks across accounting, treasury, FP&A, and tax teams. See who's blocked on whom. Break logjams instantly. Close timeline compressed by 30%.</p>
+                <div class="use-case-highlight">Reduced close cycle</div>
+            </div>
+            <div class="use-case-card">
+                <h3>Onboarding New Close Processes</h3>
+                <p>Document your close process once. New accountants follow the checklist and dependencies. Eliminate ad-hoc questions. Reduce ramp-up time to three closes.</p>
+                <div class="use-case-highlight">Process standardization</div>
+            </div>
+            <div class="use-case-card">
+                <h3>Managing Multi-Month Closures</h3>
+                <p>Run year-end, quarterly, and monthly closes simultaneously. Track dependencies across all three. Know exactly what's blocking what and why.</p>
+                <div class="use-case-highlight">Simultaneous closes</div>
+            </div>
+            <div class="use-case-card">
+                <h3>Board & Management Reporting</h3>
+                <p>Provide finance leadership with live close status updates. Show adherence to timeline. Prove close process maturity and control effectiveness.</p>
+                <div class="use-case-highlight">Executive visibility</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="integrations">
+        <h2 class="section-title">Works With</h2>
+        <p class="section-subtitle">Seamless data flow from your existing systems</p>
+        <div class="pill-group">
+            <span class="pill">Excel</span>
+            <span class="pill">Google Sheets</span>
+            <span class="pill">Asana</span>
+            <span class="pill">Monday.com</span>
+            <span class="pill">Jira</span>
+            <span class="pill">NetSuite</span>
+            <span class="pill">SAP</span>
+            <span class="pill">Slack</span>
+            <span class="pill">Microsoft Teams</span>
+            <span class="pill">Outlook</span>
+        </div>
+    </section>
+
+    <section class="audience">
+        <h2 class="section-title">Who This Is For</h2>
+        <p class="section-subtitle">Built for finance teams coordinating complex closes</p>
+        
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">👨‍💼</div>
+                <h3>Close Coordinators</h3>
+                <p>Own the close process. Coordinate teams and task sequencing. Track progress and manage escalations daily.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🏢</div>
+                <h3>Controllers</h3>
+                <p>Ensure predictable close timelines. Maintain process consistency. Prove control effectiveness to leadership and auditors.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">📊</div>
+                <h3>Finance Directors</h3>
+                <p>Monitor close health in real time. Optimize close process. Compress close cycle and improve team productivity.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🔍</div>
+                <h3>Internal Audit</h3>
+                <p>Validate close process design and control effectiveness. Review task completion and supporting documentation.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <h2 class="section-title">Pricing</h2>
+        <p class="section-subtitle">Transparent, usage-based pricing. No surprises.</p>
+        
+        <div class="pricing-card">
+            <h3 style="font-size: 18px; font-weight: 600; color: #111827; margin-bottom: 8px;">Enterprise</h3>
+            <p style="font-size: 14px; color: #6B7280; margin-bottom: 16px;">For large finance teams</p>
+            <div class="price">$599<span style="font-size: 18px; color: #6B7280;">/month</span></div>
+            <ul style="list-style: none; margin: 24px 0;">
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ Unlimited tasks</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ Full dependency tracking</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ SLA management</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0;">✓ 24/7 priority support</li>
+            </ul>
+            <button class="btn btn-primary">Start Free Trial</button>
+        </div>
+    </section>
+</body>
+</html>

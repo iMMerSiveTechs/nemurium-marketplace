@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Context Extractor - Data & Analytics Skills</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+        
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1rem 2rem;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+        
+        .breadcrumb a {
+            color: #0891B2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .breadcrumb a:hover {
+            color: #0369A1;
+        }
+        
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        
+        .icon-badge {
+            display: inline-flex;
+            width: 80px;
+            height: 80px;
+            background: #E0F2FE;
+            border-radius: 20px;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #0F172A;
+        }
+        
+        .tagline {
+            font-size: 1.25rem;
+            color: #4B5563;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: #0891B2;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0369A1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(8, 145, 178, 0.2);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #0891B2;
+            border: 2px solid #0891B2;
+        }
+        
+        .btn-secondary:hover {
+            background: #F0F9FF;
+            transform: translateY(-2px);
+        }
+        
+        .section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #0F172A;
+        }
+        
+        .capabilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .capability-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+        
+        .capability-card:hover {
+            border-color: #0891B2;
+            box-shadow: 0 10px 30px rgba(8, 145, 178, 0.1);
+            transform: translateY(-4px);
+        }
+        
+        .capability-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .capability-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0F172A;
+        }
+        
+        .capability-card p {
+            color: #6B7280;
+            font-size: 0.95rem;
+        }
+        
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .use-case {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #0891B2;
+        }
+        
+        .use-case h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #0F172A;
+        }
+        
+        .use-case p {
+            color: #6B7280;
+            font-size: 0.95rem;
+        }
+        
+        .pills-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 2rem 0;
+        }
+        
+        .pill {
+            display: inline-block;
+            background: #F3F4F6;
+            color: #374151;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .pill.accent {
+            background: #E0F2FE;
+            color: #0369A1;
+            border-color: #BAE6FD;
+        }
+        
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .audience-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+        
+        .audience-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .audience-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0F172A;
+        }
+        
+        .audience-card p {
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+        
+        .pricing-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+        
+        .pricing-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #0F172A;
+        }
+        
+        .pricing-placeholder {
+            color: #6B7280;
+            font-size: 1rem;
+            margin: 2rem 0;
+        }
+        
+        footer {
+            margin-top: 6rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6B7280;
+            border-top: 1px solid #E5E7EB;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .section {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="breadcrumb">
+                <a href="../../index.html">Home</a> / <a href="../../index.html">Marketplace</a> / <a href="../../index.html#data">Data & Analytics</a> / Data Context Extractor
+            </div>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="icon-badge">🧬</div>
+        <h1>Data Context Extractor</h1>
+        <p class="tagline">Company-specific data skills from tribal knowledge. Encode institutional understanding into reusable data practices.</p>
+        <div class="cta-group">
+            <button class="btn btn-primary">Extract Context Now</button>
+            <button class="btn btn-secondary">View Templates</button>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">What You Can Do</h2>
+        <div class="capabilities">
+            <div class="capability-card">
+                <div class="capability-icon">📚</div>
+                <h3>Domain Knowledge Capture</h3>
+                <p>Turn tribal knowledge into documented standards. Encode business rules and data definitions.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🏗️</div>
+                <h3>Custom Data Models</h3>
+                <p>Define data structures that match your business. Entity relationships and hierarchies.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🔤</div>
+                <h3>Naming Conventions</h3>
+                <p>Standardize column names, abbreviations, and naming patterns. Consistency across the org.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📖</div>
+                <h3>Data Dictionaries</h3>
+                <p>Automated documentation of data assets. What each field means and how to use it.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⚙️</div>
+                <h3>Business Rules</h3>
+                <p>Encode decision logic and validation rules. Consistency in calculations and processes.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🎓</div>
+                <h3>Knowledge Transfer</h3>
+                <p>Scalable onboarding for new analysts. Share expertise without bottlenecking on subject matter experts.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Common Use Cases</h2>
+        <div class="use-cases">
+            <div class="use-case">
+                <h4>Organizational Scaling</h4>
+                <p>New team members need to understand your data quickly. Codify domain knowledge once, reuse forever.</p>
+            </div>
+            <div class="use-case">
+                <h4>Cross-Team Alignment</h4>
+                <p>Different teams interpret data differently. Establish single source of truth for definitions.</p>
+            </div>
+            <div class="use-case">
+                <h4>System Migrations</h4>
+                <p>Moving platforms or reorganizing data? Preserve business logic and institutional knowledge.</p>
+            </div>
+            <div class="use-case">
+                <h4>Compliance & Audit</h4>
+                <p>Document data governance. Prove that calculations follow defined business rules.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Works With</h2>
+        <div class="pills-group">
+            <span class="pill accent">All Data Skills</span>
+            <span class="pill accent">SQL Queries</span>
+            <span class="pill accent">Explore Data</span>
+            <span class="pill">Data Catalog Tools</span>
+            <span class="pill">Wiki Systems</span>
+            <span class="pill">Confluence</span>
+            <span class="pill">Notion</span>
+            <span class="pill">Git</span>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Built For</h2>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">👥</div>
+                <h4>Data Leaders</h4>
+                <p>Scale expertise across the team. Share institutional knowledge at scale.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🏢</div>
+                <h4>Data Governance Teams</h4>
+                <p>Enforce standards and consistency. Document data governance practices.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🔍</div>
+                <h4>Data Architects</h4>
+                <p>Design systems with shared understanding. Build data models everyone can use.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">👨‍🏫</div>
+                <h4>Organizational Leaders</h4>
+                <p>Reduce knowledge silos. Democratize data understanding across the company.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="pricing-section">
+            <h3>Flexible Pricing</h3>
+            <p class="pricing-placeholder">Per organization. $199/month for unlimited context extraction and knowledge bases.</p>
+            <button class="btn btn-primary">See Pricing Plans</button>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2026 Data & Analytics Skills. Encode expertise, scale understanding, build data-literate organizations.</p>
+    </footer>
+</body>
+</html>

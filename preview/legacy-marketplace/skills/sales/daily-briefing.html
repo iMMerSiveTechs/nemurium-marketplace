@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Briefing - Sales Skills Marketplace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif;
+            background-color: #FAFAFA;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-breadcrumb a {
+            color: #EA580C;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .nav-breadcrumb a:hover {
+            opacity: 0.7;
+        }
+
+        .nav-breadcrumb span {
+            color: #ccc;
+            margin: 0 0.3rem;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #EA580C;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            background: #EA580C;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #EA580C;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d04a09;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(234, 88, 12, 0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #EA580C;
+            border: 2px solid #EA580C;
+        }
+
+        .btn-secondary:hover {
+            background: #FFF5F0;
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+            border-color: #EA580C;
+        }
+
+        .capability-icon {
+            width: 40px;
+            height: 40px;
+            background: #FFF5F0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .use-case {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+        }
+
+        .use-case h3 {
+            color: #EA580C;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .use-case p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .integrations {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            margin-bottom: 3rem;
+        }
+
+        .integrations h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .pill {
+            background: #FFF5F0;
+            color: #EA580C;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #FFE4D6;
+            transition: all 0.2s;
+        }
+
+        .pill:hover {
+            background: #EA580C;
+            color: white;
+        }
+
+        .audience {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #f0f0f0;
+            text-align: center;
+        }
+
+        .audience-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .audience-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .audience-card p {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .pricing-section {
+            max-width: 400px;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #f0f0f0;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .pricing-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #EA580C;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-desc {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-button {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                font-size: 0.8rem;
+            }
+
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-breadcrumb">
+                <a href="#">← Marketplace</a>
+                <span>/</span>
+                <a href="#">Sales</a>
+                <span>/</span>
+                <span>Daily Briefing</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">SKILL</div>
+            <h1>Daily Briefing</h1>
+            <p>Start every morning with a prioritized sales briefing. Key deals at risk, opportunities to advance, important customer updates, and action items—all in one place.</p>
+            <div class="hero-cta">
+                <button class="btn btn-primary">Add to Workspace</button>
+                <button class="btn btn-secondary">View Demo</button>
+            </div>
+        </div>
+        <div>
+            <div class="hero-icon">☀️</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">What You Can Do</h2>
+        <div class="capabilities-grid">
+            <div class="capability-card">
+                <div class="capability-icon">📌</div>
+                <h3>Prioritized Deal Summary</h3>
+                <p>Get a real-time snapshot of your pipeline. High-priority deals, stage changes, stalled opportunities, and immediate action items ranked by impact.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">⚠️</div>
+                <h3>Risk Flags & Alerts</h3>
+                <p>Automatic detection of at-risk deals. No activity in 14 days? Prospect went quiet? Key stakeholder left the company? Get alerted immediately.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">🎯</div>
+                <h3>Today's Action Items</h3>
+                <p>Automated list of calls to make, emails to send, and follow-ups due today. Prioritized by deal value and probability of close.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">💬</div>
+                <h3>Customer Updates & News</h3>
+                <p>Monitor for customer company news, funding rounds, leadership changes, and growth signals. Stay ahead of upsell and churn risk.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📊</div>
+                <h3>Weekly & Monthly Metrics</h3>
+                <p>Track your pipeline velocity, win rate, average deal size, and forecast vs. actuals. Know how you're trending toward your number.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📧</div>
+                <h3>Delivered via Email or Slack</h3>
+                <p>Get your briefing daily at your preferred time via email or Slack. Read in 5 minutes and stay focused on what matters most.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Real-World Use Cases</h2>
+        <div class="use-cases">
+            <div class="use-case">
+                <h3>☀️ Morning Standup Ready</h3>
+                <p>Before you join your team standup, you've already reviewed your priorities, flagged issues, and identified the day's critical actions. Lead the meeting with confidence.</p>
+            </div>
+            <div class="use-case">
+                <h3>🚨 Early Warning System</h3>
+                <p>Prospect silence shows up as a risk flag in your briefing. You reach out proactively before the deal goes cold. Early intervention saves the deal.</p>
+            </div>
+            <div class="use-case">
+                <h3>📈 Forecast Accountability</h3>
+                <p>Sales VP gets a daily briefing on the entire team's pipeline. Spot team performance trends, allocate coaching where needed, adjust forecast with confidence.</p>
+            </div>
+            <div class="use-case">
+                <h3>🎯 Territory Optimization</h3>
+                <p>New rep inherits territory. Daily briefing shows them what to focus on, which accounts have the most opportunity, and what's at risk of being lost.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="integrations">
+            <h3>Works With</h3>
+            <div class="integration-pills">
+                <div class="pill">Salesforce</div>
+                <div class="pill">HubSpot</div>
+                <div class="pill">Gmail</div>
+                <div class="pill">Google Calendar</div>
+                <div class="pill">Slack</div>
+                <div class="pill">Microsoft Teams</div>
+                <div class="pill">Outreach</div>
+                <div class="pill">Gong</div>
+                <div class="pill">Insightly</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Built For</h2>
+        <div class="audience">
+            <div class="audience-card">
+                <div class="audience-icon">💼</div>
+                <h3>Sales Reps</h3>
+                <p>Daily focus on what matters most to hit quota.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">👨‍💼</div>
+                <h3>Sales Managers</h3>
+                <p>Team performance visibility and risk detection at a glance.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">📊</div>
+                <h3>Sales Leadership</h3>
+                <p>Enterprise-wide pipeline health and forecast accuracy.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="pricing-section">
+            <h3>Usage-Based Pricing</h3>
+            <div class="price">Free</div>
+            <div class="price-desc">+ monthly subscription option</div>
+            <button class="btn btn-primary price-button">Start Free</button>
+        </div>
+    </section>
+</body>
+</html>

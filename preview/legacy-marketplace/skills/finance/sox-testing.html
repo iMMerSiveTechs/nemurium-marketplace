@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOX Testing | Finance Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 16px 32px;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .nav-breadcrumb {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav-breadcrumb span {
+            color: #D1D5DB;
+        }
+
+        .nav-breadcrumb a {
+            color: #047857;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-breadcrumb a:hover {
+            color: #065F46;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding: 0 32px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #111827;
+        }
+
+        .hero-icon {
+            width: 100px;
+            height: 100px;
+            background: #047857;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #DBEAFE;
+            color: #0369A1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-description {
+            font-size: 16px;
+            color: #4B5563;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #047857;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #065F46;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(4, 120, 87, 0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #047857;
+            border: 1px solid #E5E7EB;
+        }
+
+        .btn-secondary:hover {
+            background: #F3F4F6;
+            border-color: #047857;
+        }
+
+        .hero-visual {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #047857 0%, #10B981 100%);
+            border-radius: 8px;
+            opacity: 0.15;
+        }
+
+        .capabilities {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 48px;
+        }
+
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .capability-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            border-color: #047857;
+            box-shadow: 0 12px 24px rgba(4, 120, 87, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-icon {
+            width: 48px;
+            height: 48px;
+            background: #ECFDF5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .capability-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .capability-card p {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .use-cases {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .use-case-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            border-left: 4px solid #047857;
+        }
+
+        .use-case-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .use-case-card p {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .use-case-highlight {
+            font-size: 13px;
+            background: #ECFDF5;
+            color: #065F46;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .integrations {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .pill {
+            background: white;
+            border: 1px solid #E5E7EB;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4B5563;
+            transition: all 0.2s;
+        }
+
+        .pill:hover {
+            background: #047857;
+            color: white;
+            border-color: #047857;
+        }
+
+        .audience {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .audience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+
+        .audience-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .audience-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .audience-card p {
+            font-size: 13px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .pricing {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 32px 100px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #E5E7EB;
+            max-width: 400px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #047857;
+            margin: 24px 0;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 0 20px 60px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            nav {
+                padding: 12px 20px;
+            }
+
+            .nav-content {
+                font-size: 12px;
+            }
+
+            .capability-grid,
+            .use-case-grid,
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="nav-breadcrumb">
+                <a href="../../index.html">← Marketplace</a>
+                <span>/</span>
+                <a href="#finance">Finance</a>
+                <span>/</span>
+                <span>SOX Testing</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">🔒</div>
+            <div class="badge">Skill</div>
+            <h1>SOX Testing</h1>
+            <p class="hero-description">
+                Manage SOX 404 control assessments with precision. Design control matrices, perform statistically valid sample selections, execute testing workpapers, and document results. Reduce SOX scope, compress testing timelines, and prove design and operating effectiveness with confidence.
+            </p>
+            <div class="cta-group">
+                <button class="btn btn-primary">Get Started Free</button>
+                <button class="btn btn-secondary">Schedule Demo</button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="chart-placeholder"></div>
+        </div>
+    </section>
+
+    <section class="capabilities">
+        <h2 class="section-title">Core Capabilities</h2>
+        <p class="section-subtitle">Comprehensive SOX 404 control assessment and testing</p>
+        
+        <div class="capability-grid">
+            <div class="capability-card">
+                <div class="capability-icon">🎯</div>
+                <h3>Control Universe & Scoping</h3>
+                <p>Build your control universe once. Map controls to COSO framework and financial statement assertions. Scope SOX 404 programs efficiently.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📊</div>
+                <h3>Risk-Based Sample Selection</h3>
+                <p>Statistical sample selection algorithms. Stratified sampling, attribute sampling, and variables sampling built-in. ISO 2859-1 compliant selection.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📝</div>
+                <h3>Testing Workpaper Management</h3>
+                <p>Template-based workpapers for design and operating effectiveness tests. Link workpapers to controls. Manage across populations and time periods.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">✓</div>
+                <h3>Design & Effectiveness Assessment</h3>
+                <p>Document design phase of testing. Perform operating effectiveness tests. Manage exceptions and deviations with root cause analysis.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📋</div>
+                <h3>Control Matrix & Evidence Management</h3>
+                <p>Central control matrix linking risks, controls, and testing workpapers. Attach supporting documentation and evidence. Full audit trail.</p>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon">📈</div>
+                <h3>SOX Performance Analytics</h3>
+                <p>Dashboard views of control assessment progress. Track testing completion by control and by population. Forecast timeline and resource needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="use-cases">
+        <h2 class="section-title">Real-World Use Cases</h2>
+        <p class="section-subtitle">How companies use SOX Testing</p>
+        
+        <div class="use-case-grid">
+            <div class="use-case-card">
+                <h3>Annual SOX 404 Assessment</h3>
+                <p>Execute SOX testing on established control population. Manage sample selection, testing workpapers, and effectiveness documentation. Reduce testing time by 25% while increasing audit trail quality.</p>
+                <div class="use-case-highlight">Efficient execution</div>
+            </div>
+            <div class="use-case-card">
+                <h3>Control Environment Refresh</h3>
+                <p>Rebuild control universe and test design of new/modified controls. Map to COSO framework. Generate comprehensive control matrix for auditors.</p>
+                <div class="use-case-highlight">Enterprise-wide</div>
+            </div>
+            <div class="use-case-card">
+                <h3>SOX Remediation & De-Scoping</h3>
+                <p>Document control improvements and efficiency gains. Request scope reduction with auditors. Manage exceptions through closure with full evidence.</p>
+                <div class="use-case-highlight">Scope optimization</div>
+            </div>
+            <div class="use-case-card">
+                <h3>Pre-IPO SOX Readiness</h3>
+                <p>Design SOX control framework from the ground up. Test design and achieve "ready state" before IPO. Build control foundation with full documentation.</p>
+                <div class="use-case-highlight">IPO readiness</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="integrations">
+        <h2 class="section-title">Works With</h2>
+        <p class="section-subtitle">Seamless data flow from your existing systems</p>
+        <div class="pill-group">
+            <span class="pill">Excel</span>
+            <span class="pill">Google Sheets</span>
+            <span class="pill">NetSuite</span>
+            <span class="pill">SAP</span>
+            <span class="pill">Workday</span>
+            <span class="pill">DOMO</span>
+            <span class="pill">Tableau</span>
+            <span class="pill">Power BI</span>
+            <span class="pill">Slack</span>
+            <span class="pill">Microsoft Teams</span>
+        </div>
+    </section>
+
+    <section class="audience">
+        <h2 class="section-title">Who This Is For</h2>
+        <p class="section-subtitle">Built for companies managing SOX compliance</p>
+        
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">🏢</div>
+                <h3>Public Companies</h3>
+                <p>Manage SOX 404 assessment program. Execute testing with precision and document for auditors with full control.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">👨‍⚖️</div>
+                <h3>Internal Audit</h3>
+                <p>Execute SOX testing program on behalf of management. Manage testing workflow and documentation.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🔐</div>
+                <h3>Compliance Officers</h3>
+                <p>Maintain SOX control environment. Track control status and testing progress. Manage remediation of exceptions.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">📊</div>
+                <h3>Finance Leadership</h3>
+                <p>Oversee SOX assessment program. Track progress and understand control operating effectiveness.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <h2 class="section-title">Pricing</h2>
+        <p class="section-subtitle">Transparent, usage-based pricing. No surprises.</p>
+        
+        <div class="pricing-card">
+            <h3 style="font-size: 18px; font-weight: 600; color: #111827; margin-bottom: 8px;">Professional</h3>
+            <p style="font-size: 14px; color: #6B7280; margin-bottom: 16px;">For SOX programs</p>
+            <div class="price">$799<span style="font-size: 18px; color: #6B7280;">/month</span></div>
+            <ul style="list-style: none; margin: 24px 0;">
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ 100+ controls</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ Statistical sampling</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0; border-bottom: 1px solid #E5E7EB;">✓ Workpaper templates</li>
+                <li style="font-size: 14px; color: #4B5563; padding: 10px 0;">✓ Dedicated support</li>
+            </ul>
+            <button class="btn btn-primary">Start Free Trial</button>
+        </div>
+    </section>
+</body>
+</html>

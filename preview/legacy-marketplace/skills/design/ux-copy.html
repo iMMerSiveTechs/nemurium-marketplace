@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Copy - Design Skill</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        .breadcrumb a {
+            color: #8B5CF6;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .hero-content p {
+            font-size: 1.125rem;
+            color: #4B5563;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: #8B5CF6;
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-icon {
+            width: 120px;
+            height: 120px;
+            background: #8B5CF6;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #8B5CF6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #7C3AED;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #8B5CF6;
+            border: 2px solid #8B5CF6;
+        }
+
+        .btn-secondary:hover {
+            background: #F3F0FF;
+            transform: translateY(-2px);
+        }
+
+        /* Capabilities */
+        .capabilities {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #111827;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .capability-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .capability-card:hover {
+            border-color: #8B5CF6;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .capability-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .capability-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            margin-bottom: 4rem;
+        }
+
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .use-case-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid #8B5CF6;
+        }
+
+        .use-case-card h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .use-case-card p {
+            font-size: 0.95rem;
+            color: #6B7280;
+        }
+
+        /* Works With */
+        .works-with {
+            margin-bottom: 4rem;
+        }
+
+        .pills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .pill {
+            background: white;
+            border: 1px solid #E5E7EB;
+            padding: 0.75rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            color: #6B7280;
+            transition: all 0.3s ease;
+        }
+
+        .pill:hover {
+            border-color: #8B5CF6;
+            color: #8B5CF6;
+            background: #F3F0FF;
+        }
+
+        /* Audience */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .audience-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .audience-card:hover {
+            border-color: #8B5CF6;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+        }
+
+        .audience-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111827;
+        }
+
+        .audience-card p {
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            border: 2px solid #8B5CF6;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8B5CF6;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-note {
+            font-size: 0.9rem;
+            color: #6B7280;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .nav-container {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <span class="breadcrumb">← <a href="../../index.html">Marketplace</a> / <a href="#design">Design</a> / UX Copy</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div>
+                <div class="hero-icon">💬</div>
+            </div>
+            <div class="hero-content">
+                <span class="skill-badge">SKILL</span>
+                <h1>UX Copy</h1>
+                <p>Every word matters in product design. Expert microcopy, error messaging, empty states, and CTA optimization that guides users, builds confidence, and increases conversions. Get human-friendly, brand-consistent language that feels natural—not corporate. Words that work.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary">Optimize Copy</button>
+                    <button class="btn btn-secondary">View Copy Guidelines</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section class="capabilities">
+            <h2 class="section-title">What You Get</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <h3>Microcopy Strategy</h3>
+                    <p>Strategic copywriting for labels, helper text, placeholders, and inline instructions. Each copy element serves a purpose—guiding users, reducing friction, building confidence.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Error Messaging Framework</h3>
+                    <p>Error messages that educate users instead of frustrating them. Clear explanation of what went wrong and how to fix it. Friendly, specific, actionable.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Empty State Design</h3>
+                    <p>Engaging copy for empty states that set expectations and guide next steps. Treats empty states as opportunities for education and delight instead of blank screens.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Call-to-Action Optimization</h3>
+                    <p>High-converting CTA copy with action-oriented language. Tests button copy, form copy, and promotional messaging against measurable conversion metrics.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Tone & Voice Guidelines</h3>
+                    <p>Consistent brand voice across all product copy. Personality guidelines that feel authentic to your brand while remaining clear and accessible.</p>
+                </div>
+                <div class="capability-card">
+                    <h3>Localization & Accessibility</h3>
+                    <p>Copy that works across languages and reading levels. Ensures clarity for non-native speakers and users with cognitive differences. Inclusive language practices.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="use-cases">
+            <h2 class="section-title">Real-World Impact</h2>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <h4>Signup Flow Optimization</h4>
+                    <p>SaaS platform rewrote error messages and form labels during UX Copy project. Specific error guidance reduced support tickets by 32%. Clear CTA copy increased signup conversion rate by 18%.</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>Payment Funnel Copy Audit</h4>
+                    <p>E-commerce site optimized checkout copy including reassuring messaging around security and refunds. Reduced cart abandonment by 12%. Clear CTA language increased transaction value by 8%.</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>Onboarding Language Overhaul</h4>
+                    <p>Mobile app conducted UX copy project on entire onboarding flow. Brand-consistent, human-friendly language replaced corporate jargon. User activation increased 24%, retention improved 15%.</p>
+                </div>
+                <div class="use-case-card">
+                    <h4>Global Product Localization</h4>
+                    <p>International product strategy required culturally appropriate, accessible copy across 8 languages. Localization avoided idioms and cultural references. Copy worked equally well across markets.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Works With -->
+        <section class="works-with">
+            <h2 class="section-title">Works With</h2>
+            <div class="pills-container">
+                <span class="pill">Figma Annotations</span>
+                <span class="pill">Content Management</span>
+                <span class="pill">A/B Testing Platforms</span>
+                <span class="pill">Design Systems</span>
+                <span class="pill">User Research Skill</span>
+                <span class="pill">Localization Tools</span>
+            </div>
+        </section>
+
+        <!-- Audience -->
+        <section>
+            <h2 class="section-title">Built For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h4>Product Teams</h4>
+                    <p>Reduce friction and increase conversions through strategic copy. Words optimized for user success and business impact.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>Design Teams</h4>
+                    <p>Craft complete user experiences that include thoughtful, strategic copy. Elevate interactions beyond visuals.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>Growth Teams</h4>
+                    <p>Conversion-optimized copy grounded in user research and testing. Measurable impact on signup, activation, and retention.</p>
+                </div>
+                <div class="audience-card">
+                    <h4>Global Products</h4>
+                    <p>Localized copy that works across cultures and languages. Accessible, inclusive messaging for worldwide users.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section style="margin-top: 4rem; margin-bottom: 4rem;">
+            <div class="pricing-card">
+                <h3>UX Copy Project</h3>
+                <div class="price">From $1,500</div>
+                <div class="price-note">Per feature / section + guidelines + A/B testing support</div>
+                <button class="btn btn-primary" style="width: 100%;">Get Copy Review</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

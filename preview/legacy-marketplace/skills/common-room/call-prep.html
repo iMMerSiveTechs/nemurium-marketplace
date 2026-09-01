@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Prep - Common Room | Command Center Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #16A34A;
+            --background: #FAFAFA;
+            --card-bg: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --hover-bg: #F3F4F6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        nav .links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #15803D;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(22, 163, 74, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Capability Cards */
+        .capabilities {
+            padding: 4rem 2rem;
+            background: var(--background);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            padding: 4rem 2rem;
+        }
+
+        .use-case-item {
+            margin-bottom: 2rem;
+        }
+
+        .use-case-item h4 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .use-case-item h4::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .use-case-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-left: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Integrations */
+        .integrations {
+            padding: 4rem 2rem;
+            background: var(--background);
+        }
+
+        .integrations-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .pill {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+
+        .pill:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--hover-bg);
+        }
+
+        /* Audience Cards */
+        .audience {
+            padding: 4rem 2rem;
+        }
+
+        .audience-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .audience-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .audience-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 16px rgba(22, 163, 74, 0.1);
+        }
+
+        .audience-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .audience-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .audience-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 4rem 2rem;
+            background: var(--background);
+            text-align: center;
+        }
+
+        .pricing-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pricing h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .pricing-note {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: #FEF3C7;
+            color: #92400E;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav .links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">Command Center</div>
+            <ul class="links">
+                <li><a href="#capabilities">Features</a></li>
+                <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="#integrations">Integrations</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-icon">📞</div>
+            <div class="skill-badge">SKILL</div>
+            <h1>Call Prep</h1>
+            <p>Get AI-powered briefings 15 minutes before every customer call. Synthesize account context, conversation history, recent customer activity, and strategic signals into a concise preparation guide that makes you instantly credible.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Get Started</button>
+                <button class="btn btn-secondary">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capability Cards -->
+    <section class="capabilities" id="capabilities">
+        <div class="container">
+            <h2 class="section-title">Core Capabilities</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">📋</div>
+                    <h3>Account Context Synthesis</h3>
+                    <p>Automatically pull company intelligence, recent news, funding, leadership changes, and strategic signals. Understand the account's current state before the call begins.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <h3>Conversation History Analysis</h3>
+                    <p>Surface prior call notes, email chains, and Slack discussions. Understand what's been discussed and identify open threads for the current conversation.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3>Attendee Profile Deep Dive</h3>
+                    <p>Get profiles on all scheduled call participants. Understand their role, priorities, typical concerns, and communication preferences before dialing in.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Recommended Talking Points</h3>
+                    <p>Receive AI-generated discussion topics tailored to the account's current priorities and your relationship history. Suggest customer wins and relevant case studies.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚠️</div>
+                    <h3>Risk & Opportunity Flags</h3>
+                    <p>Identify potential concerns or red flags from recent customer signals and activity. Highlight expansion opportunities or churn risk signals before the call.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📅</div>
+                    <h3>Agenda Suggestions</h3>
+                    <p>Get intelligently-ordered conversation starters based on customer context. Structure the call with logical flow and clear objectives for the discussion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="use-cases" id="use-cases">
+        <div class="container">
+            <h2 class="section-title">Typical Use Cases</h2>
+            <div class="use-case-item">
+                <h4>Prepare for customer business reviews with full context</h4>
+                <p>Never walk into a QBR unprepared. Get complete account intelligence, customer sentiment, usage trends, and strategic recommendations in a 3-minute prep brief.</p>
+            </div>
+            <div class="use-case-item">
+                <h4>Stay informed on rotating customer meetings across large teams</h4>
+                <p>Different team members calling the same account? Ensure consistency with AI-generated briefs that keep everyone aligned on customer state and priorities.</p>
+            </div>
+            <div class="use-case-item">
+                <h4>Identify expansion or renewal opportunities proactively</h4>
+                <p>Let AI surface buying signals and usage patterns that indicate expansion readiness or churn risk. Tailor calls around customer priorities and growth areas.</p>
+            </div>
+            <div class="use-case-item">
+                <h4>Onboard new account managers with full customer knowledge</h4>
+                <p>Help new reps ramp faster with automated context. Give them complete account history, relationship intelligence, and customer dynamics in minutes, not days.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations -->
+    <section class="integrations" id="integrations">
+        <div class="container">
+            <h2 class="integrations-header">Works With</h2>
+            <div class="integration-pills">
+                <span class="pill">Common Room</span>
+                <span class="pill">Google Calendar</span>
+                <span class="pill">Salesforce</span>
+                <span class="pill">Slack</span>
+                <span class="pill">Gmail</span>
+                <span class="pill">Notion</span>
+                <span class="pill">HubSpot</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audience -->
+    <section class="audience">
+        <div class="container">
+            <h2 class="section-title">Best For</h2>
+            <div class="audience-cards">
+                <div class="audience-card">
+                    <div class="audience-icon">📊</div>
+                    <h4>Account Executives</h4>
+                    <p>Be fully prepared for every customer interaction. Get instant context on account health, strategic priorities, and recommended discussion topics.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">👔</div>
+                    <h4>Customer Success Managers</h4>
+                    <p>Understand customer sentiment and usage trends before every call. Proactively identify expansion opportunities and prevent churn with informed conversations.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">🎯</div>
+                    <h4>Sales Leaders & Directors</h4>
+                    <p>Help your team be more effective on customer calls. Ensure consistency across your book of business with AI-powered call preparation for your entire team.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Pricing</h2>
+            <div class="pricing-content">
+                <h3>Enterprise Pricing</h3>
+                <p class="pricing-note">Call Prep is available as part of Common Room integration packages and custom Command Center deployments. Contact our team for per-call or monthly subscription options.</p>
+                <div class="pricing-badge">Custom Quote Available</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Command Center Marketplace. All rights reserved.</p>
+    </footer>
+</body>
+</html>
