@@ -1,0 +1,60 @@
+{
+  "generatedFrom": "toolkit/catalog.json",
+  "releaseState": "PREVIEW_ONLY",
+  "items": [
+    {
+      "id": "glassgraph-studio",
+      "kind": "tool",
+      "status": "first-product",
+      "href": "/tools/glassgraph-studio.html"
+    },
+    {
+      "id": "board-export",
+      "kind": "tool",
+      "status": "coming",
+      "href": "/tools/board-export.html"
+    },
+    {
+      "id": "glassgraph-copilot",
+      "kind": "agent",
+      "status": "coming",
+      "href": "/agents/glassgraph-copilot.html"
+    },
+    {
+      "id": "visual-board-agent",
+      "kind": "agent",
+      "status": "coming",
+      "href": "/agents/visual-board-agent.html"
+    },
+    {
+      "id": "signal-to-decision",
+      "kind": "skill",
+      "status": "brief",
+      "href": "/skills/signal-to-decision.html"
+    },
+    {
+      "id": "incident-picture",
+      "kind": "skill",
+      "status": "brief",
+      "href": "/skills/incident-picture.html"
+    },
+    {
+      "id": "change-and-risk",
+      "kind": "skill",
+      "status": "brief",
+      "href": "/skills/change-and-risk.html"
+    },
+    {
+      "id": "research-to-next-step",
+      "kind": "skill",
+      "status": "brief",
+      "href": "/skills/research-to-next-step.html"
+    },
+    {
+      "id": "visual-mcp-share",
+      "kind": "connector",
+      "status": "coming",
+      "href": "/connectors/visual-mcp-share.html"
+    }
+  ]
+}

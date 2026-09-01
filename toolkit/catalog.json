@@ -1,0 +1,115 @@
+{
+  "product": "NEMURIUM Toolkit",
+  "version": "0.1.0",
+  "releaseState": "PREVIEW_ONLY",
+  "summary": "Agents, skills, tools, and connectors NEMURIUM is actually building. Not a scrape of someone else’s marketplace.",
+  "rules": [
+    "List only work we are building or already showing.",
+    "No live badges, no enterprise counts, no Cursor primitives as our tools.",
+    "Status must stay honest: coming, brief, or first product.",
+    "Stay off the live GlassGraph dist-site until we choose to publish."
+  ],
+  "items": [
+    {
+      "id": "glassgraph-studio",
+      "kind": "tool",
+      "name": "GlassGraph Studio",
+      "status": "first-product",
+      "summary": "A visual workspace for Apple Silicon Macs. Map projects, research, decisions, people, and dependencies on one board.",
+      "use": "The first NEMURIUM product. Public home is already on nemurium.com/glassgraph. App release stays NO_SHIP until certified.",
+      "body": [
+        "GlassGraph is the tool this toolkit is built around. Other entries here are agents, skills, and connectors that make sense once you can see the work on a board.",
+        "Planned launch offer on the public page: 7 days free, no card, then $10/month only if you choose to subscribe. That is planned, not live billing."
+      ]
+    },
+    {
+      "id": "board-export",
+      "kind": "tool",
+      "name": "Board export",
+      "status": "coming",
+      "summary": "Keep a portable copy of a board so you can share, archive, or move it without leaving it trapped in one window.",
+      "use": "Ships with GlassGraph. Not a separate download today.",
+      "body": [
+        "The live GlassGraph page already describes local save plus a portable export. This listing exists so the toolkit names the tool instead of hiding it inside product copy."
+      ]
+    },
+    {
+      "id": "glassgraph-copilot",
+      "kind": "agent",
+      "name": "GlassGraph Copilot",
+      "status": "coming",
+      "summary": "A lightweight built-in assistant for understanding and sharing the story behind a map.",
+      "use": "Stays inside GlassGraph. Off until we ship the beta. Not a standalone chat product.",
+      "body": [
+        "The public GlassGraph page already names Copilot Beta and guided presentations as coming soon. We list it here as an agent we are building, not as something you can install today."
+      ]
+    },
+    {
+      "id": "visual-board-agent",
+      "kind": "agent",
+      "name": "Visual board agent",
+      "status": "coming",
+      "summary": "Let a compatible assistant see the board you choose, then explain, review, or suggest map edits.",
+      "use": "Opt-in MCP visual sharing. Off until you turn it on. Sharing stops when you switch boards, turn it off, or close GlassGraph.",
+      "body": [
+        "The agent receives a picture of the visible board — not your desktop, other windows, or hidden files.",
+        "Suggestions wait for review by default. This is the agent surface for other people once GlassGraph is open. It is not a grid of vendor agent types."
+      ]
+    },
+    {
+      "id": "signal-to-decision",
+      "kind": "skill",
+      "name": "Signal to decision",
+      "status": "brief",
+      "summary": "Keep a customer or project signal, the question it raises, the evidence, and the decision on one path.",
+      "use": "A starter shape for a GlassGraph board. You can use the job now as a brief. The in-app starter waits on the app.",
+      "body": [
+        "This is the example already drawn on the public GlassGraph page. It is the first skill we will host because it is work we already show, not a cloned marketplace card."
+      ]
+    },
+    {
+      "id": "incident-picture",
+      "kind": "skill",
+      "name": "Incident picture",
+      "status": "brief",
+      "summary": "Map what broke, what it touches, who owns the next move, and what is still unknown.",
+      "use": "Use as a brief on any board or doc. Becomes a GlassGraph starter after the first one is real.",
+      "body": [
+        "Pulled from work we actually do — not from a generic incident-response landing page. The skill is the picture, not a ticket robot."
+      ]
+    },
+    {
+      "id": "change-and-risk",
+      "kind": "skill",
+      "name": "Change and risk",
+      "status": "brief",
+      "summary": "See the change, the dependencies, the risk, and the owners before you move.",
+      "use": "A brief for a change you are about to make. Later a starter map, not a compliance product.",
+      "body": [
+        "Operations work we already run in the house. Hosted so other people can use the same shape, without pretending we shipped a GRC suite."
+      ]
+    },
+    {
+      "id": "research-to-next-step",
+      "kind": "skill",
+      "name": "Research to next step",
+      "status": "brief",
+      "summary": "Keep sources, claims, and the next useful step together so research does not die in a folder.",
+      "use": "A brief you can run today. In-app starter later.",
+      "body": [
+        "Same job as the public example maps: follow a question to the next useful step. Written in NEMURIUM language, not as a research-synthesis SaaS card."
+      ]
+    },
+    {
+      "id": "visual-mcp-share",
+      "kind": "connector",
+      "name": "Visual MCP share",
+      "status": "coming",
+      "summary": "An opt-in connector so a compatible assistant can see the current board.",
+      "use": "Coming with GlassGraph. Off by default. Not a live Slack, Apollo, or vendor MCP directory.",
+      "body": [
+        "This is the only connector we list today because it is the only one the public product already names. We will add others when we operate them and can prove they work."
+      ]
+    }
+  ]
+}
