@@ -8,7 +8,7 @@ const preview = resolve(root, "preview", "toolkit");
 const index = readFileSync(resolve(preview, "index.html"), "utf8");
 
 assert.equal(catalog.releaseState, "PREVIEW_ONLY");
-assert.ok(catalog.items.length >= 8, "toolkit must list a real set of agents, skills, tools, and connectors");
+assert.ok(catalog.items.length >= 15, "toolkit must list the high-value set, not a thin placeholder");
 assert.match(index, /noindex/);
 assert.doesNotMatch(index, /production-ready enterprise/i);
 assert.doesNotMatch(index, /20\+ live connectors/i);

@@ -15,6 +15,18 @@
       "href": "/tools/board-export.html"
     },
     {
+      "id": "guided-presentation",
+      "kind": "tool",
+      "status": "coming",
+      "href": "/tools/guided-presentation.html"
+    },
+    {
+      "id": "estimateos",
+      "kind": "tool",
+      "status": "coming",
+      "href": "/tools/estimateos.html"
+    },
+    {
       "id": "glassgraph-copilot",
       "kind": "agent",
       "status": "coming",
@@ -25,6 +37,18 @@
       "kind": "agent",
       "status": "coming",
       "href": "/agents/visual-board-agent.html"
+    },
+    {
+      "id": "apple-platforms-agent",
+      "kind": "agent",
+      "status": "brief",
+      "href": "/agents/apple-platforms-agent.html"
+    },
+    {
+      "id": "launch-coach",
+      "kind": "agent",
+      "status": "brief",
+      "href": "/agents/launch-coach.html"
     },
     {
       "id": "signal-to-decision",
@@ -49,6 +73,24 @@
       "kind": "skill",
       "status": "brief",
       "href": "/skills/research-to-next-step.html"
+    },
+    {
+      "id": "quote-follow-up-decision",
+      "kind": "skill",
+      "status": "brief",
+      "href": "/skills/quote-follow-up-decision.html"
+    },
+    {
+      "id": "pie-map",
+      "kind": "skill",
+      "status": "brief",
+      "href": "/skills/pie-map.html"
+    },
+    {
+      "id": "system-picture",
+      "kind": "skill",
+      "status": "brief",
+      "href": "/skills/system-picture.html"
     },
     {
       "id": "visual-mcp-share",

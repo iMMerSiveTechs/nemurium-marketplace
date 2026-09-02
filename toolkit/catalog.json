@@ -1,6 +1,6 @@
 {
   "product": "NEMURIUM Toolkit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "releaseState": "PREVIEW_ONLY",
   "summary": "Agents, skills, tools, and connectors NEMURIUM is actually building. Not a scrape of someone else’s marketplace.",
   "rules": [
@@ -34,6 +34,29 @@
       ]
     },
     {
+      "id": "guided-presentation",
+      "kind": "tool",
+      "name": "Guided presentation",
+      "status": "coming",
+      "summary": "Walk someone through the story of a board without turning the map into a slide dump.",
+      "use": "Named on the public GlassGraph page as coming soon, with Copilot Beta. Not a standalone deck app.",
+      "body": [
+        "This is how other people will understand a map you already made. It stays inside GlassGraph. We list it because the public product already promises it, and it is a real job — explain the picture — not a filler card."
+      ]
+    },
+    {
+      "id": "estimateos",
+      "kind": "tool",
+      "name": "EstimateOS",
+      "status": "coming",
+      "summary": "Pricing and estimate work for trades and local offices. The quote sitting unanswered is the job.",
+      "use": "A separate product vein. Not on the NEMURIUM hub yet. Public repo exists; it does not stand on nemurium.com until it can stand alone.",
+      "body": [
+        "This earns a listing because it is work we actually build (GitHub EstimateOS, Drive vault card) and it is the same world as the Quote Follow-Up starter — not because we needed another logo.",
+        "It is not claimed live, not claimed App Store ready from this page, and not a GlassGraph download."
+      ]
+    },
+    {
       "id": "glassgraph-copilot",
       "kind": "agent",
       "name": "GlassGraph Copilot",
@@ -54,6 +77,28 @@
       "body": [
         "The agent receives a picture of the visible board — not your desktop, other windows, or hidden files.",
         "Suggestions wait for review by default. This is the agent surface for other people once GlassGraph is open. It is not a grid of vendor agent types."
+      ]
+    },
+    {
+      "id": "apple-platforms-agent",
+      "kind": "agent",
+      "name": "Apple Platforms Agent",
+      "status": "brief",
+      "summary": "Map, build, capitalize, and ship across Apple’s platforms — only features that make our product more useful on that device.",
+      "use": "An iMMerSive Agent Factory agent. Home is in Notion. Paste-ready for Cursor All Agents. Not a vendor OS encyclopedia.",
+      "body": [
+        "This is one of the agents we actually run. “Apple has it” is not a reason. We list it because other people building on Apple need that judgment, and we already keep the map."
+      ]
+    },
+    {
+      "id": "launch-coach",
+      "kind": "agent",
+      "name": "Launch Coach",
+      "status": "brief",
+      "summary": "Close public-launch P0s with evidence. Stays NO_SHIP until the gates have proof.",
+      "use": "Agent Factory agent for launch work. Will not upgrade a ship claim without evidence.",
+      "body": [
+        "High value because launch theater is expensive. This agent’s job is the opposite: keep the gate until receipts exist. Not a ‘ship faster’ prompt pack."
       ]
     },
     {
@@ -98,6 +143,41 @@
       "use": "A brief you can run today. In-app starter later.",
       "body": [
         "Same job as the public example maps: follow a question to the next useful step. Written in NEMURIUM language, not as a research-synthesis SaaS card."
+      ]
+    },
+    {
+      "id": "quote-follow-up-decision",
+      "kind": "skill",
+      "name": "Quote follow-up decision",
+      "status": "brief",
+      "summary": "For a contractor or estimator: is there enough evidence to propose following up on this quote now?",
+      "use": "A brief you can run today. The in-app GlassGraph starter is specified as internal and default-off. It never sends the follow-up.",
+      "body": [
+        "This is the first starter we locked in Notion: Signal → Evidence → Proposed Decision. Outcomes are FOLLOW_UP, WAIT, NEEDS_EVIDENCE, DO_NOT_FOLLOW_UP, or NEEDS_REVIEW.",
+        "It earns a listing because it is a real job in the EstimateOS / trades world, already specified, and it is the public example map made concrete. It is not a CRM and not an email sender."
+      ]
+    },
+    {
+      "id": "pie-map",
+      "kind": "skill",
+      "name": "Pie map",
+      "status": "brief",
+      "summary": "State the whole, cut vertical slices with evidence, then reconcile so the slices still add up.",
+      "use": "A working brief for any multi-session build. House template already exists. Not a project-management product.",
+      "body": [
+        "This is how we keep complex work honest. Each slice needs a testable done-line and an evidence anchor. Reconciliation catches gaps before the end.",
+        "Other people can use the shape now. We do not list every FleetForge skill — only this one, because it is the operating method behind the rest."
+      ]
+    },
+    {
+      "id": "system-picture",
+      "kind": "skill",
+      "name": "System picture",
+      "status": "brief",
+      "summary": "See the parts, the dependencies, and the gap before you redesign or add another piece.",
+      "use": "A starter shape for architecture and tech-debt work on a GlassGraph board.",
+      "body": [
+        "Pulled from house capitalize Now: architecture, system design, and tech debt as one picture. The skill is the map of the system, not a system-design SaaS card."
       ]
     },
     {
