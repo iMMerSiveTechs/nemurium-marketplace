@@ -4,6 +4,8 @@ A hostable catalog of agents, skills, tools, and connectors we are actually buil
 
 This is not the archived AI Toolkit Marketplace. That catalog is in `archive/legacy-marketplace/`. This one is small, honest, and written in the live NEMURIUM voice.
 
+Listings have to earn a place: a real job we already specify, a public GlassGraph promise, an Agent Factory agent we actually run, or a product vein with a repo. Do not dump every GitHub folder.
+
 ## Status
 
 `PREVIEW_ONLY`. Generated pages live in `preview/toolkit/` with `noindex`. They are not part of the GlassGraph `dist-site` and will not publish to nemurium.com until we choose that.
