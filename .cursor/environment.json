@@ -1,0 +1,11 @@
+{
+  "name": "NEMURIUM GlassGraph static site",
+  "install": "node scripts/build-glassgraph-public-site.mjs && node scripts/build-legacy-marketplace-preview.mjs",
+  "terminals": [
+    {
+      "name": "site",
+      "command": "node scripts/serve-site.mjs 4321"
+    }
+  ],
+  "ports": [4321]
+}
